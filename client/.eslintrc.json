@@ -28,6 +28,7 @@
         }
     },
     "rules": {
+        "no-unused-vars": "warn",
         "prefer-arrow/prefer-arrow-functions": [
             "error",
             {
