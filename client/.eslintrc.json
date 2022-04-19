@@ -17,7 +17,8 @@
     },
     "plugins": [
         "react",
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "prefer-arrow"
     ],
     "settings": {
         "import/resolver": {
@@ -27,6 +28,14 @@
         }
     },
     "rules": {
+        "prefer-arrow/prefer-arrow-functions": [
+            "error",
+            {
+              "disallowPrototype": true,
+              "singleReturnOnly": false,
+              "classPropertiesAllowed": false
+            }
+        ],
         "import/prefer-default-export": "off",
         "react/react-in-jsx-scope": "off",
         "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }],
@@ -40,13 +49,7 @@
               "tsx": "never"
             }
          ],
-        "semi": [
-            "error",
-            "never"
-        ],
-        "quotes": [
-            "error",
-            "single"
-        ]
+        "semi": ["error","never"],
+        "quotes": ["error","single"]
     }
 }
