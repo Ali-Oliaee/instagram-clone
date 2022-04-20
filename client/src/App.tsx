@@ -1,10 +1,10 @@
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
-import { LoginPage } from './pages'
+import { LoginPage, SignupPage } from './pages'
 
 function App() {
   return (
     <div className="App">
-      <LoginPage />
+      <SignupPage />
     </div>
   )
 }
