@@ -40,7 +40,10 @@ function LoginPage() {
               {
                 required: true,
                 message: t('require-password'),
-
+              },
+              {
+                min: 6,
+                message: t('min-password'),
               },
             ]}
           >
@@ -48,8 +51,12 @@ function LoginPage() {
           </Form.Item>
           <Button htmlType="submit" type="primary" block>submit</Button>
         </Form>
-        <h4>{t('dont-have-account')}</h4>
-        <a href="/">{t('login')}</a>
+        <h4>
+          {t('dont-have-account')}
+          {' '}
+          <a href="/">{t('login')}</a>
+        </h4>
+
       </div>
     </div>
   )

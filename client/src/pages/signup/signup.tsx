@@ -55,7 +55,10 @@ function SignupPage() {
               {
                 required: true,
                 message: t('require-password'),
-
+              },
+              {
+                min: 6,
+                message: t('min-password'),
               },
             ]}
           >
@@ -63,17 +66,31 @@ function SignupPage() {
           </Form.Item>
           <Form.Item
             name="confirmPassword"
+            dependencies={['password']}
             rules={[{
               required: true,
               message: t('require-confirm-password'),
-            }]}
+
+            },
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (!value || getFieldValue('password') === value) {
+                  return Promise.resolve()
+                }
+                return Promise.reject(new Error(t('passwords-not-match')))
+              },
+            })]}
           >
             <Input placeholder={t('Confirm Password')} type="password" />
           </Form.Item>
           <Button htmlType="submit" type="primary" block>submit</Button>
         </Form>
-        <h4>{t('already-have-account')}</h4>
-        <a href="/">{t('signin')}</a>
+        <h4>
+          {t('already-have-account')}
+          {' '}
+          <a href="/">{t('signin')}</a>
+        </h4>
+
       </div>
     </div>
   )
