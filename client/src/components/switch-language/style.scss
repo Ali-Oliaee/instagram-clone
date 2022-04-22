@@ -1,0 +1,10 @@
+.switch-language {
+    justify-self: start;
+    align-self: flex-end;
+    position: absolute;
+    top: 20px;
+    
+    span {
+        margin-inline-end: 10px;
+    }
+}

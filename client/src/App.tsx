@@ -1,8 +1,16 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
+import {
+  BrowserRouter as Router,
+  Routes,
+} from 'react-router-dom'
+import MainRouter from './router'
+
 function App() {
   return (
-    <div className="App">
-    </div>
-  );
+    <Router>
+      <MainRouter />
+    </Router>
+  )
 }
 
-export default App;
+export default App

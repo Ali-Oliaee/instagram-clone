@@ -1,5 +1,13 @@
-$orange-peel: #ff9f1cff;
+$orange-peel: #ff5722;
 $mellow-apricot: #ffbf69ff;
 $white: #ffffffff;
 $light-cyan: #cbf3f0ff;
 $tiffany-blue: #2ec4b6ff;
+
+
+@mixin  flex ($justify: center,$align : center, $direction: row) {
+    display: flex;
+    flex-direction: $direction;
+    align-items: $align;
+    justify-content: $justify;
+}

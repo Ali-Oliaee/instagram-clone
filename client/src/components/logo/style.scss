@@ -1,0 +1,18 @@
+@import '../../utils/utils';
+
+.logo-container {
+    @include flex();
+    width: 200px;
+    margin: 0 auto;
+    svg {
+        margin-inline-end: 10px;
+        object-fit: fill;
+        width: 24px;
+    }
+    .logo-info {
+        border-bottom: 2px solid $orange-peel;
+        h3 {
+            margin: 0;
+        }
+    }
+}
