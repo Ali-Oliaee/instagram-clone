@@ -1,7 +1,7 @@
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { useTranslation } from 'react-i18next'
 import { Button, Form, Input } from 'antd'
-import { Logo } from '../../components'
+import { Logo, SwitchLanguage } from '../../components'
 import './style.scss'
 
 interface NewUser {
@@ -20,6 +20,7 @@ function SignupPage() {
   }
   return (
     <div className="signup-page">
+      <SwitchLanguage />
       <section>
         <div className="form-container">
           <Logo />

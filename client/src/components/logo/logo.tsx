@@ -20,7 +20,7 @@ function Logo() {
         </g>
       </svg>
       <div className="logo-info">
-        <h3>{t('INSTAGRAM')}</h3>
+        <h3>{t('instagram')}</h3>
         <h5>{t('vatani-edition')}</h5>
       </div>
     </div>

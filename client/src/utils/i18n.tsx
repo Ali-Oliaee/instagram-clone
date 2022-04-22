@@ -5,7 +5,7 @@ import en from '../locales/en/common.json'
 import fa from '../locales/fa/common.json'
 
 i18n.use(initReactI18next).init({
-  debug: true,
+  debug: false,
   defaultNS: 'common',
   fallbackLng: 'en',
   lng: 'en',

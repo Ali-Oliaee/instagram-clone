@@ -4,10 +4,12 @@
     width: 100%;
     min-height: 100vh;
     @include flex(center,center, column);
+    padding: 0 30px;
 
     .form-container {
         border: 1px solid #ddd;
         padding: 16px 30px;
+        max-width: 350px;
         width: 100%;
 
         .ant-form-item {
@@ -15,6 +17,8 @@
         }
         h4 {
             text-align: center;
+            margin-inline: auto;
+            margin-top: 10px;
         }
     }  
     .signup-link {

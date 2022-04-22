@@ -19,7 +19,6 @@ function LoginPage() {
       <section>
         <div className="form-container">
           <Logo />
-          <h4>{t('login-description')}</h4>
           <Form onFinish={handleSubmit}>
             <Form.Item
               name="email"
@@ -34,7 +33,7 @@ function LoginPage() {
                 },
               ]}
             >
-              <Input size="middle" placeholder={t('Email')} type="email" />
+              <Input size="middle" placeholder={t('email')} type="email" />
             </Form.Item>
             <Form.Item
               name="password"
@@ -49,9 +48,9 @@ function LoginPage() {
                 },
               ]}
             >
-              <Input size="middle" placeholder={t('Password')} type="password" />
+              <Input size="middle" placeholder={t('password')} type="password" />
             </Form.Item>
-            <Button htmlType="submit" type="primary" block>submit</Button>
+            <Button htmlType="submit" type="primary" block>{t('submit')}</Button>
             <h4>{t('privacy-rules')}</h4>
           </Form>
         </div>

@@ -3,12 +3,14 @@
 .signup-page {
     width: 100%;
     min-height: 100vh;
+    padding: 0 30px;
     @include flex(center,center, column);
 
     .form-container {
         width: 100%;
         border: 1px solid #ddd;
         padding: 16px 30px;
+        max-width: 350px;
 
         .ant-form-item {
             margin-bottom: 10px;
