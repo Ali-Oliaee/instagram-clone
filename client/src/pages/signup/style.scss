@@ -5,12 +5,14 @@
     min-height: 100vh;
     padding: 0 30px;
     @include flex(center,center, column);
+    background-color: #f5f5f5;
 
     .form-container {
         width: 100%;
         border: 1px solid #ddd;
         padding: 16px 30px;
         max-width: 350px;
+        background-color: #fff;
 
         .ant-form-item {
             margin-bottom: 10px;
@@ -26,5 +28,6 @@
         padding: 20px 30px;
         width: 100%;
         text-align: center;
+        background-color: #fff;
     }
 }

@@ -1,7 +1,9 @@
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { useTranslation } from 'react-i18next'
-import { Button, Form, Input } from 'antd'
-import { Logo } from '../../components'
+import {
+  Button, Divider, Form, Input,
+} from 'antd'
+import { GoogleButton, Logo, SwitchLanguage } from '../../components'
 import './style.scss'
 
 interface User {
@@ -16,6 +18,7 @@ function LoginPage() {
   }
   return (
     <div className="login-page">
+      <SwitchLanguage />
       <section>
         <div className="form-container">
           <Logo />
@@ -51,6 +54,8 @@ function LoginPage() {
               <Input size="middle" placeholder={t('password')} type="password" />
             </Form.Item>
             <Button htmlType="submit" type="primary" block>{t('submit')}</Button>
+            <Divider>{t('or')}</Divider>
+            <GoogleButton />
             <h4>{t('privacy-rules')}</h4>
           </Form>
         </div>

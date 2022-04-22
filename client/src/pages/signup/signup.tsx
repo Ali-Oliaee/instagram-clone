@@ -1,7 +1,9 @@
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { useTranslation } from 'react-i18next'
-import { Button, Form, Input } from 'antd'
-import { Logo, SwitchLanguage } from '../../components'
+import {
+  Button, Divider, Form, Input,
+} from 'antd'
+import { GoogleButton, Logo, SwitchLanguage } from '../../components'
 import './style.scss'
 
 interface NewUser {
@@ -87,6 +89,8 @@ function SignupPage() {
               <Input size="middle" placeholder={t('confirm-password')} type="password" />
             </Form.Item>
             <Button htmlType="submit" type="primary" block>{t('submit')}</Button>
+            <Divider>{t('or')}</Divider>
+            <GoogleButton />
           </Form>
         </div>
         <h4 className="signin-link">
