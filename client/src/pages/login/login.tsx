@@ -36,6 +36,7 @@ function LoginPage() {
       <section>
         <div className="form-container">
           <Logo />
+          <h4>{t('signup-description')}</h4>
           <Form onFinish={handleSubmit}>
             <Form.Item
               name="email"
@@ -70,7 +71,6 @@ function LoginPage() {
             <Button loading={loading} htmlType="submit" type="primary" block>{t('submit')}</Button>
             <Divider>{t('or')}</Divider>
             <GoogleButton />
-            <h4>{t('privacy-rules')}</h4>
           </Form>
         </div>
         <h4 className="signup-link">

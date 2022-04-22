@@ -16,7 +16,6 @@
     "already-have-account": "Already have an account?",
     "dont-have-account": "Don't have an account?",
     "signup-description": "Sign up to see photos and videos from your friends.",
-    "privacy-rules": "By signing up, you agree to our Terms ,Data Policy and Cookies Policy.",
     "terms": "Terms",
     "data-policy": "Data Policy",
     "cookies-policy": "Cookies Policy",
@@ -27,5 +26,11 @@
     "language":"Language",
     "404": "404 Error",
     "page-not-found": "Page not found",
-    "back-home": "Back to home page"
+    "back-home": "Back to home page",
+    "privacy-rules": "By signing up, you agree to our",
+    "and": "and",
+    "terms": "Terms",
+    "data-policy": "Data Policy",
+    "cookie": "Cookie Policy"
+
 }
