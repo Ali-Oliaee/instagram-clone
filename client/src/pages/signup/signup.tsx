@@ -34,7 +34,7 @@ function SignupPage() {
                 },
               ]}
             >
-              <Input size="middle" placeholder={t('Username')} />
+              <Input size="middle" placeholder={t('username')} />
             </Form.Item>
             <Form.Item
               name="email"
@@ -49,7 +49,7 @@ function SignupPage() {
                 },
               ]}
             >
-              <Input size="middle" placeholder={t('Email')} type="email" />
+              <Input size="middle" placeholder={t('email')} type="email" />
             </Form.Item>
             <Form.Item
               name="password"
@@ -64,7 +64,7 @@ function SignupPage() {
                 },
               ]}
             >
-              <Input size="middle" placeholder={t('Password')} type="password" />
+              <Input size="middle" placeholder={t('password')} type="password" />
             </Form.Item>
             <Form.Item
               name="confirmPassword"
@@ -83,9 +83,9 @@ function SignupPage() {
                 },
               })]}
             >
-              <Input size="middle" placeholder={t('Confirm Password')} type="password" />
+              <Input size="middle" placeholder={t('confirm-password')} type="password" />
             </Form.Item>
-            <Button htmlType="submit" type="primary" block>submit</Button>
+            <Button htmlType="submit" type="primary" block>{t('submit')}</Button>
           </Form>
         </div>
         <h4 className="signin-link">
