@@ -1,10 +1,12 @@
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { useTranslation } from 'react-i18next'
 import {
-  Button, Divider, Form, Input,
+  Button, Divider, Form, Input, message,
 } from 'antd'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 import { GoogleButton, Logo, SwitchLanguage } from '../../components'
+import axios from '../../utils/axios'
 import './style.scss'
 
 interface NewUser {
@@ -15,11 +17,24 @@ interface NewUser {
 }
 
 function SignupPage() {
+  const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
   const handleSubmit = ({
-    username, email, password, confirmPassword,
+    username, email, password,
   } : NewUser) => {
-    console.log('user')
+    setLoading(true)
+    return axios.post('/users/signup/', {
+      username,
+      email,
+      password,
+    })
+      .then(({ data }) => {
+        message.success(data.message)
+        localStorage.setItem('user', JSON.stringify(data))
+        setLoading(false)
+      })
+      .catch(({ response }) => message.error(response.data.message))
+      .finally(() => setLoading(false))
   }
   return (
     <div className="signup-page">
@@ -30,7 +45,7 @@ function SignupPage() {
           <h4>{t('signup-description')}</h4>
           <Form onFinish={handleSubmit}>
             <Form.Item
-              name="userName"
+              name="username"
               rules={[
                 {
                   required: true,
@@ -89,7 +104,7 @@ function SignupPage() {
             >
               <Input size="middle" placeholder={t('confirm-password')} type="password" />
             </Form.Item>
-            <Button htmlType="submit" type="primary" block>{t('submit')}</Button>
+            <Button loading={loading} htmlType="submit" type="primary" block>{t('submit')}</Button>
             <Divider>{t('or')}</Divider>
             <GoogleButton />
           </Form>

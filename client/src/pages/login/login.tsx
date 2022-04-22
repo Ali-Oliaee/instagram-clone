@@ -2,9 +2,11 @@
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import {
-  Button, Divider, Form, Input,
+  Button, Divider, Form, Input, message,
 } from 'antd'
+import { useState } from 'react'
 import { GoogleButton, Logo, SwitchLanguage } from '../../components'
+import axios from '../../utils/axios'
 import './style.scss'
 
 interface User {
@@ -13,9 +15,20 @@ interface User {
 }
 
 function LoginPage() {
+  const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
   const handleSubmit = ({ email, password } : User) => {
-    console.log('user')
+    setLoading(true)
+    axios.post('/users/signin/', {
+      email,
+      password,
+    })
+      .then(({ data }) => {
+        message.success(data.message)
+        localStorage.setItem('user', JSON.stringify(data))
+      })
+      .catch(({ response }) => message.error(response.data.message))
+      .finally(() => setLoading(false))
   }
   return (
     <div className="login-page">
@@ -54,7 +67,7 @@ function LoginPage() {
             >
               <Input size="middle" placeholder={t('password')} type="password" />
             </Form.Item>
-            <Button htmlType="submit" type="primary" block>{t('submit')}</Button>
+            <Button loading={loading} htmlType="submit" type="primary" block>{t('submit')}</Button>
             <Divider>{t('or')}</Divider>
             <GoogleButton />
             <h4>{t('privacy-rules')}</h4>
