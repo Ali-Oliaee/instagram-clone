@@ -1,12 +1,15 @@
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
-import { LoginPage, SignupPage } from './pages'
+import {
+  BrowserRouter as Router,
+  Routes,
+} from 'react-router-dom'
+import MainRouter from './router'
 
 function App() {
   return (
-    <div className="App">
-      <SignupPage />
-      <LoginPage />
-    </div>
+    <Router>
+      <MainRouter />
+    </Router>
   )
 }
 

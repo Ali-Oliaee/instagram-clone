@@ -1,5 +1,6 @@
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 import {
   Button, Divider, Form, Input,
 } from 'antd'
@@ -62,7 +63,7 @@ function LoginPage() {
         <h4 className="signup-link">
           {t('dont-have-account')}
           {'  '}
-          <a href="/">{t('signup')}</a>
+          <Link to="/signup">{t('signup')}</Link>
         </h4>
       </section>
     </div>

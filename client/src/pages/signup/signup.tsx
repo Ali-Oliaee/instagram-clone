@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import {
   Button, Divider, Form, Input,
 } from 'antd'
+import { Link } from 'react-router-dom'
 import { GoogleButton, Logo, SwitchLanguage } from '../../components'
 import './style.scss'
 
@@ -96,7 +97,7 @@ function SignupPage() {
         <h4 className="signin-link">
           {t('already-have-account')}
           {' '}
-          <a href="/">{t('signin')}</a>
+          <Link to="/">{t('signin')}</Link>
         </h4>
       </section>
     </div>
