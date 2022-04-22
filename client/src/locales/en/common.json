@@ -24,5 +24,8 @@
     "google-signin": "Sign in with Google",
     "instagram":"Instagram",
     "vatani-edition":"Vatani Edition",
-    "language":"Language"
+    "language":"Language",
+    "404": "404 Error",
+    "page-not-found": "Page not found",
+    "back-home": "Back to home page"
 }

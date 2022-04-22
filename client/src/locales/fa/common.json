@@ -24,5 +24,8 @@
 "google-signin":"ورود با گوگل",
 "instagram":"اینستاگرام",
 "vatani-edition": "نسخه وطنی",
-"language": "زبان"
+"language": "زبان",
+"404": "خطای ۴۰۴",
+"page-not-found": "صفحه مورد نظر یافت نشد",
+"back-home": "بازگشت به صفحه اصلی"
 }
