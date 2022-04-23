@@ -1,6 +1,6 @@
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   Button, Divider, Form, Input, message,
 } from 'antd'
@@ -15,6 +15,7 @@ interface User {
 }
 
 function LoginPage() {
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
   const handleSubmit = ({ email, password } : User) => {
@@ -26,6 +27,7 @@ function LoginPage() {
       .then(({ data }) => {
         message.success(data.message)
         localStorage.setItem('user', JSON.stringify(data))
+        navigate('/')
       })
       .catch(({ response }) => message.error(response.data.message))
       .finally(() => setLoading(false))
@@ -76,7 +78,7 @@ function LoginPage() {
         <h4 className="signup-link">
           {t('dont-have-account')}
           {'  '}
-          <Link to="/signup">{t('signup')}</Link>
+          <Link to="/auth/signup">{t('signup')}</Link>
         </h4>
       </section>
     </div>
