@@ -1,0 +1,11 @@
+@import '../../utils//utils';
+
+.not-found-page {
+    width: 100%;
+    height: 100vh;
+    @include flex(center,center,column);
+    background-color: #f5f5f5;
+    .switch-language {
+        margin-inline-end: 20px;
+    }
+}

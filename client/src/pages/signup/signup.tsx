@@ -42,7 +42,6 @@ function SignupPage() {
       <section>
         <div className="form-container">
           <Logo />
-          <h4>{t('signup-description')}</h4>
           <Form onFinish={handleSubmit}>
             <Form.Item
               name="username"
@@ -53,7 +52,7 @@ function SignupPage() {
                 },
               ]}
             >
-              <Input size="middle" placeholder={t('username')} />
+              <Input autoFocus size="middle" placeholder={t('username')} />
             </Form.Item>
             <Form.Item
               name="email"
@@ -107,6 +106,21 @@ function SignupPage() {
             <Button loading={loading} htmlType="submit" type="primary" block>{t('submit')}</Button>
             <Divider>{t('or')}</Divider>
             <GoogleButton />
+            <h4>
+              {t('privacy-rules')}
+              {' '}
+              <Link to="/terms">{t('terms')}</Link>
+              ,
+              {' '}
+              <Link to="/data-policy">
+                {t('data-policy')}
+              </Link>
+              {' '}
+              {t('and')}
+              {' '}
+              <Link to="/cookies">{t('cookie')}</Link>
+              .
+            </h4>
           </Form>
         </div>
         <h4 className="signin-link">
