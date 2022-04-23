@@ -52,7 +52,7 @@ function SignupPage() {
                 },
               ]}
             >
-              <Input size="middle" placeholder={t('username')} />
+              <Input autoFocus size="middle" placeholder={t('username')} />
             </Form.Item>
             <Form.Item
               name="email"

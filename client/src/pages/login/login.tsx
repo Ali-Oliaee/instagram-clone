@@ -51,7 +51,7 @@ function LoginPage() {
                 },
               ]}
             >
-              <Input size="middle" placeholder={t('email')} type="email" />
+              <Input autoFocus size="middle" placeholder={t('email')} type="email" />
             </Form.Item>
             <Form.Item
               name="password"
