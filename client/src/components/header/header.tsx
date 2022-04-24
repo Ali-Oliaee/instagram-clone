@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 import {
   HeartOutlined,
@@ -70,7 +71,7 @@ function Header() {
          )}
           trigger={['click']}
         >
-          <Avatar className="header-menu-item" />
+          <Avatar src={require('../../assets/images/default-user.jpg')} className="header-menu-item" size="small" />
         </Dropdown>
       </div>
     </div>

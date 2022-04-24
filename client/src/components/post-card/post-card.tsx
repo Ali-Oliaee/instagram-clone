@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 import {
   DeleteOutlined, HeartFilled, MoreOutlined, HeartOutlined,
@@ -31,7 +32,7 @@ function PostCard({
     <div className="post-card">
       <div className="creator">
         <div>
-          <Avatar />
+          <Avatar src={require('../../assets/images/default-user.jpg')} />
           {creator}
         </div>
         <Dropdown
