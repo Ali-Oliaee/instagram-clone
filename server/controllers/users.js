@@ -14,19 +14,25 @@ export const signin = async (req, res) => {
     );
     if (!isPasswordCorrect)
       return res.status(400).json({ message: "password is not correct" });
-    const token = jwt.sign(
+    const accessToken = jwt.sign(
       { email: existingUser.email, id: existingUser._id },
       "test",
       { expiresIn: "1h" }
     );
+    const refreshToken = jwt.sign(
+      {
+        email: existingUser.email,
+        id: existingUser._id,
+      },
+      "refreshTest",
+      { expiresIn: "1h" }
+    );
 
-    res
-      .status(200)
-      .json({
-        result: existingUser,
-        token,
-        message: "user entered successfully",
-      });
+    res.status(200).json({
+      user: existingUser,
+      token: { accessToken, refreshToken },
+      message: "user entered successfully",
+    });
   } catch (error) {
     res.status(500).json("something is wrong");
   }
