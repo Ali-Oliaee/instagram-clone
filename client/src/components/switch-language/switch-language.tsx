@@ -22,9 +22,6 @@ function SwitchLanguage() {
         onChange={changeLanguage}
         className="language-select"
         suffixIcon={null}
-        style={{
-          width: '40px',
-        }}
       >
         <Option value="en">en</Option>
         <Option value="fa">fa</Option>

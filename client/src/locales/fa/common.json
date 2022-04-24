@@ -29,5 +29,18 @@
 "page-not-found": "صفحه مورد نظر یافت نشد",
 "back-home": "بازگشت به صفحه اصلی",
 "and":"و",
-"cookie":"کوکی ها"
+"cookie":"کوکی ها",
+"search":"جستجو",
+"home":"خانه",
+"profile":"پروفایل",
+"logout":"خروج",
+"add-post":"افزودن پست",
+"likes":"لایک ها",
+"comments":"نظرات",
+"followers":"دنبال کننده ها",
+"following":"دنبال می کنم",
+"settings":"تنظیمات",
+"saved":"ذخیره شده ها",
+"delete":"حذف"
+
 }

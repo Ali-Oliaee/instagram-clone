@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import {
   Button, Divider, Form, Input, message,
 } from 'antd'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { GoogleButton, Logo, SwitchLanguage } from '../../components'
 import axios from '../../utils/axios'
@@ -19,6 +19,7 @@ interface NewUser {
 function SignupPage() {
   const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const handleSubmit = ({
     username, email, password,
   } : NewUser) => {
@@ -32,6 +33,7 @@ function SignupPage() {
         message.success(data.message)
         localStorage.setItem('user', JSON.stringify(data))
         setLoading(false)
+        navigate('/')
       })
       .catch(({ response }) => message.error(response.data.message))
       .finally(() => setLoading(false))
@@ -126,7 +128,7 @@ function SignupPage() {
         <h4 className="signin-link">
           {t('already-have-account')}
           {' '}
-          <Link to="/">{t('signin')}</Link>
+          <Link to="/auth/login">{t('signin')}</Link>
         </h4>
       </section>
     </div>
