@@ -1,10 +1,17 @@
 @import '../../utils/utils';
 
-.desktop-header {
+.header {
     padding-inline:  20px;
     @include flex( space-between, center);
     background-color: $mellow-apricot;
     width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    @media screen and (max-width: 500px) {
+        padding-inline: 10px;
+        
+    }
 
     .header-menu {
         @include flex(flex-end);
@@ -19,12 +26,16 @@
         max-width: 300px;
         border: 0;
         border-radius: 10px;
-        margin-inline: 10px;
+        margin-inline: 10px; 
+        @media screen and (max-width: 400px) {
+            display: none;
+        }   
     }
     .logo-container {
         margin: 0;
         padding: 0;
         height: 50px;
+        justify-content: flex-start;
         .logo-info {
             border-bottom: 1px solid $orange-peel;
             h3 {

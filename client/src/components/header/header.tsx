@@ -18,21 +18,20 @@ import {
   Tooltip,
 } from 'antd'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
-import { useMediaQuery } from 'usehooks-ts'
+import { Link, useNavigate } from 'react-router-dom'
 import { Logo } from '../logo'
 import './style.scss'
 
-function MobileHeader() {
-  return (
-    <div>mobile Header</div>
-  )
-}
-
-function DesktopHeader() {
+function Header() {
   const { t } = useTranslation()
+  const navigate = useNavigate()
+  const logout = () => {
+    localStorage.clear()
+    navigate('/')
+    window.location.reload()
+  }
   return (
-    <div className="desktop-header">
+    <div className="header">
       <Logo />
       <Input prefix={<SearchOutlined />} placeholder="search" className="search-input" />
       <div className="header-menu">
@@ -64,7 +63,7 @@ function DesktopHeader() {
                 {t('saved')}
               </Menu.Item>
               <Divider style={{ margin: 0 }} />
-              <Menu.Item danger disabled icon={<LogoutOutlined />}>
+              <Menu.Item onClick={logout} danger icon={<LogoutOutlined />}>
                 {t('logout')}
               </Menu.Item>
             </Menu>
@@ -76,11 +75,6 @@ function DesktopHeader() {
       </div>
     </div>
   )
-}
-
-function Header() {
-  const isMobile = useMediaQuery('(max-width: 400px)')
-  return isMobile ? <MobileHeader /> : <DesktopHeader />
 }
 
 export default Header
