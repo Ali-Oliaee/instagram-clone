@@ -72,6 +72,7 @@ function HomePage() {
       <div className="posts-container">
         {samplePosts.map((post) => (
           <PostCard
+            key={post.id}
             title={post.title}
             description={post.description}
             creator={post.creator}
