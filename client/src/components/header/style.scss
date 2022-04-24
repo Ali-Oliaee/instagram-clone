@@ -1,0 +1,42 @@
+@import '../../utils/utils';
+
+.desktop-header {
+    padding-inline:  20px;
+    @include flex( space-between, center);
+    background-color: $mellow-apricot;
+    width: 100%;
+
+    .header-menu {
+        @include flex(flex-end);
+        .header-menu-item {
+            color: #000;
+            margin-inline-end: 12px;
+            font-size: 1.4em;
+        }
+    }
+
+    .search-input {
+        max-width: 300px;
+        border: 0;
+        border-radius: 10px;
+        margin-inline: 10px;
+    }
+    .logo-container {
+        margin: 0;
+        padding: 0;
+        height: 50px;
+        .logo-info {
+            border-bottom: 1px solid $orange-peel;
+            h3 {
+                font-size: 0.9em;
+            }
+            h5 {
+                font-size: 0.5em;
+            }
+        }
+        svg {
+            width: 12px;
+            margin-inline-end: 6px;
+        }
+    }
+}

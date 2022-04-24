@@ -128,7 +128,7 @@ function SignupPage() {
         <h4 className="signin-link">
           {t('already-have-account')}
           {' '}
-          <Link to="/">{t('/auth/signin')}</Link>
+          <Link to="/auth/login">{t('signin')}</Link>
         </h4>
       </section>
     </div>

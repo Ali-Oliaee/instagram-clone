@@ -1,17 +1,19 @@
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { Button } from 'antd'
 import { useNavigate } from 'react-router-dom'
+import { Header } from '../../components'
 import './style.scss'
 
 function HomePage() {
   const navigate = useNavigate()
   return (
     <div>
-      HomePage
+      <Header />
 
       <Button onClick={() => {
         localStorage.clear()
         navigate('/')
+        window.location.reload()
       }}
       >
         logout

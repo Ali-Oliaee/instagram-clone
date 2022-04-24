@@ -26,6 +26,7 @@ function LoginPage() {
     })
       .then(({ data }) => {
         message.success(data.message)
+        console.log('data', data)
         localStorage.setItem('user', JSON.stringify(data))
         navigate('/')
       })
