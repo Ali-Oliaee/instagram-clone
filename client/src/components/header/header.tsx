@@ -34,7 +34,7 @@ function Header() {
   return (
     <div className="header">
       <Logo />
-      <Input prefix={<SearchOutlined />} placeholder="search" className="search-input" />
+      <Input prefix={<SearchOutlined />} placeholder={t('search')} className="search-input" />
       <div className="header-menu">
         <Tooltip title={t('home')} color="#777">
           <Link to="/" className="header-menu-item">
@@ -58,7 +58,7 @@ function Header() {
                 {t('profile')}
               </Menu.Item>
               <Menu.Item disabled icon={<SettingOutlined />}>
-                {t('setting')}
+                {t('settings')}
               </Menu.Item>
               <Menu.Item disabled icon={<InboxOutlined />}>
                 {t('saved')}

@@ -16,8 +16,6 @@
     "already-have-account": "Already have an account?",
     "dont-have-account": "Don't have an account?",
     "signup-description": "Sign up to see photos and videos from your friends.",
-    "terms": "Terms",
-    "data-policy": "Data Policy",
     "cookies-policy": "Cookies Policy",
     "or": "or",
     "google-signin": "Sign in with Google",
@@ -31,6 +29,17 @@
     "and": "and",
     "terms": "Terms",
     "data-policy": "Data Policy",
-    "cookie": "Cookie Policy"
-
+    "cookie": "Cookie Policy",
+    "search": "Search",
+    "home": "Home",
+    "profile": "Profile",
+    "logout": "Logout",
+    "add-post": "Add Post",
+    "likes": "Likes",
+    "comments": "Comments",
+    "followers": "Followers",
+    "following": "Following",
+    "settings": "Settings",
+    "saved": "Saved",
+    "delete": "Delete"
 }
