@@ -18,7 +18,7 @@ const samplePosts = [{
 {
   id: '2',
   title: 'Sample Post2',
-  description: 'Sample Describe2',
+  description: '',
   creator: 'sina',
   tags: ['tag1', 'tag2'],
   likes: ['mmd', 'jafar'],
@@ -38,7 +38,7 @@ const samplePosts = [{
 {
   id: '2',
   title: 'Sample Post2',
-  description: 'Sample Describe2',
+  description: 'Sample Describe2 giurth giuthgir ughjkdnv vjfkdvnkdv kvunkdfn dfnvhdvb vjfdvbjdfvb vjfvb cjdvbjhbvfjdbv',
   creator: 'sina',
   tags: ['tag1', 'tag2'],
   likes: ['mmd', 'jafar'],

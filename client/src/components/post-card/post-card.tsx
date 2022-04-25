@@ -78,6 +78,7 @@ function PostCard({
           </span>
         </div>
         <h2 className="title">{title}</h2>
+        {description && (
         <div className="description-container">
           <span className="creator">
             {creator}
@@ -86,9 +87,12 @@ function PostCard({
           </span>
           <span className="description">
             {description}
+            {description.length > 100 && (
             <Button type="link" className="more-button">more...</Button>
+            )}
           </span>
         </div>
+        )}
         <div className="tags">
           {tags.length && tags.map((tag: string) => <Tag key={tag} className="tag">{tag}</Tag>)}
         </div>

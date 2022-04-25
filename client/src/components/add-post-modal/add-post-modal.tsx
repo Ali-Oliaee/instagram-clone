@@ -14,7 +14,14 @@ function AddPostModal({ visible }:any) {
     console.log('values', values)
   }
   return (
-    <Modal visible={visible} closable onCancel={() => setSearchParams('')} title="Add Post" footer={null}>
+    <Modal
+      visible={visible}
+      closable
+      onCancel={() => setSearchParams('')}
+      title={t('add-post')}
+      footer={null}
+      className="add-post-modal"
+    >
       <Form onFinish={postFile}>
         <Form.Item
           name="title"
@@ -41,7 +48,7 @@ function AddPostModal({ visible }:any) {
         >
           <Upload>
             <Button icon={<UploadOutlined />}>{t('upload')}</Button>
-            <span>{t('upload-text')}</span>
+            <span className="upload-description">{t('upload-description')}</span>
           </Upload>
         </Form.Item>
         <Form.Item name="tags">

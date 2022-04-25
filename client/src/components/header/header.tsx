@@ -36,7 +36,7 @@ function Header() {
   return (
     <div className="header">
       <Logo />
-      <Input prefix={<SearchOutlined />} placeholder={t('search')} className="search-input" />
+      <Input prefix={<SearchOutlined />} placeholder={t('search-placeholder')} className="search-input" />
       <div className="header-menu">
         <Tooltip title={t('home')} color="#777">
           <Link to="/">
