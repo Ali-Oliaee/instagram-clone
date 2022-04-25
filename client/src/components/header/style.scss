@@ -14,12 +14,15 @@
     }
 
     .header-menu {
-        @include flex(flex-end);
+        @include flex(center, baseline);
         .header-menu-item {
             color: #000;
             margin-inline-end: 12px;
             font-size: 1.4em;
-
+            background: transparent;
+            border: none;
+            @include flex(center);
+            padding: 0;
         }
     }
 

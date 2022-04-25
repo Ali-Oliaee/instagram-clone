@@ -12,6 +12,7 @@ import {
 } from '@ant-design/icons'
 import {
   Avatar,
+  Button,
   Divider,
   Dropdown,
   Input,
@@ -19,13 +20,14 @@ import {
   Tooltip,
 } from 'antd'
 import { useTranslation } from 'react-i18next'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { Logo } from '../logo'
 import './style.scss'
 
 function Header() {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const [searchParams, setSearchParams] = useSearchParams()
   const logout = () => {
     localStorage.clear()
     navigate('/')
@@ -37,18 +39,22 @@ function Header() {
       <Input prefix={<SearchOutlined />} placeholder={t('search')} className="search-input" />
       <div className="header-menu">
         <Tooltip title={t('home')} color="#777">
-          <Link to="/" className="header-menu-item">
-            <HomeOutlined />
+          <Link to="/">
+            <Button className="header-menu-item">
+              <HomeOutlined />
+            </Button>
           </Link>
         </Tooltip>
         <Tooltip title={t('add-post')} color="#777">
-          <Link to="/" className="header-menu-item">
+          <Button className="header-menu-item" onClick={() => setSearchParams('add=true')}>
             <PlusCircleOutlined />
-          </Link>
+          </Button>
         </Tooltip>
         <Tooltip title={t('likes')} color="#777">
-          <Link to="/" className="header-menu-item">
-            <HeartOutlined />
+          <Link to="/">
+            <Button className="header-menu-item">
+              <HeartOutlined />
+            </Button>
           </Link>
         </Tooltip>
         <Dropdown

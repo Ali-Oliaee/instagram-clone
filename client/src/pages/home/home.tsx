@@ -1,6 +1,7 @@
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { useEffect } from 'react'
-import { Header, PostCard } from '../../components'
+import qs from 'query-string'
+import { AddPostModal, Header, PostCard } from '../../components'
 import axios from '../../utils/axios'
 import './style.scss'
 
@@ -57,6 +58,7 @@ const samplePosts = [{
 ]
 
 function HomePage() {
+  const QS = qs.parse(window.location.search)
   // TODO: use media query
   const getPosts = () => {
     axios.get('/posts/').then((res) => {
@@ -84,6 +86,7 @@ function HomePage() {
           />
         ))}
       </div>
+      <AddPostModal visible={QS.add} />
     </div>
   )
 }
