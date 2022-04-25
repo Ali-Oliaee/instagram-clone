@@ -28,17 +28,62 @@
     }
     .post-info {
         padding-inline: 14px;
-        span.creator {
+        .title {
+            font-size: 1.2em;
             font-weight: bold;
+        }
+        .description-container {
+            max-height: 110px;
+            overflow: hidden;   
+            margin-bottom: 10px;
+            span {
+                display: inline;
+            }
+            .creator {
+                font-weight: bold;
+            }
+            .description {
+                max-height: 40px;
+                text-overflow: ellipsis;
+               .more-button {
+                   padding: 0 4px;
+                   span {
+                       color: #666;
+                   }
+               } 
+            }
         }
         .tag{
             background-color: rgb(212, 212, 212);
             border-radius: 8px;
+            margin-block: 4px;
         }
-        .like-button {
-            cursor: pointer;
-            border: 0;
-            padding: 0;
+        .card-operations {
+            @include flex(space-between, flex-start);
+            margin-top: 4px ;
+            .like-button, .archive-button, .comment-button {
+                cursor: pointer;
+                border: 0;
+                padding: 0;
+                &:hover, &:focus, &:active {
+                    color: unset;
+                }
+            }
+            .archive-button, .comment-button {
+                margin-inline-start: 4px;
+                span {
+                    font-size: 1.2em;
+                }
+            }
+            .like-button {
+                margin-inline-start: -10px;
+            }
+            .archive-button {
+                margin-inline-end: -10px;
+            }
+        }
+        .date {
+            font-size: 0.6em;
         }
     }
 }

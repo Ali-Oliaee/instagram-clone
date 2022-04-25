@@ -30,7 +30,6 @@
 "back-home": "بازگشت به صفحه اصلی",
 "and":"و",
 "cookie":"کوکی ها",
-"search":"جستجو",
 "home":"خانه",
 "profile":"پروفایل",
 "logout":"خروج",
@@ -41,6 +40,19 @@
 "following":"دنبال می کنم",
 "settings":"تنظیمات",
 "saved":"ذخیره شده ها",
-"delete":"حذف"
+"delete":"حذف",
+"edit":"ویرایش",
+"cancel":"لغو",
+"save":"ذخیره",
+"upload-photo":"برگذاری عکس",
+"upload-description":"تصویر موردنظر خود را بارگذاری کنید.",
+"upload-title":"آپلود عکس",
+"yse":"بله",
+"no":"خیر",
+"search":"جستجو",
+"search-placeholder":"جستجو در افراد و پست ها..."
+
+
+
 
 }
