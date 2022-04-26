@@ -8,6 +8,7 @@ import {
   NotFoundPage,
   SavedPage,
   SignupPage,
+  ProfilePage,
 } from '../pages'
 
 function MainRouter() {
@@ -25,6 +26,7 @@ function MainRouter() {
           <Route index element={<HomePage />} />
           <Route path="saved" element={<SavedPage />} />
           <Route path="likes" element={<LikesPage />} />
+          <Route path="profile" element={<ProfilePage />} />
         </Route>
       ) : (
         <Route path="/auth">

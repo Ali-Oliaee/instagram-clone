@@ -60,8 +60,10 @@ function Header() {
         <Dropdown
           overlay={(
             <Menu>
-              <Menu.Item disabled icon={<UserOutlined />}>
-                {t('profile')}
+              <Menu.Item icon={<UserOutlined />}>
+                <Link to="/profile">
+                  {t('profile')}
+                </Link>
               </Menu.Item>
               <Menu.Item disabled icon={<SettingOutlined />}>
                 {t('settings')}
