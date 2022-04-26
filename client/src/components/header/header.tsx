@@ -51,7 +51,7 @@ function Header() {
           </Button>
         </Tooltip>
         <Tooltip title={t('likes')} color="#777">
-          <Link to="/">
+          <Link to="/likes">
             <Button className="header-menu-item">
               <HeartOutlined />
             </Button>
