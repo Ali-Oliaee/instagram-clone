@@ -2,7 +2,7 @@
 import { useEffect } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import {
-  HomePage, LoginPage, NotFoundPage, SignupPage,
+  HomePage, LoginPage, NotFoundPage, SavedPage, SignupPage,
 } from '../pages'
 
 function MainRouter() {
@@ -18,6 +18,7 @@ function MainRouter() {
       {isAuth ? (
         <Route path="/">
           <Route index element={<HomePage />} />
+          <Route path="saved" element={<SavedPage />} />
         </Route>
       ) : (
         <Route path="/auth">
