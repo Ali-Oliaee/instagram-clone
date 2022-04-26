@@ -2,7 +2,7 @@
 import { useEffect } from 'react'
 import qs from 'query-string'
 import {
-  AddPostModal, Header, PostCard, PostsWrapper,
+  AddPostModal, Header, PostsWrapper,
 } from '../../components'
 import axios from '../../utils/axios'
 import './style.scss'

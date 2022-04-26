@@ -51,7 +51,7 @@ function Header() {
           </Button>
         </Tooltip>
         <Tooltip title={t('likes')} color="#777">
-          <Link to="/">
+          <Link to="/likes">
             <Button className="header-menu-item">
               <HeartOutlined />
             </Button>
@@ -66,8 +66,10 @@ function Header() {
               <Menu.Item disabled icon={<SettingOutlined />}>
                 {t('settings')}
               </Menu.Item>
-              <Menu.Item disabled icon={<InboxOutlined />}>
-                {t('saved')}
+              <Menu.Item icon={<InboxOutlined />}>
+                <Link to="/saved">
+                  {t('saved')}
+                </Link>
               </Menu.Item>
               <Divider style={{ margin: 0 }} />
               <Menu.Item onClick={logout} danger icon={<LogoutOutlined />}>
