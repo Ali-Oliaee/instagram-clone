@@ -1,7 +1,9 @@
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { useEffect } from 'react'
 import qs from 'query-string'
-import { AddPostModal, Header, PostCard } from '../../components'
+import {
+  AddPostModal, Header, PostCard, PostsWrapper,
+} from '../../components'
 import axios from '../../utils/axios'
 import './style.scss'
 
@@ -71,21 +73,7 @@ function HomePage() {
   return (
     <div className="home-page">
       <Header />
-      <div className="posts-container">
-        {samplePosts.map((post) => (
-          <PostCard
-            key={post.id}
-            title={post.title}
-            description={post.description}
-            creator={post.creator}
-            tags={post.tags}
-            likes={post.likes}
-            image={post.image}
-            createdAt={post.createdAt}
-            id={post.id}
-          />
-        ))}
-      </div>
+      <PostsWrapper posts={samplePosts} />
       <AddPostModal visible={QS.add} />
     </div>
   )
