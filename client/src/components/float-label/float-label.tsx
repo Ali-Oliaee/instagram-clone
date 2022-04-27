@@ -20,12 +20,21 @@ function FloatLabel({
       onBlur={() => setFocus(false)}
       onFocus={() => setFocus(true)}
     >
-      <Input
-        size="middle"
-        onChange={onChange}
-        autoFocus={autoFocus}
-        type={type}
-      />
+      {type === 'password' ? (
+        <Input.Password
+          size="middle"
+          onChange={onChange}
+          autoFocus={autoFocus}
+          type="password"
+        />
+      ) : (
+        <Input
+          size="middle"
+          onChange={onChange}
+          autoFocus={autoFocus}
+          type={type}
+        />
+      )}
       <label className={labelClass}>{label}</label>
     </div>
   )
