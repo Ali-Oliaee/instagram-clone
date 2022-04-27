@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 import {
-  Avatar, Button, Form, Input, Modal,
+  Avatar, Button, Form, Input, Modal, Upload,
 } from 'antd'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -17,13 +17,19 @@ function SettingsPage() {
   const changePassword = ({ newPassword } : any) => {
     console.log(newPassword)
   }
+  const uploadImage = (info : any) => {
+    console.log(info)
+  }
+
   return (
     <>
       <div className="settings-page">
         <Header />
         <div className="change-image">
           <Avatar src={require('../../assets/images/default-user.jpg')} size="large" className="profile-image" />
-          <Button type="text">change profile image</Button>
+          <Upload showUploadList={false} onChange={uploadImage}>
+            <Button type="text">change profile image</Button>
+          </Upload>
         </div>
         <Form onFinish={handleSubmit}>
           <Form.Item name="username">
