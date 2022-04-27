@@ -61,9 +61,20 @@ function profilePage() {
             </Link>
           </div>
           <div className="report">
-            <span className="posts">5 posts</span>
-            <span className="follower">125 followers</span>
-            <span className="following">101 following</span>
+            <span className="posts">
+              <strong>1200 </strong>
+              posts
+            </span>
+            <span className="follower">
+              <strong>125 </strong>
+              {' '}
+              followers
+            </span>
+            <span className="following">
+              <strong>984 </strong>
+              {' '}
+              following
+            </span>
           </div>
           <div className="bio">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor exercitationem atque dolore omnis obcaecati ipsa officia esse blanditiis fugiat dignissimos saepe et sunt aut quia, ut repudiandae tenetur? Ducimus, voluptatum!</div>
         </div>
