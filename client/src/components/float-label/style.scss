@@ -1,0 +1,43 @@
+.float-label-ltr  {
+    position: relative;
+
+    .label {
+        font-size: 1em;
+        font-weight: normal;
+        position: absolute;
+        pointer-events: none;
+        left: 12px;
+        top: 6px;
+        transition: 0.2s ease all;
+    }
+      
+    .label-float{
+        background-color: #fff;
+        padding-inline: 8px ;
+        top: -8px;
+        left: 4px;
+        font-size: 0.8em;
+    }
+}
+
+.float-label-rtl  {
+    position: relative;
+
+    .label {
+        font-size: 1em;
+        font-weight: normal;
+        position: absolute;
+        pointer-events: none;
+        right: 12px;
+        top: 6px;
+        transition: 0.2s ease all;
+    }
+      
+    .label-float{
+        background-color: #fff;
+        padding-inline: 8px ;
+        top: -8px;
+        right: 4px;
+        font-size: 0.8em;
+    }
+}

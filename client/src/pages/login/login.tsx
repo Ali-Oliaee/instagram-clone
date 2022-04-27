@@ -5,7 +5,9 @@ import {
   Button, Divider, Form, Input, message,
 } from 'antd'
 import { useState } from 'react'
-import { GoogleButton, Logo, SwitchLanguage } from '../../components'
+import {
+  FloatLabel, GoogleButton, Logo, SwitchLanguage,
+} from '../../components'
 import axios from '../../utils/axios'
 import './style.scss'
 
@@ -18,6 +20,7 @@ function LoginPage() {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
+  const [form] = Form.useForm()
   const handleSubmit = ({ email, password } : User) => {
     setLoading(true)
     axios.post('/users/signin/', {
@@ -40,7 +43,7 @@ function LoginPage() {
         <div className="form-container">
           <Logo />
           <h4>{t('signup-description')}</h4>
-          <Form onFinish={handleSubmit}>
+          <Form onFinish={handleSubmit} form={form}>
             <Form.Item
               name="email"
               rules={[
@@ -54,7 +57,7 @@ function LoginPage() {
                 },
               ]}
             >
-              <Input autoFocus size="middle" placeholder={t('email')} type="email" />
+              <FloatLabel type="email" autoFocus label={t('email')} value={form.getFieldValue('email')} />
             </Form.Item>
             <Form.Item
               name="password"
@@ -69,7 +72,7 @@ function LoginPage() {
                 },
               ]}
             >
-              <Input.Password size="middle" placeholder={t('password')} type="password" />
+              <FloatLabel type="password" label={t('password')} value={form.getFieldValue('password')} />
             </Form.Item>
             <Button loading={loading} htmlType="submit" type="primary" block>{t('submit')}</Button>
             <Divider>{t('or')}</Divider>
