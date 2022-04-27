@@ -5,7 +5,9 @@ import {
 } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-import { GoogleButton, Logo, SwitchLanguage } from '../../components'
+import {
+  FloatLabel, GoogleButton, Logo, SwitchLanguage,
+} from '../../components'
 import axios from '../../utils/axios'
 import './style.scss'
 
@@ -19,6 +21,7 @@ interface NewUser {
 function SignupPage() {
   const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
+  const [form] = Form.useForm()
   const navigate = useNavigate()
   const handleSubmit = ({
     username, email, password,
@@ -54,7 +57,7 @@ function SignupPage() {
                 },
               ]}
             >
-              <Input autoFocus size="middle" placeholder={t('username')} />
+              <FloatLabel autoFocus label={t('username')} value={form.getFieldValue('username')} />
             </Form.Item>
             <Form.Item
               name="email"
@@ -69,7 +72,7 @@ function SignupPage() {
                 },
               ]}
             >
-              <Input size="middle" placeholder={t('email')} type="email" />
+              <FloatLabel label={t('email')} value={form.getFieldValue('email')} type="email" />
             </Form.Item>
             <Form.Item
               name="password"
@@ -84,7 +87,7 @@ function SignupPage() {
                 },
               ]}
             >
-              <Input.Password size="middle" placeholder={t('password')} type="password" />
+              <FloatLabel label={t('password')} value={form.getFieldValue('password')} type="password" />
             </Form.Item>
             <Form.Item
               name="confirmPassword"
@@ -103,7 +106,7 @@ function SignupPage() {
                 },
               })]}
             >
-              <Input.Password size="middle" placeholder={t('confirm-password')} type="password" />
+              <FloatLabel label={t('confirm-password')} value={form.getFieldValue('confirmPassword')} type="password" />
             </Form.Item>
             <Button loading={loading} htmlType="submit" type="primary" size="middle" block>{t('submit')}</Button>
             <Divider>{t('or')}</Divider>

@@ -5,11 +5,13 @@ import {
 } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
+import { FloatLabel } from '../float-label'
 import './style.scss'
 
 function AddPostModal({ visible }:any) {
   const [searchParams, setSearchParams] = useSearchParams()
   const { t } = useTranslation()
+  const [form] = Form.useForm()
   const postFile = (values: any):any => {
     console.log('values', values)
   }
@@ -22,7 +24,7 @@ function AddPostModal({ visible }:any) {
       footer={null}
       className="add-post-modal"
     >
-      <Form onFinish={postFile}>
+      <Form onFinish={postFile} form={form}>
         <Form.Item
           name="post"
           rules={[
@@ -46,7 +48,7 @@ function AddPostModal({ visible }:any) {
             },
           ]}
         >
-          <Input placeholder={t('title')} />
+          <FloatLabel label={t('title')} autoFocus value={form.getFieldValue('title')} />
         </Form.Item>
         <Form.Item name="content">
           <Input.TextArea placeholder={t('description')} />

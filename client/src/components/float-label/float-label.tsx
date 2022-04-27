@@ -1,3 +1,5 @@
+/* eslint-disable react/require-default-props */
+/* eslint-disable no-undef */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { Input } from 'antd'
@@ -5,13 +7,21 @@ import i18next from 'i18next'
 import { useState } from 'react'
 import './style.scss'
 
+interface InputProps{
+  label: string,
+  value: string,
+  onChange?: any,
+  autoFocus?: boolean,
+  type?: 'text' | 'password' | 'email' | 'number' | 'tel' | 'url' | 'date' | 'datetime-local' | 'month' | 'time' | 'week',
+}
+
 function FloatLabel({
   label,
   value,
   onChange,
-  autoFocus,
-  type,
-}: any) {
+  autoFocus = false,
+  type = 'text',
+}: InputProps) {
   const [focus, setFocus] = useState(false)
   const labelClass = focus || (value && value.length !== 0) ? 'label label-float' : 'label'
   return (
@@ -24,14 +34,14 @@ function FloatLabel({
         <Input.Password
           size="middle"
           onChange={onChange}
-          autoFocus={autoFocus}
+          autoFocus={autoFocus as any}
           type="password"
         />
       ) : (
         <Input
           size="middle"
           onChange={onChange}
-          autoFocus={autoFocus}
+          autoFocus={autoFocus as any}
           type={type}
         />
       )}

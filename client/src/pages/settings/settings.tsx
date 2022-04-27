@@ -5,11 +5,12 @@ import {
 } from 'antd'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Header } from '../../components'
+import { FloatLabel, Header } from '../../components'
 import './style.scss'
 
 function SettingsPage() {
   const [visible, setVisible] = useState(false)
+  const [form] = Form.useForm()
   const { t } = useTranslation()
   const handleSubmit = (values : any) => {
     console.log(values)
@@ -33,10 +34,10 @@ function SettingsPage() {
         </div>
         <Form onFinish={handleSubmit}>
           <Form.Item name="username">
-            <Input placeholder="username" size="large" />
+            <FloatLabel label={t('username')} value={form.getFieldValue('username')} />
           </Form.Item>
           <Form.Item name="email">
-            <Input placeholder="email" size="large" />
+            <FloatLabel label={t('email')} value={form.getFieldValue('email')} type="email" />
           </Form.Item>
           <Form.Item name="bio">
             <Input.TextArea placeholder="bio" size="large" />
