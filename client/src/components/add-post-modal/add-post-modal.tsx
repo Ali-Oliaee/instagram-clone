@@ -24,6 +24,20 @@ function AddPostModal({ visible }:any) {
     >
       <Form onFinish={postFile}>
         <Form.Item
+          name="post"
+          rules={[
+            {
+              required: true,
+              message: t('requred-post'),
+            },
+          ]}
+        >
+          <Upload>
+            <Button block icon={<UploadOutlined />}>{t('upload')}</Button>
+            <span className="upload-description">{t('upload-description')}</span>
+          </Upload>
+        </Form.Item>
+        <Form.Item
           name="title"
           rules={[
             {
@@ -36,20 +50,6 @@ function AddPostModal({ visible }:any) {
         </Form.Item>
         <Form.Item name="content">
           <Input.TextArea placeholder={t('description')} />
-        </Form.Item>
-        <Form.Item
-          name="post"
-          rules={[
-            {
-              required: true,
-              message: t('requred-post'),
-            },
-          ]}
-        >
-          <Upload>
-            <Button icon={<UploadOutlined />}>{t('upload')}</Button>
-            <span className="upload-description">{t('upload-description')}</span>
-          </Upload>
         </Form.Item>
         <Form.Item name="tags">
           <Select mode="tags" placeholder={t('tags')} />
