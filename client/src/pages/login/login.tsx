@@ -69,7 +69,7 @@ function LoginPage() {
                 },
               ]}
             >
-              <Input size="middle" placeholder={t('password')} type="password" />
+              <Input.Password size="middle" placeholder={t('password')} type="password" />
             </Form.Item>
             <Button loading={loading} htmlType="submit" type="primary" block>{t('submit')}</Button>
             <Divider>{t('or')}</Divider>

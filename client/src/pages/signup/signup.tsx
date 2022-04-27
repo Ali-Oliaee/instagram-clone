@@ -84,7 +84,7 @@ function SignupPage() {
                 },
               ]}
             >
-              <Input size="middle" placeholder={t('password')} type="password" />
+              <Input.Password size="middle" placeholder={t('password')} type="password" />
             </Form.Item>
             <Form.Item
               name="confirmPassword"
@@ -103,9 +103,9 @@ function SignupPage() {
                 },
               })]}
             >
-              <Input size="middle" placeholder={t('confirm-password')} type="password" />
+              <Input.Password size="middle" placeholder={t('confirm-password')} type="password" />
             </Form.Item>
-            <Button loading={loading} htmlType="submit" type="primary" block>{t('submit')}</Button>
+            <Button loading={loading} htmlType="submit" type="primary" size="middle" block>{t('submit')}</Button>
             <Divider>{t('or')}</Divider>
             <GoogleButton />
             <h4>
