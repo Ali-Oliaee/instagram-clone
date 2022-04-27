@@ -9,6 +9,7 @@ import {
   SavedPage,
   SignupPage,
   ProfilePage,
+  SettingsPage,
 } from '../pages'
 
 function MainRouter() {
@@ -27,6 +28,7 @@ function MainRouter() {
           <Route path="saved" element={<SavedPage />} />
           <Route path="likes" element={<LikesPage />} />
           <Route path="profile" element={<ProfilePage />} />
+          <Route path="settings" element={<SettingsPage />} />
         </Route>
       ) : (
         <Route path="/auth">

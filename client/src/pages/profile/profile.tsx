@@ -56,8 +56,8 @@ function profilePage() {
         <div>
           <div className="profile-header">
             <span className="username">username</span>
-            <Link to="setting">
-              <Button disabled size="small" icon={<EditOutlined />} className="edit-button">Edit profile</Button>
+            <Link to="/settings">
+              <Button size="small" icon={<EditOutlined />} className="edit-button">Edit profile</Button>
             </Link>
           </div>
           <div className="report">
@@ -67,12 +67,10 @@ function profilePage() {
             </span>
             <span className="follower">
               <strong>125 </strong>
-              {' '}
               followers
             </span>
             <span className="following">
               <strong>984 </strong>
-              {' '}
               following
             </span>
           </div>

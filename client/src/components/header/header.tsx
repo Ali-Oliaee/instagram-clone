@@ -65,8 +65,10 @@ function Header() {
                   {t('profile')}
                 </Link>
               </Menu.Item>
-              <Menu.Item disabled icon={<SettingOutlined />}>
-                {t('settings')}
+              <Menu.Item icon={<SettingOutlined />}>
+                <Link to="/settings">
+                  {t('settings')}
+                </Link>
               </Menu.Item>
               <Menu.Item icon={<InboxOutlined />}>
                 <Link to="/saved">
