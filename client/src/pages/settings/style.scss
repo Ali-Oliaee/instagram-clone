@@ -1,0 +1,13 @@
+@import '../../utils/utils';
+
+.settings-page {
+    @include flex(center,center,column);
+    .change-image {
+    @include flex(center,center,column);
+    margin-top: 50px;
+        .profile-image {
+            width: 150px;
+            height: 150px;
+        }
+    }
+}
