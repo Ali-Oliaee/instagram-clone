@@ -1,8 +1,15 @@
 /* eslint-disable global-require */
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 import {
-  Avatar, Button, Form, Input, Modal, Upload,
+  Avatar,
+  Button,
+  Form,
+  Input,
+  Modal,
+  Select,
+  Upload,
 } from 'antd'
+import i18next from 'i18next'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FloatLabel, Header } from '../../components'
@@ -20,6 +27,9 @@ function SettingsPage() {
   }
   const uploadImage = (info : any) => {
     console.log(info)
+  }
+  const changeLanguage = (language : string) => {
+    console.log('language', language)
   }
 
   return (
@@ -45,6 +55,13 @@ function SettingsPage() {
           <Button htmlType="submit" block type="primary">save</Button>
         </Form>
         <Button block type="link" onClick={() => setVisible(true)}>change password</Button>
+        <span className="language">
+          <span>Language: </span>
+          <Select defaultValue={i18next.language} suffixIcon={false} onChange={changeLanguage}>
+            <Select.Option value="en">En</Select.Option>
+            <Select.Option value="fa">Fa</Select.Option>
+          </Select>
+        </span>
       </div>
       <Modal
         visible={visible}

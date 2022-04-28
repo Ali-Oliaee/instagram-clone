@@ -61,7 +61,7 @@ function Header() {
           overlay={(
             <Menu>
               <Menu.Item icon={<UserOutlined />}>
-                <Link to="/profile">
+                <Link to="/profile/-1">
                   {t('profile')}
                 </Link>
               </Menu.Item>

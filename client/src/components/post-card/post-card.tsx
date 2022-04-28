@@ -12,18 +12,24 @@ import {
   QuestionCircleOutlined,
 } from '@ant-design/icons'
 import {
-  Avatar, Button, Dropdown, Menu, Popconfirm, Tag,
+  Avatar,
+  Button,
+  Dropdown,
+  Menu,
+  Popconfirm,
+  Tag,
 } from 'antd'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Link, useParams } from 'react-router-dom'
 import './style.scss'
 
 interface Post{
     title: string,
     description: string,
     creator: string,
-    tags: string[],
-    likes: string[],
+    tags: Array<string>,
+    likes: Array<string>,
     image: string,
     createdAt: string,
     id: string,
@@ -32,19 +38,19 @@ interface Post{
 function PostCard({
   title, description, creator, tags, likes, image, createdAt, id,
 }: Post) {
+  const params = useParams()
   const [like, setLike] = useState(false)
   const [archive, setArchive] = useState(false)
   const { t } = useTranslation()
   const likePost = () => (like ? setLike(false) : setLike(true))
   const archivePost = () => (archive ? setArchive(false) : setArchive(true))
-
   return (
     <div className="post-card">
       <div className="creator">
-        <div>
+        <Link to={`/profile/${Math.floor(Math.random() * 80) + 1}`}>
           <Avatar src={require('../../assets/images/default-user.jpg')} />
           {creator}
-        </div>
+        </Link>
         <Dropdown
           trigger={['click']}
           overlay={(

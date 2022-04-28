@@ -27,7 +27,7 @@ function MainRouter() {
           <Route index element={<HomePage />} />
           <Route path="saved" element={<SavedPage />} />
           <Route path="likes" element={<LikesPage />} />
-          <Route path="profile" element={<ProfilePage />} />
+          <Route path="profile/:id" element={<ProfilePage />} />
           <Route path="settings" element={<SettingsPage />} />
         </Route>
       ) : (

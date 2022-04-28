@@ -11,6 +11,9 @@
         
     .creator {
         margin-block: 10px;
+        a  {
+            color: #000;
+        }
         @include flex(space-between, center);
         .anticon-more {
             transform: rotate(90deg);
