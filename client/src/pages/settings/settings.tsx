@@ -28,9 +28,7 @@ function SettingsPage() {
   const uploadImage = (info : any) => {
     console.log(info)
   }
-  const changeLanguage = (language : string) => {
-    console.log('language', language)
-  }
+  const changeLanguage = (language : string) => i18next.changeLanguage(language)
 
   return (
     <>
@@ -56,7 +54,11 @@ function SettingsPage() {
         </Form>
         <Button block type="link" onClick={() => setVisible(true)}>change password</Button>
         <span className="language">
-          <span>Language: </span>
+          <span>
+            {t('language')}
+            :
+            {' '}
+          </span>
           <Select defaultValue={i18next.language} suffixIcon={false} onChange={changeLanguage}>
             <Select.Option value="en">En</Select.Option>
             <Select.Option value="fa">Fa</Select.Option>

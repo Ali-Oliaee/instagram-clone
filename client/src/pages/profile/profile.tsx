@@ -2,7 +2,7 @@
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { EditOutlined } from '@ant-design/icons'
 import { Avatar, Button } from 'antd'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { Header, PostsWrapper } from '../../components'
 import './style.scss'
 
@@ -48,6 +48,7 @@ const samplePosts = [{
 }]
 
 function profilePage() {
+  const { id } = useParams()
   return (
     <div className="profile-page">
       <Header />

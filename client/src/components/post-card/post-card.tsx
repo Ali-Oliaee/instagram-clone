@@ -21,7 +21,7 @@ import {
 } from 'antd'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './style.scss'
 
 interface Post{
@@ -38,7 +38,6 @@ interface Post{
 function PostCard({
   title, description, creator, tags, likes, image, createdAt, id,
 }: Post) {
-  const params = useParams()
   const [like, setLike] = useState(false)
   const [archive, setArchive] = useState(false)
   const { t } = useTranslation()
