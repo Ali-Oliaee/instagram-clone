@@ -1,6 +1,4 @@
 /* eslint-disable no-nested-ternary */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable consistent-return */
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 import {
   Button, Form, Input, Steps,
@@ -33,9 +31,9 @@ function ForgotPasswordPage() {
     <div className="forgot-password-page">
       <div className="steps">
         <Steps>
-          <Step status="wait" title={t('step-enter-email')} tailContent="vfdvfd" />
-          <Step status="wait" title={t('step-change-password')} />
-          <Step status="wait" title={t('step-done')} />
+          <Step status={step === 0 ? 'process' : 'done'} title={t('step-enter-email')} />
+          <Step status={step === 1 ? 'process' : step === 0 ? 'wait' : 'done'} title={t('step-enter-code')} />
+          <Step status={step < 2 ? 'wait' : 'process'} title={t('step-change-password')} />
         </Steps>
       </div>
       <div className="step-content">
