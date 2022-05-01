@@ -2,7 +2,7 @@
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 import {
-  Button, Divider, Form, Input, message,
+  Button, Divider, Form, message,
 } from 'antd'
 import { useState } from 'react'
 import {
@@ -77,6 +77,9 @@ function LoginPage() {
             <Button loading={loading} htmlType="submit" type="primary" block>{t('submit')}</Button>
             <Divider>{t('or')}</Divider>
             <GoogleButton />
+            <div className="forgot-password-link">
+              <Link to="/auth/forgot-password">{t('forgot-password-link')}</Link>
+            </div>
           </Form>
         </div>
         <h4 className="signup-link">

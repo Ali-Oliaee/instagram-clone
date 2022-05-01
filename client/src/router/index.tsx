@@ -10,6 +10,7 @@ import {
   SignupPage,
   ProfilePage,
   SettingsPage,
+  ForgotPasswordPage,
 } from '../pages'
 
 function MainRouter() {
@@ -34,6 +35,7 @@ function MainRouter() {
         <Route path="/auth">
           <Route path="login" element={<LoginPage />} />
           <Route path="signup" element={<SignupPage />} />
+          <Route path="forgot-password" element={<ForgotPasswordPage />} />
         </Route>
       )}
       <Route path="*" element={<NotFoundPage />} />
