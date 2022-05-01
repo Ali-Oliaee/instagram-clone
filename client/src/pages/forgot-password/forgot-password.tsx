@@ -2,7 +2,9 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable consistent-return */
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
-import { Button, Form, Steps } from 'antd'
+import {
+  Button, Form, Input, Steps,
+} from 'antd'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FloatLabel } from '../../components'
@@ -18,6 +20,14 @@ function ForgotPasswordPage() {
     console.log(email)
     setStep(1)
   }
+  const sendCode = ({ code }: any) => {
+    console.log(code)
+    setStep(2)
+  }
+  const resetPassword = ({ password }: any) => {
+    console.log(password)
+    setStep(0)
+  }
 
   return (
     <div className="forgot-password-page">
@@ -32,25 +42,102 @@ function ForgotPasswordPage() {
         {
           step === 0 ? (
             <Form form={form} onFinish={sendEmail}>
-              <Form.Item name="email">
+              <Form.Item
+                name="email"
+                rules={[{
+                  required: true,
+                  message: t('email-required'),
+                },
+                {
+                  type: 'email',
+                  message: t('email-invalid'),
+                },
+                ]}
+              >
                 <FloatLabel
                   label={t('email')}
                   type="email"
                   value={form.getFieldValue('email')}
+                  autoFocus
                 />
-                <Button type="primary" htmlType="submit">{t('submit')}</Button>
               </Form.Item>
+              <Button block type="primary" htmlType="submit">{t('submit')}</Button>
             </Form>
           ) : step === 1 ? (
-            <div>
-              <p>{t('email-sent')}</p>
-              <Button onClick={() => setStep(2)} type="primary">{t('next')}</Button>
-            </div>
+            <Form form={form} onFinish={sendCode}>
+              <Form.Item
+                name="code"
+                rules={[{
+                  required: true,
+                  message: t('code-required'),
+                },
+                {
+                  min: 6,
+                  message: t('code-invalid'),
+                },
+                ]}
+              >
+                <FloatLabel
+                  label={t('code')}
+                  type="text"
+                  value={form.getFieldValue('code')}
+                  autoFocus
+                />
+              </Form.Item>
+              <Button block type="primary" htmlType="submit">{t('submit')}</Button>
+            </Form>
           ) : (
-            <div>
-              <p>{t('done')}</p>
-              <Button type="primary">{t('next')}</Button>
-            </div>
+            <Form form={form} onFinish={resetPassword}>
+              <Form.Item
+                rules={[{
+                  required: true,
+                  message: t('password-required'),
+                },
+                {
+                  min: 6,
+                  message: t('password-min'),
+                }]}
+                name="oldPassword"
+              >
+                <Input.Password size="large" autoFocus placeholder={t('old-password')} />
+              </Form.Item>
+              <Form.Item
+                rules={[{
+                  required: true,
+                  message: t('password-required'),
+                },
+                {
+                  min: 6,
+                  message: t('password-min'),
+                }]}
+                name="newPassword"
+              >
+                <Input.Password size="large" placeholder={t('new-password')} />
+              </Form.Item>
+              <Form.Item
+                rules={[{
+                  required: true,
+                  message: t('password-required'),
+                },
+                {
+                  min: 6,
+                  message: t('password-min'),
+                },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue('newPassword') === value) {
+                      return Promise.resolve()
+                    }
+                    return Promise.reject(new Error(t('passwords-not-match')))
+                  },
+                }),
+                ]}
+                name="confirmPassword"
+              >
+                <Input.Password size="large" placeholder={t('confirm-password')} />
+              </Form.Item>
+              <Button block type="primary" htmlType="submit">{t('submit')}</Button>
+            </Form>
           )
 }
       </div>
