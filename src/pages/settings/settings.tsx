@@ -1,5 +1,3 @@
-/* eslint-disable global-require */
-/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import {
   Avatar,
   Button,

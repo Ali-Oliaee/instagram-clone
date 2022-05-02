@@ -1,5 +1,3 @@
-/* eslint-disable prefer-arrow/prefer-arrow-functions */
-
 import { Button } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { GoogleLogin } from 'react-google-login'

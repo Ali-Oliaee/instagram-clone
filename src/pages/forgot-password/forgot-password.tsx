@@ -1,5 +1,3 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import {
   Button, Form, Input, Steps,
 } from 'antd'

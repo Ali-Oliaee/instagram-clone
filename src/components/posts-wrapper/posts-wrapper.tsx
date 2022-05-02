@@ -1,4 +1,3 @@
-/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { PostCard } from '../post-card'
 import './style.scss'
 

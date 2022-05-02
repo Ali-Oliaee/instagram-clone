@@ -1,4 +1,3 @@
-/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { useEffect } from 'react'
 import qs from 'query-string'
 import {

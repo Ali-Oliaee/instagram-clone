@@ -1,4 +1,3 @@
-/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { useEffect } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import {
@@ -15,12 +14,12 @@ import {
 
 function MainRouter() {
   const navigate = useNavigate()
-  const isUserAuth = () => (localStorage.user ? !!JSON.parse(localStorage.user).token : false)
-  const isAuth = isUserAuth()
-  useEffect(() => {
-    if (isAuth) navigate('/')
-    else navigate('/auth/login')
-  }, [])
+  // const isUserAuth = () => (localStorage.user ? !!JSON.parse(localStorage.user).token : false)
+  // const isAuth = isUserAuth()
+  // useEffect(() => {
+  //   if (isAuth) navigate('/')
+  //   else navigate('/auth/login')
+  // }, [])
   return (
     <Routes>
       {/* {isAuth ? (

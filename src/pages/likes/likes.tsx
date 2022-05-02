@@ -1,5 +1,3 @@
-/* eslint-disable prefer-arrow/prefer-arrow-functions */
-
 import { Header, PostsWrapper } from '../../components'
 
 const samplePosts = [{
