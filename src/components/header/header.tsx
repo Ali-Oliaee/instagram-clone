@@ -48,13 +48,6 @@ function Header() {
             <PlusCircleOutlined />
           </Button>
         </Tooltip>
-        <Tooltip title={t('likes')} color="#777">
-          <Link to="/likes">
-            <Button className="header-menu-item">
-              <HeartOutlined />
-            </Button>
-          </Link>
-        </Tooltip>
         <Dropdown
           overlay={(
             <Menu>
