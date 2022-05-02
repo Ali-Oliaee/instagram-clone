@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import {
-  LikesPage,
   HomePage,
   LoginPage,
   NotFoundPage,
@@ -26,7 +25,6 @@ function MainRouter() {
         <Route path="/"> */}
           <Route path='/' element={<HomePage />} />
           <Route path="/saved" element={<SavedPage />} />
-          <Route path="/likes" element={<LikesPage />} />
           <Route path="/profile/:id" element={<ProfilePage />} />
           <Route path="/settings" element={<SettingsPage />} />
         {/* </Route>
