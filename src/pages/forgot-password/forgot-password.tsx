@@ -31,8 +31,8 @@ function ForgotPasswordPage() {
     <div className="forgot-password-page">
       <div className="steps">
         <Steps>
-          <Step status={step === 0 ? 'process' : 'done'} title={t('step-enter-email')} />
-          <Step status={step === 1 ? 'process' : step === 0 ? 'wait' : 'done'} title={t('step-enter-code')} />
+          <Step status={step === 0 ? 'process' : 'wait'} title={t('step-enter-email')} />
+          <Step status={step === 1 ? 'process' : step === 0 ? 'wait' : 'wait'} title={t('step-enter-code')} />
           <Step status={step < 2 ? 'wait' : 'process'} title={t('step-change-password')} />
         </Steps>
       </div>

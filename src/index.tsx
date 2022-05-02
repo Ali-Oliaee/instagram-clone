@@ -1,17 +1,15 @@
 import { StrictMode, Suspense } from 'react'
-import ReactDOM from 'react-dom/client'
+import ReactDOM from 'react-dom'
 import { Spin } from 'antd'
 import App from './App'
 import './utils/i18n'
 import './index.scss'
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement,
-)
-root.render(
+ReactDOM.render(
   <StrictMode>
     <Suspense fallback={<Spin />}>
       <App />
     </Suspense>
   </StrictMode>,
+  document.getElementById('root')
 )

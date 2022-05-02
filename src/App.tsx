@@ -1,4 +1,3 @@
-/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import {
   BrowserRouter as Router,
   Routes,

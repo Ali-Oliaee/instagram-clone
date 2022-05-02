@@ -1,4 +1,3 @@
-/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { Select } from 'antd'
 import { useTranslation } from 'react-i18next'
 import i18n from '../../utils/i18n'

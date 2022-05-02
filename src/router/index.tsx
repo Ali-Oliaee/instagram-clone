@@ -23,21 +23,21 @@ function MainRouter() {
   }, [])
   return (
     <Routes>
-      {isAuth ? (
-        <Route path="/">
-          <Route index element={<HomePage />} />
-          <Route path="saved" element={<SavedPage />} />
-          <Route path="likes" element={<LikesPage />} />
-          <Route path="profile/:id" element={<ProfilePage />} />
-          <Route path="settings" element={<SettingsPage />} />
-        </Route>
-      ) : (
-        <Route path="/auth">
-          <Route path="login" element={<LoginPage />} />
-          <Route path="signup" element={<SignupPage />} />
-          <Route path="forgot-password" element={<ForgotPasswordPage />} />
-        </Route>
-      )}
+      {/* {isAuth ? (
+        <Route path="/"> */}
+          <Route path='/' element={<HomePage />} />
+          <Route path="/saved" element={<SavedPage />} />
+          <Route path="/likes" element={<LikesPage />} />
+          <Route path="/profile/:id" element={<ProfilePage />} />
+          <Route path="/settings" element={<SettingsPage />} />
+        {/* </Route>
+      ) : ( */}
+        {/* <Route path="/auth"> */}
+          <Route path="/auth/login" element={<LoginPage />} />
+          <Route path="/auth/signup" element={<SignupPage />} />
+          <Route path="/auth/forgot-password" element={<ForgotPasswordPage />} />
+        {/* </Route> */}
+      {/* )} */}
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )

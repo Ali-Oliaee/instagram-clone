@@ -11,23 +11,15 @@
     "@testing-library/user-event": "^13.2.1",
     "@types/jest": "^27.0.1",
     "@types/node": "^16.7.13",
-    "@types/react": "^18.0.0",
+    "@types/react": "^17.0.2",
     "@types/react-dom": "^18.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.19.0",
-    "@typescript-eslint/parser": "^5.19.0",
     "antd": "^4.19.5",
     "axios": "^0.26.1",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsx-a11y": "^6.5.1",
-    "eslint-plugin-prefer-arrow": "^1.2.3",
-    "eslint-plugin-react": "^7.28.0",
     "i18next": "^21.6.16",
     "jwt-decode": "^3.1.2",
-    "moment": "^2.29.3",
     "query-string": "^7.1.1",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-google-login": "^5.2.2",
     "react-i18next": "^11.16.7",
     "react-query": "^3.35.0",
@@ -63,6 +55,5 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^7.32.0"
   }
 }

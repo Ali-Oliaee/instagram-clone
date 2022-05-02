@@ -1,7 +1,6 @@
 /* eslint-disable react/require-default-props */
 /* eslint-disable no-undef */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { Input } from 'antd'
 import i18next from 'i18next'
 import { useState } from 'react'

@@ -1,4 +1,3 @@
-/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { UploadOutlined } from '@ant-design/icons'
 import {
   Button, Form, Input, Modal, Select, Upload,
