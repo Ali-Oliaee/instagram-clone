@@ -8,13 +8,11 @@ import {
   MessageOutlined,
   EditOutlined,
   QuestionCircleOutlined,
-  LikeOutlined,
 } from '@ant-design/icons'
 import {
   Avatar,
   Button,
   Card,
-  Comment,
   Dropdown,
   Image,
   Input,
