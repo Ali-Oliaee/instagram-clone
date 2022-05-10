@@ -41,7 +41,7 @@ function PostsWrapper({ posts }: PostProp) {
               key={post.id}
               src={post.image}
               alt={post.title}
-              width={200}
+              // width={200}
               height={200}
               />
           ))

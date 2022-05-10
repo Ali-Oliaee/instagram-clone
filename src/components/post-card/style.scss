@@ -1,13 +1,10 @@
 @import '../../utils/utils';
 
 .post-card {
-    border: 1px solid rgb(187, 187, 187);
     overflow: hidden;
-    @media screen and (max-width: 500px) {
-        width: 100%;
-        border: 0;
-        border-bottom: 1px solid rgb(187, 187, 187);
-    }
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid rgb(187, 187, 187);
         
     .creator {
         margin-block: 10px;
@@ -87,6 +84,7 @@
         }
         .date {
             font-size: 0.6em;
+            margin-inline-end: 8px;
         }
     }
 }

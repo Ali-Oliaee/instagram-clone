@@ -8,6 +8,7 @@ import {
   MessageOutlined,
   EditOutlined,
   QuestionCircleOutlined,
+  EditFilled,
 } from '@ant-design/icons'
 import {
   Avatar,
@@ -30,11 +31,20 @@ interface Post{
     likes: Array<string>,
     image: string,
     createdAt: string,
+    editedAt?: string,
     id: string,
 }
 
 function PostCard({
-  title, description, creator, tags, likes, image, createdAt, id,
+  title,
+   description,
+    creator,
+     tags,
+      likes,
+       image,
+        createdAt,
+         id,
+         editedAt,
 }: Post) {
   const [like, setLike] = useState(false)
   const [archive, setArchive] = useState(false)
@@ -100,6 +110,8 @@ function PostCard({
           {tags.length && tags.map((tag: string) => <Tag key={tag} className="tag">{tag}</Tag>)}
         </div>
         <span className="date">{createdAt}</span>
+        {createdAt !== editedAt && (
+          <EditFilled /> )}
       </div>
     </div>
   )
