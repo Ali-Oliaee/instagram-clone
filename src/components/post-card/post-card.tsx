@@ -13,9 +13,11 @@ import {
 import {
   Avatar,
   Button,
+  Card,
   Dropdown,
   Menu,
   Popconfirm,
+  Skeleton,
   Tag,
 } from 'antd'
 import { useState } from 'react'
@@ -37,22 +39,27 @@ interface Post{
 
 function PostCard({
   title,
-   description,
-    creator,
-     tags,
-      likes,
-       image,
-        createdAt,
-         id,
-         editedAt,
+  description,
+  creator,
+  tags,
+  likes,
+  image,
+  createdAt,
+  id,
+  editedAt,
 }: Post) {
   const [like, setLike] = useState(false)
   const [archive, setArchive] = useState(false)
+  const  [loading, setLoading ] = useState(false)
   const { t } = useTranslation()
   const likePost = () => (like ? setLike(false) : setLike(true))
   const archivePost = () => (archive ? setArchive(false) : setArchive(true))
   return (
-    <div className="post-card">
+    <Card className="post-card">
+      {loading? (
+        <Skeleton loading={loading} avatar active></Skeleton>
+      ) : (
+        <>
       <div className="creator">
         <Link to={`/profile/${Math.floor(Math.random() * 80) + 1}`}>
           <Avatar src={require('../../assets/images/default-user.jpg')} />
@@ -112,8 +119,8 @@ function PostCard({
         <span className="date">{createdAt}</span>
         {createdAt !== editedAt && (
           <EditFilled /> )}
-      </div>
-    </div>
+      </div></> )}
+    </Card>
   )
 }
 
