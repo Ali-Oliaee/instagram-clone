@@ -15,6 +15,7 @@ import {
   Button,
   Card,
   Dropdown,
+  Image,
   Menu,
   Popconfirm,
   Skeleton,
@@ -51,6 +52,7 @@ function PostCard({
   const [like, setLike] = useState(false)
   const [archive, setArchive] = useState(false)
   const  [loading, setLoading ] = useState(false)
+  const { Meta } = Card
   const { t } = useTranslation()
   const likePost = () => (like ? setLike(false) : setLike(true))
   const archivePost = () => (archive ? setArchive(false) : setArchive(true))
@@ -60,11 +62,10 @@ function PostCard({
         <Skeleton loading={loading} avatar active></Skeleton>
       ) : (
         <>
-      <div className="creator">
-        <Link to={`/profile/${Math.floor(Math.random() * 80) + 1}`}>
-          <Avatar src={require('../../assets/images/default-user.jpg')} />
-          {creator}
-        </Link>
+        <div className="creator">
+        <Link to={`/profile/${Math.floor(Math.random() * 80) + 1}`}>          
+        <Meta title={creator} avatar={<Avatar src={require('../../assets/images/default-user.jpg')} />}/>
+          </Link>
         <Dropdown
           trigger={['click']}
           overlay={(
@@ -81,11 +82,12 @@ function PostCard({
               </Popconfirm>
             </Menu>
                 )}
-        >
+                >
           <MoreOutlined />
         </Dropdown>
-      </div>
-      <img src={image} alt="post" />
+        </div>
+        
+      <Image src={image} alt={title} preview={false} width="100%"/>
       <div className="post-info">
         <div className="card-operations">
           <h3>
