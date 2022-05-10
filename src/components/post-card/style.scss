@@ -55,6 +55,12 @@
                } 
             }
         }
+        .comment-input {
+            @include flex(flex-start);
+            border: 0;
+            width: 100%;
+            margin-bottom: 5px;
+        }
         .tag{
             background-color: rgb(212, 212, 212);
             border-radius: 8px;

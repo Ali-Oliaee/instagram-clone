@@ -8,14 +8,16 @@ import {
   MessageOutlined,
   EditOutlined,
   QuestionCircleOutlined,
-  EditFilled,
+  LikeOutlined,
 } from '@ant-design/icons'
 import {
   Avatar,
   Button,
   Card,
+  Comment,
   Dropdown,
   Image,
+  Input,
   Menu,
   Popconfirm,
   Skeleton,
@@ -24,6 +26,7 @@ import {
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
+import { Comments } from '../comments'
 import './style.scss'
 
 interface Post{
@@ -37,6 +40,21 @@ interface Post{
     editedAt?: string,
     id: string,
 }
+
+const comments = [
+  {
+    id: '1',
+    author: 'John',
+    avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+    content: 'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+  },
+  {
+    id: '2',
+    author: 'Jim',
+    avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+    content: 'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+  },
+]
 
 function PostCard({
   title,
@@ -115,12 +133,17 @@ function PostCard({
           </span>
         </div>
         )}
+        <Comments comments={comments}/>
+  <Input.Group compact  className='comment-input'>
+    <Input placeholder='write a comment...' />
+    <Button type='ghost'>send</Button>
+  </Input.Group>
         <div className="tags">
           {tags.length && tags.map((tag: string) => <Tag key={tag} className="tag">{tag}</Tag>)}
         </div>
         <span className="date">{createdAt}</span>
         {createdAt !== editedAt && (
-          <EditFilled /> )}
+          <EditOutlined /> )}
       </div></> )}
     </Card>
   )
