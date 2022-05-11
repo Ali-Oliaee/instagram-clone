@@ -1,7 +1,9 @@
 import { PostCard } from '../post-card'
 import { useMediaQuery } from 'usehooks-ts'
+import { Image, Modal } from 'antd'
+import qs from 'query-string'
+import { useSearchParams } from 'react-router-dom'
 import './style.scss'
-import { Image } from 'antd'
 
 interface Post {
   title: string
@@ -20,6 +22,8 @@ interface PostProp {
 
 function PostsWrapper({ posts }: PostProp) {
   const isMobile = useMediaQuery('(max-width: 500px)')
+  const QS = qs.parse(window.location.search)
+  const [params, setParams] = useSearchParams()
 
   return (
     <div className={isMobile ? "posts-wrapper-mobile" : "posts-wrapper-desktop"}>
@@ -41,8 +45,25 @@ function PostsWrapper({ posts }: PostProp) {
               key={post.id}
               src={post.image}
               alt={post.title}
-              // width={200}
               height={200}
+              preview={{
+                destroyOnClose: true,
+                onVisibleChange: (visible: boolean) => {
+                  if (visible) {
+                    setParams({ postId: post.id })
+                  } else {
+                    setParams({})
+                  }
+                },
+                modalRender: (event: any) => 
+{       
+  return(
+                  <Modal width={500} closable visible={!!QS.postId}>
+                   <Image 
+                    src={post.image}
+                  />
+                  </Modal> )
+}              }}
               />
           ))
       }
