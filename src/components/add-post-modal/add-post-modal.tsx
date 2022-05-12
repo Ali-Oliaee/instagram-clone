@@ -24,7 +24,7 @@ function AddPostModal({ post, onFinish }:any) {
       className="add-post-modal"
     >
       <Form onFinish={onFinish} form={form}>
-        {!post && (
+        {!!QS.add && (
         <Form.Item
           name="post"
           rules={[
@@ -52,7 +52,7 @@ function AddPostModal({ post, onFinish }:any) {
           <FloatLabel label={t('title')} autoFocus value={form.getFieldValue('title')} />
         </Form.Item>
         <Form.Item name="content">
-          <Input.TextArea placeholder={t('description')} />
+          <FloatLabel textarea label={t('description')} value={form.getFieldValue('content')} />
         </Form.Item>
         <Form.Item name="tags">
           <Select mode="tags" placeholder={t('tags')} />
