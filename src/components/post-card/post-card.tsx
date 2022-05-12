@@ -23,7 +23,8 @@ import {
 } from 'antd'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
+import { AddPostModal } from '../add-post-modal'
 import { Comments } from '../comments'
 import './style.scss'
 
@@ -72,6 +73,8 @@ function PostCard({
   const { t } = useTranslation()
   const likePost = () => (like ? setLike(false) : setLike(true))
   const archivePost = () => (archive ? setArchive(false) : setArchive(true))
+  const [searchParams, setSearchParams] = useSearchParams()
+
   return (
     <Card className="post-card">
       {loading? (
@@ -86,7 +89,7 @@ function PostCard({
           trigger={['click']}
           overlay={(
             <Menu>
-              <Menu.Item icon={<EditOutlined />}>{t('edit')}</Menu.Item>
+              <Menu.Item onClick={() => setSearchParams(`edit=${id}`)} icon={<EditOutlined />}>{t('edit')}</Menu.Item>
               <Popconfirm
                 title={t('delete-confirm')}
                 onConfirm={() => console.log('ok')}
@@ -143,6 +146,15 @@ function PostCard({
         {createdAt !== editedAt && (
           <EditOutlined /> )}
       </div></> )}
+      <AddPostModal post={{  title,
+  description,
+  creator,
+  tags,
+  likes,
+  image,
+  createdAt,
+  id,
+  editedAt,}}/>
     </Card>
   )
 }

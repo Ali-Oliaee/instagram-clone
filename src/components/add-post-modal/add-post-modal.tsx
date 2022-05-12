@@ -5,25 +5,26 @@ import {
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 import { FloatLabel } from '../float-label'
+import qs from 'query-string'
 import './style.scss'
 
-function AddPostModal({ visible }:any) {
+function AddPostModal({ post, onFinish }:any) {
   const [searchParams, setSearchParams] = useSearchParams()
   const { t } = useTranslation()
   const [form] = Form.useForm()
-  const postFile = (values: any):any => {
-    console.log('values', values)
-  }
+  const QS = qs.parse(window.location.search)
+
   return (
     <Modal
-      visible={visible}
+      visible={!!QS.add || !!QS.edit}
       closable
-      onCancel={() => setSearchParams('')}
-      title={t('add-post')}
+      onCancel={() => setSearchParams({})}
+      title={QS.edit ? t('edit-post') : t('add-post')}
       footer={null}
       className="add-post-modal"
     >
-      <Form onFinish={postFile} form={form}>
+      <Form onFinish={onFinish} form={form}>
+        {!post && (
         <Form.Item
           name="post"
           rules={[
@@ -38,6 +39,7 @@ function AddPostModal({ visible }:any) {
             <span className="upload-description">{t('upload-description')}</span>
           </Upload>
         </Form.Item>
+        )}
         <Form.Item
           name="title"
           rules={[
