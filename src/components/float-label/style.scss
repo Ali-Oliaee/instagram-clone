@@ -20,6 +20,10 @@
         font-size: 0.8em;
         z-index: 5;
     }
+    .textarea {
+        width: 100%;
+        padding-top: 8px;
+    }
 }
 
 .float-label-rtl  {
@@ -42,4 +46,9 @@
         right: 4px;
         font-size: 0.8em;
     }
+    .textarea {
+        width: 100%;
+        padding-top: 8px;
+    }
+
 }

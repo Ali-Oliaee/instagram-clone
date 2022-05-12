@@ -8,6 +8,7 @@ interface InputProps{
   value: string,
   onChange?: any,
   autoFocus?: boolean,
+  textarea?: boolean,
   type?: 'text' | 'password' | 'email' | 'number' | 'tel' | 'url' | 'date' | 'datetime-local' | 'month' | 'time' | 'week',
 }
 
@@ -16,6 +17,7 @@ function FloatLabel({
   value,
   onChange,
   autoFocus = false,
+  textarea = false,
   type = 'text',
 }: InputProps) {
   const [focus, setFocus] = useState(false)
@@ -26,7 +28,15 @@ function FloatLabel({
       onBlur={() => setFocus(false)}
       onFocus={() => setFocus(true)}
     >
-      {type === 'password' ? (
+      {textarea ? (
+        <Input.TextArea
+          className="textarea"
+          value={value}
+          onChange={onChange}
+          autoFocus={autoFocus}
+        />
+      ) : 
+      type === 'password' ? (
         <Input.Password
           size="middle"
           onChange={onChange}

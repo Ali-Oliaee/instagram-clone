@@ -73,7 +73,7 @@ function HomePage() {
     <div className="home-page">
       <Header />
       <PostsWrapper posts={samplePosts} />
-      <AddPostModal visible={QS.add} />
+      <AddPostModal />
     </div>
   )
 }

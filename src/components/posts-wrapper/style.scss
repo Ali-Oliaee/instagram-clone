@@ -1,6 +1,8 @@
-.posts-wrapper {
+@import '../../utils/utils';
+
+.posts-wrapper-desktop {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));        
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     grid-gap: 20px;
     margin: 20px;
     flex-wrap: wrap;
@@ -9,4 +11,23 @@
         margin-inline:0;
         display: initial;
     }
-}
+    .ant-image   {
+        object-fit: contain;
+    }
+
+    .post-image {
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.9;
+        }
+    }
+    .post-card-modal{
+        min-height: 50vh;
+        max-height: 60vh;
+        @include flex;
+    }
+    .ant-modal-body {
+        padding: 0;
+    }
+}   
