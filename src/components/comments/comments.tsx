@@ -1,35 +1,38 @@
 import { Avatar, Comment } from 'antd'
 import './style.scss'
 
-interface Comment{
+interface CommentProps{
     id: string,
     author: string,
     avatar: string,
     content: string,
 }
 
-interface Comments {
-    comments: Array<Comment>
+interface CommentsProps {
+    comments: Array<CommentProps>
 }
 
-function Comments({comments}: Comments) {
+function Comments({ comments }: CommentsProps) {
   return (
-    <div className='comments'>{
-        comments.map((comment: Comment) => (
-            <Comment
-            key={comment.id}    
+    <div className="comments">
+      {
+        comments.map((comment: CommentProps) => (
+          <Comment
+            key={comment.id}
             author={comment.author}
-            avatar={
-                <Avatar
+            avatar={(
+              <Avatar
                 src={comment.avatar}
                 alt={comment.author}
-                />
-            }
+              />
+              )}
             content={<p>{comment.content}</p>}
-            />
+          />
 
         ))
-    }</div>
+    }
+
+    </div>
   )
 }
 

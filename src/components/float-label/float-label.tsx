@@ -1,3 +1,5 @@
+/* eslint-disable react/require-default-props */
+/* eslint-disable no-nested-ternary */
 import { Input } from 'antd'
 import i18next from 'i18next'
 import { useState } from 'react'
@@ -35,22 +37,23 @@ function FloatLabel({
           onChange={onChange}
           autoFocus={autoFocus}
         />
-      ) : 
-      type === 'password' ? (
-        <Input.Password
-          size="middle"
-          onChange={onChange}
-          autoFocus={autoFocus as any}
-          type="password"
-        />
-      ) : (
-        <Input
-          size="middle"
-          onChange={onChange}
-          autoFocus={autoFocus as any}
-          type={type}
-        />
-      )}
+      )
+        : type === 'password' ? (
+          <Input.Password
+            size="middle"
+            onChange={onChange}
+            autoFocus={autoFocus as any}
+            type="password"
+          />
+        ) : (
+          <Input
+            size="middle"
+            onChange={onChange}
+            autoFocus={autoFocus as any}
+            type={type}
+          />
+        )}
+      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
       <label className={labelClass}>{label}</label>
     </div>
   )

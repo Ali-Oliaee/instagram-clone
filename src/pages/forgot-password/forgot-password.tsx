@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import {
   Button, Form, Input, Steps,
 } from 'antd'
