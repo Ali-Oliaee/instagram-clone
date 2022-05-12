@@ -1,3 +1,5 @@
+@import '../../utils/utils';
+
 .posts-wrapper-desktop {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -12,4 +14,20 @@
     .ant-image   {
         object-fit: contain;
     }
-}
+
+    .post-image {
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.9;
+        }
+    }
+    .post-card-modal{
+        min-height: 50vh;
+        max-height: 60vh;
+        @include flex;
+    }
+    .ant-modal-body {
+        padding: 0;
+    }
+}   
