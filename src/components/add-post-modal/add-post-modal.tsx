@@ -1,11 +1,11 @@
 import { UploadOutlined } from '@ant-design/icons'
 import {
-  Button, Form, Input, Modal, Select, Upload,
+  Button, Form, Modal, Select, Upload,
 } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
-import { FloatLabel } from '../float-label'
 import qs from 'query-string'
+import { FloatLabel } from '../float-label'
 import './style.scss'
 
 function AddPostModal({ post, onFinish }:any) {
