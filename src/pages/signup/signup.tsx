@@ -45,7 +45,7 @@ function SignupPage() {
       <section>
         <div className="form-container">
           <Logo />
-          <Form onFinish={handleSubmit}>
+          <Form onFinish={handleSubmit} form={form}>
             <Form.Item
               name="username"
               rules={[

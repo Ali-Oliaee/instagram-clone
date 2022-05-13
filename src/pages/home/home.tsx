@@ -27,7 +27,7 @@ const samplePosts = [{
   createdAt: '2020-01-01',
 },
 {
-  id: '2',
+  id: '3',
   title: 'Sample Post2',
   description: 'Sample Describe2',
   creator: 'sina',
@@ -37,7 +37,7 @@ const samplePosts = [{
   createdAt: '2020-01-01',
 },
 {
-  id: '2',
+  id: '4',
   title: 'Sample Post2',
   description: 'Sample Describe2 giurth giuthgir ughjkdnv vjfkdvnkdv kvunkdfn dfnvhdvb vjfdvbjdfvb vjfvb cjdvbjhbvfjdbv',
   creator: 'sina',
@@ -47,7 +47,7 @@ const samplePosts = [{
   createdAt: '2020-01-01',
 },
 {
-  id: '2',
+  id: '5',
   title: 'Sample Post2',
   description: 'Sample Describe2',
   creator: 'sina',
@@ -61,14 +61,14 @@ const samplePosts = [{
 function HomePage() {
   const QS = qs.parse(window.location.search)
   // TODO: use media query
-  const getPosts = () => {
-    axios.get('/posts/').then((res) => {
-      console.log(res)
-    })
-  }
-  useEffect(() => {
-    getPosts()
-  }, [])
+  // const getPosts = () => {
+  //   axios.get('/posts/').then((res) => {
+  //     console.log(res)
+  //   })
+  // }
+  // useEffect(() => {
+  //   getPosts()
+  // }, [])
   return (
     <div className="home-page">
       <Header />

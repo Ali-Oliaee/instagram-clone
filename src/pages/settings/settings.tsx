@@ -38,7 +38,7 @@ function SettingsPage() {
             <Button type="text">change profile image</Button>
           </Upload>
         </div>
-        <Form onFinish={handleSubmit}>
+        <Form onFinish={handleSubmit} form={form}>
           <Form.Item name="username">
             <FloatLabel label={t('username')} value={form.getFieldValue('username')} />
           </Form.Item>
