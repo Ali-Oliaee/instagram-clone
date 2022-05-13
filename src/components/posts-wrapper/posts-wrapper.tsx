@@ -1,6 +1,16 @@
 import { useMediaQuery } from 'usehooks-ts'
 import {
-  Avatar, Button, Card, Dropdown, Image, Input, Menu, Modal, Popconfirm, Skeleton, Tag,
+  Avatar,
+  Button,
+  Card,
+  Dropdown,
+  Image,
+  Input,
+  Menu,
+  Modal,
+  Popconfirm,
+  Skeleton,
+  Tag,
 } from 'antd'
 import qs from 'query-string'
 import { Link, useSearchParams } from 'react-router-dom'
@@ -91,6 +101,7 @@ function PostsWrapper({ posts }: PostProp) {
         closable={false}
         onCancel={() => setSearchParams({})}
         footer={null}
+        width="80%"
         centered
         className="post-card-modal"
       >
@@ -99,7 +110,7 @@ function PostsWrapper({ posts }: PostProp) {
           src={posts.find((post) => post.id === QS.postId)?.image}
           alt={posts.find((post) => post.id === QS.postId)?.title}
           height="100%"
-          width="50%"
+          width="100%"
           preview={false}
         />
         <div className="post-info">
