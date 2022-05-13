@@ -10,7 +10,7 @@ import {
 import i18next from 'i18next'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FloatLabel, Header } from '../../components'
+import { FloatLabel, Header, SwitchLanguage } from '../../components'
 import './style.scss'
 
 function SettingsPage() {
@@ -46,22 +46,12 @@ function SettingsPage() {
             <FloatLabel label={t('email')} value={form.getFieldValue('email')} type="email" />
           </Form.Item>
           <Form.Item name="bio">
-            <Input.TextArea placeholder="bio" size="large" />
+            <FloatLabel label={t('bio')} value={form.getFieldValue('bio')} textarea />
           </Form.Item>
           <Button htmlType="submit" block type="primary">save</Button>
         </Form>
         <Button block type="link" onClick={() => setVisible(true)}>change password</Button>
-        <span className="language">
-          <span>
-            {t('language')}
-            :
-            {' '}
-          </span>
-          <Select defaultValue={i18next.language} suffixIcon={false} onChange={changeLanguage}>
-            <Select.Option value="en">En</Select.Option>
-            <Select.Option value="fa">Fa</Select.Option>
-          </Select>
-        </span>
+        <SwitchLanguage />
       </div>
       <Modal
         visible={visible}

@@ -42,7 +42,6 @@ function SignupPage() {
   }
   return (
     <div className="signup-page">
-      <SwitchLanguage />
       <section>
         <div className="form-container">
           <Logo />
@@ -133,6 +132,7 @@ function SignupPage() {
           <Link to="/auth/login">{t('signin')}</Link>
         </h4>
       </section>
+      <SwitchLanguage />
     </div>
   )
 }
