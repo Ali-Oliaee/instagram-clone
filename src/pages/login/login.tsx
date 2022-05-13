@@ -37,7 +37,6 @@ function LoginPage() {
   }
   return (
     <div className="login-page">
-      <SwitchLanguage />
       <section>
         <div className="form-container">
           <Logo />
@@ -86,6 +85,7 @@ function LoginPage() {
           {'  '}
           <Link to="/auth/signup">{t('signup')}</Link>
         </h4>
+        <SwitchLanguage />
       </section>
     </div>
   )

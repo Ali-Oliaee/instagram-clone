@@ -22,12 +22,21 @@
             opacity: 0.9;
         }
     }
-    .post-card-modal{
-        min-height: 50vh;
-        max-height: 60vh;
-        @include flex;
-    }
-    .ant-modal-body {
-        padding: 0;
-    }
 }   
+.post-card-modal{
+    .ant-modal-body {
+        height: 80vh;
+        padding: 0;
+        @include flex;
+        overflow: hidden;
+
+        .post-info {
+            height: 100%;
+            padding: 10px;
+
+            .post-card {
+                border: 0;
+            }
+        }
+    }
+}
