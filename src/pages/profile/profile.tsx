@@ -1,6 +1,7 @@
 import { EditOutlined } from '@ant-design/icons'
 import { Avatar, Button } from 'antd'
-import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { Link, useLocation } from 'react-router-dom'
 import { Header, PostsWrapper } from '../../components'
 import './style.scss'
 
@@ -46,7 +47,10 @@ const samplePosts = [{
 }]
 
 function profilePage() {
-  // const { id } = useParams()
+  const location = useLocation()
+  const { t } = useTranslation()
+  const userId = +location.pathname.split('/')[2]
+
   return (
     <div className="profile-page">
       <Header />
@@ -55,9 +59,15 @@ function profilePage() {
         <div>
           <div className="profile-header">
             <span className="username">username</span>
-            <Link to="/settings">
-              <Button size="small" icon={<EditOutlined />} className="edit-button">Edit profile</Button>
-            </Link>
+            {userId !== -1 ? (
+              <Button type="primary" size="small" className="edit-button">
+                {t('follow')}
+              </Button>
+            ) : (
+              <Link to="/settings">
+                <Button size="small" icon={<EditOutlined />} className="edit-button">Edit profile</Button>
+              </Link>
+            )}
           </div>
           <div className="report">
             <span className="posts">

@@ -7,10 +7,10 @@ function NotFoundPage() {
   const { t } = useTranslation()
   return (
     <div className="not-found-page">
-      <SwitchLanguage />
       <h1>{t('404')}</h1>
       <h3>{t('page-not-found')}</h3>
       <Link to="/">{t('back-home')}</Link>
+      <SwitchLanguage />
     </div>
   )
 }

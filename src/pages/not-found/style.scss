@@ -5,7 +5,7 @@
     height: 100vh;
     @include flex(center,center,column);
     background-color: #f5f5f5;
-    .switch-language {
-        margin-inline-end: 20px;
+    a {
+        margin-block: 10px;
     }
 }
