@@ -2,9 +2,7 @@ import {
   Avatar,
   Button,
   Form,
-  Input,
   Modal,
-  Select,
   Upload,
 } from 'antd'
 import i18next from 'i18next'
@@ -26,7 +24,6 @@ function SettingsPage() {
   const uploadImage = (info : any) => {
     console.log(info)
   }
-  const changeLanguage = (language : string) => i18next.changeLanguage(language)
 
   return (
     <>
@@ -73,7 +70,7 @@ function SettingsPage() {
             }]}
             name="oldPassword"
           >
-            <Input.Password size="large" autoFocus placeholder={t('old-password')} />
+            <FloatLabel label={t('old-password')} type="password" autoFocus value={form.getFieldValue('oldPassword')} />
           </Form.Item>
           <Form.Item
             rules={[{
@@ -86,7 +83,7 @@ function SettingsPage() {
             }]}
             name="newPassword"
           >
-            <Input.Password size="large" placeholder={t('new-password')} />
+            <FloatLabel label={t('new-password')} type="password" value={form.getFieldValue('password')} />
           </Form.Item>
           <Form.Item
             rules={[{
@@ -99,16 +96,14 @@ function SettingsPage() {
             },
             ({ getFieldValue }) => ({
               validator(_, value) {
-                if (!value || getFieldValue('newPassword') === value) {
-                  return Promise.resolve()
-                }
+                if (!value || getFieldValue('newPassword') === value) { return Promise.resolve() }
                 return Promise.reject(new Error(t('passwords-not-match')))
               },
             }),
             ]}
             name="confirmPassword"
           >
-            <Input.Password size="large" placeholder={t('confirm-password')} />
+            <FloatLabel label={t('confirm-password')} value={form.getFieldValue('confirmPassword')} type="password" />
           </Form.Item>
           <Button size="large" htmlType="submit" block type="primary">{t('confirm')}</Button>
         </Form>
