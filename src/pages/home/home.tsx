@@ -1,7 +1,10 @@
 import { useEffect } from 'react'
 import qs from 'query-string'
 import {
-  AddPostModal, Header, PostsWrapper,
+  AddPostModal,
+  Header,
+  PostsWrapper,
+  UserCard,
 } from '../../components'
 import axios from '../../utils/axios'
 import './style.scss'
@@ -72,7 +75,8 @@ function HomePage() {
   return (
     <div className="home-page">
       <Header />
-      <PostsWrapper posts={samplePosts} />
+      <UserCard />
+      {/* <PostsWrapper posts={samplePosts} /> */}
       <AddPostModal />
     </div>
   )
