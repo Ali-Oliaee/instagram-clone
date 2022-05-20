@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import {
-  Button, Divider, Form, Input, message,
+  Button, Divider, Form, message,
 } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
@@ -42,11 +42,10 @@ function SignupPage() {
   }
   return (
     <div className="signup-page">
-      <SwitchLanguage />
       <section>
         <div className="form-container">
           <Logo />
-          <Form onFinish={handleSubmit}>
+          <Form onFinish={handleSubmit} form={form}>
             <Form.Item
               name="username"
               rules={[
@@ -133,6 +132,7 @@ function SignupPage() {
           <Link to="/auth/login">{t('signin')}</Link>
         </h4>
       </section>
+      <SwitchLanguage />
     </div>
   )
 }

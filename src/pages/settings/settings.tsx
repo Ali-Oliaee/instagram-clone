@@ -2,15 +2,13 @@ import {
   Avatar,
   Button,
   Form,
-  Input,
   Modal,
-  Select,
   Upload,
 } from 'antd'
 import i18next from 'i18next'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FloatLabel, Header } from '../../components'
+import { FloatLabel, Header, SwitchLanguage } from '../../components'
 import './style.scss'
 
 function SettingsPage() {
@@ -26,7 +24,6 @@ function SettingsPage() {
   const uploadImage = (info : any) => {
     console.log(info)
   }
-  const changeLanguage = (language : string) => i18next.changeLanguage(language)
 
   return (
     <>
@@ -38,7 +35,7 @@ function SettingsPage() {
             <Button type="text">change profile image</Button>
           </Upload>
         </div>
-        <Form onFinish={handleSubmit}>
+        <Form onFinish={handleSubmit} form={form}>
           <Form.Item name="username">
             <FloatLabel label={t('username')} value={form.getFieldValue('username')} />
           </Form.Item>
@@ -46,22 +43,12 @@ function SettingsPage() {
             <FloatLabel label={t('email')} value={form.getFieldValue('email')} type="email" />
           </Form.Item>
           <Form.Item name="bio">
-            <Input.TextArea placeholder="bio" size="large" />
+            <FloatLabel label={t('bio')} value={form.getFieldValue('bio')} textarea />
           </Form.Item>
           <Button htmlType="submit" block type="primary">save</Button>
         </Form>
         <Button block type="link" onClick={() => setVisible(true)}>change password</Button>
-        <span className="language">
-          <span>
-            {t('language')}
-            :
-            {' '}
-          </span>
-          <Select defaultValue={i18next.language} suffixIcon={false} onChange={changeLanguage}>
-            <Select.Option value="en">En</Select.Option>
-            <Select.Option value="fa">Fa</Select.Option>
-          </Select>
-        </span>
+        <SwitchLanguage />
       </div>
       <Modal
         visible={visible}
@@ -83,7 +70,7 @@ function SettingsPage() {
             }]}
             name="oldPassword"
           >
-            <Input.Password size="large" autoFocus placeholder={t('old-password')} />
+            <FloatLabel label={t('old-password')} type="password" autoFocus value={form.getFieldValue('oldPassword')} />
           </Form.Item>
           <Form.Item
             rules={[{
@@ -96,7 +83,7 @@ function SettingsPage() {
             }]}
             name="newPassword"
           >
-            <Input.Password size="large" placeholder={t('new-password')} />
+            <FloatLabel label={t('new-password')} type="password" value={form.getFieldValue('password')} />
           </Form.Item>
           <Form.Item
             rules={[{
@@ -109,16 +96,14 @@ function SettingsPage() {
             },
             ({ getFieldValue }) => ({
               validator(_, value) {
-                if (!value || getFieldValue('newPassword') === value) {
-                  return Promise.resolve()
-                }
+                if (!value || getFieldValue('newPassword') === value) { return Promise.resolve() }
                 return Promise.reject(new Error(t('passwords-not-match')))
               },
             }),
             ]}
             name="confirmPassword"
           >
-            <Input.Password size="large" placeholder={t('confirm-password')} />
+            <FloatLabel label={t('confirm-password')} value={form.getFieldValue('confirmPassword')} type="password" />
           </Form.Item>
           <Button size="large" htmlType="submit" block type="primary">{t('confirm')}</Button>
         </Form>

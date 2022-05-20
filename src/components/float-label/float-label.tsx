@@ -1,3 +1,5 @@
+/* eslint-disable react/require-default-props */
+/* eslint-disable no-nested-ternary */
 import { Input } from 'antd'
 import i18next from 'i18next'
 import { useState } from 'react'
@@ -8,6 +10,7 @@ interface InputProps{
   value: string,
   onChange?: any,
   autoFocus?: boolean,
+  textarea?: boolean,
   type?: 'text' | 'password' | 'email' | 'number' | 'tel' | 'url' | 'date' | 'datetime-local' | 'month' | 'time' | 'week',
 }
 
@@ -16,6 +19,7 @@ function FloatLabel({
   value,
   onChange,
   autoFocus = false,
+  textarea = false,
   type = 'text',
 }: InputProps) {
   const [focus, setFocus] = useState(false)
@@ -26,21 +30,30 @@ function FloatLabel({
       onBlur={() => setFocus(false)}
       onFocus={() => setFocus(true)}
     >
-      {type === 'password' ? (
-        <Input.Password
-          size="middle"
+      {textarea ? (
+        <Input.TextArea
+          className="textarea"
+          value={value}
           onChange={onChange}
-          autoFocus={autoFocus as any}
-          type="password"
+          autoFocus={autoFocus}
         />
-      ) : (
-        <Input
-          size="middle"
-          onChange={onChange}
-          autoFocus={autoFocus as any}
-          type={type}
-        />
-      )}
+      )
+        : type === 'password' ? (
+          <Input.Password
+            size="middle"
+            onChange={onChange}
+            autoFocus={autoFocus as any}
+            type="password"
+          />
+        ) : (
+          <Input
+            size="middle"
+            onChange={onChange}
+            autoFocus={autoFocus as any}
+            type={type}
+          />
+        )}
+      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
       <label className={labelClass}>{label}</label>
     </div>
   )

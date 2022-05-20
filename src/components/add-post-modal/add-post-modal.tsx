@@ -1,29 +1,30 @@
 import { UploadOutlined } from '@ant-design/icons'
 import {
-  Button, Form, Input, Modal, Select, Upload,
+  Button, Form, Modal, Select, Upload,
 } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
+import qs from 'query-string'
 import { FloatLabel } from '../float-label'
 import './style.scss'
 
-function AddPostModal({ visible }:any) {
+function AddPostModal({ post, onFinish }:any) {
   const [searchParams, setSearchParams] = useSearchParams()
   const { t } = useTranslation()
   const [form] = Form.useForm()
-  const postFile = (values: any):any => {
-    console.log('values', values)
-  }
+  const QS = qs.parse(window.location.search)
+
   return (
     <Modal
-      visible={visible}
+      visible={!!QS.add || !!QS.edit}
       closable
-      onCancel={() => setSearchParams('')}
-      title={t('add-post')}
+      onCancel={() => setSearchParams({})}
+      title={QS.edit ? t('edit-post') : t('add-post')}
       footer={null}
       className="add-post-modal"
     >
-      <Form onFinish={postFile} form={form}>
+      <Form onFinish={onFinish} form={form}>
+        {!!QS.add && (
         <Form.Item
           name="post"
           rules={[
@@ -38,6 +39,7 @@ function AddPostModal({ visible }:any) {
             <span className="upload-description">{t('upload-description')}</span>
           </Upload>
         </Form.Item>
+        )}
         <Form.Item
           name="title"
           rules={[
@@ -50,7 +52,7 @@ function AddPostModal({ visible }:any) {
           <FloatLabel label={t('title')} autoFocus value={form.getFieldValue('title')} />
         </Form.Item>
         <Form.Item name="content">
-          <Input.TextArea placeholder={t('description')} />
+          <FloatLabel textarea label={t('description')} value={form.getFieldValue('content')} />
         </Form.Item>
         <Form.Item name="tags">
           <Select mode="tags" placeholder={t('tags')} />
