@@ -21,7 +21,7 @@ import {
   Skeleton,
   Tag,
 } from 'antd'
-import { useState } from 'react'
+import { ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useSearchParams } from 'react-router-dom'
 import { AddPostModal } from '../add-post-modal'

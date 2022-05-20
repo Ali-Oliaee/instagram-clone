@@ -26,7 +26,7 @@ function SignupPage() {
     username, email, password,
   } : NewUser) => {
     setLoading(true)
-    return axios.post('/users/signup/', {
+    return axios.post('http://192.168.224.188:8000/users/register/', {
       username,
       email,
       password,
