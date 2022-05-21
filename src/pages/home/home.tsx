@@ -1,25 +1,22 @@
-import { useEffect, useState } from 'react'
 import qs from 'query-string'
+import { useQuery } from 'react-query'
+import { Spin } from 'antd'
 import {
   AddPostModal, Header, PostsWrapper,
 } from '../../components'
-import axios from '../../utils/axios'
 import './style.scss'
+import { fetchPosts } from '../../utils/api'
 
 function HomePage() {
   const QS = qs.parse(window.location.search)
+  const { data, isLoading } = useQuery('posts', fetchPosts)
 
-  const [posts, setPosts] = useState()
-  const getPosts = () => axios.get('/posts/list/').then((res: any) => setPosts(res))
-
-  useEffect(() => {
-    getPosts()
-  }, [])
+  if (isLoading) return <Spin />
   return (
     <div className="home-page">
       <Header />
-      <PostsWrapper posts={posts} />
-      <AddPostModal />
+      {/* <PostsWrapper posts={[]} />
+      <AddPostModal /> */}
     </div>
   )
 }
