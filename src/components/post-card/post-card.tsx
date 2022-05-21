@@ -66,7 +66,7 @@ function PostCard({
   createdAt,
   id,
   editedAt,
-}: Post) {
+}: any) {
   const [like, setLike] = useState(false)
   const [archive, setArchive] = useState(false)
   const [loading, setLoading] = useState(false)

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { useMediaQuery } from 'usehooks-ts'
 import {
   Avatar,
@@ -62,6 +63,7 @@ const comments = [
 ]
 
 function PostsWrapper({ posts }: any) {
+  console.log('posts', posts)
   const isMobile = useMediaQuery('(max-width: 500px)')
   const QS = qs.parse(window.location.search)
   const [params, setSearchParams] = useSearchParams()
@@ -73,22 +75,24 @@ function PostsWrapper({ posts }: any) {
 
   return (
     <div className={isMobile ? 'posts-wrapper-mobile' : 'posts-wrapper-desktop'}>
-      {isMobile ? posts.map((post : Post) => (
+      {isMobile ? posts.map((post : any) => (
         <PostCard
           key={post.id}
-          title={post.title}
-          description={post.description}
-          creator={post.creator}
-          tags={post.tags}
-          likes={post.likes}
-          image={post.image}
-          createdAt={post.createdAt ?? Date()}
           id={post.id}
+          title={post.title}
+          caption={post.caption}
+          creator={post.account.user.username}
+          tags={post.tags}
+          likes={post.likes ?? []}
+          image={post.file}
+          createdAt={post.created_at}
+          updatedAt={post.updated_at}
         />
-      )) : posts.map((post : Post) => (
+      )) : posts.map((post : any) => (
         <Image
           key={post.id}
-          src={post.image}
+          id={post.id}
+          src={post.file}
           alt={post.title}
           height={200}
           preview={false}
@@ -141,10 +145,10 @@ function PostsWrapper({ posts }: any) {
             </div>
             <div className="post-info">
               <div className="card-operations">
-                <h3>
+                {/* <h3>
                   <Button size="large" icon={posts[1].likes ? <HeartFilled style={{ color: 'red' }} /> : <HeartOutlined />} onClick={likePost} className="like-button" />
                   {posts[1].likes.length}
-                </h3>
+                </h3> */}
                 <span>
                   <Button size="large" icon={<MessageOutlined />} className="comment-button" />
                   <Button size="large" icon={archive ? <EnvironmentFilled /> : <EnvironmentOutlined />} onClick={archivePost} className="archive-button" />
