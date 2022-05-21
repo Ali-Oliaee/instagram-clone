@@ -4,7 +4,7 @@ import {
   Button, Divider, Form, message,
 } from 'antd'
 import { useState } from 'react'
-import axios from 'axios'
+import axios from '../../utils/axios'
 import {
   FloatLabel, GoogleButton, Logo, SwitchLanguage,
 } from '../../components'
@@ -22,7 +22,7 @@ function LoginPage() {
   const [form] = Form.useForm()
   const handleSubmit = ({ email, password } : User) => {
     setLoading(true)
-    axios.post('http://192.168.224.188:8000/users/login/', {
+    axios.post('users/login/', {
       email,
       password,
     })
