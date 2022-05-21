@@ -61,7 +61,7 @@ const comments = [
   },
 ]
 
-function PostsWrapper({ posts }: PostProp) {
+function PostsWrapper({ posts }: any) {
   const isMobile = useMediaQuery('(max-width: 500px)')
   const QS = qs.parse(window.location.search)
   const [params, setSearchParams] = useSearchParams()
@@ -107,8 +107,8 @@ function PostsWrapper({ posts }: PostProp) {
       >
         {/* <Skeleton loading={false} avatar active/> */}
         <Image
-          src={posts.find((post) => post.id === QS.postId)?.image}
-          alt={posts.find((post) => post.id === QS.postId)?.title}
+          src={posts.find((post : any) => post.id === QS.postId)?.image}
+          alt={posts.find((post : any) => post.id === QS.postId)?.title}
           height="100%"
           width="100%"
           preview={false}

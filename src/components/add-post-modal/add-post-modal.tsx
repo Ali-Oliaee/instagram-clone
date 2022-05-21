@@ -36,6 +36,7 @@ function AddPostModal({ post }:any) {
   }
 
   const editPost = (values : any) => {
+    console.log('post', post)
     console.log('values edit', values)
   }
 
