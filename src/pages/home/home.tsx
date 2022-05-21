@@ -8,11 +8,10 @@ import './style.scss'
 
 function HomePage() {
   const QS = qs.parse(window.location.search)
-  // TODO: use media query
+
   const [posts, setPosts] = useState()
-  const getPosts = () => {
-    axios.get('/posts/list/').then((res: any) => setPosts(res))
-  }
+  const getPosts = () => axios.get('/posts/list/').then((res: any) => setPosts(res))
+
   useEffect(() => {
     getPosts()
   }, [])
