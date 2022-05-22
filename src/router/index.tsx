@@ -16,8 +16,7 @@ function MainRouter() {
   const isUserAuth = () => (localStorage.getItem('user'))
   const isAuth = isUserAuth()
   useEffect(() => {
-    if (isAuth) navigate('/')
-    else navigate('/auth/login')
+    if (!isAuth) navigate('/auth/login')
   }, [])
   return (
     <Routes>

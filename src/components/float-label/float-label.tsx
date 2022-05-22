@@ -12,6 +12,7 @@ interface InputProps{
   autoFocus?: boolean,
   textarea?: boolean,
   type?: 'text' | 'password' | 'email' | 'number' | 'tel' | 'url' | 'date' | 'datetime-local' | 'month' | 'time' | 'week',
+  disabled?: boolean,
 }
 
 function FloatLabel({
@@ -21,6 +22,7 @@ function FloatLabel({
   autoFocus = false,
   textarea = false,
   type = 'text',
+  disabled = false,
 }: InputProps) {
   const [focus, setFocus] = useState(false)
   const labelClass = focus || (value && value.length !== 0) ? 'label label-float' : 'label'
@@ -51,6 +53,8 @@ function FloatLabel({
             onChange={onChange}
             autoFocus={autoFocus as any}
             type={type}
+            value={value}
+            disabled={disabled}
           />
         )}
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
