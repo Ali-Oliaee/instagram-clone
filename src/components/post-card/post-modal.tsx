@@ -1,19 +1,14 @@
-/* eslint-disable react/destructuring-assignment */
-import { useMediaQuery } from 'usehooks-ts'
 import {
   Avatar,
   Button,
   Card,
   Dropdown,
   Image,
-  Input,
   Menu,
   Modal,
   Popconfirm,
-  Skeleton,
   Tag,
 } from 'antd'
-import qs from 'query-string'
 import { Link, useSearchParams } from 'react-router-dom'
 import {
   DeleteOutlined,
@@ -28,15 +23,9 @@ import {
 } from '@ant-design/icons'
 import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
-import { useQuery } from 'react-query'
-import { Comments } from '../comments'
-import { PostCard } from '.'
 import './style.scss'
-import { getPost } from '../../utils/api'
 
-function PostModal(post:any) {
-  const isMobile = useMediaQuery('(max-width: 500px)')
-  const QS = qs.parse(window.location.search)
+function PostModal({ visible, post }: any) {
   const [params, setSearchParams] = useSearchParams()
   const { t } = useTranslation()
   const [like, setLike] = useState(false)
@@ -44,10 +33,9 @@ function PostModal(post:any) {
   const likePost = () => (like ? setLike(false) : setLike(true))
   const archivePost = () => (archive ? setArchive(false) : setArchive(true))
 
-  const { data: modalPost, isLoading } = useQuery('getPost', () => getPost(1))
   return (
     <Modal
-      visible={!!QS.postId}
+      visible={visible}
       closable={false}
       onCancel={() => setSearchParams({})}
       footer={null}
@@ -56,8 +44,8 @@ function PostModal(post:any) {
       className="post-card-modal"
     >
       <Image
-        src={modalPost?.file}
-        alt={modalPost?.title}
+        src={post.image}
+        alt={post.title}
         height="100%"
         width="100%"
         preview={false}
@@ -115,17 +103,11 @@ function PostModal(post:any) {
               </span>
             </div>
             )}
-            {/* <Comments comments={comments} /> */}
-            {/* <Input.Group compact className="comment-input">
-            <Input placeholder="write a comment..." />
-            <Button type="ghost">send</Button>
-          </Input.Group> */}
             <div className="tags">
               {post.tags.length && post.tags.map((tag: string) => <Tag key={tag} className="tag">{tag}</Tag>)}
             </div>
             <span className="date">{post.createdAt}</span>
-            {/* eslint-disable-next-line no-self-compare */}
-            {post.createdAt !== post.createdAt && (
+            {post.createdAt !== post.editedAt && (
             <EditOutlined />)}
           </div>
         </Card>

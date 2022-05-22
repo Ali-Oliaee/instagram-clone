@@ -95,3 +95,32 @@
         }
     }
 }
+
+.post-image {
+    cursor: pointer;
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+.post-card-modal { 
+    min-height: 50vh;
+    max-height: 60vh;
+    @include flex;
+
+    .ant-image   {
+        object-fit: contain;
+    }
+
+    .post-image {
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.9;
+        }
+    }
+
+    .ant-modal-body {
+        padding: 0;
+    }
+}

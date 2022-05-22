@@ -15,17 +15,17 @@ import {
   Card,
   Dropdown,
   Image,
-  Input,
   Menu,
   Popconfirm,
-  Skeleton,
   Tag,
 } from 'antd'
-import { ReactNode, useState } from 'react'
+import qs from 'query-string'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useSearchParams } from 'react-router-dom'
+import { useMediaQuery } from 'usehooks-ts'
 import { AddPostModal } from '../add-post-modal'
-import { Comments } from '../comments'
+import PostModal from './post-modal'
 import './style.scss'
 
 function PostCard({
@@ -42,90 +42,118 @@ function PostCard({
   const [like, setLike] = useState(false)
   const [archive, setArchive] = useState(false)
   const { Meta } = Card
+  const QS = qs.parse(window.location.search)
   const { t } = useTranslation()
   const likePost = () => (like ? setLike(false) : setLike(true))
   const archivePost = () => (archive ? setArchive(false) : setArchive(true))
   const [searchParams, setSearchParams] = useSearchParams()
+  const isMobile = useMediaQuery('(max-width: 500px)')
 
   return (
-    <Card className="post-card">
-      <div className="creator">
-        <Link to={`/profile/${Math.floor(Math.random() * 80) + 1}`}>
-          <Meta title={creator} avatar={<Avatar src={require('../../assets/images/default-user.jpg')} />} />
-        </Link>
-        <Dropdown
-          trigger={['click']}
-          overlay={(
-            <Menu>
-              <Menu.Item onClick={() => setSearchParams(`edit=${id}`)} icon={<EditOutlined />}>{t('edit')}</Menu.Item>
-              <Popconfirm
-                title={t('delete-confirm')}
-                onConfirm={() => console.log('ok')}
-                okText={t('yes')}
-                cancelText={t('no')}
-                icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-              >
-                <Menu.Item danger icon={<DeleteOutlined />}>{t('delete')}</Menu.Item>
-              </Popconfirm>
-            </Menu>
+    <div>
+      {isMobile ? (
+        <Card className="post-card">
+          <div className="creator">
+            <Link to={`/profile/${Math.floor(Math.random() * 80) + 1}`}>
+              <Meta title={creator} avatar={<Avatar src={require('../../assets/images/default-user.jpg')} />} />
+            </Link>
+            <Dropdown
+              trigger={['click']}
+              overlay={(
+                <Menu>
+                  <Menu.Item onClick={() => setSearchParams(`edit=${id}`)} icon={<EditOutlined />}>{t('edit')}</Menu.Item>
+                  <Popconfirm
+                    title={t('delete-confirm')}
+                    onConfirm={() => console.log('ok')}
+                    okText={t('yes')}
+                    cancelText={t('no')}
+                    icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                  >
+                    <Menu.Item danger icon={<DeleteOutlined />}>{t('delete')}</Menu.Item>
+                  </Popconfirm>
+                </Menu>
                 )}
-        >
-          <MoreOutlined />
-        </Dropdown>
-      </div>
-      <Image src={image} alt={title} preview={false} width="100%" />
-      <div className="post-info">
-        <div className="card-operations">
-          <h3>
-            <Button size="large" icon={like ? <HeartFilled style={{ color: 'red' }} /> : <HeartOutlined />} onClick={likePost} className="like-button" />
-            {likes.length}
-          </h3>
-          <span>
-            <Button size="large" icon={<MessageOutlined />} className="comment-button" />
-            <Button size="large" icon={archive ? <EnvironmentFilled /> : <EnvironmentOutlined />} onClick={archivePost} className="archive-button" />
-          </span>
-        </div>
-        <h2 className="title">{title}</h2>
-        {description && (
-        <div className="description-container">
-          <span className="creator">
-            {creator}
-            :
-            {' '}
-          </span>
-          <span className="description">
-            {description}
-            {description.length > 100 && (
-            <Button type="link" className="more-button">more...</Button>
+            >
+              <MoreOutlined />
+            </Dropdown>
+          </div>
+          <Image src={image} alt={title} preview={false} width="100%" />
+          <div className="post-info">
+            <div className="card-operations">
+              <h3>
+                <Button size="large" icon={like ? <HeartFilled style={{ color: 'red' }} /> : <HeartOutlined />} onClick={likePost} className="like-button" />
+                {likes.length}
+              </h3>
+              <span>
+                <Button size="large" icon={<MessageOutlined />} className="comment-button" />
+                <Button size="large" icon={archive ? <EnvironmentFilled /> : <EnvironmentOutlined />} onClick={archivePost} className="archive-button" />
+              </span>
+            </div>
+            <h2 className="title">{title}</h2>
+            {description && (
+            <div className="description-container">
+              <span className="creator">
+                {creator}
+                :
+                {' '}
+              </span>
+              <span className="description">
+                {description}
+                {description.length > 100 && (
+                <Button type="link" className="more-button">more...</Button>
+                )}
+              </span>
+            </div>
             )}
-          </span>
-        </div>
-        )}
-        {/* <Comments comments={comments} /> */}
-        {/* <Input.Group compact className="comment-input">
-              <Input placeholder="write a comment..." />
-              <Button type="ghost">send</Button>
-            </Input.Group> */}
-        <div className="tags">
-          {tags.length && tags.map((tag: string) => <Tag key={tag} className="tag">{tag}</Tag>)}
-        </div>
-        <span className="date">{createdAt}</span>
-        {createdAt !== editedAt && (
-        <EditOutlined />)}
-      </div>
-      <AddPostModal post={{
-        title,
-        description,
-        creator,
-        tags,
-        likes,
-        image,
-        createdAt,
-        id,
-        editedAt,
-      }}
-      />
-    </Card>
+            <div className="tags">
+              {tags.length && tags.map((tag: string) => <Tag key={tag} className="tag">{tag}</Tag>)}
+            </div>
+            <span className="date">{createdAt}</span>
+            {createdAt !== editedAt && (
+            <EditOutlined />)}
+          </div>
+          <AddPostModal post={{
+            title,
+            description,
+            creator,
+            tags,
+            likes,
+            image,
+            createdAt,
+            id,
+            editedAt,
+          }}
+          />
+        </Card>
+      ) : (
+        <>
+          <Image
+            src={image}
+            alt={title}
+            preview={false}
+            width="100%"
+            className="post-image"
+            onClick={() => setSearchParams({
+              post: id,
+            })}
+          />
+          <PostModal
+            post={{
+              title,
+              description,
+              creator,
+              tags,
+              likes,
+              image,
+              createdAt,
+              id,
+              editedAt,
+            }}
+            visible={QS.post}
+          />
+        </>
+      )}
+    </div>
   )
 }
 
