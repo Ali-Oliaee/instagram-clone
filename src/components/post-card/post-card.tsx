@@ -135,11 +135,11 @@ function PostCard({
               </span>
             </div>
             )}
-            <Comments comments={comments} />
-            <Input.Group compact className="comment-input">
+            {/* <Comments comments={comments} /> */}
+            {/* <Input.Group compact className="comment-input">
               <Input placeholder="write a comment..." />
               <Button type="ghost">send</Button>
-            </Input.Group>
+            </Input.Group> */}
             <div className="tags">
               {tags.length && tags.map((tag: string) => <Tag key={tag} className="tag">{tag}</Tag>)}
             </div>

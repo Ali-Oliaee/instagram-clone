@@ -11,11 +11,11 @@ function HomePage() {
   const QS = qs.parse(window.location.search)
   const { data: posts, isLoading } = useQuery('posts', fetchPosts)
 
-  if (isLoading) return <Spin />
   return (
     <div className="home-page">
       <Header />
-      <PostsWrapper posts={posts} />
+      {isLoading ? <Spin size="large" />
+        : <PostsWrapper posts={posts} />}
       {/* <AddPostModal /> */}
     </div>
   )
