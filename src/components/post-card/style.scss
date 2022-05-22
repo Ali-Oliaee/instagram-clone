@@ -104,23 +104,23 @@
 }
 
 .post-card-modal { 
-    min-height: 50vh;
-    max-height: 60vh;
-    @include flex;
-
+    
     .ant-image   {
         object-fit: contain;
     }
+    
 
-    .post-image {
-        cursor: pointer;
-
-        &:hover {
-            opacity: 0.9;
+    .post-info {
+        height: 100%;
+        width: 100%;
+        padding: 5px 10px;
+        .ant-card {
+            border: 0;
         }
     }
-
+    
     .ant-modal-body {
         padding: 0;
+        @include flex(center, flex-start);
     }
 }

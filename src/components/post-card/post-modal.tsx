@@ -25,7 +25,7 @@ import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
 import './style.scss'
 
-function PostModal({ visible, post }: any) {
+function PostModal({ visible, post, setVisible }: any) {
   const [params, setSearchParams] = useSearchParams()
   const { t } = useTranslation()
   const [like, setLike] = useState(false)
@@ -37,11 +37,15 @@ function PostModal({ visible, post }: any) {
     <Modal
       visible={visible}
       closable={false}
-      onCancel={() => setSearchParams({})}
+      onCancel={() => {
+        setVisible(false)
+        setSearchParams({})
+      }}
       footer={null}
       width="80%"
       centered
       className="post-card-modal"
+      destroyOnClose
     >
       <Image
         src={post.image}
@@ -88,7 +92,7 @@ function PostModal({ visible, post }: any) {
               </span>
             </div>
             <h2 className="title">{post.title}</h2>
-            {post.description && (
+            {post.caption && (
             <div className="description-container">
               <span className="creator">
                 {post.creator}
@@ -96,8 +100,8 @@ function PostModal({ visible, post }: any) {
                 {' '}
               </span>
               <span className="description">
-                {post.description}
-                {post.description.length > 100 && (
+                {post.caption}
+                {post.caption.length > 100 && (
                 <Button type="link" className="more-button">more...</Button>
                 )}
               </span>

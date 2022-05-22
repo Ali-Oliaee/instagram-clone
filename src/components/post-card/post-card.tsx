@@ -30,7 +30,7 @@ import './style.scss'
 
 function PostCard({
   title,
-  description,
+  caption,
   creator,
   tags,
   likes,
@@ -41,6 +41,7 @@ function PostCard({
 }: any) {
   const [like, setLike] = useState(false)
   const [archive, setArchive] = useState(false)
+  const [modalVisible, setModalVisible] = useState(false)
   const { Meta } = Card
   const QS = qs.parse(window.location.search)
   const { t } = useTranslation()
@@ -90,7 +91,7 @@ function PostCard({
               </span>
             </div>
             <h2 className="title">{title}</h2>
-            {description && (
+            {caption && (
             <div className="description-container">
               <span className="creator">
                 {creator}
@@ -98,8 +99,8 @@ function PostCard({
                 {' '}
               </span>
               <span className="description">
-                {description}
-                {description.length > 100 && (
+                {caption}
+                {caption.length > 100 && (
                 <Button type="link" className="more-button">more...</Button>
                 )}
               </span>
@@ -114,7 +115,7 @@ function PostCard({
           </div>
           <AddPostModal post={{
             title,
-            description,
+            caption,
             creator,
             tags,
             likes,
@@ -133,14 +134,17 @@ function PostCard({
             preview={false}
             width="100%"
             className="post-image"
-            onClick={() => setSearchParams({
-              post: id,
-            })}
+            onClick={() => {
+              setModalVisible(true)
+              setSearchParams({
+                post: id,
+              })
+            }}
           />
           <PostModal
             post={{
               title,
-              description,
+              caption,
               creator,
               tags,
               likes,
@@ -149,7 +153,8 @@ function PostCard({
               id,
               editedAt,
             }}
-            visible={QS.post}
+            visible={modalVisible}
+            setVisible={setModalVisible}
           />
         </>
       )}

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { UploadOutlined } from '@ant-design/icons'
 import {
   Button, Form, Modal, Select, Upload,
@@ -11,6 +12,7 @@ import './style.scss'
 
 function AddPostModal({ post }:any) {
   const [searchParams, setSearchParams] = useSearchParams()
+  const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
   const [form] = Form.useForm()
   const QS = qs.parse(window.location.search)
@@ -18,12 +20,13 @@ function AddPostModal({ post }:any) {
   const addPost = ({
     post: image, title, caption, tags,
   } : any) => {
+    setLoading(true)
     const postImage = image[0].originFileObj
     const formData = new FormData()
     formData.append('file', postImage)
     formData.append('title', title)
     formData.append('caption', caption)
-
+    console.log('caption', caption)
     axios.post(
       '/posts/create/',
       formData,
@@ -32,7 +35,10 @@ function AddPostModal({ post }:any) {
           'Content-Type': 'multipart/form-data',
         },
       },
-    )
+    ).then(({ data }) => {
+      console.log('data', data)
+      setSearchParams({})
+    }).finally(() => setLoading(false))
   }
 
   const editPost = (values : any) => {
@@ -85,7 +91,7 @@ function AddPostModal({ post }:any) {
         <Form.Item name="tags">
           <Select mode="tags" placeholder={t('tags')} />
         </Form.Item>
-        <Button block type="primary" htmlType="submit">
+        <Button block type="primary" htmlType="submit" loading={loading}>
           {t('submit')}
         </Button>
       </Form>
