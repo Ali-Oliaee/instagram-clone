@@ -1,5 +1,4 @@
 import {
-  HeartOutlined,
   HomeOutlined,
   InboxOutlined,
   LogoutOutlined,
@@ -38,43 +37,40 @@ function Header() {
       <div className="header-menu">
         <Tooltip title={t('home')} color="#777">
           <Link to="/">
-            <Button className="header-menu-item">
-              <HomeOutlined />
-            </Button>
+            <Button icon={<HomeOutlined />} size="large" className="header-menu-item" />
           </Link>
         </Tooltip>
         <Tooltip title={t('add-post')} color="#777">
-          <Button className="header-menu-item" onClick={() => setSearchParams('add=true')}>
-            <PlusCircleOutlined />
-          </Button>
+          <Button className="header-menu-item" size="large" icon={<PlusCircleOutlined />} onClick={() => setSearchParams('add=true')} />
         </Tooltip>
         <Dropdown
+          className="header-menu-item"
           overlay={(
             <Menu>
-              <Menu.Item icon={<UserOutlined />}>
+              <Menu.Item key="profile" icon={<UserOutlined />}>
                 <Link to="/profile/-1">
                   {t('profile')}
                 </Link>
               </Menu.Item>
-              <Menu.Item icon={<SettingOutlined />}>
+              <Menu.Item key="setting" icon={<SettingOutlined />}>
                 <Link to="/settings">
                   {t('settings')}
                 </Link>
               </Menu.Item>
-              <Menu.Item icon={<InboxOutlined />}>
+              <Menu.Item key="saved" icon={<InboxOutlined />}>
                 <Link to="/saved">
                   {t('saved')}
                 </Link>
               </Menu.Item>
-              <Divider style={{ margin: 0 }} />
-              <Menu.Item onClick={logout} danger icon={<LogoutOutlined />}>
+              <Divider orientationMargin={0} />
+              <Menu.Item key="logout" onClick={logout} danger icon={<LogoutOutlined />}>
                 {t('logout')}
               </Menu.Item>
             </Menu>
          )}
           trigger={['click']}
         >
-          <Avatar src={require('../../assets/images/default-user.jpg')} className="header-menu-item" size="small" />
+          <Avatar src={require('../../assets/images/default-user.jpg')} size="small" />
         </Dropdown>
       </div>
     </div>
