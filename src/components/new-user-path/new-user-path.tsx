@@ -1,40 +1,60 @@
+/* eslint-disable max-len */
 import { RightOutlined } from '@ant-design/icons'
-import { Button, DatePicker, Steps } from 'antd'
+import {
+  Avatar,
+  Button, DatePicker, Steps, Upload,
+} from 'antd'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import './style.scss'
 
 function NewUserPath() {
-  const { Step }  = Steps
-  const {t} = useTranslation()
+  const { Step } = Steps
+  const { t } = useTranslation()
+  const navigate = useNavigate()
   const [step, setStep] = useState(0)
 
-  function disabledDate(current: any) {
-    // Can not select days before today and today
-    return current 
-  }
-
   return (
-    <div className='new-user-path'>
-      <Steps>
-        <Step status={step ? 'finish' : 'process' as any} title={t('pick-birth-date')}  />
-        <Step status={!step ? 'wait' : 'process' as any} title={t('choose-image')} />
-      </Steps>
-      <div className="content">
-      {!step ? () => (
-        <div className="birth-date">
-          {/* <DatePicker status='error'  onChange={() => console.log('change')} picker="month" disabledDate={disabledDate} /> */}
+    <div className="new-user-path">
+      <section>
+        <Steps>
+          <Step status={step ? 'finish' : 'process' as any} title={t('pick-birth-date')} />
+          <Step status={!step ? 'wait' : 'process' as any} title={t('choose-image')} />
+        </Steps>
+        <div className="content">
+          {!step ? (
+            <div className="birth-date">
+              {/* <DatePicker picker="week" />
+              <DatePicker picker="month" />
+              <DatePicker picker="quarter" />
+              <DatePicker picker="year" /> */}
+            </div>
+          ) : (
+            <div className="upload-profile">
+              <Avatar src={require('../../assets/images/default-user.jpg')} size="large" className="avatar" />
+              <Upload>
+                <Button className="upload-button">
+                  {t('upload-image')}
+                </Button>
+              </Upload>
+            </div>
+          )}
         </div>
-      ) : (
-        <div className="image">
-          <img src="https://picsum.photos/200/200" alt=""/>
+        <div className="button-container">
+          <Button
+            type="primary"
+            onClick={() => (!step ? setStep(1) : navigate('/'))}
+          >
+            {t('next')}
+          </Button>
+          <Button type="link" onClick={() => navigate('/')}>
+            {t('skip')}
+            {' '}
+            <RightOutlined />
+          </Button>
         </div>
-      )}
-      </div>
-      <div className="button-container">
-        <Button type='primary' onClick={() => setStep(1)}>{t('next')}</Button>
-        <Button type='link'>{t('skip')} <RightOutlined /></Button>
-      </div>
+      </section>
     </div>
   )
 }

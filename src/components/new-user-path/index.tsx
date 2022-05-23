@@ -1,1 +1,1 @@
-export {default as NewUserPath} from './new-user-path';
+export { default as NewUserPath } from './new-user-path'

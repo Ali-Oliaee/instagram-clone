@@ -29,7 +29,7 @@ function LoginPage() {
       .then(({ data }) => {
         message.success(data.message)
         localStorage.setItem('user', JSON.stringify(data))
-        navigate('/')
+        navigate('/new-user')
       })
       .catch(({ response }) => message.error(response.data.password ?? response.data.email))
       .finally(() => setLoading(false))

@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
+import { NewUserPath } from '../components'
 import {
   HomePage,
   LoginPage,
@@ -22,10 +23,11 @@ function MainRouter() {
     <Routes>
       {isAuth ? (
         <Route path="/">
-          <Route path="/" element={<HomePage />} />
-          <Route path="/saved" element={<SavedPage />} />
-          <Route path="/profile/:id" element={<ProfilePage />} />
-          <Route path="/settings" element={<SettingsPage />} />
+          <Route index element={<HomePage />} />
+          <Route path="saved" element={<SavedPage />} />
+          <Route path="profile/:id" element={<ProfilePage />} />
+          <Route path="settings" element={<SettingsPage />} />
+          <Route path="new-user" element={<NewUserPath />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       ) : (
