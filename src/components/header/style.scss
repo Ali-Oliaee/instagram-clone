@@ -10,14 +10,13 @@
     z-index: 10;
     @media screen and (max-width: 500px) {
         padding-inline: 10px;
-        
     }
 
+    
     .header-menu {
         @include flex(center, baseline);
         .header-menu-item {
             color: #000;
-            margin-inline-end: 12px;
             font-size: 1.4em;
             background: transparent;
             border: none;

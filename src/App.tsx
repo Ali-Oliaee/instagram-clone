@@ -1,13 +1,15 @@
-import {
-  BrowserRouter as Router,
-} from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import MainRouter from './router'
 
 function App() {
+  const queryClient = new QueryClient()
   return (
-    <Router>
-      <MainRouter />
-    </Router>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <MainRouter />
+      </Router>
+    </QueryClientProvider>
   )
 }
 

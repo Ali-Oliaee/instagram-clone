@@ -1,6 +1,6 @@
 @import '../../utils/utils';
 
-.posts-wrapper-desktop {
+.posts-wrapper {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     grid-gap: 20px;
@@ -23,20 +23,3 @@
         }
     }
 }   
-.post-card-modal{
-    .ant-modal-body {
-        height: 80vh;
-        padding: 0;
-        @include flex;
-        overflow: hidden;
-
-        .post-info {
-            height: 100%;
-            padding: 10px;
-
-            .post-card {
-                border: 0;
-            }
-        }
-    }
-}

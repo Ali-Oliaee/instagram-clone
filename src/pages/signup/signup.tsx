@@ -26,7 +26,7 @@ function SignupPage() {
     username, email, password,
   } : NewUser) => {
     setLoading(true)
-    return axios.post('/users/signup/', {
+    return axios.post('/users/register/', {
       username,
       email,
       password,
