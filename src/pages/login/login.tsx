@@ -4,10 +4,10 @@ import {
   Button, Divider, Form, message,
 } from 'antd'
 import { useState } from 'react'
+import axios from '../../utils/axios'
 import {
   FloatLabel, GoogleButton, Logo, SwitchLanguage,
 } from '../../components'
-import axios from '../../utils/axios'
 import './style.scss'
 
 interface User {
@@ -22,17 +22,16 @@ function LoginPage() {
   const [form] = Form.useForm()
   const handleSubmit = ({ email, password } : User) => {
     setLoading(true)
-    axios.post('/users/signin/', {
+    axios.post('users/login/', {
       email,
       password,
     })
       .then(({ data }) => {
         message.success(data.message)
-        console.log('data', data)
         localStorage.setItem('user', JSON.stringify(data))
         navigate('/')
       })
-      .catch(({ response }) => message.error(response.data.message))
+      .catch(({ response }) => message.error(response.data.password ?? response.data.email))
       .finally(() => setLoading(false))
   }
   return (
