@@ -101,14 +101,14 @@ function PostModal({ visible, post, setVisible }: any) {
               </span>
               <span className="description">
                 {post.caption}
-                {post.caption.length > 100 && (
+                {post?.caption?.length > 100 && (
                 <Button type="link" className="more-button">more...</Button>
                 )}
               </span>
             </div>
             )}
             <div className="tags">
-              {post.tags.length && post.tags.map((tag: string) => <Tag key={tag} className="tag">{tag}</Tag>)}
+              {post?.tags?.length && post.tags.map((tag: string) => <Tag key={tag} className="tag">{tag}</Tag>)}
             </div>
             <span className="date">{post.createdAt}</span>
             {post.createdAt !== post.editedAt && (

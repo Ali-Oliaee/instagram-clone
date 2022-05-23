@@ -21,7 +21,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { Logo } from '../logo'
 import './style.scss'
 
-function Header() {
+function Header({ setSearchKey }: any) {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
@@ -33,7 +33,7 @@ function Header() {
   return (
     <div className="header">
       <Logo />
-      <Input prefix={<SearchOutlined />} placeholder={t('search-placeholder')} className="search-input" />
+      <Input onChange={(e) => setSearchKey(e.target.value)} prefix={<SearchOutlined />} placeholder={t('search-placeholder')} className="search-input" />
       <div className="header-menu">
         <Tooltip title={t('home')} color="#777">
           <Link to="/">
