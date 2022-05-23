@@ -19,7 +19,6 @@ import {
   Popconfirm,
   Tag,
 } from 'antd'
-import qs from 'query-string'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useSearchParams } from 'react-router-dom'
@@ -43,7 +42,6 @@ function PostCard({
   const [archive, setArchive] = useState(false)
   const [modalVisible, setModalVisible] = useState(false)
   const { Meta } = Card
-  const QS = qs.parse(window.location.search)
   const { t } = useTranslation()
   const likePost = () => (like ? setLike(false) : setLike(true))
   const archivePost = () => (archive ? setArchive(false) : setArchive(true))
@@ -83,7 +81,7 @@ function PostCard({
             <div className="card-operations">
               <h3>
                 <Button size="large" icon={like ? <HeartFilled style={{ color: 'red' }} /> : <HeartOutlined />} onClick={likePost} className="like-button" />
-                {likes.length}
+                {`${likes.length} likes`}
               </h3>
               <span>
                 <Button size="large" icon={<MessageOutlined />} className="comment-button" />
@@ -107,7 +105,7 @@ function PostCard({
             </div>
             )}
             <div className="tags">
-              {tags.length && tags.map((tag: string) => <Tag key={tag} className="tag">{tag}</Tag>)}
+              {tags && tags.map((tag: string) => <Tag key={tag} className="tag">{tag}</Tag>)}
             </div>
             <span className="date">{createdAt}</span>
             {createdAt !== editedAt && (

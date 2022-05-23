@@ -17,6 +17,10 @@ function AddPostModal({ post }:any) {
   const [form] = Form.useForm()
   const QS = qs.parse(window.location.search)
 
+  form.setFieldsValue({
+    ...post,
+  })
+
   const addPost = ({
     post: image, title, caption, tags,
   } : any) => {
@@ -26,7 +30,7 @@ function AddPostModal({ post }:any) {
     formData.append('file', postImage)
     formData.append('title', title)
     formData.append('caption', caption)
-    console.log('caption', caption)
+
     axios.post(
       '/posts/create/',
       formData,
@@ -41,9 +45,16 @@ function AddPostModal({ post }:any) {
     }).finally(() => setLoading(false))
   }
 
-  const editPost = (values : any) => {
-    console.log('post', post)
-    console.log('values edit', values)
+  const editPost = ({ title, caption, tags } : any) => {
+    axios.patch(`/posts/list/${post.id}`, {
+      title,
+      description: caption,
+      tags,
+    }).then(({ data }) => {
+      console.log('data', data)
+      setSearchParams({})
+    })
+    console.log('values edit', title, caption, tags)
   }
 
   return (

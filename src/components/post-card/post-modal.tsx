@@ -23,6 +23,8 @@ import {
 } from '@ant-design/icons'
 import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
+import axios from '../../utils/axios'
+import { AddPostModal } from '../add-post-modal'
 import './style.scss'
 
 function PostModal({ visible, post, setVisible }: any) {
@@ -32,6 +34,13 @@ function PostModal({ visible, post, setVisible }: any) {
   const [archive, setArchive] = useState(false)
   const likePost = () => (like ? setLike(false) : setLike(true))
   const archivePost = () => (archive ? setArchive(false) : setArchive(true))
+
+  const deletePost = () => {
+    axios.delete(`posts/list/${post.id}`).then((data) => {
+      console.log('data', data)
+      setVisible(false)
+    })
+  }
 
   return (
     <Modal
@@ -67,7 +76,7 @@ function PostModal({ visible, post, setVisible }: any) {
                   <Menu.Item onClick={() => setSearchParams(`edit=${5}`)} icon={<EditOutlined />}>{t('edit')}</Menu.Item>
                   <Popconfirm
                     title={t('delete-confirm')}
-                    onConfirm={() => console.log('ok')}
+                    onConfirm={deletePost}
                     okText={t('yes')}
                     cancelText={t('no')}
                     icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
@@ -108,7 +117,7 @@ function PostModal({ visible, post, setVisible }: any) {
             </div>
             )}
             <div className="tags">
-              {post?.tags?.length && post.tags.map((tag: string) => <Tag key={tag} className="tag">{tag}</Tag>)}
+              {post?.tags && post.tags.map((tag: string) => <Tag key={tag} className="tag">{tag}</Tag>)}
             </div>
             <span className="date">{post.createdAt}</span>
             {post.createdAt !== post.editedAt && (
@@ -116,6 +125,7 @@ function PostModal({ visible, post, setVisible }: any) {
           </div>
         </Card>
       </div>
+      <AddPostModal post={post} />
     </Modal>
   )
 }
