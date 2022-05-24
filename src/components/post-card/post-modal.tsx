@@ -10,6 +10,7 @@ import {
   Tag,
 } from 'antd'
 import { Link, useSearchParams } from 'react-router-dom'
+import qs from 'query-string'
 import {
   DeleteOutlined,
   EditOutlined,
@@ -26,6 +27,7 @@ import { useState } from 'react'
 import axios from '../../utils/axios'
 import { AddPostModal } from '../add-post-modal'
 import './style.scss'
+import { Comments } from '../comments'
 
 function PostModal({ visible, post, setVisible }: any) {
   const [params, setSearchParams] = useSearchParams()
@@ -34,6 +36,7 @@ function PostModal({ visible, post, setVisible }: any) {
   const [archive, setArchive] = useState(false)
   const likePost = () => (like ? setLike(false) : setLike(true))
   const archivePost = () => (archive ? setArchive(false) : setArchive(true))
+  const QS = qs.parse(window.location.search)
 
   const deletePost = () => {
     axios.delete(`posts/list/${post.id}`).then((data) => {
@@ -96,7 +99,7 @@ function PostModal({ visible, post, setVisible }: any) {
                 {post.likes?.length ?? 0}
               </h3>
               <span>
-                <Button size="large" icon={<MessageOutlined />} className="comment-button" />
+                <Button size="large" onClick={() => setSearchParams({ ...QS, comments: 'true' })} icon={<MessageOutlined />} className="comment-button" />
                 <Button size="large" icon={archive ? <EnvironmentFilled /> : <EnvironmentOutlined />} onClick={archivePost} className="archive-button" />
               </span>
             </div>
@@ -126,6 +129,7 @@ function PostModal({ visible, post, setVisible }: any) {
         </Card>
       </div>
       <AddPostModal post={post} />
+      <Comments comments={[]} />
     </Modal>
   )
 }

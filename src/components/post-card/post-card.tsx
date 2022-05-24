@@ -24,6 +24,7 @@ import { useTranslation } from 'react-i18next'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useMediaQuery } from 'usehooks-ts'
 import { AddPostModal } from '../add-post-modal'
+import { Comments } from '../comments'
 import PostModal from './post-modal'
 import './style.scss'
 
@@ -84,32 +85,32 @@ function PostCard({
                 {`${likes.length} likes`}
               </h3>
               <span>
-                <Button size="large" icon={<MessageOutlined />} className="comment-button" />
+                <Button size="large" onClick={() => setSearchParams({ comments: 'true' })} icon={<MessageOutlined />} className="comment-button" />
                 <Button size="large" icon={archive ? <EnvironmentFilled /> : <EnvironmentOutlined />} onClick={archivePost} className="archive-button" />
               </span>
             </div>
             <h2 className="title">{title}</h2>
             {caption && (
-            <div className="description-container">
-              <span className="creator">
-                {creator}
-                :
-                {' '}
-              </span>
-              <span className="description">
-                {caption}
-                {caption.length > 100 && (
-                <Button type="link" className="more-button">more...</Button>
-                )}
-              </span>
-            </div>
+              <div className="description-container">
+                <span className="creator">
+                  {creator}
+                  :
+                  {' '}
+                </span>
+                <span className="description">
+                  {caption}
+                  {caption.length > 100 && (
+                  <Button type="link" className="more-button">more...</Button>
+                  )}
+                </span>
+              </div>
             )}
             <div className="tags">
               {tags && tags.map((tag: string) => <Tag key={tag} className="tag">{tag}</Tag>)}
             </div>
             <span className="date">{createdAt}</span>
             {createdAt !== editedAt && (
-            <EditOutlined />)}
+              <EditOutlined />)}
           </div>
           <AddPostModal post={{
             title,
