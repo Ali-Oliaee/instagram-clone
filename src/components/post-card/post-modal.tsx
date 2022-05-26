@@ -26,16 +26,12 @@ import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
 import axios from '../../utils/axios'
 import { AddPostModal } from '../add-post-modal'
-import './style.scss'
 import { Comments } from '../comments'
+import './style.scss'
 
 function PostModal({ visible, post, setVisible }: any) {
   const [params, setSearchParams] = useSearchParams()
   const { t } = useTranslation()
-  const [like, setLike] = useState(false)
-  const [archive, setArchive] = useState(false)
-  const likePost = () => (like ? setLike(false) : setLike(true))
-  const archivePost = () => (archive ? setArchive(false) : setArchive(true))
   const QS = qs.parse(window.location.search)
 
   const deletePost = () => {
@@ -95,12 +91,12 @@ function PostModal({ visible, post, setVisible }: any) {
           <div className="post-info">
             <div className="card-operations">
               <h3>
-                <Button size="large" icon={post ? <HeartFilled style={{ color: 'red' }} /> : <HeartOutlined />} onClick={likePost} className="like-button" />
+                <Button size="large" icon={<HeartFilled style={{ color: 'red' }} />} className="like-button" />
                 {post.likes?.length ?? 0}
               </h3>
               <span>
                 <Button size="large" onClick={() => setSearchParams({ ...QS, comments: 'true' })} icon={<MessageOutlined />} className="comment-button" />
-                <Button size="large" icon={archive ? <EnvironmentFilled /> : <EnvironmentOutlined />} onClick={archivePost} className="archive-button" />
+                <Button size="large" icon={<EnvironmentFilled />} className="archive-button" />
               </span>
             </div>
             <h2 className="title">{post.title}</h2>
