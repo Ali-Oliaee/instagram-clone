@@ -28,7 +28,6 @@ function MainRouter() {
           <Route path="profile/:id" element={<ProfilePage />} />
           <Route path="settings" element={<SettingsPage />} />
           <Route path="new-user" element={<NewUserPath />} />
-          <Route path="*" element={<NotFoundPage />} />
         </Route>
       ) : (
         <Route path="/auth">
@@ -37,6 +36,7 @@ function MainRouter() {
           <Route path="forgot-password" element={<ForgotPasswordPage />} />
         </Route>
       )}
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )
 }

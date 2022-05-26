@@ -50,8 +50,8 @@ function PostCard({
       {isMobile ? (
         <Card className="post-card">
           <div className="creator">
-            <Link to={`/profile/${Math.floor(Math.random() * 80) + 1}`}>
-              <Meta title={creator} avatar={<Avatar src={require('../../assets/images/default-user.jpg')} />} />
+            <Link to={`/profile/${creator?.id}`}>
+              <Meta title={creator.user.username} avatar={<Avatar src={require('../../assets/images/default-user.jpg')} />} />
             </Link>
             <Dropdown
               trigger={['click']}
@@ -89,7 +89,7 @@ function PostCard({
             {caption && (
               <div className="description-container">
                 <span className="creator">
-                  {creator}
+                  {creator.user.username}
                   :
                   {' '}
                 </span>
@@ -111,13 +111,8 @@ function PostCard({
           <AddPostModal post={{
             title,
             caption,
-            creator,
             tags,
-            likes,
-            image,
-            createdAt,
             id,
-            editedAt,
           }}
           />
         </Card>

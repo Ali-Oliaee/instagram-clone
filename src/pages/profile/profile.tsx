@@ -1,5 +1,5 @@
 import { EditOutlined } from '@ant-design/icons'
-import { Avatar, Button } from 'antd'
+import { Avatar, Button, Spin } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
 import { Link, useLocation } from 'react-router-dom'
@@ -11,7 +11,9 @@ function profilePage() {
   const location = useLocation()
   const { t } = useTranslation()
   const userId = +location.pathname.split('/')[2]
-  const { data: currentUser } = useQuery('getCurrentUser', getAccountInformation)
+  const { data: currentUser, isLoading } = useQuery('getCurrentUser', getAccountInformation)
+
+  if (isLoading) return <Spin size="large" className="settings-spin" />
 
   return (
     <div className="profile-page">
@@ -20,8 +22,8 @@ function profilePage() {
         <Avatar src={require('../../assets/images/default-user.jpg')} size="large" className="avatar" />
         <div>
           <div className="profile-header">
-            <span className="username">{userId === -1 ? currentUser[0].user.username : 'mmd'}</span>
-            {userId !== -1 ? (
+            <span className="username">{currentUser[0]?.user?.username}</span>
+            {userId !== currentUser?.id ? (
               <Button type="primary" size="small" className="edit-button">
                 {t('follow')}
               </Button>
@@ -45,7 +47,7 @@ function profilePage() {
               following
             </span>
           </div>
-          <div className="bio">{userId === -1 ? currentUser[0].user.bio : 'mmd bio'}</div>
+          <div className="bio">{currentUser[0]?.user?.bio}</div>
         </div>
       </div>
       <PostsWrapper posts={[]} />

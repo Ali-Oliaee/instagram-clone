@@ -65,8 +65,8 @@ function PostModal({ visible, post, setVisible }: any) {
       <div className="post-info">
         <Card className="post-card">
           <div className="creator">
-            <Link to={`/profile/${Math.floor(Math.random() * 80) + 1}`}>
-              <Card.Meta title={post.creator} avatar={<Avatar src={require('../../assets/images/default-user.jpg')} />} />
+            <Link to={`/profile/${post.creator.id}`}>
+              <Card.Meta title={post.creator.user.username} avatar={<Avatar src={require('../../assets/images/default-user.jpg')} />} />
             </Link>
             <Dropdown
               trigger={['click']}
@@ -103,7 +103,7 @@ function PostModal({ visible, post, setVisible }: any) {
             {post.caption && (
             <div className="description-container">
               <span className="creator">
-                {post.creator}
+                {post.creator.user.username}
                 :
                 {' '}
               </span>

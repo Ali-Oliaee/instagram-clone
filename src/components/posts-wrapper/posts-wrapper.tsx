@@ -10,7 +10,7 @@ function PostsWrapper({ posts }: any) {
           id={post.id}
           title={post.title}
           caption={post.caption}
-          creator={post.account?.user.username}
+          creator={post.account}
           tags={post.tags}
           likes={post.likes ?? []}
           image={post.file}
