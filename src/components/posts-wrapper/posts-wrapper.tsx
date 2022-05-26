@@ -4,7 +4,7 @@ import './style.scss'
 function PostsWrapper({ posts }: any) {
   return (
     <div className="posts-wrapper">
-      {posts.map((post : any) => (
+      {posts?.map((post : any) => (
         <PostCard
           key={post.id}
           id={post.id}
