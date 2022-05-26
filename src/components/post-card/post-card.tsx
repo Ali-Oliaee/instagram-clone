@@ -57,7 +57,7 @@ function PostCard({
               trigger={['click']}
               overlay={(
                 <Menu>
-                  <Menu.Item onClick={() => setSearchParams(`edit=${id}`)} icon={<EditOutlined />}>{t('edit')}</Menu.Item>
+                  <Menu.Item key="edit" onClick={() => setSearchParams(`edit=${id}`)} icon={<EditOutlined />}>{t('edit')}</Menu.Item>
                   <Popconfirm
                     title={t('delete-confirm')}
                     onConfirm={() => console.log('ok')}
@@ -65,7 +65,7 @@ function PostCard({
                     cancelText={t('no')}
                     icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
                   >
-                    <Menu.Item danger icon={<DeleteOutlined />}>{t('delete')}</Menu.Item>
+                    <Menu.Item key="delete" danger icon={<DeleteOutlined />}>{t('delete')}</Menu.Item>
                   </Popconfirm>
                 </Menu>
                 )}

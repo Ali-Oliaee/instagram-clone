@@ -72,16 +72,18 @@ function PostModal({ visible, post, setVisible }: any) {
               trigger={['click']}
               overlay={(
                 <Menu>
-                  <Menu.Item onClick={() => setSearchParams(`edit=${5}`)} icon={<EditOutlined />}>{t('edit')}</Menu.Item>
-                  <Popconfirm
-                    title={t('delete-confirm')}
-                    onConfirm={deletePost}
-                    okText={t('yes')}
-                    cancelText={t('no')}
-                    icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-                  >
-                    <Menu.Item danger icon={<DeleteOutlined />}>{t('delete')}</Menu.Item>
-                  </Popconfirm>
+                  <Menu.Item key="edit" onClick={() => setSearchParams(`edit=${5}`)} icon={<EditOutlined />}>{t('edit')}</Menu.Item>
+                  <Menu.Item key="delete" danger icon={<DeleteOutlined />}>
+                    <Popconfirm
+                      title={t('delete-confirm')}
+                      onConfirm={deletePost}
+                      okText={t('yes')}
+                      cancelText={t('no')}
+                      icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                    >
+                      {t('delete')}
+                    </Popconfirm>
+                  </Menu.Item>
                 </Menu>
             )}
             >
