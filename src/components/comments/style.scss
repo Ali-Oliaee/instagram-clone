@@ -1,4 +1,8 @@
 .comments-modal {
+    .comments {
+        max-height: 60vh;
+        overflow: auto;
+    }
     .comment-input {
         display: flex;
         input {
