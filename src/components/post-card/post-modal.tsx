@@ -13,20 +13,16 @@ import { Link, useSearchParams } from 'react-router-dom'
 import qs from 'query-string'
 import {
   DeleteOutlined,
+  DownSquareOutlined,
   EditOutlined,
-  EnvironmentFilled,
-  EnvironmentOutlined,
   HeartFilled,
-  HeartOutlined,
   MessageOutlined,
   MoreOutlined,
   QuestionCircleOutlined,
 } from '@ant-design/icons'
 import { useTranslation } from 'react-i18next'
-import { useState } from 'react'
 import axios from '../../utils/axios'
 import { AddPostModal } from '../add-post-modal'
-import { Comments } from '../comments'
 import './style.scss'
 
 function PostModal({ visible, post, setVisible }: any) {
@@ -98,7 +94,7 @@ function PostModal({ visible, post, setVisible }: any) {
               </h3>
               <span>
                 <Button size="large" onClick={() => setSearchParams({ ...QS, comments: 'true' })} icon={<MessageOutlined />} className="comment-button" />
-                <Button size="large" icon={<EnvironmentFilled />} className="archive-button" />
+                <Button size="large" icon={<DownSquareOutlined />} className="archive-button" />
               </span>
             </div>
             <h2 className="title">{post.title}</h2>

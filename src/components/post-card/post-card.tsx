@@ -2,12 +2,10 @@ import {
   DeleteOutlined,
   HeartFilled,
   MoreOutlined,
-  HeartOutlined,
-  EnvironmentOutlined,
-  EnvironmentFilled,
   MessageOutlined,
   EditOutlined,
   QuestionCircleOutlined,
+  DownSquareOutlined,
 } from '@ant-design/icons'
 import {
   Avatar,
@@ -24,7 +22,6 @@ import { useTranslation } from 'react-i18next'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useMediaQuery } from 'usehooks-ts'
 import { AddPostModal } from '../add-post-modal'
-import { Comments } from '../comments'
 import PostModal from './post-modal'
 import './style.scss'
 
@@ -82,7 +79,7 @@ function PostCard({
               </h3>
               <span>
                 <Button size="large" onClick={() => setSearchParams({ comments: 'true' })} icon={<MessageOutlined />} className="comment-button" />
-                <Button size="large" icon={<EnvironmentFilled />} className="archive-button" />
+                <Button size="large" icon={<DownSquareOutlined />} className="archive-button" />
               </span>
             </div>
             <h2 className="title">{title}</h2>
