@@ -90,7 +90,7 @@ function PostModal({ visible, post, setVisible }: any) {
             <div className="card-operations">
               <h3>
                 <Button size="large" icon={<HeartFilled style={{ color: 'red' }} />} className="like-button" />
-                {post.likes?.length ?? 0}
+                {`${post.likes?.length} likes` ?? 0}
               </h3>
               <span>
                 <Button size="large" onClick={() => setSearchParams({ ...QS, comments: 'true' })} icon={<MessageOutlined />} className="comment-button" />
