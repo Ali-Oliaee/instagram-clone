@@ -14,7 +14,6 @@ import {
   Dropdown,
   Input,
   Menu,
-  Tooltip,
 } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
@@ -35,14 +34,10 @@ function Header({ setSearchKey }: any) {
       <Logo />
       <Input onChange={(e) => setSearchKey(e.target.value)} prefix={<SearchOutlined />} placeholder={t('search-placeholder')} className="search-input" />
       <div className="header-menu">
-        <Tooltip title={t('home')} color="#777">
-          <Link to="/">
-            <Button icon={<HomeOutlined />} size="large" className="header-menu-item" />
-          </Link>
-        </Tooltip>
-        <Tooltip title={t('add-post')} color="#777">
-          <Button className="header-menu-item" size="large" icon={<PlusCircleOutlined />} onClick={() => setSearchParams('add=true')} />
-        </Tooltip>
+        <Link to="/">
+          <Button icon={<HomeOutlined />} size="large" className="header-menu-item" />
+        </Link>
+        <Button className="header-menu-item" size="large" icon={<PlusCircleOutlined />} onClick={() => setSearchParams({ add: 'true' })} />
         <Dropdown
           className="header-menu-item"
           overlay={(

@@ -21,7 +21,7 @@
             font-size: 1.4em;
             background: transparent;
             border: none;
-            @include flex(center);
+            @include flex(space-between);
             padding: 0;
         }
     }
