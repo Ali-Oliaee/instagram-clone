@@ -148,7 +148,6 @@ function PostCard({
           />
         </>
       )}
-      <Comments comments={[]} />
     </div>
   )
 }

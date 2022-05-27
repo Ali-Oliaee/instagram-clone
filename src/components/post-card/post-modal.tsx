@@ -127,7 +127,6 @@ function PostModal({ visible, post, setVisible }: any) {
         </Card>
       </div>
       <AddPostModal post={post} />
-      <Comments comments={[]} />
     </Modal>
   )
 }

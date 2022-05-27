@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-sequences */
 /* eslint-disable no-unused-expressions */
@@ -28,7 +29,7 @@ instance.interceptors.response.use(
       originalRequest._retry = true
 
       return axios
-        .post('/api/authentication/jwt-tokens/from-jwt-refresh-token', {
+        .post('api/token/refresh/', {
           refresh_token: JSON.parse(localStorage.getItem('user') as any)?.tokens?.refresh,
         })
         .then((response) => {
@@ -46,7 +47,7 @@ instance.interceptors.response.use(
       message.error('Server is down for maintenance')
       return error
     }
-    message.error(error.response.data.statusText)
+    message.error(error.response.message)
     return error
   },
 )
