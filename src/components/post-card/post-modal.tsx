@@ -21,6 +21,7 @@ import {
   QuestionCircleOutlined,
 } from '@ant-design/icons'
 import { useTranslation } from 'react-i18next'
+import { useQueryClient } from 'react-query'
 import axios from '../../utils/axios'
 import { AddPostModal } from '../add-post-modal'
 import './style.scss'
@@ -29,6 +30,7 @@ function PostModal({ visible, post, setVisible }: any) {
   const [params, setSearchParams] = useSearchParams()
   const { t } = useTranslation()
   const QS = qs.parse(window.location.search)
+  const queryClient = useQueryClient()
 
   const deletePost = () => {
     axios.delete(`posts/list/${post.id}`).then((data) => {
@@ -93,7 +95,15 @@ function PostModal({ visible, post, setVisible }: any) {
                 {`${post.likes?.length} likes` ?? 0}
               </h3>
               <span>
-                <Button size="large" onClick={() => setSearchParams({ ...QS, comments: 'true' })} icon={<MessageOutlined />} className="comment-button" />
+                <Button
+                  size="large"
+                  onClick={() => {
+                    setSearchParams({ ...QS, comments: 'true' })
+                    queryClient.fetchQuery('comments')
+                  }}
+                  icon={<MessageOutlined />}
+                  className="comment-button"
+                />
                 <Button size="large" icon={<DownSquareOutlined />} className="archive-button" />
               </span>
             </div>

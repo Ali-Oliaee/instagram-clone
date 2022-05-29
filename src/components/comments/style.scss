@@ -3,10 +3,9 @@
         max-height: 60vh;
         overflow: auto;
     }
-    .comment-input {
-        display: flex;
-        input {
-            width: 80%;
-        }
+    .ant-form-item {
+        width: 70%;
+        margin: 0;
+        display: inline-block;
     }
 }

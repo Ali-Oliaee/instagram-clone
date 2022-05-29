@@ -19,6 +19,7 @@ import {
 } from 'antd'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useQueryClient } from 'react-query'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useMediaQuery } from 'usehooks-ts'
 import { AddPostModal } from '../add-post-modal'
@@ -41,6 +42,7 @@ function PostCard({
   const { t } = useTranslation()
   const [searchParams, setSearchParams] = useSearchParams()
   const isMobile = useMediaQuery('(max-width: 500px)')
+  const queryClient = useQueryClient()
 
   return (
     <div>
@@ -78,7 +80,14 @@ function PostCard({
                 {`${likes.length} likes`}
               </h3>
               <span>
-                <Button size="large" onClick={() => setSearchParams({ comments: 'true' })} icon={<MessageOutlined />} className="comment-button" />
+                <Button
+                  size="large"
+                  onClick={() => {
+                    setSearchParams({ post: id, comments: 'true' })
+                  }}
+                  icon={<MessageOutlined />}
+                  className="comment-button"
+                />
                 <Button size="large" icon={<DownSquareOutlined />} className="archive-button" />
               </span>
             </div>

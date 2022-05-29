@@ -20,7 +20,7 @@ function PostsWrapper({ posts }: any) {
           updatedAt={post.updated_at}
         />
       )) : <Empty className="empty" />}
-      <Comments comments={[]} />
+      <Comments />
     </div>
   )
 }
