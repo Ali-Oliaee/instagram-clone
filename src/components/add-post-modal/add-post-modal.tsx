@@ -44,20 +44,23 @@ function AddPostModal({ post }:any) {
     ).then(() => {
       setSearchParams({})
       queryClient.invalidateQueries('posts')
+      form.resetFields()
       message.success('post added successfully!')
     }).finally(() => setLoading(false))
   }
 
   const editPost = ({ title, caption, tags } : any) => {
-    axios.patch(`/posts/list/${post.id}`, {
+    setLoading(true)
+    return axios.patch(`/posts/list/${post.id}/`, {
       title,
-      description: caption,
+      caption,
       tags,
-    }).then(({ data }) => {
+    }).then(() => {
       setSearchParams({})
       queryClient.invalidateQueries('posts')
-    })
-    console.log('values edit', title, caption, tags)
+      form.resetFields()
+      message.success('post edited successfully!')
+    }).finally(() => setLoading(false))
   }
 
   return (
