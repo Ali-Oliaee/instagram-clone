@@ -22,6 +22,7 @@ import { useTranslation } from 'react-i18next'
 import { useQueryClient } from 'react-query'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useMediaQuery } from 'usehooks-ts'
+import axios from '../../utils/axios'
 import { AddPostModal } from '../add-post-modal'
 import PostModal from './post-modal'
 import './style.scss'
@@ -43,6 +44,7 @@ function PostCard({
   const [searchParams, setSearchParams] = useSearchParams()
   const isMobile = useMediaQuery('(max-width: 500px)')
   const queryClient = useQueryClient()
+  const deletePost = () => axios.delete(`posts/list/${id}/`).then(() => queryClient.invalidateQueries('posts'))
 
   return (
     <div>
@@ -59,7 +61,7 @@ function PostCard({
                   <Menu.Item key="edit" onClick={() => setSearchParams(`edit=${id}`)} icon={<EditOutlined />}>{t('edit')}</Menu.Item>
                   <Popconfirm
                     title={t('delete-confirm')}
-                    onConfirm={() => console.log('ok')}
+                    onConfirm={deletePost}
                     okText={t('yes')}
                     cancelText={t('no')}
                     icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
@@ -82,9 +84,7 @@ function PostCard({
               <span>
                 <Button
                   size="large"
-                  onClick={() => {
-                    setSearchParams({ post: id, comments: 'true' })
-                  }}
+                  onClick={() => setSearchParams({ post: id, comments: 'true' })}
                   icon={<MessageOutlined />}
                   className="comment-button"
                 />

@@ -33,8 +33,8 @@ function PostModal({ visible, post, setVisible }: any) {
   const queryClient = useQueryClient()
 
   const deletePost = () => {
-    axios.delete(`posts/list/${post.id}`).then((data) => {
-      console.log('data', data)
+    axios.delete(`posts/list/${post.id}/`).then(() => {
+      queryClient.invalidateQueries('posts')
       setVisible(false)
     })
   }
