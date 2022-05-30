@@ -29,6 +29,30 @@ function Header({ setSearchKey }: any) {
     navigate('/')
     window.location.reload()
   }
+
+  const menu = () => (
+    <Menu>
+      <Menu.Item key="profile" icon={<UserOutlined />}>
+        <Link to="/profile/-1">
+          {t('profile')}
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="setting" icon={<SettingOutlined />}>
+        <Link to="/settings">
+          {t('settings')}
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="saved" icon={<InboxOutlined />}>
+        <Link to="/saved">
+          {t('saved')}
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="logout" onClick={logout} danger icon={<LogoutOutlined />}>
+        {t('logout')}
+      </Menu.Item>
+    </Menu>
+  )
+
   return (
     <div className="header">
       <Logo />
@@ -40,29 +64,7 @@ function Header({ setSearchKey }: any) {
         <Button className="header-menu-item" size="large" icon={<PlusCircleOutlined />} onClick={() => setSearchParams({ add: 'true' })} />
         <Dropdown
           className="header-menu-item"
-          overlay={(
-            <Menu>
-              <Menu.Item key="profile" icon={<UserOutlined />}>
-                <Link to="/profile/null">
-                  {t('profile')}
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="setting" icon={<SettingOutlined />}>
-                <Link to="/settings">
-                  {t('settings')}
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="saved" icon={<InboxOutlined />}>
-                <Link to="/saved">
-                  {t('saved')}
-                </Link>
-              </Menu.Item>
-              <Divider style={{ margin: 0 }} />
-              <Menu.Item key="logout" onClick={logout} danger icon={<LogoutOutlined />}>
-                {t('logout')}
-              </Menu.Item>
-            </Menu>
-         )}
+          overlay={menu}
           trigger={['click']}
         >
           <Avatar src={require('../../assets/images/default-user.jpg')} size="small" />

@@ -26,7 +26,9 @@ import axios from '../../utils/axios'
 import { AddPostModal } from '../add-post-modal'
 import './style.scss'
 
-function PostModal({ visible, post, setVisible }: any) {
+function PostModal({
+  visible, post, setVisible, editable,
+}: any) {
   const [params, setSearchParams] = useSearchParams()
   const { t } = useTranslation()
   const QS = qs.parse(window.location.search)
@@ -66,27 +68,29 @@ function PostModal({ visible, post, setVisible }: any) {
             <Link to={`/profile/${post.creator.id}`}>
               <Card.Meta title={post.creator.user.username} avatar={<Avatar src={require('../../assets/images/default-user.jpg')} />} />
             </Link>
-            <Dropdown
-              trigger={['click']}
-              overlay={(
-                <Menu>
-                  <Menu.Item key="edit" onClick={() => setSearchParams(`edit=${5}`)} icon={<EditOutlined />}>{t('edit')}</Menu.Item>
-                  <Menu.Item key="delete" danger icon={<DeleteOutlined />}>
-                    <Popconfirm
-                      title={t('delete-confirm')}
-                      onConfirm={deletePost}
-                      okText={t('yes')}
-                      cancelText={t('no')}
-                      icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-                    >
-                      {t('delete')}
-                    </Popconfirm>
-                  </Menu.Item>
-                </Menu>
+            {editable && (
+              <Dropdown
+                trigger={['click']}
+                overlay={(
+                  <Menu>
+                    <Menu.Item key="edit" onClick={() => setSearchParams(`edit=${5}`)} icon={<EditOutlined />}>{t('edit')}</Menu.Item>
+                    <Menu.Item key="delete" danger icon={<DeleteOutlined />}>
+                      <Popconfirm
+                        title={t('delete-confirm')}
+                        onConfirm={deletePost}
+                        okText={t('yes')}
+                        cancelText={t('no')}
+                        icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                      >
+                        {t('delete')}
+                      </Popconfirm>
+                    </Menu.Item>
+                  </Menu>
+              )}
+              >
+                <MoreOutlined />
+              </Dropdown>
             )}
-            >
-              <MoreOutlined />
-            </Dropdown>
           </div>
           <div className="post-info">
             <div className="card-operations">

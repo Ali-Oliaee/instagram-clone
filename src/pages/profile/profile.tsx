@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
 import { Link, useLocation } from 'react-router-dom'
 import { Header, PostsWrapper } from '../../components'
-import { getAccountInformation } from '../../utils/api'
+import { fetchUserPosts, getAccountInformation } from '../../utils/api'
 import './style.scss'
 
 function profilePage() {
@@ -12,7 +12,7 @@ function profilePage() {
   const { t } = useTranslation()
   const userId = +location.pathname.split('/')[2]
   const { data: currentUser, isLoading } = useQuery('getCurrentUser', getAccountInformation)
-
+  const { data: userPosts } = useQuery('posts', fetchUserPosts)
   if (isLoading) return <Spin size="large" className="settings-spin" />
 
   return (
@@ -50,7 +50,7 @@ function profilePage() {
           <div className="bio">{currentUser[0]?.user?.bio}</div>
         </div>
       </div>
-      <PostsWrapper posts={[]} />
+      <PostsWrapper editable posts={userPosts} />
     </div>
   )
 }

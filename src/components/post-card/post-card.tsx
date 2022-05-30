@@ -37,6 +37,7 @@ function PostCard({
   createdAt,
   id,
   editedAt,
+  editable,
 }: any) {
   const [modalVisible, setModalVisible] = useState(false)
   const { Meta } = Card
@@ -54,25 +55,27 @@ function PostCard({
             <Link to={`/profile/${creator?.id}`}>
               <Meta title={creator.user.username} avatar={<Avatar src={require('../../assets/images/default-user.jpg')} />} />
             </Link>
-            <Dropdown
-              trigger={['click']}
-              overlay={(
-                <Menu>
-                  <Menu.Item key="edit" onClick={() => setSearchParams(`edit=${id}`)} icon={<EditOutlined />}>{t('edit')}</Menu.Item>
-                  <Popconfirm
-                    title={t('delete-confirm')}
-                    onConfirm={deletePost}
-                    okText={t('yes')}
-                    cancelText={t('no')}
-                    icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-                  >
-                    <Menu.Item key="delete" danger icon={<DeleteOutlined />}>{t('delete')}</Menu.Item>
-                  </Popconfirm>
-                </Menu>
-                )}
-            >
-              <MoreOutlined />
-            </Dropdown>
+            {editable && (
+              <Dropdown
+                trigger={['click']}
+                overlay={(
+                  <Menu>
+                    <Menu.Item key="edit" onClick={() => setSearchParams(`edit=${id}`)} icon={<EditOutlined />}>{t('edit')}</Menu.Item>
+                    <Popconfirm
+                      title={t('delete-confirm')}
+                      onConfirm={deletePost}
+                      okText={t('yes')}
+                      cancelText={t('no')}
+                      icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                    >
+                      <Menu.Item key="delete" danger icon={<DeleteOutlined />}>{t('delete')}</Menu.Item>
+                    </Popconfirm>
+                  </Menu>
+                  )}
+              >
+                <MoreOutlined />
+              </Dropdown>
+            )}
           </div>
           <Image src={image} alt={title} preview={false} width="100%" />
           <div className="post-info">
@@ -151,6 +154,7 @@ function PostCard({
             }}
             visible={modalVisible}
             setVisible={setModalVisible}
+            editable={editable}
           />
         </>
       )}
