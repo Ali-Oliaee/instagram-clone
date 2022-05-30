@@ -106,7 +106,7 @@ function AddPostModal({ post }:any) {
           <FloatLabel textarea label={t('description')} value={form.getFieldValue('caption')} />
         </Form.Item>
         <Form.Item name="tags">
-          <Select mode="tags" placeholder={t('tags')} />
+          <Select open={false} mode="tags" placeholder={t('tags')} />
         </Form.Item>
         <Button block type="primary" htmlType="submit" loading={loading}>
           {t('submit')}
