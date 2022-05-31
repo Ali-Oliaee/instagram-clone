@@ -72,11 +72,11 @@ function LoginPage() {
               <FloatLabel type="password" label={t('password')} value={form.getFieldValue('password')} />
             </Form.Item>
             <Button loading={loading} htmlType="submit" type="primary" block>{t('submit')}</Button>
-            <Divider>{t('or')}</Divider>
-            <GoogleButton />
             <div className="forgot-password-link">
               <Link to="/auth/forgot-password">{t('forgot-password-link')}</Link>
             </div>
+            <Divider>{t('or')}</Divider>
+            <GoogleButton />
           </Form>
         </div>
         <h4 className="signup-link">
