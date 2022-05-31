@@ -22,11 +22,10 @@ function MainRouter() {
     <Routes>
       {isAuth ? (
         <Route path="/">
-          <Route path="/" element={<HomePage />} />
-          <Route path="/saved" element={<SavedPage />} />
-          <Route path="/profile/:id" element={<ProfilePage />} />
-          <Route path="/settings" element={<SettingsPage />} />
-          <Route path="*" element={<NotFoundPage />} />
+          <Route index element={<HomePage />} />
+          <Route path="saved" element={<SavedPage />} />
+          <Route path="profile/:id" element={<ProfilePage />} />
+          <Route path="settings" element={<SettingsPage />} />
         </Route>
       ) : (
         <Route path="/auth">
@@ -35,6 +34,7 @@ function MainRouter() {
           <Route path="forgot-password" element={<ForgotPasswordPage />} />
         </Route>
       )}
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )
 }

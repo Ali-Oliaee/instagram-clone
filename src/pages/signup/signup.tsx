@@ -33,9 +33,8 @@ function SignupPage() {
     })
       .then(({ data }) => {
         message.success(data.message)
-        localStorage.setItem('user', JSON.stringify(data))
         setLoading(false)
-        navigate('/')
+        navigate('/auth/login')
       })
       .catch(({ response }) => message.error(response.data.message))
       .finally(() => setLoading(false))

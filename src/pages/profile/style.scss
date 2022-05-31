@@ -1,6 +1,10 @@
 @import '../../utils/utils';
 
 .profile-page {
+    .settings-spin {
+        width: 100%;
+        text-align: center;
+    }
     .profile-info {
         @include flex(flex-start);
         margin: 20px;

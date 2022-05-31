@@ -1,0 +1,11 @@
+.comments-modal {
+    .comments {
+        max-height: 60vh;
+        overflow: auto;
+    }
+    .ant-form-item {
+        width: 70%;
+        margin: 0;
+        display: inline-block;
+    }
+}

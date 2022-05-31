@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { UploadOutlined } from '@ant-design/icons'
 import {
-  Button, Form, Modal, Select, Upload,
+  Button, Form, message, Modal, Select, Upload,
 } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 import qs from 'query-string'
+import { useQueryClient } from 'react-query'
 import axios from '../../utils/axios'
 import { FloatLabel } from '../float-label'
 import './style.scss'
@@ -16,6 +17,7 @@ function AddPostModal({ post }:any) {
   const { t } = useTranslation()
   const [form] = Form.useForm()
   const QS = qs.parse(window.location.search)
+  const queryClient = useQueryClient()
 
   form.setFieldsValue({
     ...post,
@@ -31,7 +33,7 @@ function AddPostModal({ post }:any) {
     formData.append('title', title)
     formData.append('caption', caption)
 
-    axios.post(
+    return axios.post(
       '/posts/create/',
       formData,
       {
@@ -39,22 +41,26 @@ function AddPostModal({ post }:any) {
           'Content-Type': 'multipart/form-data',
         },
       },
-    ).then(({ data }) => {
-      console.log('data', data)
+    ).then(() => {
       setSearchParams({})
+      queryClient.invalidateQueries('posts')
+      form.resetFields()
+      message.success('post added successfully!')
     }).finally(() => setLoading(false))
   }
 
   const editPost = ({ title, caption, tags } : any) => {
-    axios.patch(`/posts/list/${post.id}`, {
+    setLoading(true)
+    return axios.patch(`/posts/list/${post.id}/`, {
       title,
-      description: caption,
+      caption,
       tags,
-    }).then(({ data }) => {
-      console.log('data', data)
+    }).then(() => {
       setSearchParams({})
-    })
-    console.log('values edit', title, caption, tags)
+      queryClient.invalidateQueries('posts')
+      form.resetFields()
+      message.success('post edited successfully!')
+    }).finally(() => setLoading(false))
   }
 
   return (
@@ -100,7 +106,7 @@ function AddPostModal({ post }:any) {
           <FloatLabel textarea label={t('description')} value={form.getFieldValue('caption')} />
         </Form.Item>
         <Form.Item name="tags">
-          <Select mode="tags" placeholder={t('tags')} />
+          <Select open={false} mode="tags" placeholder={t('tags')} />
         </Form.Item>
         <Button block type="primary" htmlType="submit" loading={loading}>
           {t('submit')}

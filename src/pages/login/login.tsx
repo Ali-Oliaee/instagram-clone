@@ -31,7 +31,7 @@ function LoginPage() {
         localStorage.setItem('user', JSON.stringify(data))
         navigate('/')
       })
-      .catch(({ response }) => message.error(response.data.password ?? response.data.email))
+      .catch(({ response }) => message.error(response.data.message ?? response.data.email))
       .finally(() => setLoading(false))
   }
   return (

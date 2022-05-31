@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import {
   Avatar,
   Button,
@@ -5,42 +6,46 @@ import {
   Dropdown,
   Image,
   Menu,
+  message,
   Modal,
   Popconfirm,
   Tag,
 } from 'antd'
 import { Link, useSearchParams } from 'react-router-dom'
+import qs from 'query-string'
 import {
   DeleteOutlined,
+  DownSquareOutlined,
   EditOutlined,
-  EnvironmentFilled,
-  EnvironmentOutlined,
   HeartFilled,
-  HeartOutlined,
   MessageOutlined,
   MoreOutlined,
   QuestionCircleOutlined,
 } from '@ant-design/icons'
 import { useTranslation } from 'react-i18next'
-import { useState } from 'react'
+import { useQueryClient } from 'react-query'
 import axios from '../../utils/axios'
 import { AddPostModal } from '../add-post-modal'
 import './style.scss'
 
-function PostModal({ visible, post, setVisible }: any) {
+function PostModal({
+  visible, post, setVisible, editable,
+}: any) {
   const [params, setSearchParams] = useSearchParams()
   const { t } = useTranslation()
-  const [like, setLike] = useState(false)
-  const [archive, setArchive] = useState(false)
-  const likePost = () => (like ? setLike(false) : setLike(true))
-  const archivePost = () => (archive ? setArchive(false) : setArchive(true))
+  const QS = qs.parse(window.location.search)
+  const queryClient = useQueryClient()
 
-  const deletePost = () => {
-    axios.delete(`posts/list/${post.id}`).then((data) => {
-      console.log('data', data)
-      setVisible(false)
-    })
-  }
+  const deletePost = () => axios.delete(`posts/list/${post.id}/`).then(() => {
+    queryClient.invalidateQueries('posts')
+    setVisible(false)
+  })
+
+  const archivePost = () => axios.post('archives/create/', {
+    post: post.id,
+  }).then(({ data }) => {
+    message.success(data.message)
+  })
 
   return (
     <Modal
@@ -66,45 +71,57 @@ function PostModal({ visible, post, setVisible }: any) {
       <div className="post-info">
         <Card className="post-card">
           <div className="creator">
-            <Link to={`/profile/${Math.floor(Math.random() * 80) + 1}`}>
-              <Card.Meta title={post.creator} avatar={<Avatar src={require('../../assets/images/default-user.jpg')} />} />
+            <Link to={`/profile/${post.creator.id}`}>
+              <Card.Meta title={post.creator.user.username} avatar={<Avatar src={require('../../assets/images/default-user.jpg')} />} />
             </Link>
-            <Dropdown
-              trigger={['click']}
-              overlay={(
-                <Menu>
-                  <Menu.Item onClick={() => setSearchParams(`edit=${5}`)} icon={<EditOutlined />}>{t('edit')}</Menu.Item>
-                  <Popconfirm
-                    title={t('delete-confirm')}
-                    onConfirm={deletePost}
-                    okText={t('yes')}
-                    cancelText={t('no')}
-                    icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-                  >
-                    <Menu.Item danger icon={<DeleteOutlined />}>{t('delete')}</Menu.Item>
-                  </Popconfirm>
-                </Menu>
+            {editable && (
+              <Dropdown
+                trigger={['click']}
+                overlay={(
+                  <Menu>
+                    <Menu.Item key="edit" onClick={() => setSearchParams(`edit=${5}`)} icon={<EditOutlined />}>{t('edit')}</Menu.Item>
+                    <Menu.Item key="delete" danger icon={<DeleteOutlined />}>
+                      <Popconfirm
+                        title={t('delete-confirm')}
+                        onConfirm={deletePost}
+                        okText={t('yes')}
+                        cancelText={t('no')}
+                        icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                      >
+                        {t('delete')}
+                      </Popconfirm>
+                    </Menu.Item>
+                  </Menu>
+              )}
+              >
+                <MoreOutlined />
+              </Dropdown>
             )}
-            >
-              <MoreOutlined />
-            </Dropdown>
           </div>
           <div className="post-info">
             <div className="card-operations">
               <h3>
-                <Button size="large" icon={post ? <HeartFilled style={{ color: 'red' }} /> : <HeartOutlined />} onClick={likePost} className="like-button" />
-                {post.likes?.length ?? 0}
+                <Button size="large" icon={<HeartFilled style={{ color: 'red' }} />} className="like-button" />
+                {`${post.likes?.length} likes` ?? 0}
               </h3>
               <span>
-                <Button size="large" icon={<MessageOutlined />} className="comment-button" />
-                <Button size="large" icon={archive ? <EnvironmentFilled /> : <EnvironmentOutlined />} onClick={archivePost} className="archive-button" />
+                <Button
+                  size="large"
+                  onClick={() => {
+                    setSearchParams({ ...QS, comments: 'true' })
+                    queryClient.fetchQuery('comments')
+                  }}
+                  icon={<MessageOutlined />}
+                  className="comment-button"
+                />
+                <Button size="large" onClick={archivePost} icon={<DownSquareOutlined />} className="archive-button" />
               </span>
             </div>
             <h2 className="title">{post.title}</h2>
             {post.caption && (
             <div className="description-container">
               <span className="creator">
-                {post.creator}
+                {post.creator.user.username}
                 :
                 {' '}
               </span>
@@ -117,10 +134,10 @@ function PostModal({ visible, post, setVisible }: any) {
             </div>
             )}
             <div className="tags">
-              {post?.tags && post.tags.map((tag: string) => <Tag key={tag} className="tag">{tag}</Tag>)}
+              {post?.tags && post.tags.map((tag: any) => <Tag key={tag} className="tag">{tag.name}</Tag>)}
             </div>
-            <span className="date">{post.createdAt}</span>
-            {post.createdAt !== post.editedAt && (
+            <span className="date">{new Date(post.createdAt * 1000).toUTCString()}</span>
+            {post.editedAt && (
             <EditOutlined />)}
           </div>
         </Card>

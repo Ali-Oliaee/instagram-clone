@@ -14,7 +14,6 @@ import {
   Dropdown,
   Input,
   Menu,
-  Tooltip,
 } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
@@ -30,44 +29,42 @@ function Header({ setSearchKey }: any) {
     navigate('/')
     window.location.reload()
   }
+
+  const menu = () => (
+    <Menu>
+      <Menu.Item key="profile" icon={<UserOutlined />}>
+        <Link to="/profile/-1">
+          {t('profile')}
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="setting" icon={<SettingOutlined />}>
+        <Link to="/settings">
+          {t('settings')}
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="saved" icon={<InboxOutlined />}>
+        <Link to="/saved">
+          {t('saved')}
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="logout" onClick={logout} danger icon={<LogoutOutlined />}>
+        {t('logout')}
+      </Menu.Item>
+    </Menu>
+  )
+
   return (
     <div className="header">
       <Logo />
       <Input onChange={(e) => setSearchKey(e.target.value)} prefix={<SearchOutlined />} placeholder={t('search-placeholder')} className="search-input" />
       <div className="header-menu">
-        <Tooltip title={t('home')} color="#777">
-          <Link to="/">
-            <Button icon={<HomeOutlined />} size="large" className="header-menu-item" />
-          </Link>
-        </Tooltip>
-        <Tooltip title={t('add-post')} color="#777">
-          <Button className="header-menu-item" size="large" icon={<PlusCircleOutlined />} onClick={() => setSearchParams('add=true')} />
-        </Tooltip>
+        <Link to="/">
+          <Button icon={<HomeOutlined />} size="large" className="header-menu-item" />
+        </Link>
+        <Button className="header-menu-item" size="large" icon={<PlusCircleOutlined />} onClick={() => setSearchParams({ add: 'true' })} />
         <Dropdown
           className="header-menu-item"
-          overlay={(
-            <Menu>
-              <Menu.Item key="profile" icon={<UserOutlined />}>
-                <Link to="/profile/null">
-                  {t('profile')}
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="setting" icon={<SettingOutlined />}>
-                <Link to="/settings">
-                  {t('settings')}
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="saved" icon={<InboxOutlined />}>
-                <Link to="/saved">
-                  {t('saved')}
-                </Link>
-              </Menu.Item>
-              <Divider style={{ margin: 0 }} />
-              <Menu.Item key="logout" onClick={logout} danger icon={<LogoutOutlined />}>
-                {t('logout')}
-              </Menu.Item>
-            </Menu>
-         )}
+          overlay={menu}
           trigger={['click']}
         >
           <Avatar src={require('../../assets/images/default-user.jpg')} size="small" />

@@ -9,7 +9,7 @@ function NotFoundPage() {
     <div className="not-found-page">
       <h1>{t('404')}</h1>
       <h3>{t('page-not-found')}</h3>
-      <Link to="/">{t('back-home')}</Link>
+      <Link to={!localStorage.getItem('user') ? '/auth/login' : '/'}>{t('back-home')}</Link>
       <SwitchLanguage />
     </div>
   )

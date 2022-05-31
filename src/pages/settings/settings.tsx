@@ -41,13 +41,14 @@ function SettingsPage() {
     axios.post('account/change-profile-photo', formData).then((data) => console.log('data', data))
   }
 
+  if (isLoading) return <Spin size="large" className="settings-spin" />
+
   form.setFieldsValue({
-    username: user[0].user.username,
-    bio: user[0].user.bio,
-    email: user[0].user.email,
+    username: user[0]?.user?.username,
+    email: user[0]?.user?.email,
+    bio: user[0]?.bio,
   })
 
-  if (isLoading) return <Spin size="large" className="settings-spin" />
   return (
     <>
       <div className="settings-page">
