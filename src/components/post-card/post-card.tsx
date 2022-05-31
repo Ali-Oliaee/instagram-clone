@@ -111,10 +111,10 @@ function PostCard({
               </div>
             )}
             <div className="tags">
-              {tags && tags.map((tag: string) => <Tag key={tag} className="tag">{tag}</Tag>)}
+              {tags && tags.map((tag: any) => <Tag key={tag.name} className="tag">{tag.name}</Tag>)}
             </div>
-            <span className="date">{createdAt}</span>
-            {createdAt !== editedAt && (
+            <span className="date">{new Date(createdAt * 1000).toUTCString()}</span>
+            {editedAt && (
               <EditOutlined />)}
           </div>
           <AddPostModal post={{

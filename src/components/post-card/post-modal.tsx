@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import {
   Avatar,
   Button,
@@ -5,6 +6,7 @@ import {
   Dropdown,
   Image,
   Menu,
+  message,
   Modal,
   Popconfirm,
   Tag,
@@ -34,12 +36,16 @@ function PostModal({
   const QS = qs.parse(window.location.search)
   const queryClient = useQueryClient()
 
-  const deletePost = () => {
-    axios.delete(`posts/list/${post.id}/`).then(() => {
-      queryClient.invalidateQueries('posts')
-      setVisible(false)
-    })
-  }
+  const deletePost = () => axios.delete(`posts/list/${post.id}/`).then(() => {
+    queryClient.invalidateQueries('posts')
+    setVisible(false)
+  })
+
+  const archivePost = () => axios.post('archives/create/', {
+    post: post.id,
+  }).then(({ data }) => {
+    message.success(data.message)
+  })
 
   return (
     <Modal
@@ -108,7 +114,7 @@ function PostModal({
                   icon={<MessageOutlined />}
                   className="comment-button"
                 />
-                <Button size="large" icon={<DownSquareOutlined />} className="archive-button" />
+                <Button size="large" onClick={archivePost} icon={<DownSquareOutlined />} className="archive-button" />
               </span>
             </div>
             <h2 className="title">{post.title}</h2>
@@ -128,10 +134,10 @@ function PostModal({
             </div>
             )}
             <div className="tags">
-              {post?.tags && post.tags.map((tag: string) => <Tag key={tag} className="tag">{tag}</Tag>)}
+              {post?.tags && post.tags.map((tag: any) => <Tag key={tag} className="tag">{tag.name}</Tag>)}
             </div>
-            <span className="date">{post.createdAt}</span>
-            {post.createdAt !== post.editedAt && (
+            <span className="date">{new Date(post.createdAt * 1000).toUTCString()}</span>
+            {post.editedAt && (
             <EditOutlined />)}
           </div>
         </Card>
