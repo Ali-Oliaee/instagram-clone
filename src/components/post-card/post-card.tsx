@@ -36,7 +36,7 @@ function PostCard({
   image,
   createdAt,
   id,
-  editedAt,
+  updatedAt,
   editable,
 }: any) {
   const [modalVisible, setModalVisible] = useState(false)
@@ -114,7 +114,7 @@ function PostCard({
               {tags && tags.map((tag: any) => <Tag key={tag.name} className="tag">{tag.name}</Tag>)}
             </div>
             <span className="date">{new Date(createdAt * 1000).toUTCString()}</span>
-            {editedAt && (
+            {updatedAt !== createdAt && (
               <EditOutlined />)}
           </div>
           <AddPostModal post={{
@@ -142,6 +142,7 @@ function PostCard({
           />
           <PostModal
             post={{
+              id,
               title,
               caption,
               creator,
@@ -149,8 +150,7 @@ function PostCard({
               likes,
               image,
               createdAt,
-              id,
-              editedAt,
+              updatedAt,
             }}
             visible={modalVisible}
             setVisible={setModalVisible}

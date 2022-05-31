@@ -22,7 +22,7 @@ function LoginPage() {
   const [form] = Form.useForm()
   const handleSubmit = ({ email, password } : User) => {
     setLoading(true)
-    axios.post('users/login/', {
+    return axios.post('users/login/', {
       email,
       password,
     })

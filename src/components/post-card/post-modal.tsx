@@ -136,7 +136,7 @@ function PostModal({
               {post?.tags && post.tags.map((tag: any) => <Tag key={tag} className="tag">{tag.name}</Tag>)}
             </div>
             <span className="date">{new Date(post.createdAt * 1000).toUTCString()}</span>
-            {post.createdAt && (
+            {post.updatedAt !== post.createdAt && (
             <EditOutlined />)}
           </div>
         </Card>
