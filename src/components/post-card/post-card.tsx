@@ -14,6 +14,7 @@ import {
   Dropdown,
   Image,
   Menu,
+  message,
   Popconfirm,
   Tag,
 } from 'antd'
@@ -45,7 +46,10 @@ function PostCard({
   const [searchParams, setSearchParams] = useSearchParams()
   const isMobile = useMediaQuery('(max-width: 500px)')
   const queryClient = useQueryClient()
-  const deletePost = () => axios.delete(`posts/list/${id}/`).then(() => queryClient.invalidateQueries('posts'))
+  const deletePost = () => axios.delete(`posts/list/${id}/`).then(() => {
+    message.success('Post deleted successfully!')
+    queryClient.invalidateQueries('posts')
+  })
 
   return (
     <div>

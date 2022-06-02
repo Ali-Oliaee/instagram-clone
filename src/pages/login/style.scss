@@ -1,18 +1,16 @@
 @import "../../utils/utils";
 
 .login-page {
-    width: 100%;
     min-height: 100vh;
     @include flex(center,center, column);
     padding: 0 30px;
-    background-color: #f5f5f5;
+    background-color: #fafafa;
     
     .form-container {
-        border: 1px solid #ddd;
+        border: 1px solid #dbdbdb;
         padding: 16px 30px;
-        max-width: 350px;
-        width: 100%;
         background-color: #fff;
+        width: 350px;
 
         .ant-form-item {
             margin-bottom: 10px;
@@ -24,15 +22,16 @@
         }
         .forgot-password-link {
             margin-block: 4px;
+            text-align: center;
         }
     }  
     .signup-link {
-        margin-inline:  auto;
+        margin-inline: auto;
         margin-top: 20px;
-        border: 1px solid #ddd;
+        border: 1px solid #dbdbdb;
         padding: 20px 30px;
-        width: 100%;
-        text-align: center;
         background-color: #fff;
+        width: 350px;
+        text-align: center;
     }
 }

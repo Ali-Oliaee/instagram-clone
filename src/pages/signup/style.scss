@@ -1,19 +1,26 @@
 @import "../../utils/utils";
 
 .signup-page {
-    width: 100%;
     min-height: 100vh;
     padding: 0 30px;
     @include flex(center,center, column);
-    background: linear-gradient(135deg, #241024 25%, transparent 25%) -43px 0/ 86px 86px, linear-gradient(225deg, rgba(36,16,36,0.5) 25%, transparent 25%) -43px 0/ 86px 86px, linear-gradient(315deg, #241024 25%, transparent 25%) 0 0/ 86px 86px, linear-gradient(45deg, rgba(36,16,36,0.5) 25%, #e4edf3 25%) 0 0/ 86px 86px;
-    background-color: #e4edf3;
+    background-color: #fafafa;
+    margin-block: 22px;
 
     .form-container {
-        width: 100%;
-        border: 1px solid #ddd;
+        border: 1px solid #dbdbdb;
         padding: 16px 30px;
-        max-width: 350px;
+        width: 350px;
         background-color: #fff;
+
+        .description {
+            color: #998e8e;
+            font-weight: bold;
+            width: 80%;
+            margin: 12px auto;
+            font-size: 1.3em;
+            line-height: 130%;
+        }
 
         .ant-form-item {
             margin-bottom: 10px;
@@ -21,14 +28,18 @@
         h4, a {
             text-align: center;
             margin-top: 10px;
+            color: #919eac;
+        }
+        a {
+            font-weight: bold;
         }
     }
     .signin-link {
         margin-inline:  auto;
         margin-top: 20px;
-        border: 1px solid #ddd;
+        border: 1px solid #dbdbdb;
         padding: 20px 30px;
-        width: 100%;
+        width: 350px;
         text-align: center;
         background-color: #fff;
     }

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { UploadOutlined } from '@ant-design/icons'
 import {
-  Button, Form, message, Modal, Select, Upload,
+  Button, Form, message, Modal, Select, Switch, Upload,
 } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
@@ -24,7 +24,7 @@ function AddPostModal({ post }:any) {
   })
 
   const addPost = ({
-    post: image, title, caption, tags,
+    post: image, title, caption, tags, allowComments,
   } : any) => {
     setLoading(true)
     const postImage = image[0].originFileObj
@@ -32,6 +32,7 @@ function AddPostModal({ post }:any) {
     formData.append('file', postImage)
     formData.append('title', title)
     formData.append('caption', caption)
+    formData.append('comment_status', allowComments)
 
     return axios.post(
       '/posts/create/',
@@ -107,6 +108,9 @@ function AddPostModal({ post }:any) {
         </Form.Item>
         <Form.Item name="tags">
           <Select open={false} mode="tags" placeholder={t('tags')} />
+        </Form.Item>
+        <Form.Item label={t('allow-comments')} name="allowComments" valuePropName="checked">
+          <Switch className="switch" />
         </Form.Item>
         <Button block type="primary" htmlType="submit" loading={loading}>
           {t('submit')}
