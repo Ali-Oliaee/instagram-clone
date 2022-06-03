@@ -58,7 +58,7 @@ function PostCard({
         <Card className="post-card">
           <div className="creator">
             <Link to={`/profile/${creator?.id}`}>
-              <Meta title={creator.user.username} avatar={<Avatar src={require('../../assets/images/default-user.jpg')} />} />
+              <Meta title={creator.user.username} avatar={<Avatar src={creator.photo} />} />
             </Link>
             {editable && (
               <Dropdown

@@ -18,7 +18,9 @@ import {
   Row,
 } from 'antd'
 import { useTranslation } from 'react-i18next'
+import { useQuery } from 'react-query'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { getAccountInformation } from '../../utils/api'
 import { Logo } from '../logo'
 import './style.scss'
 
@@ -31,6 +33,7 @@ function Header({ setSearchKey }: any) {
     navigate('/')
     window.location.reload()
   }
+  const { data: user } = useQuery('user', getAccountInformation)
 
   const menu = () => (
     <Menu>
@@ -72,7 +75,7 @@ function Header({ setSearchKey }: any) {
               overlay={menu}
               trigger={['click']}
             >
-              <Avatar src={require('../../assets/images/default-user.jpg')} size="small" />
+              <Avatar src={user && user[0].photo} size="small" />
             </Dropdown>
           </div>
         </Row>

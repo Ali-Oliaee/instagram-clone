@@ -71,7 +71,8 @@ function PostModal({
         <Card className="post-card">
           <div className="creator">
             <Link to={`/profile/${post.creator.id}`}>
-              <Card.Meta title={post.creator.user.username} avatar={<Avatar src={require('../../assets/images/default-user.jpg')} />} />
+              {/* eslint-disable-next-line max-len */}
+              <Card.Meta title={post.creator.user.username} avatar={<Avatar src={post.creator.photo} />} />
             </Link>
             {editable && (
               <Dropdown
