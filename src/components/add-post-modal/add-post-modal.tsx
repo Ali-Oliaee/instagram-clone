@@ -24,7 +24,7 @@ function AddPostModal({ post }:any) {
   })
 
   const addPost = ({
-    post: image, title, caption, tags, allowComments,
+    post: image, title, caption, tags, enableComments,
   } : any) => {
     setLoading(true)
     const postImage = image[0].originFileObj
@@ -32,7 +32,7 @@ function AddPostModal({ post }:any) {
     formData.append('file', postImage)
     formData.append('title', title)
     formData.append('caption', caption)
-    formData.append('comment_status', allowComments)
+    formData.append('comment_status', enableComments === 'checked' ? 'true' : 'false')
 
     return axios.post(
       '/posts/create/',
@@ -109,7 +109,7 @@ function AddPostModal({ post }:any) {
         <Form.Item name="tags">
           <Select open={false} mode="tags" placeholder={t('tags')} />
         </Form.Item>
-        <Form.Item label={t('allow-comments')} name="allowComments" valuePropName="checked">
+        <Form.Item label={t('allow-comments')} initialValue="checked" name="enableComments" valuePropName="checked">
           <Switch className="switch" />
         </Form.Item>
         <Button block type="primary" htmlType="submit" loading={loading}>

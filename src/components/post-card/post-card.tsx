@@ -39,6 +39,7 @@ function PostCard({
   id,
   updatedAt,
   editable,
+  enableComments,
 }: any) {
   const [modalVisible, setModalVisible] = useState(false)
   const { Meta } = Card
@@ -89,12 +90,14 @@ function PostCard({
                 {`${likes.length} likes`}
               </h3>
               <span>
+                {enableComments && (
                 <Button
                   size="large"
                   onClick={() => setSearchParams({ post: id, comments: 'true' })}
                   icon={<MessageOutlined />}
                   className="comment-button"
                 />
+                )}
                 <Button size="large" icon={<DownSquareOutlined />} className="archive-button" />
               </span>
             </div>
