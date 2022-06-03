@@ -1,15 +1,11 @@
 @import '../../utils/utils';
 
 .profile-page {
-    .settings-spin {
-        width: 100%;
-        text-align: center;
-    }
     .profile-info {
         @include flex(flex-start);
         margin: 20px;
         @media screen and (max-width: 450px) {
-            @include flex(center,center,column);
+            @include flex(center,center,column) ;
             .report,.bio, .profile-header {
                 text-align: center;
                 margin: 0 auto;
