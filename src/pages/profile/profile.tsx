@@ -17,7 +17,7 @@ function profilePage() {
   return (
     <PageWrapper isLoading={isLoading} className="profile-page">
       <div className="profile-info">
-        <Avatar src={currentUser[0].photo} size="large" className="avatar" />
+        <Avatar src={currentUser && currentUser[0].photo} size="large" className="avatar" />
         <div>
           <div className="profile-header">
             <span className="username">{currentUser && currentUser[0]?.user?.username}</span>
@@ -45,7 +45,7 @@ function profilePage() {
               following
             </span>
           </div>
-          <div className="bio">{currentUser && currentUser[0]?.user?.bio}</div>
+          <div className="bio">{currentUser && currentUser[0]?.bio}</div>
         </div>
       </div>
       <PostsWrapper editable posts={userPosts} />

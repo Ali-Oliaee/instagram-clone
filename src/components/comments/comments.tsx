@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable react/no-array-index-key */
 import {
   Avatar, Button, Comment, Form, Input, message, Modal, Skeleton,
@@ -15,7 +16,7 @@ function Comments() {
   const [loading, setLoading] = useState(false)
   const [form] = Form.useForm()
   const QS = qs.parse(window.location.search)
-  const { data: comments, isLoading, refetch } = useQuery('comments', () => getComments(Number(QS.post) || 0))
+  // const { data: comments, isLoading, refetch } = useQuery('comments', () => getComments(Number(QS.post) || 0))
   const sendComment = ({ commentContent }: any) => {
     setLoading(true)
     return commentContent && axios.post('/comments/create/', {
@@ -23,7 +24,7 @@ function Comments() {
       post: Number(QS.post),
     }).then(() => {
       message.success('comment added successfully!')
-      refetch()
+      // refetch()
       form.resetFields()
     }).finally(() => setLoading(false))
   }
@@ -42,7 +43,7 @@ function Comments() {
       destroyOnClose
       centered
     >
-      <div className="comments">
+      {/* <div className="comments">
         {
          comments && comments.map((comment: any, index: any) => (
            <Comment
@@ -58,7 +59,7 @@ function Comments() {
            />
          ))
     }
-      </div>
+      </div> */}
       <Form form={form} onFinish={sendComment} layout="vertical">
         <Form.Item
           name="commentContent"
