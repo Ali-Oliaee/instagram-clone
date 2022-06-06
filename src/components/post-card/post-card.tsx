@@ -17,17 +17,18 @@ import {
   Image,
   Menu,
   message,
+  Modal,
   Popconfirm,
   Tag,
 } from 'antd'
 import { useState } from 'react'
+import qs from 'query-string'
 import { useTranslation } from 'react-i18next'
 import { useQueryClient } from 'react-query'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useMediaQuery } from 'usehooks-ts'
 import axios from '../../utils/axios'
 import { AddPostModal } from '../add-post-modal'
-import PostModal from './post-modal'
 import './style.scss'
 
 function PostCard({
@@ -51,6 +52,7 @@ function PostCard({
   const isMobile = useMediaQuery('(max-width: 500px)')
   const queryClient = useQueryClient()
   const { account } = JSON.parse(localStorage.getItem('user') ?? '{}')
+  const QS = qs.parse(window.location.search)
 
   const deletePost = () => axios.delete(`posts/list/post=${id}/`).then(() => {
     message.success('Post deleted successfully!')
@@ -77,6 +79,21 @@ function PostCard({
     post: id,
   }).then(() => queryClient.invalidateQueries('posts'))
 
+  const menu = (
+    <Menu>
+      <Menu.Item key="edit" onClick={() => setSearchParams(`edit=${id}`)} icon={<EditOutlined />}>{t('edit')}</Menu.Item>
+      <Popconfirm
+        title={t('delete-confirm')}
+        onConfirm={deletePost}
+        okText={t('yes')}
+        cancelText={t('no')}
+        icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+      >
+        <Menu.Item key="delete" danger icon={<DeleteOutlined />}>{t('delete')}</Menu.Item>
+      </Popconfirm>
+    </Menu>
+  )
+
   return (
     <div>
       {isMobile ? (
@@ -88,20 +105,7 @@ function PostCard({
             {editable && (
               <Dropdown
                 trigger={['click']}
-                overlay={(
-                  <Menu>
-                    <Menu.Item key="edit" onClick={() => setSearchParams(`edit=${id}`)} icon={<EditOutlined />}>{t('edit')}</Menu.Item>
-                    <Popconfirm
-                      title={t('delete-confirm')}
-                      onConfirm={deletePost}
-                      okText={t('yes')}
-                      cancelText={t('no')}
-                      icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-                    >
-                      <Menu.Item key="delete" danger icon={<DeleteOutlined />}>{t('delete')}</Menu.Item>
-                    </Popconfirm>
-                  </Menu>
-                  )}
+                overlay={menu}
               >
                 <MoreOutlined />
               </Dropdown>
@@ -185,28 +189,108 @@ function PostCard({
               })
             }}
           />
-          <PostModal
-            post={{
-              id,
-              title,
-              caption,
-              creator,
-              tags,
-              likes,
-              archives,
-              image,
-              createdAt,
-              updatedAt,
-            }}
+          <Modal
             visible={modalVisible}
-            setVisible={setModalVisible}
-            editable={editable}
-            onDelete={deletePost}
-            onLike={likePost}
-            onRemoveLike={removeLikeFromPost}
-            onArchive={archivePost}
-            onRemoveArchive={removeFromArchive}
-          />
+            closable={false}
+            onCancel={() => {
+              setModalVisible(false)
+              setSearchParams({})
+            }}
+            footer={null}
+            width="80%"
+            centered
+            className="post-card-modal"
+            destroyOnClose
+          >
+            <Image
+              src={image}
+              alt={title}
+              height="100%"
+              width="100%"
+              preview={false}
+            />
+            <div className="post-info">
+              <Card className="post-card">
+                <div className="creator">
+                  <Link to={`/profile/${creator.id}`}>
+                    <Card.Meta
+                      title={creator.user.username}
+                      avatar={<Avatar src={creator.photo} />}
+                    />
+                  </Link>
+                  {editable && (
+                  <Dropdown
+                    trigger={['click']}
+                    overlay={menu}
+                  >
+                    <MoreOutlined />
+                  </Dropdown>
+                  )}
+                </div>
+                <div className="post-info">
+                  <div className="card-operations">
+                    <h3>
+                      <Button
+                        size="large"
+                        className="like-button"
+                        onClick={likes.includes(account.id) ? removeLikeFromPost : likePost}
+                        icon={
+                          likes.includes(account.id)
+                            ? <HeartFilled style={{ color: 'red' }} /> : <HeartOutlined />
+                        }
+                      />
+                      {`${likes?.length} likes` ?? 0}
+                    </h3>
+                    <span>
+                      {enableComments && (
+                        <Button
+                          size="large"
+                          onClick={() => {
+                            setSearchParams({ ...QS, comments: 'true' })
+                            queryClient.fetchQuery('comments')
+                          }}
+                          icon={<MessageOutlined />}
+                          className="comment-button"
+                        />
+                      )}
+                      <Button
+                        size="large"
+                        onClick={archives.includes(account.id) ? removeFromArchive : archivePost}
+                        icon={archives.includes(account.id) ? <DownSquareFilled style={{ color: 'green' }} /> : <DownSquareOutlined />}
+                        className="archive-button"
+                      />
+                    </span>
+                  </div>
+                  <h2 className="title">{title}</h2>
+                  {caption && (
+                    <div className="description-container">
+                      <span className="creator">
+                        {creator.user.username}
+                        :
+                        {' '}
+                      </span>
+                      <span className="description">
+                        {caption}
+                        {caption?.length > 100 && (
+                        <Button type="link" className="more-button">more...</Button>
+                        )}
+                      </span>
+                    </div>
+                  )}
+                  <div className="tags">
+                    {tags && tags.map((tag: any) => <Tag key={tag} className="tag">{tag.name}</Tag>)}
+                  </div>
+                  <span className="date">{new Date(createdAt * 1000).toUTCString()}</span>
+                  {updatedAt !== createdAt && (
+                    <EditOutlined />)}
+                </div>
+              </Card>
+            </div>
+            <AddPostModal post={{
+              title, caption, tags, enableComments,
+            }}
+            />
+          </Modal>
         </>
       )}
     </div>
