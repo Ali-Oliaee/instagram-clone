@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { UploadOutlined } from '@ant-design/icons'
 import {
-  Button, Form, message, Modal, Select, Upload,
+  Button, Form, message, Modal, Select, Switch, Upload,
 } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
@@ -24,7 +24,7 @@ function AddPostModal({ post }:any) {
   })
 
   const addPost = ({
-    post: image, title, caption, tags,
+    post: image, title, caption, tags, enableComments,
   } : any) => {
     setLoading(true)
     const postImage = image[0].originFileObj
@@ -32,6 +32,7 @@ function AddPostModal({ post }:any) {
     formData.append('file', postImage)
     formData.append('title', title)
     formData.append('caption', caption)
+    formData.append('comment_status', enableComments)
 
     return axios.post(
       '/posts/create/',
@@ -51,7 +52,7 @@ function AddPostModal({ post }:any) {
 
   const editPost = ({ title, caption, tags } : any) => {
     setLoading(true)
-    return axios.patch(`/posts/list/${post.id}/`, {
+    return axios.patch(`/posts/list/post=${post.id}/`, {
       title,
       caption,
       tags,
@@ -71,8 +72,9 @@ function AddPostModal({ post }:any) {
       title={QS.edit ? t('edit-post') : t('add-post')}
       footer={null}
       className="add-post-modal"
+      destroyOnClose
     >
-      <Form onFinish={post ? editPost : addPost} form={form}>
+      <Form onFinish={QS.edit ? editPost : addPost} form={form}>
         {!!QS.add && (
         <Form.Item
           name="post"
@@ -107,6 +109,9 @@ function AddPostModal({ post }:any) {
         </Form.Item>
         <Form.Item name="tags">
           <Select open={false} mode="tags" placeholder={t('tags')} />
+        </Form.Item>
+        <Form.Item label={t('allow-comments')} initialValue valuePropName="checked" name="enableComments">
+          <Switch className="switch" />
         </Form.Item>
         <Button block type="primary" htmlType="submit" loading={loading}>
           {t('submit')}

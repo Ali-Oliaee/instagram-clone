@@ -10,10 +10,12 @@ import {
 import {
   Avatar,
   Button,
+  Col,
   Divider,
   Dropdown,
   Input,
   Menu,
+  Row,
 } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
@@ -24,6 +26,7 @@ function Header({ setSearchKey }: any) {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
+  const user = JSON.parse(localStorage.getItem('user') ?? '{}')
   const logout = () => {
     localStorage.clear()
     navigate('/')
@@ -33,7 +36,7 @@ function Header({ setSearchKey }: any) {
   const menu = () => (
     <Menu>
       <Menu.Item key="profile" icon={<UserOutlined />}>
-        <Link to="/profile/-1">
+        <Link to={`/profile/${user.account.id}`}>
           {t('profile')}
         </Link>
       </Menu.Item>
@@ -47,6 +50,7 @@ function Header({ setSearchKey }: any) {
           {t('saved')}
         </Link>
       </Menu.Item>
+      <Divider style={{ margin: 0 }} />
       <Menu.Item key="logout" onClick={logout} danger icon={<LogoutOutlined />}>
         {t('logout')}
       </Menu.Item>
@@ -54,23 +58,27 @@ function Header({ setSearchKey }: any) {
   )
 
   return (
-    <div className="header">
-      <Logo />
-      <Input onChange={(e) => setSearchKey(e.target.value)} prefix={<SearchOutlined />} placeholder={t('search-placeholder')} className="search-input" />
-      <div className="header-menu">
-        <Link to="/">
-          <Button icon={<HomeOutlined />} size="large" className="header-menu-item" />
-        </Link>
-        <Button className="header-menu-item" size="large" icon={<PlusCircleOutlined />} onClick={() => setSearchParams({ add: 'true' })} />
-        <Dropdown
-          className="header-menu-item"
-          overlay={menu}
-          trigger={['click']}
-        >
-          <Avatar src={require('../../assets/images/default-user.jpg')} size="small" />
-        </Dropdown>
-      </div>
-    </div>
+    <Row className="header" justify="center">
+      <Col xs={24} sm={22} md={20} lg={18}>
+        <Row justify="space-between" align="middle">
+          <Logo />
+          <Input size="large" onChange={(e) => setSearchKey(e.target.value)} prefix={<SearchOutlined />} placeholder={t('search-placeholder')} className="search-input" />
+          <div className="header-menu">
+            <Link to="/">
+              <Button icon={<HomeOutlined />} size="large" className="header-menu-item" />
+            </Link>
+            <Button className="header-menu-item" size="large" icon={<PlusCircleOutlined />} onClick={() => setSearchParams({ add: 'true' })} />
+            <Dropdown
+              className="header-menu-item"
+              overlay={menu}
+              trigger={['click']}
+            >
+              <Avatar src={user.account.photo} size="small" />
+            </Dropdown>
+          </div>
+        </Row>
+      </Col>
+    </Row>
   )
 }
 

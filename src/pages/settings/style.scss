@@ -2,6 +2,9 @@
 
 .settings-page {
     @include flex(center,center,column);
+    .ant-input-disabled {
+        margin-bottom: 20px;
+    }
     .change-image {
     @include flex(center,center,column);
     margin-top: 50px;
@@ -10,8 +13,4 @@
             height: 150px;
         }
     }
-}
-
-.settings-spin {
-    width: 100%;
 }

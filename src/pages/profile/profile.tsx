@@ -1,29 +1,27 @@
 import { EditOutlined } from '@ant-design/icons'
-import { Avatar, Button, Spin } from 'antd'
+import { Avatar, Button } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
 import { Link, useLocation } from 'react-router-dom'
-import { Header, PostsWrapper } from '../../components'
-import { fetchUserPosts, getAccountInformation } from '../../utils/api'
+import { PageWrapper, PostsWrapper } from '../../components'
+import { getUserPosts, getAccountInformation } from '../../utils/api'
 import './style.scss'
 
 function profilePage() {
   const location = useLocation()
   const { t } = useTranslation()
   const userId = +location.pathname.split('/')[2]
-  const { data: currentUser, isLoading } = useQuery('getCurrentUser', getAccountInformation)
-  const { data: userPosts } = useQuery('posts', fetchUserPosts)
-  if (isLoading) return <Spin size="large" className="settings-spin" />
+  const { data: user, isLoading } = useQuery('getCurrentUser', () => getAccountInformation(userId))
+  const { data: userPosts } = useQuery('posts', () => getUserPosts(userId))
 
   return (
-    <div className="profile-page">
-      <Header />
+    <PageWrapper isLoading={isLoading} className="profile-page">
       <div className="profile-info">
-        <Avatar src={require('../../assets/images/default-user.jpg')} size="large" className="avatar" />
+        <Avatar src={user && user[0].photo} size="large" className="avatar" />
         <div>
           <div className="profile-header">
-            <span className="username">{currentUser[0]?.user?.username}</span>
-            {userId !== currentUser?.id ? (
+            <span className="username">{user && user[0]?.user?.username}</span>
+            {user && userId !== user[0].id ? (
               <Button type="primary" size="small" className="edit-button">
                 {t('follow')}
               </Button>
@@ -35,23 +33,20 @@ function profilePage() {
           </div>
           <div className="report">
             <span className="posts">
-              <strong>1200 </strong>
-              posts
+              {`${user && user[0].count.post} posts`}
             </span>
             <span className="follower">
-              <strong>125 </strong>
-              followers
+              {`${user && user[0].count.follower} follower`}
             </span>
             <span className="following">
-              <strong>984 </strong>
-              following
+              {`${user && user[0].count.following} following`}
             </span>
           </div>
-          <div className="bio">{currentUser[0]?.user?.bio}</div>
+          <div className="bio">{user && user[0]?.bio}</div>
         </div>
       </div>
       <PostsWrapper editable posts={userPosts} />
-    </div>
+    </PageWrapper>
   )
 }
 

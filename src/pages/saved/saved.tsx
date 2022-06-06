@@ -1,6 +1,5 @@
-import { Spin } from 'antd'
 import { useQuery } from 'react-query'
-import { Header, PostsWrapper } from '../../components'
+import { PageWrapper, PostsWrapper } from '../../components'
 import { getArchivedPosts } from '../../utils/api'
 import './style.scss'
 
@@ -8,10 +7,9 @@ function SavedPage() {
   const { data: archivePosts, isLoading } = useQuery('archivePosts', getArchivedPosts)
 
   return (
-    <div className="saved-page">
-      <Header />
-      {isLoading ? <Spin /> : <PostsWrapper posts={archivePosts?.post} />}
-    </div>
+    <PageWrapper className="saved-page" isLoading={isLoading}>
+      <PostsWrapper posts={archivePosts?.map(({ post }: any) => post)} />
+    </PageWrapper>
   )
 }
 

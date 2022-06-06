@@ -1,18 +1,12 @@
 @import '../../utils/utils';
 
 .header {
-    padding-inline:  20px;
-    @include flex( space-between, center);
-    background-color: $mellow-apricot;
-    width: 100%;
+    padding: 4px 20px;
+    background-color: #fff;
     position: sticky;
     top: 0;
     z-index: 10;
-    overflow: hidden;
-    @media screen and (max-width: 500px) {
-        padding-inline: 10px;
-    }
-
+    border-bottom: 1px solid rgba(145,158,172, 0.5);
     
     .header-menu {
         @include flex(center, baseline);
@@ -27,13 +21,20 @@
     }
 
     .search-input {
-        max-width: 300px;
+        max-width: 320px;
         border: 0;
-        border-radius: 10px;
-        margin-inline: 10px; 
-        @media screen and (max-width: 400px) {
+        border-radius: 8px;
+        background-color: #efefef;
+        @media screen and (max-width: 600px) {
             display: none;
         }   
+        input {
+            background-color: #efefef;
+            &::placeholder {
+                color: #a3a0a4;
+                font-size: 1.1em;
+            }
+        }
     }
     .logo-container {
         width: 100%;

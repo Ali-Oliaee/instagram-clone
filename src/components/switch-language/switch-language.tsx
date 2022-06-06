@@ -10,20 +10,14 @@ function SwitchLanguage() {
 
   return (
     <div className="switch-language">
-      <span>
-        {t('language')}
-        {' '}
-        :
-        {' '}
-      </span>
       <Select
-        defaultValue="en"
+        defaultValue="English"
         onChange={changeLanguage}
         className="language-select"
-        suffixIcon={null}
+        bordered={false}
       >
-        <Option value="en">en</Option>
-        <Option value="fa">fa</Option>
+        <Option value="en">English</Option>
+        <Option value="fa">Farsi</Option>
       </Select>
     </div>
   )
