@@ -11,9 +11,8 @@ function profilePage() {
   const location = useLocation()
   const { t } = useTranslation()
   const userId = +location.pathname.split('/')[2]
-  const { data: currentUser, isLoading } = useQuery('getCurrentUser', () => getAccountInformation(1))
-  // todo: fix that id
-  const { data: userPosts } = useQuery('posts', () => getUserPosts(1))
+  const { data: currentUser, isLoading } = useQuery('getCurrentUser', () => getAccountInformation(userId))
+  const { data: userPosts } = useQuery('posts', () => getUserPosts(userId))
 
   return (
     <PageWrapper isLoading={isLoading} className="profile-page">
@@ -22,7 +21,7 @@ function profilePage() {
         <div>
           <div className="profile-header">
             <span className="username">{currentUser && currentUser[0]?.user?.username}</span>
-            {userId !== currentUser?.id ? (
+            {currentUser && userId !== currentUser[0]?.id ? (
               <Button type="primary" size="small" className="edit-button">
                 {t('follow')}
               </Button>

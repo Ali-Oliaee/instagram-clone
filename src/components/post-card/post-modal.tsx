@@ -101,6 +101,7 @@ function PostModal({
                 {`${post.likes?.length} likes` ?? 0}
               </h3>
               <span>
+                {post.enableComments && (
                 <Button
                   size="large"
                   onClick={() => {
@@ -110,6 +111,7 @@ function PostModal({
                   icon={<MessageOutlined />}
                   className="comment-button"
                 />
+                )}
                 <Button size="large" onClick={onArchive} icon={<DownSquareOutlined />} className="archive-button" />
               </span>
             </div>

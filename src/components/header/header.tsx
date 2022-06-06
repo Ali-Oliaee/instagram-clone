@@ -35,11 +35,10 @@ function Header({ setSearchKey }: any) {
   }
   // todo: fix that id
   const { data: user } = useQuery('user', () => getAccountInformation(1))
-
   const menu = () => (
     <Menu>
       <Menu.Item key="profile" icon={<UserOutlined />}>
-        <Link to="/profile/-1">
+        <Link to={`/profile/${user[0].id}`}>
           {t('profile')}
         </Link>
       </Menu.Item>

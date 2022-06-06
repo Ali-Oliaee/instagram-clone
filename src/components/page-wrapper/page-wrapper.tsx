@@ -10,9 +10,7 @@ function PageWrapper({
       <Header setSearchKey={setSearchKey} />
       <Row justify="center" className={className}>
         <Col xs={24} sm={22} md={20} lg={18}>
-          <Row justify="center">
-            {isLoading ? <Spin size="large" /> : children}
-          </Row>
+          {isLoading ? <Spin size="large" /> : children}
         </Col>
       </Row>
     </>
