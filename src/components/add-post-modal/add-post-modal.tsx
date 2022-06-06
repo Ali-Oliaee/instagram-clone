@@ -52,7 +52,7 @@ function AddPostModal({ post }:any) {
 
   const editPost = ({ title, caption, tags } : any) => {
     setLoading(true)
-    return axios.patch(`/posts/list/${post.id}/`, {
+    return axios.patch(`/posts/list/post=${post.id}/`, {
       title,
       caption,
       tags,

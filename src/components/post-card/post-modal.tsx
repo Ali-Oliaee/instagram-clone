@@ -5,7 +5,6 @@ import {
   Dropdown,
   Image,
   Menu,
-  message,
   Modal,
   Popconfirm,
   Tag,
@@ -23,28 +22,16 @@ import {
 } from '@ant-design/icons'
 import { useTranslation } from 'react-i18next'
 import { useQueryClient } from 'react-query'
-import axios from '../../utils/axios'
 import { AddPostModal } from '../add-post-modal'
 import './style.scss'
 
 function PostModal({
-  visible, post, setVisible, editable,
+  visible, post, setVisible, editable, onDelete, onLike, onArchive,
 }: any) {
   const [params, setSearchParams] = useSearchParams()
   const { t } = useTranslation()
   const QS = qs.parse(window.location.search)
   const queryClient = useQueryClient()
-
-  const deletePost = () => axios.delete(`posts/list/${post.id}/`).then(() => {
-    queryClient.invalidateQueries('posts')
-    setVisible(false)
-  })
-
-  const archivePost = () => axios.post('archives/create/', {
-    post: post.id,
-  }).then(({ data }) => {
-    message.success(data.message)
-  })
 
   return (
     <Modal
@@ -71,8 +58,10 @@ function PostModal({
         <Card className="post-card">
           <div className="creator">
             <Link to={`/profile/${post.creator.id}`}>
-              {/* eslint-disable-next-line max-len */}
-              <Card.Meta title={post.creator.user.username} avatar={<Avatar src={post.creator.photo} />} />
+              <Card.Meta
+                title={post.creator.user.username}
+                avatar={<Avatar src={post.creator.photo} />}
+              />
             </Link>
             {editable && (
               <Dropdown
@@ -83,7 +72,7 @@ function PostModal({
                     <Menu.Item key="delete" danger icon={<DeleteOutlined />}>
                       <Popconfirm
                         title={t('delete-confirm')}
-                        onConfirm={deletePost}
+                        onConfirm={onDelete}
                         okText={t('yes')}
                         cancelText={t('no')}
                         icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
@@ -101,7 +90,14 @@ function PostModal({
           <div className="post-info">
             <div className="card-operations">
               <h3>
-                <Button size="large" icon={<HeartFilled style={{ color: 'red' }} />} className="like-button" />
+                <Button
+                  onClick={onLike}
+                  size="large"
+                  className="like-button"
+                  icon={
+                  post.likes.includes(4)
+                }
+                />
                 {`${post.likes?.length} likes` ?? 0}
               </h3>
               <span>
@@ -114,7 +110,7 @@ function PostModal({
                   icon={<MessageOutlined />}
                   className="comment-button"
                 />
-                <Button size="large" onClick={archivePost} icon={<DownSquareOutlined />} className="archive-button" />
+                <Button size="large" onClick={onArchive} icon={<DownSquareOutlined />} className="archive-button" />
               </span>
             </div>
             <h2 className="title">{post.title}</h2>

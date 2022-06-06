@@ -47,10 +47,20 @@ function PostCard({
   const [searchParams, setSearchParams] = useSearchParams()
   const isMobile = useMediaQuery('(max-width: 500px)')
   const queryClient = useQueryClient()
-  const deletePost = () => axios.delete(`posts/list/${id}/`).then(() => {
+
+  const deletePost = () => axios.delete(`posts/list/post=${id}/`).then(() => {
     message.success('Post deleted successfully!')
     queryClient.invalidateQueries('posts')
   })
+
+  const likePost = () => axios.post('/likes/create/', {
+    account: creator.id,
+    post: id,
+  }).then(({ data }) => message.success(data.message))
+
+  const archivePost = () => {
+    console.log('archive')
+  }
 
   return (
     <div>
@@ -162,6 +172,9 @@ function PostCard({
             visible={modalVisible}
             setVisible={setModalVisible}
             editable={editable}
+            onDelete={deletePost}
+            onLike={likePost}
+            onArchive={archivePost}
           />
         </>
       )}

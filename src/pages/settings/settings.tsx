@@ -17,7 +17,8 @@ function SettingsPage() {
   const [loading, setLoading] = useState(false)
   const [form] = Form.useForm()
   const { t } = useTranslation()
-  const { data: user, isLoading, refetch } = useQuery('user', getAccountInformation)
+  // todo: fix that id
+  const { data: user, isLoading, refetch } = useQuery('user', () => getAccountInformation(1))
 
   const handleSubmit = ({ username, bio } : any) => {
     setLoading(true)

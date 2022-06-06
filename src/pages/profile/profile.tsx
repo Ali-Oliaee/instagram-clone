@@ -4,15 +4,16 @@ import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
 import { Link, useLocation } from 'react-router-dom'
 import { PageWrapper, PostsWrapper } from '../../components'
-import { fetchUserPosts, getAccountInformation } from '../../utils/api'
+import { getUserPosts, getAccountInformation } from '../../utils/api'
 import './style.scss'
 
 function profilePage() {
   const location = useLocation()
   const { t } = useTranslation()
   const userId = +location.pathname.split('/')[2]
-  const { data: currentUser, isLoading } = useQuery('getCurrentUser', getAccountInformation)
-  const { data: userPosts } = useQuery('posts', fetchUserPosts)
+  const { data: currentUser, isLoading } = useQuery('getCurrentUser', () => getAccountInformation(1))
+  // todo: fix that id
+  const { data: userPosts } = useQuery('posts', () => getUserPosts(1))
 
   return (
     <PageWrapper isLoading={isLoading} className="profile-page">

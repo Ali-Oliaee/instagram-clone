@@ -33,7 +33,8 @@ function Header({ setSearchKey }: any) {
     navigate('/')
     window.location.reload()
   }
-  const { data: user } = useQuery('user', getAccountInformation)
+  // todo: fix that id
+  const { data: user } = useQuery('user', () => getAccountInformation(1))
 
   const menu = () => (
     <Menu>
