@@ -21,7 +21,6 @@ import {
   Popconfirm,
   Tag,
 } from 'antd'
-import { useState } from 'react'
 import qs from 'query-string'
 import { useTranslation } from 'react-i18next'
 import { useQueryClient } from 'react-query'
@@ -45,7 +44,6 @@ function PostCard({
   editable,
   enableComments,
 }: any) {
-  const [modalVisible, setModalVisible] = useState(false)
   const { Meta } = Card
   const { t } = useTranslation()
   const [searchParams, setSearchParams] = useSearchParams()
@@ -79,19 +77,26 @@ function PostCard({
     post: id,
   }).then(() => queryClient.invalidateQueries('posts'))
 
-  const menu = (
-    <Menu>
-      <Menu.Item key="edit" onClick={() => setSearchParams(`edit=${id}`)} icon={<EditOutlined />}>{t('edit')}</Menu.Item>
-      <Popconfirm
-        title={t('delete-confirm')}
-        onConfirm={deletePost}
-        okText={t('yes')}
-        cancelText={t('no')}
-        icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-      >
-        <Menu.Item key="delete" danger icon={<DeleteOutlined />}>{t('delete')}</Menu.Item>
-      </Popconfirm>
-    </Menu>
+  const postAdmin = (
+    <Dropdown
+      trigger={['click']}
+      overlay={(
+        <Menu>
+          <Menu.Item key="edit" onClick={() => setSearchParams(`edit=${id}`)} icon={<EditOutlined />}>{t('edit')}</Menu.Item>
+          <Popconfirm
+            title={t('delete-confirm')}
+            onConfirm={deletePost}
+            okText={t('yes')}
+            cancelText={t('no')}
+            icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+          >
+            <Menu.Item key="delete" danger icon={<DeleteOutlined />}>{t('delete')}</Menu.Item>
+          </Popconfirm>
+        </Menu>
+  )}
+    >
+      <MoreOutlined />
+    </Dropdown>
   )
 
   return (
@@ -102,14 +107,7 @@ function PostCard({
             <Link to={`/profile/${creator?.id}`}>
               <Meta title={creator.user.username} avatar={<Avatar src={creator.photo} />} />
             </Link>
-            {editable && (
-              <Dropdown
-                trigger={['click']}
-                overlay={menu}
-              >
-                <MoreOutlined />
-              </Dropdown>
-            )}
+            {editable && postAdmin}
           </div>
           <Image src={image} alt={title} preview={false} width="100%" />
           <div className="post-info">
@@ -182,20 +180,14 @@ function PostCard({
             preview={false}
             width="100%"
             className="post-image"
-            onClick={() => {
-              setModalVisible(true)
-              setSearchParams({
-                post: id,
-              })
-            }}
+            onClick={() => setSearchParams({
+              post: id,
+            })}
           />
           <Modal
-            visible={modalVisible}
+            visible={!!QS.post}
             closable={false}
-            onCancel={() => {
-              setModalVisible(false)
-              setSearchParams({})
-            }}
+            onCancel={() => setSearchParams({})}
             footer={null}
             width="80%"
             centered
@@ -218,14 +210,7 @@ function PostCard({
                       avatar={<Avatar src={creator.photo} />}
                     />
                   </Link>
-                  {editable && (
-                  <Dropdown
-                    trigger={['click']}
-                    overlay={menu}
-                  >
-                    <MoreOutlined />
-                  </Dropdown>
-                  )}
+                  {editable && postAdmin}
                 </div>
                 <div className="post-info">
                   <div className="card-operations">

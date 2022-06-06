@@ -8,7 +8,7 @@ function SavedPage() {
 
   return (
     <PageWrapper className="saved-page" isLoading={isLoading}>
-      <PostsWrapper posts={archivePosts?.post} />
+      <PostsWrapper posts={archivePosts?.map(({ post }: any) => post)} />
     </PageWrapper>
   )
 }
