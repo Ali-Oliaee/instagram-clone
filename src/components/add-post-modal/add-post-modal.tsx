@@ -72,8 +72,9 @@ function AddPostModal({ post }:any) {
       title={QS.edit ? t('edit-post') : t('add-post')}
       footer={null}
       className="add-post-modal"
+      destroyOnClose
     >
-      <Form onFinish={post ? editPost : addPost} form={form}>
+      <Form onFinish={QS.edit ? editPost : addPost} form={form}>
         {!!QS.add && (
         <Form.Item
           name="post"

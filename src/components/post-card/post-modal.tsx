@@ -13,9 +13,11 @@ import { Link, useSearchParams } from 'react-router-dom'
 import qs from 'query-string'
 import {
   DeleteOutlined,
+  DownSquareFilled,
   DownSquareOutlined,
   EditOutlined,
   HeartFilled,
+  HeartOutlined,
   MessageOutlined,
   MoreOutlined,
   QuestionCircleOutlined,
@@ -26,12 +28,21 @@ import { AddPostModal } from '../add-post-modal'
 import './style.scss'
 
 function PostModal({
-  visible, post, setVisible, editable, onDelete, onLike, onArchive,
+  visible,
+  post,
+  setVisible,
+  editable,
+  onDelete,
+  onLike,
+  onArchive,
+  onRemoveLike,
+  onRemoveArchive,
 }: any) {
   const [params, setSearchParams] = useSearchParams()
   const { t } = useTranslation()
   const QS = qs.parse(window.location.search)
   const queryClient = useQueryClient()
+  const { account } = JSON.parse(localStorage.getItem('user') ?? '{}')
 
   return (
     <Modal
@@ -91,11 +102,12 @@ function PostModal({
             <div className="card-operations">
               <h3>
                 <Button
-                  onClick={onLike}
                   size="large"
                   className="like-button"
+                  onClick={post.likes.includes(account.id) ? onRemoveLike : onLike}
                   icon={
-                  post.likes.includes(4)
+                  post.likes.includes(account.id)
+                    ? <HeartFilled style={{ color: 'red' }} /> : <HeartOutlined />
                 }
                 />
                 {`${post.likes?.length} likes` ?? 0}
@@ -112,7 +124,12 @@ function PostModal({
                   className="comment-button"
                 />
                 )}
-                <Button size="large" onClick={onArchive} icon={<DownSquareOutlined />} className="archive-button" />
+                <Button
+                  size="large"
+                  onClick={post.archives.includes(account.id) ? onRemoveArchive : onArchive}
+                  icon={post.archives.includes(account.id) ? <DownSquareFilled style={{ color: 'green' }} /> : <DownSquareOutlined />}
+                  className="archive-button"
+                />
               </span>
             </div>
             <h2 className="title">{post.title}</h2>

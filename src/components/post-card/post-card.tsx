@@ -6,6 +6,8 @@ import {
   EditOutlined,
   QuestionCircleOutlined,
   DownSquareOutlined,
+  HeartOutlined,
+  DownSquareFilled,
 } from '@ant-design/icons'
 import {
   Avatar,
@@ -29,14 +31,15 @@ import PostModal from './post-modal'
 import './style.scss'
 
 function PostCard({
+  id,
+  image,
   title,
   caption,
   creator,
   tags,
   likes,
-  image,
+  archives,
   createdAt,
-  id,
   updatedAt,
   editable,
   enableComments,
@@ -47,6 +50,7 @@ function PostCard({
   const [searchParams, setSearchParams] = useSearchParams()
   const isMobile = useMediaQuery('(max-width: 500px)')
   const queryClient = useQueryClient()
+  const { account } = JSON.parse(localStorage.getItem('user') ?? '{}')
 
   const deletePost = () => axios.delete(`posts/list/post=${id}/`).then(() => {
     message.success('Post deleted successfully!')
@@ -54,13 +58,24 @@ function PostCard({
   })
 
   const likePost = () => axios.post('/likes/create/', {
-    account: creator.id,
+    account: account.id,
     post: id,
-  }).then(({ data }) => message.success(data.message))
+  }).then(() => queryClient.invalidateQueries('posts'))
 
-  const archivePost = () => {
-    console.log('archive')
-  }
+  const removeLikeFromPost = () => axios.post('/likes/create/', {
+    account: account.id,
+    post: id,
+  }).then(() => queryClient.invalidateQueries('posts'))
+
+  const archivePost = () => axios.post('/archives/create/', {
+    account: account.id,
+    post: id,
+  }).then(() => queryClient.invalidateQueries('posts'))
+
+  const removeFromArchive = () => axios.post('/archives/create/', {
+    account: account.id,
+    post: id,
+  }).then(() => queryClient.invalidateQueries('posts'))
 
   return (
     <div>
@@ -96,7 +111,15 @@ function PostCard({
           <div className="post-info">
             <div className="card-operations">
               <h3>
-                <Button size="large" icon={<HeartFilled style={{ color: 'red' }} />} className="like-button" />
+                <Button
+                  className="like-button"
+                  onClick={likes.includes(account.id) ? removeLikeFromPost : likePost}
+                  size="large"
+                  icon={
+                  likes.includes(account.id)
+                    ? <HeartFilled style={{ color: 'red' }} /> : <HeartOutlined />
+                }
+                />
                 {`${likes.length} likes`}
               </h3>
               <span>
@@ -108,7 +131,12 @@ function PostCard({
                   className="comment-button"
                 />
                 )}
-                <Button size="large" icon={<DownSquareOutlined />} className="archive-button" />
+                <Button
+                  size="large"
+                  onClick={archives.includes(account.id) ? removeFromArchive : archivePost}
+                  icon={archives.includes(account.id) ? <DownSquareFilled style={{ color: 'green' }} /> : <DownSquareOutlined />}
+                  className="archive-button"
+                />
               </span>
             </div>
             <h2 className="title">{title}</h2>
@@ -165,6 +193,7 @@ function PostCard({
               creator,
               tags,
               likes,
+              archives,
               image,
               createdAt,
               updatedAt,
@@ -174,7 +203,9 @@ function PostCard({
             editable={editable}
             onDelete={deletePost}
             onLike={likePost}
+            onRemoveLike={removeLikeFromPost}
             onArchive={archivePost}
+            onRemoveArchive={removeFromArchive}
           />
         </>
       )}

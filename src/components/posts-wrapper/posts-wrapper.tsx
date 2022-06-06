@@ -14,7 +14,8 @@ function PostsWrapper({ posts, editable }: any) {
           caption={post.caption}
           creator={post.account}
           tags={post.tags}
-          likes={post.likes ?? []}
+          likes={post.account_likes}
+          archives={post.account_archives}
           image={post.file}
           createdAt={post.created_at}
           updatedAt={post.updated_at}
