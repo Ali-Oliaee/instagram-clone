@@ -6,7 +6,7 @@ function DiscoveryPage() {
   const { data, isLoading } = useQuery('posts', getAllPosts)
 
   return (
-    <PageWrapper>
+    <PageWrapper search>
       <PostsWrapper posts={data} isLoading={isLoading} />
     </PageWrapper>
   )

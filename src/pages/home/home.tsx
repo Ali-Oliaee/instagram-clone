@@ -17,7 +17,7 @@ function HomePage() {
   const result = searchKey ? fuse.search(searchKey).map((post: any) => post.item) : posts
 
   return (
-    <PageWrapper isLoading={isLoading} setSearchKey={setSearchKey} className="home-page">
+    <PageWrapper isLoading={isLoading} setSearchKey={setSearchKey} search>
       <PostsWrapper posts={result} />
     </PageWrapper>
   )

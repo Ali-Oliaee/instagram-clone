@@ -23,7 +23,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { Logo } from '../logo'
 import './style.scss'
 
-function Header({ setSearchKey }: any) {
+function Header({ setSearchKey, search }: any) {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
@@ -63,7 +63,7 @@ function Header({ setSearchKey }: any) {
       <Col xs={24} sm={22} md={20} lg={18}>
         <Row justify="space-between" align="middle">
           <Logo />
-          <Input size="large" onChange={(e) => setSearchKey(e.target.value)} prefix={<SearchOutlined />} placeholder={t('search-placeholder')} className="search-input" />
+          {search && (<Input size="large" onChange={(e) => setSearchKey(e.target.value)} prefix={<SearchOutlined />} placeholder={t('search-placeholder')} className="search-input" />)}
           <div className="header-menu">
             <Link to="/">
               <Button icon={<HomeOutlined />} size="large" className="header-menu-item" />
