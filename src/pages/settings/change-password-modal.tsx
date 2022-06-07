@@ -1,4 +1,7 @@
-import { Button, Form, Modal } from 'antd'
+import {
+  Button, Form, message, Modal,
+} from 'antd'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import axios from '../../utils/axios'
 import { FloatLabel } from '../../components'
@@ -7,11 +10,18 @@ import './style.scss'
 function ChangePasswordModal({ visible, setVisible } : any) {
   const { t } = useTranslation()
   const [form] = Form.useForm()
+  const [loading, setLoading] = useState(false)
   const changePassword = ({ newPassword, oldPassword } : any) => {
-    axios.post('users/change-password', {
-      newPassword,
-      oldPassword,
-    }).then((data) => console.log('data', data))
+    setLoading(true)
+    return axios.post('/users/change-password/', {
+      new_password: newPassword,
+      old_password: oldPassword,
+    }).then(({ data }) => {
+      message.success(data.message)
+      setVisible(false)
+    })
+      .catch(({ response }) => message.error(response.data.message))
+      .finally(() => setLoading(false))
   }
 
   return (
@@ -70,7 +80,7 @@ function ChangePasswordModal({ visible, setVisible } : any) {
         >
           <FloatLabel label={t('confirm-password')} value={form.getFieldValue('confirmPassword')} type="password" />
         </Form.Item>
-        <Button size="large" htmlType="submit" block type="primary">{t('confirm')}</Button>
+        <Button loading={loading} size="large" htmlType="submit" block type="primary">{t('confirm')}</Button>
       </Form>
     </Modal>
   )
