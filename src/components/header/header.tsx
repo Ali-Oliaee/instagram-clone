@@ -19,18 +19,19 @@ import {
   Row,
 } from 'antd'
 import { useTranslation } from 'react-i18next'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { useQuery } from 'react-query'
+import { Link, useSearchParams } from 'react-router-dom'
+import { getAccountInformation } from '../../utils/api'
 import { Logo } from '../logo'
 import './style.scss'
 
 function Header({ setSearchKey, search }: any) {
   const { t } = useTranslation()
-  const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
   const user = JSON.parse(localStorage.getItem('user') ?? '{}')
+  const { data } = useQuery('user', () => getAccountInformation(user.account.id))
   const logout = () => {
     localStorage.clear()
-    navigate('/')
     window.location.reload()
   }
 
@@ -77,7 +78,7 @@ function Header({ setSearchKey, search }: any) {
               overlay={menu}
               trigger={['click']}
             >
-              <Avatar src={user.account.photo} size="small" />
+              <Avatar src={data && data[0].photo} size="small" />
             </Dropdown>
           </div>
         </Row>
