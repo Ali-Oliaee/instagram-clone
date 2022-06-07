@@ -52,6 +52,21 @@ function PostCard({
   const { account } = JSON.parse(localStorage.getItem('user') ?? '{}')
   const QS = qs.parse(window.location.search)
 
+  const timeSince = (date: any) => {
+    const seconds = Math.floor((new Date() as any - date) / 1000)
+    let interval = seconds / 31536000
+    if (interval > 1) return `${Math.floor(interval)} years`
+    interval = seconds / 2592000
+    if (interval > 1) return `${Math.floor(interval)} months`
+    interval = seconds / 86400
+    if (interval > 1) return `${Math.floor(interval)} days`
+    interval = seconds / 3600
+    if (interval > 1) return `${Math.floor(interval)} hours`
+    interval = seconds / 60
+    if (interval > 1) return `${Math.floor(interval)} minutes`
+    return `${Math.floor(seconds)} seconds`
+  }
+
   const deletePost = () => axios.delete(`posts/list/post=${id}/`).then(() => {
     message.success('Post deleted successfully!')
     queryClient.invalidateQueries('posts')
@@ -160,7 +175,11 @@ function PostCard({
             <div className="tags">
               {tags && tags.map((tag: any) => <Tag key={tag.name} className="tag">{tag.name}</Tag>)}
             </div>
-            <span className="date">{new Date(createdAt * 1000).toUTCString()}</span>
+            <span className="date">
+              {timeSince(new Date(Date.now() as any - createdAt))}
+              {' '}
+              ago
+            </span>
             {updatedAt !== createdAt && (
               <EditOutlined />)}
           </div>
@@ -258,9 +277,13 @@ function PostCard({
                   <div className="tags">
                     {tags && tags.map((tag: any) => <Tag key={tag} className="tag">{tag.name}</Tag>)}
                   </div>
-                  <span className="date">{new Date(createdAt * 1000).toUTCString()}</span>
+                  <span className="date">
+                    {timeSince(new Date(Date.now() as any - createdAt))}
+                    {' '}
+                    ago
+                  </span>
                   {updatedAt !== createdAt && (
-                    <EditOutlined />)}
+                  <EditOutlined />)}
                 </div>
               </Card>
             </div>
