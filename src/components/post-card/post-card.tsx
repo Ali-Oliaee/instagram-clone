@@ -27,7 +27,7 @@ import { useQueryClient } from 'react-query'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useMediaQuery } from 'usehooks-ts'
 import axios from '../../utils/axios'
-import { AddPostModal } from '../add-post-modal'
+import { EditPostModal } from '../modals'
 import './style.scss'
 
 function PostCard({
@@ -164,13 +164,6 @@ function PostCard({
             {updatedAt !== createdAt && (
               <EditOutlined />)}
           </div>
-          <AddPostModal post={{
-            title,
-            caption,
-            tags,
-            id,
-          }}
-          />
         </Card>
       ) : (
         <>
@@ -271,10 +264,6 @@ function PostCard({
                 </div>
               </Card>
             </div>
-            <AddPostModal post={{
-              title, caption, tags, enableComments,
-            }}
-            />
           </Modal>
         </>
       )}
