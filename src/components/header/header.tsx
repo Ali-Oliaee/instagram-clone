@@ -1,4 +1,5 @@
 import {
+  CompassOutlined,
   HomeOutlined,
   InboxOutlined,
   LogoutOutlined,
@@ -66,6 +67,9 @@ function Header({ setSearchKey }: any) {
           <div className="header-menu">
             <Link to="/">
               <Button icon={<HomeOutlined />} size="large" className="header-menu-item" />
+            </Link>
+            <Link to="/discovery">
+              <Button icon={<CompassOutlined />} size="large" className="header-menu-item" />
             </Link>
             <Button className="header-menu-item" size="large" icon={<PlusCircleOutlined />} onClick={() => setSearchParams({ add: 'true' })} />
             <Dropdown
