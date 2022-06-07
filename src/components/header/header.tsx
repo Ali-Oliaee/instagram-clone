@@ -52,7 +52,6 @@ function Header({ setSearchKey, search }: any) {
           {t('saved')}
         </Link>
       </Menu.Item>
-      <Divider style={{ margin: 0 }} />
       <Menu.Item key="logout" onClick={logout} danger icon={<LogoutOutlined />}>
         {t('logout')}
       </Menu.Item>
