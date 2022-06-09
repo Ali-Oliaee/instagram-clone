@@ -20,6 +20,17 @@ function LoginPage() {
   const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
   const [form] = Form.useForm()
+  const setProfileImage = () => {
+    const content = '<img src="../../assets/images/default-user.jpg"/>'
+    const blob = new Blob([content], { type: ['image/png', 'image/jpeg'] as any })
+    const formData = new FormData()
+    formData.append('photo', blob)
+    return axios.post('/account/change-profile-photo/', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data;',
+      },
+    })
+  }
   const handleSubmit = ({ email, password } : User) => {
     setLoading(true)
     return axios.post('users/login/', {
@@ -28,6 +39,7 @@ function LoginPage() {
     })
       .then(({ data }) => {
         message.success(data.message)
+        if (!data.account.photo) setProfileImage()
         localStorage.setItem('user', JSON.stringify(data))
         navigate('/')
       })

@@ -70,6 +70,8 @@ function PostCard({
   const deletePost = () => axios.delete(`posts/list/post=${id}/`).then(() => {
     message.success('Post deleted successfully!')
     queryClient.invalidateQueries('posts')
+    delete QS.post
+    setSearchParams({ ...QS } as any)
   })
 
   const likePost = () => axios.post('/likes/create/', {
@@ -77,17 +79,13 @@ function PostCard({
     post: id,
   }).then(() => queryClient.invalidateQueries('posts'))
 
-  const removeLikeFromPost = () => axios.delete(`/likes/destroy/account=${account.id}/post=${id}/`).then(() => queryClient.invalidateQueries('posts'))
-
   const archivePost = () => axios.post('/archives/create/', {
     account: account.id,
     post: id,
   }).then(() => queryClient.invalidateQueries('posts'))
 
-  const removeFromArchive = () => axios.post('/archives/create/', {
-    account: account.id,
-    post: id,
-  }).then(() => queryClient.invalidateQueries('posts'))
+  const removeLikeFromPost = () => axios.delete(`/likes/destroy/account=${account.id}/post=${id}/`).then(() => queryClient.invalidateQueries('posts'))
+  const removeFromArchive = () => axios.delete(`/archives/list/${id}/`).then(() => queryClient.invalidateQueries('posts'))
 
   const postAdmin = (
     <Dropdown
@@ -105,7 +103,7 @@ function PostCard({
             <Menu.Item key="delete" danger icon={<DeleteOutlined />}>{t('delete')}</Menu.Item>
           </Popconfirm>
         </Menu>
-  )}
+      )}
     >
       <MoreOutlined />
     </Dropdown>
