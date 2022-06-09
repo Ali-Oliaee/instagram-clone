@@ -77,10 +77,7 @@ function PostCard({
     post: id,
   }).then(() => queryClient.invalidateQueries('posts'))
 
-  const removeLikeFromPost = () => axios.post('/likes/create/', {
-    account: account.id,
-    post: id,
-  }).then(() => queryClient.invalidateQueries('posts'))
+  const removeLikeFromPost = () => axios.delete(`/likes/destroy/account=${account.id}/post=${id}/`).then(() => queryClient.invalidateQueries('posts'))
 
   const archivePost = () => axios.post('/archives/create/', {
     account: account.id,
