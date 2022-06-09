@@ -22,28 +22,27 @@ function AddPostModal() {
   const addPost = ({
     post: image, title, caption, tags, enableComments,
   } : any) => {
-    // setLoading(true)
-    // const postImage = image[0].originFileObj
-    // const formData = new FormData()
-    // formData.append('file', postImage)
-    // formData.append('title', title)
-    // formData.append('caption', caption)
-    // formData.append('comment_status', enableComments)
-    console.log('image', image)
-    // return axios.post(
-    //   '/posts/create/',
-    //   formData,
-    //   {
-    //     headers: {
-    //       'Content-Type': 'multipart/form-data',
-    //     },
-    //   },
-    // ).then(() => {
-    //   setSearchParams({})
-    //   queryClient.invalidateQueries('posts')
-    //   form.resetFields()
-    //   message.success('post added successfully!')
-    // }).finally(() => setLoading(false))
+    setLoading(true)
+    const postImage = image[0].originFileObj
+    const formData = new FormData()
+    formData.append('file', postImage)
+    formData.append('title', title)
+    formData.append('caption', caption)
+    formData.append('comment_status', enableComments)
+    return axios.post(
+      '/posts/create/',
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      },
+    ).then(() => {
+      setSearchParams({})
+      queryClient.invalidateQueries('posts')
+      form.resetFields()
+      message.success('post added successfully!')
+    }).finally(() => setLoading(false))
   }
 
   return (

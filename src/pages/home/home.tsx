@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { useQuery } from 'react-query'
 import Fuse from 'fuse.js'
-import { getAllPosts } from '../../utils/api'
+import { getFollowersPosts } from '../../utils/api'
 import { PageWrapper, PostsWrapper } from '../../components'
 import './style.scss'
 
 function HomePage() {
   const [searchKey, setSearchKey] = useState('')
-  const { data: posts, isLoading } = useQuery('posts', getAllPosts)
+  const { data: posts, isLoading } = useQuery('posts', getFollowersPosts)
 
   const fuse = new Fuse(posts ?? [], {
     keys: [
