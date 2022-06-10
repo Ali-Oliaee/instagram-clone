@@ -45,7 +45,7 @@ function profilePage() {
           <div className="bio">{user && user[0]?.bio}</div>
         </div>
       </div>
-      <PostsWrapper editable posts={userPosts} />
+      <PostsWrapper posts={userPosts} />
     </PageWrapper>
   )
 }

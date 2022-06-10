@@ -40,7 +40,6 @@ function PostCard({
   archives,
   createdAt,
   updatedAt,
-  editable,
   enableComments,
 }: any) {
   const { Meta } = Card
@@ -108,74 +107,96 @@ function PostCard({
     </Dropdown>
   )
 
+  const cardMeta = (
+    <div className="creator">
+      <Link to={`/profile/${creator?.id}`}>
+        <Meta title={creator.user.username} avatar={<Avatar src={creator.photo} />} />
+      </Link>
+      {account.id === creator.id && postAdmin}
+    </div>
+  )
+
+  const cardOptions = (
+    <div className="card-operations">
+      <h3>
+        <Button
+          className="like-button"
+          onClick={likes.includes(account.id) ? removeLikeFromPost : likePost}
+          size="large"
+          icon={
+                  likes.includes(account.id)
+                    ? <HeartFilled style={{ color: 'red' }} /> : <HeartOutlined />
+                }
+        />
+        {`${likes.length} likes`}
+      </h3>
+      <span>
+        {enableComments && (
+        <Button
+          size="large"
+          onClick={() => setSearchParams({ post: id, comments: 'true' })}
+          icon={<MessageOutlined />}
+          className="comment-button"
+        />
+        )}
+        <Button
+          size="large"
+          onClick={archives.includes(account.id) ? removeFromArchive : archivePost}
+          icon={archives.includes(account.id) ? <DownSquareFilled style={{ color: 'green' }} /> : <DownSquareOutlined />}
+          className="archive-button"
+        />
+      </span>
+    </div>
+  )
+
+  const timeStamp = (
+    <span className="date">
+      {timeSince(new Date(Date.now() as any - createdAt))}
+      {' '}
+      ago
+      {updatedAt !== createdAt && (
+        <EditOutlined />)}
+    </span>
+  )
+
+  const tagsList = (
+    <div className="tags">
+      {tags && tags.map((tag: any) => <Tag key={tag.name} className="tag">{tag.name}</Tag>)}
+    </div>
+  )
+
+  const cardContent = (
+    <>
+      <h2 className="title">{title}</h2>
+      {caption && (
+        <div className="description-container">
+          <span className="creator">
+            {creator.user.username}
+            :
+            {' '}
+          </span>
+          <span className="description">
+            {caption}
+            {caption.length > 100 && (
+            <Button type="link" className="more-button">more...</Button>
+            )}
+          </span>
+        </div>
+      )}
+    </>
+  )
+
   return (
     <div>
       {isMobile ? (
         <Card className="post-card">
-          <div className="creator">
-            <Link to={`/profile/${creator?.id}`}>
-              <Meta title={creator.user.username} avatar={<Avatar src={creator.photo} />} />
-            </Link>
-            {editable && postAdmin}
-          </div>
+          {cardMeta}
           <Image src={image} alt={title} preview={false} width="100%" />
           <div className="post-info">
-            <div className="card-operations">
-              <h3>
-                <Button
-                  className="like-button"
-                  onClick={likes.includes(account.id) ? removeLikeFromPost : likePost}
-                  size="large"
-                  icon={
-                  likes.includes(account.id)
-                    ? <HeartFilled style={{ color: 'red' }} /> : <HeartOutlined />
-                }
-                />
-                {`${likes.length} likes`}
-              </h3>
-              <span>
-                {enableComments && (
-                <Button
-                  size="large"
-                  onClick={() => setSearchParams({ post: id, comments: 'true' })}
-                  icon={<MessageOutlined />}
-                  className="comment-button"
-                />
-                )}
-                <Button
-                  size="large"
-                  onClick={archives.includes(account.id) ? removeFromArchive : archivePost}
-                  icon={archives.includes(account.id) ? <DownSquareFilled style={{ color: 'green' }} /> : <DownSquareOutlined />}
-                  className="archive-button"
-                />
-              </span>
-            </div>
-            <h2 className="title">{title}</h2>
-            {caption && (
-              <div className="description-container">
-                <span className="creator">
-                  {creator.user.username}
-                  :
-                  {' '}
-                </span>
-                <span className="description">
-                  {caption}
-                  {caption.length > 100 && (
-                  <Button type="link" className="more-button">more...</Button>
-                  )}
-                </span>
-              </div>
-            )}
-            <div className="tags">
-              {tags && tags.map((tag: any) => <Tag key={tag.name} className="tag">{tag.name}</Tag>)}
-            </div>
-            <span className="date">
-              {timeSince(new Date(Date.now() as any - createdAt))}
-              {' '}
-              ago
-            </span>
-            {updatedAt !== createdAt && (
-              <EditOutlined />)}
+            {cardOptions}
+            {cardContent}
+            {tagsList}
+            {timeStamp}
           </div>
         </Card>
       ) : (
@@ -209,75 +230,12 @@ function PostCard({
             />
             <div className="post-info">
               <Card className="post-card">
-                <div className="creator">
-                  <Link to={`/profile/${creator.id}`}>
-                    <Card.Meta
-                      title={creator.user.username}
-                      avatar={<Avatar src={creator.photo} />}
-                    />
-                  </Link>
-                  {editable && postAdmin}
-                </div>
+                {cardMeta}
                 <div className="post-info">
-                  <div className="card-operations">
-                    <h3>
-                      <Button
-                        size="large"
-                        className="like-button"
-                        onClick={likes.includes(account.id) ? removeLikeFromPost : likePost}
-                        icon={
-                          likes.includes(account.id)
-                            ? <HeartFilled style={{ color: 'red' }} /> : <HeartOutlined />
-                        }
-                      />
-                      {`${likes?.length} likes` ?? 0}
-                    </h3>
-                    <span>
-                      {enableComments && (
-                        <Button
-                          size="large"
-                          onClick={() => {
-                            setSearchParams({ ...QS, comments: 'true' })
-                            queryClient.fetchQuery('comments')
-                          }}
-                          icon={<MessageOutlined />}
-                          className="comment-button"
-                        />
-                      )}
-                      <Button
-                        size="large"
-                        onClick={archives.includes(account.id) ? removeFromArchive : archivePost}
-                        icon={archives.includes(account.id) ? <DownSquareFilled style={{ color: 'green' }} /> : <DownSquareOutlined />}
-                        className="archive-button"
-                      />
-                    </span>
-                  </div>
-                  <h2 className="title">{title}</h2>
-                  {caption && (
-                    <div className="description-container">
-                      <span className="creator">
-                        {creator.user.username}
-                        :
-                        {' '}
-                      </span>
-                      <span className="description">
-                        {caption}
-                        {caption?.length > 100 && (
-                        <Button type="link" className="more-button">more...</Button>
-                        )}
-                      </span>
-                    </div>
-                  )}
-                  <div className="tags">
-                    {tags && tags.map((tag: any) => <Tag key={tag} className="tag">{tag.name}</Tag>)}
-                  </div>
-                  <span className="date">
-                    {timeSince(new Date(Date.now() as any - createdAt))}
-                    {' '}
-                    ago
-                  </span>
-                  {updatedAt !== createdAt && (
-                  <EditOutlined />)}
+                  {cardOptions}
+                  {cardContent}
+                  {tagsList}
+                  {timeStamp}
                 </div>
               </Card>
             </div>
