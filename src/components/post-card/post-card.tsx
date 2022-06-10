@@ -27,7 +27,6 @@ import { useQueryClient } from 'react-query'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useMediaQuery } from 'usehooks-ts'
 import axios from '../../utils/axios'
-import { EditPostModal } from '../modals'
 import './style.scss'
 
 function PostCard({

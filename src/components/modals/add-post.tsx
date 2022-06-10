@@ -1,6 +1,5 @@
-/* eslint-disable max-len */
 import { useState } from 'react'
-import { InboxOutlined, UploadOutlined } from '@ant-design/icons'
+import { InboxOutlined } from '@ant-design/icons'
 import {
   Button, Form, message, Modal, Select, Switch, Upload,
 } from 'antd'
@@ -8,13 +7,13 @@ import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 import qs from 'query-string'
 import { useQueryClient } from 'react-query'
-import Dragger from 'antd/lib/upload/Dragger'
 import axios from '../../utils/axios'
 import { FloatLabel } from '../float-label'
 import './style.scss'
 
 function AddPostModal() {
   const [searchParams, setSearchParams] = useSearchParams()
+  const { Dragger } = Upload
   const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
   const [form] = Form.useForm()
@@ -23,7 +22,7 @@ function AddPostModal() {
   const [secondModalVisible, setSecondModalVisible] = useState(false)
 
   const addPost = ({
-    post: image, title, caption, tags, enableComments,
+    title, caption, tags, enableComments,
   } : any) => {
     setLoading(true)
     const { file } = form.getFieldValue('post')
@@ -33,6 +32,8 @@ function AddPostModal() {
     formData.append('title', title)
     formData.append('caption', caption)
     formData.append('comment_status', enableComments)
+    for (let i = 0; i < tags.length; i += 1) { formData.append(`tags[${i}]`, tags[i]) }
+
     return axios.post(
       '/posts/create/',
       formData,
@@ -87,7 +88,8 @@ function AddPostModal() {
               </p>
               <p className="ant-upload-text">Click or drag file to this area to upload</p>
               <p className="ant-upload-hint">
-                Support for a single or bulk upload. Strictly prohibit from uploading company data or other
+                Support for a single or bulk upload. Strictly prohibit from uploading company
+                data or other
                 band files
               </p>
             </Dragger>
