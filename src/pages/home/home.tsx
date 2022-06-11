@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useQuery } from 'react-query'
 import Fuse from 'fuse.js'
 import { getFollowersPosts } from '../../utils/api'
-import { PageWrapper, PostsWrapper } from '../../components'
+import { PageWrapper, PostsWrapper, UserSuggestion } from '../../components'
 import './style.scss'
 
 function HomePage() {
@@ -18,7 +18,14 @@ function HomePage() {
 
   return (
     <PageWrapper isLoading={isLoading} setSearchKey={setSearchKey} search>
-      <PostsWrapper posts={result} />
+      {!posts?.length ? (
+        <>
+          <h3 className="user-suggestion-text">No Followers yet</h3>
+          <UserSuggestion />
+        </>
+      ) : (
+        <PostsWrapper posts={result} />
+      )}
     </PageWrapper>
   )
 }

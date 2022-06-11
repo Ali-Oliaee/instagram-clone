@@ -149,22 +149,6 @@ function PostCard({
     </div>
   )
 
-  const timeStamp = (
-    <span className="date">
-      {timeSince(new Date(Date.now() as any - createdAt))}
-      {' '}
-      ago
-      {updatedAt !== createdAt && (
-        <EditOutlined />)}
-    </span>
-  )
-
-  const tagsList = (
-    <div className="tags">
-      {tags && tags.map((tag: any) => <Tag key={tag.name} className="tag">{tag.name}</Tag>)}
-    </div>
-  )
-
   const cardContent = (
     <>
       <h2 className="title">{title}</h2>
@@ -183,6 +167,16 @@ function PostCard({
           </span>
         </div>
       )}
+      <div className="tags">
+        {tags && tags.map((tag: any) => <Tag key={tag.name} className="tag">{tag.name}</Tag>)}
+      </div>
+      <span className="date">
+        {timeSince(new Date(Date.now() as any - createdAt))}
+        {' '}
+        ago
+        {updatedAt !== createdAt && (
+          <EditOutlined />)}
+      </span>
     </>
   )
 
@@ -195,8 +189,6 @@ function PostCard({
           <div className="post-info">
             {cardOptions}
             {cardContent}
-            {tagsList}
-            {timeStamp}
           </div>
         </Card>
       ) : (
@@ -234,8 +226,6 @@ function PostCard({
                 <div className="post-info">
                   {cardOptions}
                   {cardContent}
-                  {tagsList}
-                  {timeStamp}
                 </div>
               </Card>
             </div>
