@@ -1,4 +1,5 @@
 import { Avatar, Button } from 'antd'
+import { Link } from 'react-router-dom'
 import './style.scss'
 
 function UserSuggestion({
@@ -8,12 +9,14 @@ function UserSuggestion({
   return (
     <div className="user-suggestion">
       <div className="user-card">
-        <Avatar size="large" src={require('../../assets/images/default-user.jpg')} />
-        <h3>name</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumq
-          ue, necessitatibus.dsjccisjcdisjcosidcjscoisdj
-        </p>
+        <Link to={`/profile/${userId}`}>
+          <Avatar size="large" src={require('../../assets/images/default-user.jpg')} />
+          <h3>name</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumq
+            ue, necessitatibus.dsjccisjcdisjcosidcjscoisdj
+          </p>
+        </Link>
         <Button type="primary" block>Follow</Button>
       </div>
       {/* ************************** */}
