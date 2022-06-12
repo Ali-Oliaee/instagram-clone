@@ -23,12 +23,9 @@ function SettingsPage() {
 
   const handleSubmit = ({ username, bio } : any) => {
     setLoading(true)
-    return axios.post('account/update-information/', {
-      // Todo: fix username field
+    return axios.patch(`account/update-information/${user[0].id}/`, {
       username,
       bio,
-      // Todo: remove birthdate field
-      birthdate: '1234-12-12',
     }).then(({ data }) => {
       message.success(data.message)
       refetch()

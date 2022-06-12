@@ -27,6 +27,8 @@ import { useQueryClient } from 'react-query'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useMediaQuery } from 'usehooks-ts'
 import axios from '../../utils/axios'
+import { Comments } from '../comments'
+import { UsersList } from '../modals'
 import './style.scss'
 
 function PostCard({
@@ -82,8 +84,8 @@ function PostCard({
     post: id,
   }).then(() => queryClient.invalidateQueries('posts'))
 
-  const unLike = () => axios.delete(`/likes/destroy/account=${account.id}/post=${id}/`).then(() => queryClient.invalidateQueries('posts'))
-  const unArchive = () => axios.delete(`/archives/destroy/account=${account.id}/post=${id}/`).then(() => queryClient.invalidateQueries('posts'))
+  const unLikePost = () => axios.delete(`/likes/destroy/account=${account.id}/post=${id}/`).then(() => queryClient.invalidateQueries('posts'))
+  const unArchivePost = () => axios.delete(`/archives/destroy/account=${account.id}/post=${id}/`).then(() => queryClient.invalidateQueries('posts'))
 
   const postAdmin = (
     <Dropdown
@@ -121,14 +123,16 @@ function PostCard({
       <h3>
         <Button
           className="like-button"
-          onClick={likes.includes(account.id) ? unLike : likePost}
+          onClick={likes.includes(account.id) ? unLikePost : likePost}
           size="large"
           icon={
                   likes.includes(account.id)
                     ? <HeartFilled style={{ color: 'red' }} /> : <HeartOutlined />
                 }
         />
-        {`${likes.length} likes`}
+        <Button type="ghost" className="likes-number-button" onClick={() => likes?.length && setSearchParams({ ...QS, likes: 'true' })}>
+          {`${likes.length} likes`}
+        </Button>
       </h3>
       <span>
         {enableComments && (
@@ -141,7 +145,7 @@ function PostCard({
         )}
         <Button
           size="large"
-          onClick={archives.includes(account.id) ? unArchive : archivePost}
+          onClick={archives.includes(account.id) ? unArchivePost : archivePost}
           icon={archives.includes(account.id) ? <DownSquareFilled style={{ color: 'green' }} /> : <DownSquareOutlined />}
           className="archive-button"
         />
@@ -232,6 +236,16 @@ function PostCard({
           </Modal>
         </>
       )}
+      <Comments id={id} />
+      <UsersList
+        data={likes}
+        visible={!!QS.likes}
+        title="Likes"
+        onCancel={() => {
+          delete QS.likes
+          setSearchParams({ ...QS } as any)
+        }}
+      />
     </div>
   )
 }

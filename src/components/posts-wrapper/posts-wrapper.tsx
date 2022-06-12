@@ -1,5 +1,4 @@
 import { Empty } from 'antd'
-import { Comments } from '../comments'
 import { PostCard } from '../post-card'
 import './style.scss'
 
@@ -22,7 +21,6 @@ function PostsWrapper({ posts }: any) {
           enableComments={post.comment_status}
         />
       )) : <Empty className="empty" />}
-      <Comments />
     </div>
   )
 }

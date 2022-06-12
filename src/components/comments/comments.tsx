@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable react/no-array-index-key */
 import {
   Avatar, Button, Comment, Form, Input, message, Modal, Skeleton,
 } from 'antd'
@@ -11,20 +9,21 @@ import { getComments } from '../../utils/api'
 import axios from '../../utils/axios'
 import './style.scss'
 
-function Comments() {
+function Comments({ id } :any) {
   const [searchParams, setSearchParams] = useSearchParams()
   const [loading, setLoading] = useState(false)
   const [form] = Form.useForm()
   const QS = qs.parse(window.location.search)
-  // const { data: comments, isLoading, refetch } = useQuery('comments', () => getComments(Number(QS.post) || 0))
+  const { data: comments, isLoading, refetch } = useQuery('comments', () => getComments(id))
+
   const sendComment = ({ commentContent }: any) => {
     setLoading(true)
     return commentContent && axios.post('/comments/create/', {
       content: commentContent,
-      post: Number(QS.post),
+      post: id,
     }).then(() => {
       message.success('comment added successfully!')
-      // refetch()
+      refetch()
       form.resetFields()
     }).finally(() => setLoading(false))
   }
@@ -43,23 +42,26 @@ function Comments() {
       destroyOnClose
       centered
     >
-      {/* <div className="comments">
+      <div className="comments">
         {
-         comments && comments.map((comment: any, index: any) => (
-           <Comment
-             key={index}
-             author={<Link to={`profile/${comment.author.id}`}>{comment.author.user.username}</Link>}
-             avatar={(
-               <Avatar
-                 src={comment.author.photo}
-                 alt={comment.author.user.username}
-               />
+          isLoading ? (
+            <Skeleton active avatar title paragraph />
+          ) : (
+            comments && comments.map((comment: any) => (
+              <Comment
+                key={comment}
+                author={<Link to={`profile/${comment.author.id}`}>{comment.author.user.username}</Link>}
+                avatar={(
+                  <Avatar
+                    src={comment.author.photo}
+                    alt={comment.author.user.username}
+                  />
               )}
-             content={<p>{comment.content}</p>}
-           />
-         ))
+                content={<p>{comment.content}</p>}
+              />
+            )))
     }
-      </div> */}
+      </div>
       <Form form={form} onFinish={sendComment} layout="vertical">
         <Form.Item
           name="commentContent"

@@ -77,6 +77,16 @@
                     color: unset;
                 }
             }
+            .likes-number-button {
+                border: 0;
+                padding: 0;
+                span {
+                    font-size: 1em;
+                }
+                &:hover, &:focus, &:active {
+                    color: unset;
+                }
+            }
             .archive-button, .comment-button {
                 margin-inline-start: 4px;
                 span {
