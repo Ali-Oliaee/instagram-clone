@@ -5,6 +5,11 @@
     .ant-input-disabled {
         margin-bottom: 20px;
     }
+    .settings {
+        max-width: 350px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
     .change-image {
     @include flex(center,center,column);
     margin-top: 50px;

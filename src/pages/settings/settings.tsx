@@ -4,6 +4,7 @@ import {
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
+import { Helmet } from 'react-helmet'
 import axios from '../../utils/axios'
 import {
   FloatLabel, PageWrapper, SwitchLanguage,
@@ -22,12 +23,9 @@ function SettingsPage() {
 
   const handleSubmit = ({ username, bio } : any) => {
     setLoading(true)
-    return axios.post('account/update-information/', {
-      // Todo: fix username field
+    return axios.patch(`account/update-information/${user[0].id}/`, {
       username,
       bio,
-      // Todo: remove birthdate field
-      birthdate: '1234-12-12',
     }).then(({ data }) => {
       message.success(data.message)
       refetch()
@@ -50,29 +48,34 @@ function SettingsPage() {
   })
 
   return (
-    <PageWrapper isLoading={isLoading} className="settings-page">
-      <div className="settings">
-        <div className="change-image">
-          <Avatar src={user && user[0].photo} size="large" className="profile-image" />
-          <Upload showUploadList={false} onChange={uploadImage}>
-            <Button type="text">change profile image</Button>
-          </Upload>
+    <>
+      <Helmet>
+        <title>{t('settings')}</title>
+      </Helmet>
+      <PageWrapper isLoading={isLoading} className="settings-page">
+        <div className="settings">
+          <div className="change-image">
+            <Avatar src={user && user[0].photo} size="large" className="profile-image" />
+            <Upload showUploadList={false} onChange={uploadImage}>
+              <Button type="text">change profile image</Button>
+            </Upload>
+          </div>
+          <Form onFinish={handleSubmit} form={form}>
+            <Form.Item name="username">
+              <FloatLabel label={t('username')} value={form.getFieldValue('username')} />
+            </Form.Item>
+            <FloatLabel label={t('email')} value={form.getFieldValue('email')} type="email" disabled />
+            <Form.Item name="bio">
+              <FloatLabel label={t('bio')} value={form.getFieldValue('bio')} textarea />
+            </Form.Item>
+            <Button htmlType="submit" block type="primary">save</Button>
+          </Form>
+          <Button loading={loading} block type="link" onClick={() => setVisible(true)}>change password</Button>
+          <SwitchLanguage />
         </div>
-        <Form onFinish={handleSubmit} form={form}>
-          <Form.Item name="username">
-            <FloatLabel label={t('username')} value={form.getFieldValue('username')} />
-          </Form.Item>
-          <FloatLabel label={t('email')} value={form.getFieldValue('email')} type="email" disabled />
-          <Form.Item name="bio">
-            <FloatLabel label={t('bio')} value={form.getFieldValue('bio')} textarea />
-          </Form.Item>
-          <Button htmlType="submit" block type="primary">save</Button>
-        </Form>
-        <Button loading={loading} block type="link" onClick={() => setVisible(true)}>change password</Button>
-        <SwitchLanguage />
-      </div>
-      <ChangePasswordModal visible={visible} setVisible={setVisible} />
-    </PageWrapper>
+        <ChangePasswordModal visible={visible} setVisible={setVisible} />
+      </PageWrapper>
+    </>
   )
 }
 

@@ -1,9 +1,8 @@
 import { Empty } from 'antd'
-import { Comments } from '../comments'
 import { PostCard } from '../post-card'
 import './style.scss'
 
-function PostsWrapper({ posts, editable }: any) {
+function PostsWrapper({ posts }: any) {
   return (
     <div className="posts-wrapper">
       {posts?.length ? posts.map((post : any) => (
@@ -19,11 +18,9 @@ function PostsWrapper({ posts, editable }: any) {
           image={post.file}
           createdAt={post.created_at}
           updatedAt={post.updated_at}
-          editable={editable}
           enableComments={post.comment_status}
         />
       )) : <Empty className="empty" />}
-      <Comments />
     </div>
   )
 }

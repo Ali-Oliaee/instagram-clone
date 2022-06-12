@@ -9,6 +9,7 @@ import {
   ProfilePage,
   SettingsPage,
   ForgotPasswordPage,
+  DiscoveryPage,
 } from '../pages'
 
 function MainRouter() {
@@ -26,6 +27,7 @@ function MainRouter() {
           <Route path="saved" element={<SavedPage />} />
           <Route path="profile/:id" element={<ProfilePage />} />
           <Route path="settings" element={<SettingsPage />} />
+          <Route path="discovery" element={<DiscoveryPage />} />
         </Route>
       ) : (
         <Route path="/auth">

@@ -1,0 +1,25 @@
+.user-link {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: #000;
+    .user-link-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        margin-left: 8px;
+        h3 {
+            margin-inline-start: 4px;
+            margin-bottom: 0;
+        }
+        p {
+            margin-bottom: 0;
+            margin-inline-start: 6px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            max-width: 170px;
+        }
+    }
+}
