@@ -82,8 +82,8 @@ function PostCard({
     post: id,
   }).then(() => queryClient.invalidateQueries('posts'))
 
-  const removeLikeFromPost = () => axios.delete(`/likes/destroy/account=${account.id}/post=${id}/`).then(() => queryClient.invalidateQueries('posts'))
-  const removeFromArchive = () => axios.delete(`/archives/list/${id}/`).then(() => queryClient.invalidateQueries('posts'))
+  const unLike = () => axios.delete(`/likes/destroy/account=${account.id}/post=${id}/`).then(() => queryClient.invalidateQueries('posts'))
+  const unArchive = () => axios.delete(`/archives/destroy/account=${account.id}/post=${id}/`).then(() => queryClient.invalidateQueries('posts'))
 
   const postAdmin = (
     <Dropdown
@@ -121,7 +121,7 @@ function PostCard({
       <h3>
         <Button
           className="like-button"
-          onClick={likes.includes(account.id) ? removeLikeFromPost : likePost}
+          onClick={likes.includes(account.id) ? unLike : likePost}
           size="large"
           icon={
                   likes.includes(account.id)
@@ -141,7 +141,7 @@ function PostCard({
         )}
         <Button
           size="large"
-          onClick={archives.includes(account.id) ? removeFromArchive : archivePost}
+          onClick={archives.includes(account.id) ? unArchive : archivePost}
           icon={archives.includes(account.id) ? <DownSquareFilled style={{ color: 'green' }} /> : <DownSquareOutlined />}
           className="archive-button"
         />
