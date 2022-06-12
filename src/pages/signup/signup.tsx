@@ -22,6 +22,7 @@ function SignupPage() {
   const { t } = useTranslation()
   const [form] = Form.useForm()
   const navigate = useNavigate()
+
   const handleSubmit = ({
     username, email, password,
   } : NewUser) => {
@@ -33,10 +34,8 @@ function SignupPage() {
     })
       .then(({ data }) => {
         message.success(data.message)
-        setLoading(false)
         navigate('/auth/login')
       })
-      .catch(({ response }) => message.error(response.data.message))
       .finally(() => setLoading(false))
   }
   return (
