@@ -28,7 +28,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { useMediaQuery } from 'usehooks-ts'
 import axios from '../../utils/axios'
 import { Comments } from '../comments'
-import { UsersList } from '../modals'
+import { EditPostModal, UsersList } from '../modals'
 import './style.scss'
 
 function PostCard({
@@ -185,58 +185,70 @@ function PostCard({
   )
 
   return (
-    <div>
-      {isMobile ? (
-        <Card className="post-card">
-          {cardMeta}
-          <Image src={image} alt={title} preview={false} width="100%" />
-          <div className="post-info">
-            {cardOptions}
-            {cardContent}
-          </div>
-        </Card>
-      ) : (
-        <>
-          <Image
-            src={image}
-            alt={title}
-            preview={false}
-            width="100%"
-            className="post-image"
-            onClick={() => setSearchParams({
-              post: id,
-            })}
-          />
-          <Modal
-            visible={!!QS.post}
-            closable={false}
-            onCancel={() => setSearchParams({})}
-            footer={null}
-            width="80%"
-            centered
-            className="post-card-modal"
-            destroyOnClose
-          >
+    <>
+      <div>
+        {isMobile ? (
+          <Card className="post-card">
+            {cardMeta}
+            <Image src={image} alt={title} preview={false} width="100%" />
+            <div className="post-info">
+              {cardOptions}
+              {cardContent}
+            </div>
+          </Card>
+        ) : (
+          <>
             <Image
               src={image}
               alt={title}
-              height="100%"
-              width="100%"
               preview={false}
+              width="100%"
+              className="post-image"
+              onClick={() => setSearchParams({
+                post: id,
+              })}
             />
-            <div className="post-info">
-              <Card className="post-card">
-                {cardMeta}
-                <div className="post-info">
-                  {cardOptions}
-                  {cardContent}
-                </div>
-              </Card>
-            </div>
-          </Modal>
-        </>
-      )}
+            <Modal
+              visible={!!QS.post}
+              closable={false}
+              onCancel={() => setSearchParams({})}
+              footer={null}
+              width="80%"
+              centered
+              className="post-card-modal"
+              destroyOnClose
+            >
+              <Image
+                src={image}
+                alt={title}
+                height="100%"
+                width="100%"
+                preview={false}
+              />
+              <div className="post-info">
+                <Card className="post-card">
+                  {cardMeta}
+                  <div className="post-info">
+                    {cardOptions}
+                    {cardContent}
+                  </div>
+                </Card>
+              </div>
+            </Modal>
+          </>
+        )}
+      </div>
       <Comments id={id} />
+      <EditPostModal
+        visible={!!QS.edit}
+        post={{
+          id, title, caption, tags, enableComments,
+        }}
+        onCancel={() => {
+          delete QS.edit
+          setSearchParams({ ...QS } as any)
+        }}
+      />
       <UsersList
         data={likes}
         visible={!!QS.likes}
@@ -246,7 +258,7 @@ function PostCard({
           setSearchParams({ ...QS } as any)
         }}
       />
-    </div>
+    </>
   )
 }
 

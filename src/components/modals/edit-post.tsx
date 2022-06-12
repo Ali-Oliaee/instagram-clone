@@ -4,29 +4,19 @@ import {
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
-import qs from 'query-string'
-import { useQuery, useQueryClient } from 'react-query'
+import { useQueryClient } from 'react-query'
 import axios from 'axios'
-import './style.scss'
 import { FloatLabel } from '../float-label'
-import { getPost } from '../../utils/api'
+import './style.scss'
 
-function EditPostModal() {
+function EditPostModal({ visible, onCancel, post }:any) {
   const [searchParams, setSearchParams] = useSearchParams()
   const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
   const [form] = Form.useForm()
-  const QS = qs.parse(window.location.search)
-  const { data: post, isLoading } = useQuery('post', () => getPost(Number(QS.edit)))
   const queryClient = useQueryClient()
 
-  if (isLoading) return <div>Loading...</div>
-  form.setFieldsValue({
-    title: post?.title,
-    caption: post?.caption,
-    tags: post?.tags,
-    enableComments: post?.enableComments,
-  })
+  form.setFieldsValue({ ...post })
 
   const editPost = ({ title, caption, tags } : any) => {
     setLoading(true)
@@ -34,6 +24,7 @@ function EditPostModal() {
       title,
       caption,
       tags,
+      comment_status: post.enableComments,
     }).then(() => {
       setSearchParams({})
       queryClient.invalidateQueries('posts')
@@ -43,9 +34,9 @@ function EditPostModal() {
   }
   return (
     <Modal
-      visible={!!QS.edit}
+      visible={visible}
       closable
-      onCancel={() => setSearchParams({})}
+      onCancel={onCancel}
       title={t('edit-post')}
       footer={null}
       className="add-post-modal"
