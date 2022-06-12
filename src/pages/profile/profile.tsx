@@ -11,6 +11,7 @@ import './style.scss'
 function profilePage() {
   const location = useLocation()
   const { t } = useTranslation()
+  const currentUserId = JSON.parse(localStorage.getItem('user') || '{}').account.id
   const userId = +location.pathname.split('/')[2]
   const { data: user, isLoading } = useQuery('getCurrentUser', () => getAccountInformation(userId))
   const { data: userPosts } = useQuery('posts', () => getUserPosts(userId))
@@ -26,7 +27,7 @@ function profilePage() {
           <div>
             <div className="profile-header">
               <span className="username">{user && user[0]?.user?.username}</span>
-              {user && userId !== user[0].id ? (
+              {userId !== currentUserId ? (
                 <Button type="primary" size="small" className="edit-button">
                   {t('follow')}
                 </Button>
