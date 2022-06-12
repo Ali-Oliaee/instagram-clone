@@ -56,7 +56,20 @@ function SettingsPage() {
         <div className="settings">
           <div className="change-image">
             <Avatar src={user && user[0].photo} size="large" className="profile-image" />
-            <Upload showUploadList={false} onChange={uploadImage}>
+            <Upload
+              beforeUpload={(file) => {
+                const isValid = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/jpg'
+               || file.type === 'image/gif'
+               || file.type === 'image/webp'
+               || file.type === 'image/svg+xml'
+               || file.type === 'image/bmp'
+               || file.type === 'image/tiff'
+                if (!isValid) message.error(`${file.name} is not a valid file`)
+                return isValid || Upload.LIST_IGNORE
+              }}
+              showUploadList={false}
+              onChange={uploadImage}
+            >
               <Button type="text">change profile image</Button>
             </Upload>
           </div>

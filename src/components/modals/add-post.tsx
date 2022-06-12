@@ -76,6 +76,16 @@ function AddPostModal() {
             <Dragger
               name="file"
               maxCount={1}
+              beforeUpload={(file) => {
+                const isValid = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/jpg'
+                 || file.type === 'image/gif'
+                 || file.type === 'image/webp'
+                 || file.type === 'image/svg+xml'
+                 || file.type === 'image/bmp'
+                 || file.type === 'image/tiff'
+                if (!isValid) message.error(`${file.name} is not a valid file`)
+                return isValid || Upload.LIST_IGNORE
+              }}
               onChange={({ event }: any) => {
                 if (event) {
                   message.success('file uploaded successfully.')
@@ -114,6 +124,10 @@ function AddPostModal() {
               {
                 required: true,
                 message: t('required-title'),
+              },
+              {
+                max: 50,
+                message: t('max-title-length'),
               },
             ]}
           >

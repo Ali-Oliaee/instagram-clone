@@ -20,8 +20,6 @@ function profilePage() {
   const { data: userPosts } = useQuery('posts', () => getUserPosts(userId))
   const { data: followers } = useQuery('followers', () => getFollowers(userId))
   const { data: following } = useQuery('following', () => getFollowing(userId))
-  console.log('followers', followers)
-  console.log('following', following)
 
   const isFollowed = () => {
     if (followers?.find((follower:any) => follower.id === currentUserId)) {

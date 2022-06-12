@@ -32,21 +32,21 @@
         .title {
             font-size: 1.2em;
             font-weight: bold;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            max-width: 90%;
         }
         .description-container {
             flex: 1;
-            max-height: 110px;
-            overflow: hidden;   
-            margin-bottom: 10px;
-            span {
-                display: inline;
-            }
+            max-width: 95%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
             .creator {
                 font-weight: bold;
             }
             .description {
-                max-height: 40px;
-                text-overflow: ellipsis;
                .more-button {
                    padding: 0 4px;
                    span {
