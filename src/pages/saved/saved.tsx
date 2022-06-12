@@ -5,7 +5,7 @@ import { getArchivedPosts } from '../../utils/api'
 import './style.scss'
 
 function SavedPage() {
-  const { data: archivePosts, isLoading } = useQuery('archivePosts', getArchivedPosts)
+  const { data: archivePosts, isLoading } = useQuery('posts', getArchivedPosts)
 
   return (
     <>
