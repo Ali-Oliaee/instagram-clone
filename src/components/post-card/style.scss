@@ -11,8 +11,7 @@
     }
 
     .creator {
-        margin-block: 10px;
-        margin-inline: 6px;
+        margin: 10px 6px;
         @include flex(space-between);
         .ant-card-meta {
             @include flex(space-between);
@@ -38,21 +37,13 @@
             max-width: 90%;
         }
         .description-container {
-            flex: 1;
             max-width: 95%;
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
             .creator {
+                display: inline;
                 font-weight: bold;
-            }
-            .description {
-               .more-button {
-                   padding: 0 4px;
-                   span {
-                       color: #666;
-                   }
-               } 
             }
         }
         .comment-input {
@@ -67,35 +58,15 @@
             margin-block: 4px;
         }
         .card-operations {
-            @include flex(space-between, space-between);
-            width: 100%;
-            margin-top: 4px ;
-            .like-button, .archive-button, .comment-button {
+            @include flex(space-between);
+            margin-inline: -12px;
+            .like-button, .archive-button, .comment-button, .likes-number-button {
                 border: 0;
                 padding: 0;
                 &:hover, &:focus, &:active {
                     color: unset;
                 }
             }
-
-            .likes-number-button {
-                border: 0;
-                padding: 0;
-                span {
-                    font-size: 1em;
-                }
-                &:hover, &:focus, &:active {
-                    color: unset;
-                }
-            }
-
-            .archive-button, .comment-button {
-                margin-inline-start: 4px;
-                span {
-                    font-size: 1.2em;
-                }
-            }
-
         }
         .date {
             font-size: 0.6em;

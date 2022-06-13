@@ -22,7 +22,6 @@ import {
   Popconfirm,
   Tag,
 } from 'antd'
-import qs from 'query-string'
 import { useTranslation } from 'react-i18next'
 import { useQueryClient } from 'react-query'
 import { Link } from 'react-router-dom'
@@ -56,7 +55,6 @@ function PostCard({
   const [editModalVisible, setEditModalVisible] = useState(false)
   const [likesModalVisible, setLikesModalVisible] = useState(false)
   const [commentsModalVisible, setCommentsModalVisible] = useState(false)
-  const QS = qs.parse(window.location.search)
 
   const timeSince = (date: any) => {
     const seconds = Math.floor((new Date() as any - date) / 1000)
@@ -170,9 +168,6 @@ function PostCard({
           </span>
           <span className="description">
             {caption}
-            {caption.length > 100 && (
-            <Button type="link" className="more-button">more...</Button>
-            )}
           </span>
         </div>
       )}
