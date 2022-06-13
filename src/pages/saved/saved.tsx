@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet'
 import { useQuery } from 'react-query'
 import { PageWrapper, PostsWrapper } from '../../components'
+import { Post } from '../../interfaces'
 import { getArchivedPosts } from '../../utils/api'
 import './style.scss'
 
@@ -13,7 +14,7 @@ function SavedPage() {
         <title>Saved</title>
       </Helmet>
       <PageWrapper className="saved-page" isLoading={isLoading}>
-        <PostsWrapper posts={archivePosts?.map(({ post }: any) => post)} />
+        <PostsWrapper posts={archivePosts?.map((post : Post) => post)} />
       </PageWrapper>
     </>
   )

@@ -7,9 +7,10 @@ import { useQuery } from 'react-query'
 import { Link, useSearchParams } from 'react-router-dom'
 import { getComments } from '../../utils/api'
 import axios from '../../utils/axios'
+import { CommentInterface } from '../../interfaces'
 import './style.scss'
 
-function Comments({ id } :any) {
+function Comments({ id } : any) {
   const [searchParams, setSearchParams] = useSearchParams()
   const [loading, setLoading] = useState(false)
   const [form] = Form.useForm()
@@ -47,19 +48,21 @@ function Comments({ id } :any) {
           isLoading ? (
             <Skeleton active avatar title paragraph />
           ) : (
-            comments && comments.map((comment: any) => (
-              <Comment
-                key={comment}
-                author={<Link to={`profile/${comment.author.id}`}>{comment.author.user.username}</Link>}
-                avatar={(
-                  <Avatar
-                    src={comment.author.photo}
-                    alt={comment.author.user.username}
-                  />
+            comments && comments.map((comment: CommentInterface) => {
+              console.log('comment', comment)
+              return (
+                <Comment
+                  author={<Link to={`profile/${comment.author.id}`}>{comment.author.user.username}</Link>}
+                  avatar={(
+                    <Avatar
+                      src={comment.author.photo}
+                      alt={comment.author.user.username}
+                    />
               )}
-                content={<p>{comment.content}</p>}
-              />
-            )))
+                  content={<p>{comment.content}</p>}
+                />
+              )
+            }))
     }
       </div>
       <Form form={form} onFinish={sendComment} layout="vertical">

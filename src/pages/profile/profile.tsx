@@ -22,7 +22,7 @@ function profilePage() {
   const { data: following } = useQuery('following', () => getFollowing(userId))
 
   const isFollowed = () => {
-    if (followers?.find((follower:any) => follower.id === currentUserId)) {
+    if (followers?.find((follower:number) => follower === currentUserId)) {
       return true
     }
     return false

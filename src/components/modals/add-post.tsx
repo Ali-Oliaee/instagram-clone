@@ -9,6 +9,7 @@ import qs from 'query-string'
 import { useQueryClient } from 'react-query'
 import axios from '../../utils/axios'
 import { FloatLabel } from '../float-label'
+import { AddPost } from '../../interfaces'
 import './style.scss'
 
 function AddPostModal() {
@@ -22,8 +23,8 @@ function AddPostModal() {
   const [secondModalVisible, setSecondModalVisible] = useState(false)
 
   const addPost = ({
-    title, caption, tags, enableComments,
-  } : any) => {
+    title, caption, tags, enableComments = true,
+  } : AddPost) => {
     setLoading(true)
     const { file } = form.getFieldValue('post')
     const postImage = file.originFileObj

@@ -1,19 +1,15 @@
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 import {
   Button, Divider, Form, message,
 } from 'antd'
-import { useState } from 'react'
-import axios from '../../utils/axios'
 import {
   FloatLabel, GoogleButton, Logo, SwitchLanguage,
 } from '../../components'
+import axios from '../../utils/axios'
+import { LoggedInUser } from '../../interfaces'
 import './style.scss'
-
-interface User {
-  email: String,
-  password: String,
-}
 
 function LoginPage() {
   const navigate = useNavigate()
@@ -21,7 +17,7 @@ function LoginPage() {
   const { t } = useTranslation()
   const [form] = Form.useForm()
 
-  const handleSubmit = ({ email, password } : User) => {
+  const handleSubmit = ({ email, password } : LoggedInUser) => {
     setLoading(true)
     return axios.post('users/login/', {
       email,

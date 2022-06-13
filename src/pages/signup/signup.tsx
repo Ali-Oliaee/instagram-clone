@@ -8,14 +8,8 @@ import {
   FloatLabel, GoogleButton, Logo, SwitchLanguage,
 } from '../../components'
 import axios from '../../utils/axios'
+import { NewUser } from '../../interfaces'
 import './style.scss'
-
-interface NewUser {
-  username: String,
-  email: String,
-  password: String,
-  confirmPassword: String
-}
 
 function SignupPage() {
   const [loading, setLoading] = useState(false)

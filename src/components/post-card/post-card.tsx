@@ -28,22 +28,23 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { useMediaQuery } from 'usehooks-ts'
 import axios from '../../utils/axios'
 import { Comments } from '../comments'
+import { Post } from '../../interfaces/post'
 import { EditPostModal, UsersList } from '../modals'
 import './style.scss'
 
 function PostCard({
   id,
-  image,
+  file: image,
   title,
   caption,
-  creator,
+  account: creator,
   tags,
-  likes,
-  archives,
-  createdAt,
-  updatedAt,
-  enableComments,
-}: any) {
+  account_likes: likes,
+  account_archives: archives,
+  created_at: createdAt,
+  updated_at: updatedAt,
+  comment_status: enableComments,
+}: Post) {
   const { Meta } = Card
   const { t } = useTranslation()
   const [searchParams, setSearchParams] = useSearchParams()
@@ -138,7 +139,7 @@ function PostCard({
         {enableComments && (
         <Button
           size="large"
-          onClick={() => setSearchParams({ post: id, comments: 'true' })}
+          onClick={() => setSearchParams({ post: id, comments: 'true' }as any)}
           icon={<MessageOutlined />}
           className="comment-button"
         />
@@ -205,7 +206,7 @@ function PostCard({
               width="100%"
               className="post-image"
               onClick={() => setSearchParams({
-                post: id,
+                post: id as any,
               })}
             />
             <Modal

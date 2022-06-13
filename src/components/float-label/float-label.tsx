@@ -1,19 +1,9 @@
-/* eslint-disable react/require-default-props */
 /* eslint-disable no-nested-ternary */
 import { Input } from 'antd'
 import i18next from 'i18next'
 import { useState } from 'react'
+import { FloatLabelInput } from '../../interfaces'
 import './style.scss'
-
-interface InputProps{
-  label: string,
-  value: string,
-  onChange?: any,
-  autoFocus?: boolean,
-  textarea?: boolean,
-  type?: 'text' | 'password' | 'email' | 'number' | 'tel' | 'url' | 'date' | 'datetime-local' | 'month' | 'time' | 'week',
-  disabled?: boolean,
-}
 
 function FloatLabel({
   label,
@@ -23,7 +13,7 @@ function FloatLabel({
   textarea = false,
   type = 'text',
   disabled = false,
-}: InputProps) {
+}: FloatLabelInput) {
   const [focus, setFocus] = useState(false)
   const labelClass = focus || (value && value.length !== 0) ? 'label label-float' : 'label'
   return (
@@ -44,14 +34,14 @@ function FloatLabel({
           <Input.Password
             size="middle"
             onChange={onChange}
-            autoFocus={autoFocus as any}
+            autoFocus={autoFocus}
             type="password"
           />
         ) : (
           <Input
             size="middle"
             onChange={onChange}
-            autoFocus={autoFocus as any}
+            autoFocus={autoFocus}
             type={type}
             value={value}
             disabled={disabled}

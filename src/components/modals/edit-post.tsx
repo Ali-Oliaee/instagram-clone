@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 import { useQueryClient } from 'react-query'
+import { EditPost } from '../../interfaces'
 import axios from '../../utils/axios'
 import { FloatLabel } from '../float-label'
 import './style.scss'
@@ -18,7 +19,7 @@ function EditPostModal({ visible, onCancel, post }:any) {
 
   form.setFieldsValue({ ...post })
 
-  const editPost = ({ title, caption, tags } : any) => {
+  const editPost = ({ title, caption, tags } : EditPost) => {
     setLoading(true)
     return axios.patch(`/posts/list/post=${post.id}/`, {
       title,

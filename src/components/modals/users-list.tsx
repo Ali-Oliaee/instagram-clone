@@ -14,7 +14,7 @@ function UsersList({
       title={title}
       centered
     >
-      {data?.map((id: any) => (
+      {data?.map((id: number) => (
         <UserLink key={id} id={id} />
       ))}
     </Modal>
