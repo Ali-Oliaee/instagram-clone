@@ -1,7 +1,7 @@
 import { message } from 'antd'
 import axios from 'axios'
 
-const baseURL = process.env.NODE_ENV === 'production' ? 'http://127.0.0.1:8000/' : 'http://127.0.0.1:8000/'
+const baseURL = 'http://127.0.0.1:8000/'
 
 const instance = axios.create({
   baseURL,
@@ -40,10 +40,10 @@ instance.interceptors.response.use(
       })
     }
     // todo: fix keys (message for all)
-    if (response.status === 401) message.error(response.data.message ?? response.data.email ?? response.data.password)
+    if (response.status === 401 || response.status === 400) {
+      message.error(response.data.message ?? response.data.email ?? response.data.password)
+    }
 
-    // todo: fix keys (message for all)
-    else if (response.status === 400) message.error(response.data.message ?? response.data.email ?? response.data.password)
     return Promise.reject(response)
   },
 )
