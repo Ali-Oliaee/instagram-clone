@@ -44,6 +44,7 @@ function EditPostModal({ visible, onCancel, post }:any) {
       }}
       title={t('edit-post')}
       footer={null}
+      centered
       className="add-post-modal"
       destroyOnClose
     >

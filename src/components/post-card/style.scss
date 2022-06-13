@@ -24,8 +24,8 @@
     }
 
     img {
-        height: 200px;
-        object-fit: cover;
+        height: auto;
+        width: 100%;
     }
     .post-info {
         padding-inline: 14px;
@@ -67,16 +67,17 @@
             margin-block: 4px;
         }
         .card-operations {
-            @include flex(space-between, flex-start);
+            @include flex(space-between, space-between);
+            width: 100%;
             margin-top: 4px ;
             .like-button, .archive-button, .comment-button {
-                cursor: pointer;
                 border: 0;
                 padding: 0;
                 &:hover, &:focus, &:active {
                     color: unset;
                 }
             }
+
             .likes-number-button {
                 border: 0;
                 padding: 0;
@@ -87,18 +88,14 @@
                     color: unset;
                 }
             }
+
             .archive-button, .comment-button {
                 margin-inline-start: 4px;
                 span {
                     font-size: 1.2em;
                 }
             }
-            .like-button {
-                margin-inline-start: -10px;
-            }
-            .archive-button {
-                margin-inline-end: -10px;
-            }
+
         }
         .date {
             font-size: 0.6em;
@@ -118,12 +115,14 @@
 }
 
 .post-card-modal { 
-    
-    .ant-image   {
-        object-fit: contain;
+    .image-container {
+        height: 100%;
+        .post-modal-image {
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+        }
     }
-    
-
     .post-info {
         height: 100%;
         width: 100%;
@@ -134,7 +133,7 @@
     }
     
     .ant-modal-body {
+        display: flex;
         padding: 0;
-        @include flex(center, flex-start);
     }
 }

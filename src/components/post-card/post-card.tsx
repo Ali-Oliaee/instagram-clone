@@ -16,7 +16,6 @@ import {
   Button,
   Card,
   Dropdown,
-  Image,
   Menu,
   message,
   Modal,
@@ -26,8 +25,9 @@ import {
 import qs from 'query-string'
 import { useTranslation } from 'react-i18next'
 import { useQueryClient } from 'react-query'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useMediaQuery } from 'usehooks-ts'
+import { useState } from 'react'
 import axios from '../../utils/axios'
 import { Comments } from '../comments'
 import { Post } from '../../interfaces/post'
@@ -49,10 +49,13 @@ function PostCard({
 }: Post) {
   const { Meta } = Card
   const { t } = useTranslation()
-  const [searchParams, setSearchParams] = useSearchParams()
   const isMobile = useMediaQuery('(max-width: 500px)')
   const queryClient = useQueryClient()
   const { account } = JSON.parse(localStorage.getItem('user') ?? '{}')
+  const [modalVisible, setModalVisible] = useState(false)
+  const [editModalVisible, setEditModalVisible] = useState(false)
+  const [likesModalVisible, setLikesModalVisible] = useState(false)
+  const [commentsModalVisible, setCommentsModalVisible] = useState(false)
   const QS = qs.parse(window.location.search)
 
   const timeSince = (date: any) => {
@@ -73,8 +76,7 @@ function PostCard({
   const deletePost = () => axios.delete(`posts/list/post=${id}/`).then(() => {
     message.success('Post deleted successfully!')
     queryClient.invalidateQueries('posts')
-    delete QS.post
-    setSearchParams({ ...QS } as any)
+    setModalVisible(false)
   })
 
   const likePost = () => axios.post('/likes/create/', {
@@ -95,7 +97,7 @@ function PostCard({
       trigger={['click']}
       overlay={(
         <Menu>
-          <Menu.Item key="edit" onClick={() => setSearchParams(`edit=${id}`)} icon={<EditOutlined />}>{t('edit')}</Menu.Item>
+          <Menu.Item key="edit" onClick={() => setEditModalVisible(true)} icon={<EditOutlined />}>{t('edit')}</Menu.Item>
           <Popconfirm
             title={t('delete-confirm')}
             onConfirm={deletePost}
@@ -123,25 +125,25 @@ function PostCard({
 
   const cardOptions = (
     <div className="card-operations">
-      <h3>
+      <span>
         <Button
           className="like-button"
           onClick={likes.includes(account.id) ? unLikePost : likePost}
           size="large"
           icon={
-                  likes.includes(account.id)
-                    ? <HeartFilled style={{ color: 'red' }} /> : <HeartOutlined />
-                }
+            likes.includes(account.id)
+              ? <HeartFilled style={{ color: 'red' }} /> : <HeartOutlined />
+          }
         />
-        <Button type="ghost" className="likes-number-button" onClick={() => likes?.length && setSearchParams({ ...QS, likes: 'true' })}>
+        <Button type="ghost" className="likes-number-button" onClick={() => likes?.length && setLikesModalVisible(true)}>
           {`${likes.length} likes`}
         </Button>
-      </h3>
+      </span>
       <span>
         {enableComments && (
         <Button
           size="large"
-          onClick={() => setSearchParams({ post: id, comments: 'true' }as any)}
+          onClick={() => setCommentsModalVisible(true)}
           icon={<MessageOutlined />}
           className="comment-button"
         />
@@ -189,73 +191,71 @@ function PostCard({
 
   return (
     <>
-      {isMobile ? (
-        <Card className="post-card">
-          {cardMeta}
-          <Image src={image} alt={title} preview={false} width="100%" />
-          <div className="post-info">
-            {cardOptions}
-            {cardContent}
-          </div>
-        </Card>
-      ) : (
-        <>
+      <div>
+        {isMobile ? (
+          <Card className="post-card">
+            {cardMeta}
+            <img src={image} alt={title} />
+            <div className="post-info">
+              {cardOptions}
+              {cardContent}
+            </div>
+          </Card>
+        ) : (
           <img
             src={image}
             alt={title}
             className="post-image"
-            onClick={() => setSearchParams({
-              post: id as any,
-            })}
+            onClick={() => setModalVisible(true)}
           />
-          <Modal
-            visible={!!QS.post}
-            closable={false}
-            onCancel={() => setSearchParams({})}
-            footer={null}
-            width="80%"
-            centered
-            className="post-card-modal"
-            destroyOnClose
-          >
-            <Image
-              src={image}
-              alt={title}
-              height="100%"
-              width="100%"
-              preview={false}
-            />
+        )}
+      </div>
+      <Modal
+        visible={modalVisible}
+        closable={false}
+        onCancel={() => setModalVisible(false)}
+        footer={null}
+        width="80%"
+        centered
+        className="post-card-modal"
+        destroyOnClose
+      >
+        <div className="image-container">
+          <img
+            src={image}
+            alt={title}
+            height="100%"
+            width="100%"
+            className="post-modal-image"
+          />
+        </div>
+        <div className="post-info">
+          <Card className="post-card">
+            {cardMeta}
             <div className="post-info">
-              <Card className="post-card">
-                {cardMeta}
-                <div className="post-info">
-                  {cardOptions}
-                  {cardContent}
-                </div>
-              </Card>
+              {cardOptions}
+              {cardContent}
             </div>
-          </Modal>
-        </>
-      )}
-      <Comments id={id} />
+          </Card>
+        </div>
+      </Modal>
+      <Comments
+        id={id}
+        visible={commentsModalVisible}
+        onCancel={() => setCommentsModalVisible(false)}
+      />
       <EditPostModal
-        visible={!!QS.edit}
+        visible={editModalVisible}
         post={{
           id, title, caption, tags, enableComments,
         }}
-        onCancel={() => {
-          delete QS.edit
-          setSearchParams({ ...QS } as any)
-        }}
+        onCancel={() => setEditModalVisible(false)}
       />
       <UsersList
         data={likes}
-        visible={!!QS.likes}
+        visible={likesModalVisible}
+        onCancel={() => setLikesModalVisible(false)}
         title="Likes"
-        onCancel={() => {
-          delete QS.likes
-          setSearchParams({ ...QS } as any)
-        }}
       />
     </>
   )
