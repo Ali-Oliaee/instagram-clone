@@ -2,8 +2,10 @@
 import { message } from 'antd'
 import axios from 'axios'
 
+const baseURL = process.env.NODE_ENV === 'production' ? 'http://127.0.0.1:8000/' : 'http://127.0.0.1:8000/'
+
 const instance = axios.create({
-  baseURL: 'http://127.0.0.1:8000/',
+  baseURL,
   timeout: 1000,
   headers: {
     'Content-Type': 'application/json',
@@ -21,12 +23,28 @@ instance.interceptors.request.use((config: any) => {
 instance.interceptors.response.use(
   (response) => response,
   ({ response }) => {
+    if (response.status === 401 && response.statusText === 'Unauthorized') {
+      const { refresh } = JSON.parse(localStorage.getItem('user') ?? '{}').tokens
+      axios.post(`${baseURL}api/token/refresh/`, { refresh }).then(({ data }) => data).then((data) => {
+        const user = JSON.parse(localStorage.getItem('user') ?? '{}')
+        localStorage.setItem('user', JSON.stringify({
+          ...user,
+          tokens: {
+            ...user.tokens,
+            access: data.access,
+          },
+        }))
+      }).catch((err) => {
+        message.error(err.data.detail)
+        localStorage.removeItem('user')
+        return Promise.reject(response)
+      })
+    }
     // todo: fix keys (message for all)
     if (response.status === 401) message.error(response.data.message ?? response.data.email ?? response.data.password)
 
     // todo: fix keys (message for all)
     else if (response.status === 400) message.error(response.data.message ?? response.data.email ?? response.data.password)
-
     return Promise.reject(response)
   },
 )
