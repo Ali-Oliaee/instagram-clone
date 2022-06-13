@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 import { useQueryClient } from 'react-query'
-import axios from 'axios'
+import axios from '../../utils/axios'
 import { FloatLabel } from '../float-label'
 import './style.scss'
 
@@ -32,11 +32,15 @@ function EditPostModal({ visible, onCancel, post }:any) {
       message.success('post edited successfully!')
     }).finally(() => setLoading(false))
   }
+
   return (
     <Modal
       visible={visible}
       closable
-      onCancel={onCancel}
+      onCancel={() => {
+        onCancel()
+        form.resetFields()
+      }}
       title={t('edit-post')}
       footer={null}
       className="add-post-modal"
