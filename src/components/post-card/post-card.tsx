@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import {
   DeleteOutlined,
   HeartFilled,
@@ -187,58 +189,54 @@ function PostCard({
 
   return (
     <>
-      <div>
-        {isMobile ? (
-          <Card className="post-card">
-            {cardMeta}
-            <Image src={image} alt={title} preview={false} width="100%" />
-            <div className="post-info">
-              {cardOptions}
-              {cardContent}
-            </div>
-          </Card>
-        ) : (
-          <>
+      {isMobile ? (
+        <Card className="post-card">
+          {cardMeta}
+          <Image src={image} alt={title} preview={false} width="100%" />
+          <div className="post-info">
+            {cardOptions}
+            {cardContent}
+          </div>
+        </Card>
+      ) : (
+        <>
+          <img
+            src={image}
+            alt={title}
+            className="post-image"
+            onClick={() => setSearchParams({
+              post: id as any,
+            })}
+          />
+          <Modal
+            visible={!!QS.post}
+            closable={false}
+            onCancel={() => setSearchParams({})}
+            footer={null}
+            width="80%"
+            centered
+            className="post-card-modal"
+            destroyOnClose
+          >
             <Image
               src={image}
               alt={title}
-              preview={false}
+              height="100%"
               width="100%"
-              className="post-image"
-              onClick={() => setSearchParams({
-                post: id as any,
-              })}
+              preview={false}
             />
-            <Modal
-              visible={!!QS.post}
-              closable={false}
-              onCancel={() => setSearchParams({})}
-              footer={null}
-              width="80%"
-              centered
-              className="post-card-modal"
-              destroyOnClose
-            >
-              <Image
-                src={image}
-                alt={title}
-                height="100%"
-                width="100%"
-                preview={false}
-              />
-              <div className="post-info">
-                <Card className="post-card">
-                  {cardMeta}
-                  <div className="post-info">
-                    {cardOptions}
-                    {cardContent}
-                  </div>
-                </Card>
-              </div>
-            </Modal>
-          </>
-        )}
-      </div>
+            <div className="post-info">
+              <Card className="post-card">
+                {cardMeta}
+                <div className="post-info">
+                  {cardOptions}
+                  {cardContent}
+                </div>
+              </Card>
+            </div>
+          </Modal>
+        </>
+      )}
       <Comments id={id} />
       <EditPostModal
         visible={!!QS.edit}

@@ -108,6 +108,9 @@
 }
 
 .post-image {
+    object-fit: cover;
+    height: 150px;
+    width: 200px;
     cursor: pointer;
     &:hover {
         opacity: 0.8;
