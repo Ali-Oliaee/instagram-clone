@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { message } from 'antd'
 import axios from 'axios'
 
