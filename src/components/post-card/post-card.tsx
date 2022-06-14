@@ -115,7 +115,7 @@ function PostCard({
   const cardMeta = (
     <div className="creator">
       <Link to={`/profile/${creator?.id}`}>
-        <Meta title={creator.user.username} avatar={<Avatar src={creator.photo} />} />
+        <Meta title={creator?.user?.username} avatar={<Avatar src={creator?.photo} />} />
       </Link>
       {account.id === creator.id && postAdmin}
     </div>
@@ -126,15 +126,15 @@ function PostCard({
       <span>
         <Button
           className="like-button"
-          onClick={likes.includes(account.id) ? unLikePost : likePost}
+          onClick={likes?.includes(account?.id) ? unLikePost : likePost}
           size="large"
           icon={
-            likes.includes(account.id)
+            likes?.includes(account?.id)
               ? <HeartFilled style={{ color: 'red' }} /> : <HeartOutlined />
           }
         />
         <Button type="ghost" className="likes-number-button" onClick={() => likes?.length && setLikesModalVisible(true)}>
-          {`${likes.length} likes`}
+          {`${likes?.length} likes`}
         </Button>
       </span>
       <span>
@@ -148,8 +148,8 @@ function PostCard({
         )}
         <Button
           size="large"
-          onClick={archives.includes(account.id) ? unArchivePost : archivePost}
-          icon={archives.includes(account.id) ? <DownSquareFilled style={{ color: 'green' }} /> : <DownSquareOutlined />}
+          onClick={archives?.includes(account.id) ? unArchivePost : archivePost}
+          icon={archives?.includes(account.id) ? <DownSquareFilled style={{ color: 'green' }} /> : <DownSquareOutlined />}
           className="archive-button"
         />
       </span>
@@ -172,7 +172,7 @@ function PostCard({
         </div>
       )}
       <div className="tags">
-        {tags && tags.map((tag: any) => <Tag key={tag.name} className="tag">{tag.name}</Tag>)}
+        {tags && tags?.map((tag: any) => <Tag key={tag?.name} className="tag">{tag?.name}</Tag>)}
       </div>
       <span className="date">
         {timeSince(new Date(Date.now() as any - createdAt))}

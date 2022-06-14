@@ -1,7 +1,6 @@
 import {
   Avatar, Button, Comment, Form, Input, message, Modal, Skeleton,
 } from 'antd'
-import qs from 'query-string'
 import { useState } from 'react'
 import { useQuery } from 'react-query'
 import { Link } from 'react-router-dom'
@@ -39,26 +38,22 @@ function Comments({ id, visible, onCancel } : any) {
       centered
     >
       <div className="comments">
-        {
-          isLoading ? (
-            <Skeleton active avatar title paragraph />
-          ) : (
-            comments && comments.map((comment: CommentInterface) => {
-              console.log('comment', comment)
-              return (
-                <Comment
-                  author={<Link to={`profile/${comment.author.id}`}>{comment.author.user.username}</Link>}
-                  avatar={(
-                    <Avatar
-                      src={comment.author.photo}
-                      alt={comment.author.user.username}
-                    />
-              )}
-                  content={<p>{comment.content}</p>}
+        {isLoading ? (
+          <Skeleton active avatar title paragraph />
+        ) : (
+          comments && comments.map((comment: CommentInterface) => (
+            <Comment
+              author={<Link to={`profile/${comment.author.id}`}>{comment.author.user.username}</Link>}
+              avatar={(
+                <Avatar
+                  src={comment.author.photo}
+                  alt={comment.author.user.username}
                 />
-              )
-            }))
-    }
+              )}
+              content={<p>{comment.content}</p>}
+            />
+          ))
+        )}
       </div>
       <Form form={form} onFinish={sendComment} layout="vertical">
         <Form.Item

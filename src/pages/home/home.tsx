@@ -14,7 +14,8 @@ function HomePage() {
       'title', 'caption', 'tags', 'account.user.username',
     ],
   })
-  const result = searchKey ? fuse.search(searchKey).map((post: any) => post.item) : posts
+
+  const result = searchKey ? fuse.search(searchKey).map(({ item }) => item) : posts
 
   return (
     <PageWrapper isLoading={isLoading} setSearchKey={setSearchKey} search>

@@ -14,7 +14,7 @@ function SavedPage() {
         <title>Saved</title>
       </Helmet>
       <PageWrapper className="saved-page" isLoading={isLoading}>
-        <PostsWrapper posts={archivePosts?.map((post : Post) => post)} />
+        <PostsWrapper posts={archivePosts?.map((post : any) => post)} />
       </PageWrapper>
     </>
   )
