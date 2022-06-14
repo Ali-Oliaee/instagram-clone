@@ -1,4 +1,4 @@
-export type { LoggedInUser, NewUser } from './user'
+export type { LoggedInUser, NewUser, UserSuggestionProps } from './user'
 export type { FloatLabelInput } from './components'
 export type {
   AddPost,

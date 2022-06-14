@@ -175,7 +175,7 @@ function PostCard({
         {tags && tags?.map((tag: any) => <Tag key={tag?.name} className="tag">{tag?.name}</Tag>)}
       </div>
       <span className="date">
-        {timeSince(new Date(Date.now() as any - createdAt))}
+        {timeSince(new Date(Date.now() - createdAt))}
         {' '}
         ago
         {updatedAt !== createdAt && (
