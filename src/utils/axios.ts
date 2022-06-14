@@ -34,8 +34,8 @@ instance.interceptors.response.use(
           },
         }))
       }).catch((err) => {
-        message.error(err.data.detail)
-        localStorage.removeItem('user')
+        message.error(err.response.data.detail)
+        localStorage.clear()
         return Promise.reject(response)
       })
     }
