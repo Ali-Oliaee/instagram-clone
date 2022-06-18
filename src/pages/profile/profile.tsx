@@ -48,19 +48,19 @@ function profilePage() {
                 </Button>
               ) : (
                 <Link to="/settings">
-                  <Button size="small" icon={<EditOutlined />} className="edit-button">Edit profile</Button>
+                  <Button size="small" icon={<EditOutlined />} className="edit-button">{t('edit profile')}</Button>
                 </Link>
               )}
             </div>
             <div className="report">
               <Button type="ghost" className="posts">
-                {`${user && user[0]?.post.length} posts`}
+                {`${user && user[0]?.post.length} ${t('posts')}`}
               </Button>
               <Button onClick={() => setFollowerListVisible(true)} type="ghost" className="follower">
-                {`${user && user[0]?.follower.length} follower`}
+                {`${user && user[0]?.follower.length} ${t('followers')}`}
               </Button>
               <Button onClick={() => setFollowingListVisible(true)} type="ghost" className="following">
-                {`${user && user[0]?.following.length} following`}
+                {`${user && user[0]?.following.length} ${t('following')}`}
               </Button>
             </div>
             <div className="bio">{user && user[0]?.bio}</div>

@@ -1,6 +1,7 @@
 /* eslint-disable import/no-unresolved */
 import { Avatar, Button } from 'antd'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
 import { Link } from 'react-router-dom'
 import { UserSuggestionProps } from '../../interfaces'
@@ -11,6 +12,7 @@ import './style.scss'
 function UserSuggestion(): React.ReactElement {
   const { data: users } = useQuery('suggestedUsers', () => axios.get('/account/suggestion-account/').then(({ data }) => data))
   const currentUser = JSON.parse(localStorage.getItem('user') || '{}')
+  const { t } = useTranslation()
   const followUser = (id:number) => axios.post('/follows/following/create/', {
     account: id,
     following: currentUser.account.id,
@@ -25,9 +27,9 @@ function UserSuggestion(): React.ReactElement {
           <Link to={`/profile/${id}`}>
             <Avatar size="large" src={photo ?? defaultImage} />
             <h3>{user.username}</h3>
-            <p>{bio ?? '(without bio)'}</p>
+            <p>{bio ?? t('no-bio')}</p>
           </Link>
-          <Button type="primary" onClick={() => followUser(id)} block>Follow</Button>
+          <Button type="primary" onClick={() => followUser(id)} block>{t('follow')}</Button>
         </div>
       ))}
     </div>

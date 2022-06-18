@@ -70,7 +70,7 @@ function SettingsPage() {
               showUploadList={false}
               onChange={uploadImage}
             >
-              <Button type="text">change profile image</Button>
+              <Button type="text">{t('change profile image')}</Button>
             </Upload>
           </div>
           <Form onFinish={handleSubmit} form={form}>
@@ -81,9 +81,9 @@ function SettingsPage() {
             <Form.Item name="bio">
               <FloatLabel label={t('bio')} value={form.getFieldValue('bio')} textarea />
             </Form.Item>
-            <Button htmlType="submit" block type="primary">save</Button>
+            <Button htmlType="submit" block type="primary">{t('save')}</Button>
           </Form>
-          <Button loading={loading} block type="link" onClick={() => setVisible(true)}>change password</Button>
+          <Button loading={loading} block type="link" onClick={() => setVisible(true)}>{t('change password')}</Button>
           <SwitchLanguage />
         </div>
         <ChangePasswordModal visible={visible} setVisible={setVisible} />

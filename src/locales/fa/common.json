@@ -34,7 +34,7 @@
 "profile":"پروفایل",
 "logout":"خروج",
 "add-post":"افزودن پست",
-"likes":"لایک ها",
+"likes":"لایک",
 "comments":"نظرات",
 "followers":"دنبال کننده ها",
 "following":"دنبال می کنم",
@@ -50,9 +50,15 @@
 "yse":"بله",
 "no":"خیر",
 "search":"جستجو",
-"search-placeholder":"جستجو در افراد و پست ها..."
-
-
+"search-placeholder":"جستجو در افراد و پست ها...",
+"no-bio":"بدون توضیحات",
+"no-following":"دنبال کننده ندارید؟",
+"change profile image":"تغییر عکس پروفایل",
+"bio":"توضیحات",
+"change password":"تغییر رمز عبور",
+"edit profile":"ویرایش پروفایل",
+"posts":"پست",
+"follower":"دنبال کننده"
 
 
 }

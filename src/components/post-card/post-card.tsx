@@ -135,7 +135,7 @@ function PostCard({
           }
         />
         <Button type="ghost" className="likes-number-button" onClick={() => likes?.length && setLikesModalVisible(true)}>
-          {`${likes?.length} likes`}
+          {`${likes?.length} ${t('likes')}`}
         </Button>
       </span>
       <span>
