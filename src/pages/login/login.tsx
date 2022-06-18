@@ -7,6 +7,7 @@ import {
 import {
   FloatLabel, GoogleButton, Logo, SwitchLanguage,
 } from '../../components'
+import i18n from '../../utils/i18n'
 import axios from '../../utils/axios'
 import { LoggedInUser } from '../../interfaces'
 import './style.scss'
@@ -26,6 +27,7 @@ function LoginPage() {
       .then(({ data }) => {
         message.success(data.message)
         localStorage.setItem('user', JSON.stringify(data))
+        i18n.changeLanguage(data.account.language.toLowerCase())
         navigate('/')
       })
       .finally(() => setLoading(false))
