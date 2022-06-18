@@ -19,9 +19,6 @@
     background: #555;
     }
     
-    a {
-        color: #000;
-    }
     .user-card {
         display: flex;
         flex-direction: column;
@@ -40,6 +37,13 @@
             margin: 0 auto;
             margin-bottom: 10px;
             white-space: nowrap;
+        }
+
+        a {
+            color: #000;
+            &:hover{
+                color: #000;
+            }
         }
     }
 }

@@ -21,6 +21,7 @@ import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
 import { Link, useSearchParams } from 'react-router-dom'
 import { getAccountInformation } from '../../utils/api'
+import { defaultImage } from '../../utils/constants'
 import { Logo } from '../logo'
 import './style.scss'
 
@@ -76,7 +77,7 @@ function Header({ setSearchKey, search }: any) {
               overlay={menu}
               trigger={['click']}
             >
-              <Avatar src={data && data[0].photo} size="small" />
+              <Avatar src={(data && data[0].photo) ?? defaultImage} size="small" />
             </Dropdown>
           </div>
         </Row>

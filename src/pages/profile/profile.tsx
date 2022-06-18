@@ -6,6 +6,7 @@ import { useQuery } from 'react-query'
 import { Link, useLocation } from 'react-router-dom'
 import axios from '../../utils/axios'
 import { PageWrapper, PostsWrapper } from '../../components'
+import { defaultImage } from '../../utils/constants'
 import {
   getUserPosts, getAccountInformation, getFollowers, getFollowing,
 } from '../../utils/api'
@@ -40,7 +41,7 @@ function profilePage() {
       </Helmet>
       <PageWrapper isLoading={isLoading} className="profile-page">
         <div className="profile-info">
-          <Avatar src={user && user[0].photo} size="large" className="avatar" />
+          <Avatar src={(user && user[0].photo) ?? defaultImage} size="large" className="avatar" />
           <div>
             <div className="profile-header">
               <span className="username">{user && user[0]?.user?.username}</span>

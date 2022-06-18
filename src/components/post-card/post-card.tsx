@@ -29,6 +29,7 @@ import { useMediaQuery } from 'usehooks-ts'
 import { useState } from 'react'
 import axios from '../../utils/axios'
 import { Comments } from '../comments'
+import { defaultImage } from '../../utils/constants'
 import { Post } from '../../interfaces/post'
 import { EditPostModal, UsersList } from '../modals'
 import './style.scss'
@@ -115,7 +116,7 @@ function PostCard({
   const cardMeta = (
     <div className="creator">
       <Link to={`/profile/${creator?.id}`}>
-        <Meta title={creator?.user?.username} avatar={<Avatar src={creator?.photo} />} />
+        <Meta title={creator?.user?.username} avatar={<Avatar src={creator?.photo ?? defaultImage} />} />
       </Link>
       {account.id === creator.id && postAdmin}
     </div>

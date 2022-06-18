@@ -25,7 +25,7 @@ function UserSuggestion(): React.ReactElement {
           <Link to={`/profile/${id}`}>
             <Avatar size="large" src={photo ?? defaultImage} />
             <h3>{user.username}</h3>
-            <p>{bio}</p>
+            <p>{bio ?? '(without bio)'}</p>
           </Link>
           <Button type="primary" onClick={() => followUser(id)} block>Follow</Button>
         </div>
