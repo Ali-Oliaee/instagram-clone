@@ -1,6 +1,9 @@
 export interface UserSuggestionProps {
     id: number;
-    name: string;
+    user:{
+        email: string;
+        username : string;
+    }
     bio: string;
-    avatar: string;
+    photo: string;
 }

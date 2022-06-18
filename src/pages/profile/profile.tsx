@@ -56,13 +56,13 @@ function profilePage() {
             </div>
             <div className="report">
               <span className="posts">
-                {`${user && user[0].count.post} posts`}
+                {`${user && user[0]?.count?.post} posts`}
               </span>
               <span className="follower">
-                {`${user && user[0].count.follower} follower`}
+                {`${user && user[0]?.count?.following} follower`}
               </span>
               <span className="following">
-                {`${user && user[0].count.following} following`}
+                {`${user && user[0]?.count?.follower} following`}
               </span>
             </div>
             <div className="bio">{user && user[0]?.bio}</div>
