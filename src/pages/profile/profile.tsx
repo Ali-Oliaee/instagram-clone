@@ -7,9 +7,7 @@ import { Link, useLocation } from 'react-router-dom'
 import axios from '../../utils/axios'
 import { PageWrapper, PostsWrapper } from '../../components'
 import { defaultImage } from '../../utils/constants'
-import {
-  getUserPosts, getAccountInformation, getFollowers, getFollowing,
-} from '../../utils/api'
+import { getUserPosts, getAccountInformation } from '../../utils/api'
 import './style.scss'
 
 function profilePage() {
@@ -17,22 +15,18 @@ function profilePage() {
   const { t } = useTranslation()
   const currentUserId = JSON.parse(localStorage.getItem('user') || '{}').account.id
   const userId = +location.pathname.split('/')[2]
-  const { data: user, isLoading } = useQuery('getCurrentUser', () => getAccountInformation(userId))
+  const { data: user, isLoading, refetch } = useQuery('getCurrentUser', () => getAccountInformation(userId))
   const { data: userPosts } = useQuery('posts', () => getUserPosts(userId))
-  const { data: followers } = useQuery('followers', () => getFollowers(userId))
-  const { data: following } = useQuery('following', () => getFollowing(userId))
 
   const isFollowed = () => {
-    if (followers?.find((follower:number) => follower === currentUserId)) {
-      return true
-    }
+    if (user && user[0].follower?.find((follower:number) => follower === currentUserId)) return true
     return false
   }
-  const follow = () => axios.post('/follows/following/create/', {
+  const follow = () => axios.post('/follows/follower/create/', {
     account: user && user[0].id,
-    following: currentUserId,
-  })
-  const unFollow = () => axios.post('/follows/following/delete/', {})
+    follower: currentUserId,
+  }).then(() => refetch())
+  const unFollow = () => axios.delete(`/follows/follower/retrieve-destroy/${currentUserId}/`).then(() => refetch())
 
   return (
     <>
@@ -57,13 +51,13 @@ function profilePage() {
             </div>
             <div className="report">
               <span className="posts">
-                {`${user && user[0]?.count?.post} posts`}
+                {`${user && user[0]?.post.length} posts`}
               </span>
               <span className="follower">
-                {`${user && user[0]?.count?.following} follower`}
+                {`${user && user[0]?.follower.length} follower`}
               </span>
               <span className="following">
-                {`${user && user[0]?.count?.follower} following`}
+                {`${user && user[0]?.following.length} following`}
               </span>
             </div>
             <div className="bio">{user && user[0]?.bio}</div>
