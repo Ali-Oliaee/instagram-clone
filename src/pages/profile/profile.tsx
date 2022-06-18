@@ -4,8 +4,9 @@ import { Helmet } from 'react-helmet'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
 import { Link, useLocation } from 'react-router-dom'
+import { useState } from 'react'
 import axios from '../../utils/axios'
-import { PageWrapper, PostsWrapper } from '../../components'
+import { PageWrapper, PostsWrapper, UsersList } from '../../components'
 import { defaultImage } from '../../utils/constants'
 import { getUserPosts, getAccountInformation } from '../../utils/api'
 import './style.scss'
@@ -13,13 +14,15 @@ import './style.scss'
 function profilePage() {
   const location = useLocation()
   const { t } = useTranslation()
+  const [followerListVisible, setFollowerListVisible] = useState(false)
+  const [followingListVisible, setFollowingListVisible] = useState(false)
   const currentUserId = JSON.parse(localStorage.getItem('user') || '{}').account.id
   const userId = +location.pathname.split('/')[2]
   const { data: user, isLoading, refetch } = useQuery('getCurrentUser', () => getAccountInformation(userId))
   const { data: userPosts } = useQuery('posts', () => getUserPosts(userId))
 
   const isFollowed = () => {
-    if (user && user[0].follower?.find((follower:number) => follower === currentUserId)) return true
+    if (user && user[0].following?.find((follower:number) => follower === currentUserId)) return true
     return false
   }
   const follow = () => axios.post('/follows/follower/create/', {
@@ -50,21 +53,27 @@ function profilePage() {
               )}
             </div>
             <div className="report">
-              <span className="posts">
+              <Button type="ghost" className="posts">
                 {`${user && user[0]?.post.length} posts`}
-              </span>
-              <span className="follower">
+              </Button>
+              <Button onClick={() => setFollowerListVisible(true)} type="ghost" className="follower">
                 {`${user && user[0]?.follower.length} follower`}
-              </span>
-              <span className="following">
+              </Button>
+              <Button onClick={() => setFollowingListVisible(true)} type="ghost" className="following">
                 {`${user && user[0]?.following.length} following`}
-              </span>
+              </Button>
             </div>
             <div className="bio">{user && user[0]?.bio}</div>
           </div>
         </div>
         <PostsWrapper posts={userPosts} />
       </PageWrapper>
+      <UsersList
+        data={followerListVisible ? user && user[0]?.follower : user && user[0]?.following}
+        visible={followerListVisible || followingListVisible}
+        onCancel={() => (followerListVisible ? setFollowerListVisible(false) : setFollowingListVisible(false))}
+        title={followerListVisible ? t('follower') : t('following')}
+      />
     </>
   )
 }
