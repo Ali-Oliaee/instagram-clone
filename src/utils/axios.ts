@@ -1,7 +1,6 @@
 import { message } from 'antd'
 import axios from 'axios'
-
-const baseURL = 'http://127.0.0.1:8000/'
+import { baseURL } from './constants'
 
 const instance = axios.create({
   baseURL,
