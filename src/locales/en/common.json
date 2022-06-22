@@ -37,7 +37,6 @@
     "add-post": "Add Post",
     "likes": "Likes",
     "comments": "Comments",
-    "followers": "Followers",
     "following": "Following",
     "settings": "Settings",
     "saved": "Saved",
@@ -74,7 +73,10 @@
     "change password": "Change password",
     "edit profile": "Edit profile",
     "posts": "Posts",
-    "followers": "Followers"
-    
-    
+    "followers": "Followers",
+    "old-password": "Old Password",
+    "new-password" : "New Password",
+    "change-password": "Change Password",
+    "confirm": "Confirm",
+    "dragger-title": "Click or drag file to this area to upload"
 }

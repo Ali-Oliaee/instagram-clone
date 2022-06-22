@@ -58,7 +58,11 @@
 "change password":"تغییر رمز عبور",
 "edit profile":"ویرایش پروفایل",
 "posts":"پست",
-"follower":"دنبال کننده"
-
+"follower":"دنبال کننده",
+"old-password": "رمز عبور فعلی",
+"new-password" : "رمز عبور جدید",
+"change-password": "تغییر کلمه عبور",
+"confirm": "تایید",
+"dragger-title": "جهت بارگذاری فایل کلیک کنید یا فایل خود را به این قسمت بکشید"
 
 }
