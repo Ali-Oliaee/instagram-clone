@@ -78,5 +78,17 @@
     "new-password" : "New Password",
     "change-password": "Change Password",
     "confirm": "Confirm",
-    "dragger-title": "Click or drag file to this area to upload"
+    "dragger-title": "Click or drag file to this area to upload",
+    "forgot-password-link": "Forgot your password?",
+    "forgot-password-title":"Trouble Logging In?",
+    "forgot-password-description":"Enter your email and we'll send you a link to get back into your account.",
+    "step-enter-email":"Enter Email",
+    "step-enter-code":"Enter Code",
+    "step-change-password": "Change Password",
+    "Create new account":"Create new account",
+    "confirm-code-description":"Confirm it's You to Login",
+    "code": "code",
+    "code-required": "Please enter your code!",
+    "code-invalid": "code must be valid!"
+
 }

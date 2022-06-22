@@ -15,7 +15,10 @@
         @include flex(space-between);
         .ant-card-meta {
             @include flex(space-between);
-        }
+            &-title {
+                margin-inline-start: 8px;
+            }
+        }    
         .anticon-more {
             transform: rotate(90deg);
             font-size: 1.3em;

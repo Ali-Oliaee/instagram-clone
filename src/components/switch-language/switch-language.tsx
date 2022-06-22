@@ -5,12 +5,18 @@ import './style.scss'
 
 function SwitchLanguage() {
   const { Option } = Select
-  const changeLanguage = (language : string) => axios.post('account/change-language/', {
-    language,
-  }).then(({ data }) => {
-    message.success(data.message)
-    i18n.changeLanguage(language)
-  })
+  const isLoggedIn = localStorage.getItem('user')
+  const changeLanguage = (language : string) => {
+    if (isLoggedIn) {
+      return axios.post('account/change-language/', {
+        language,
+      }).then(({ data }) => {
+        message.success(data.message)
+        i18n.changeLanguage(language)
+      })
+    }
+    return i18n.changeLanguage(language)
+  }
 
   return (
     <div className="switch-language">

@@ -12,20 +12,18 @@ export function Step0({ onFinish }: any) {
   return (
     <Form form={form} onFinish={onFinish}>
       <div>
-        <h1>Trouble Logging In?</h1>
-        <p>
-          Enter your email and we&apos;ll send you a link to get back into your account.
-        </p>
+        <h1>{t('forgot-password-title')}</h1>
+        <p>{t('forgot-password-description')}</p>
       </div>
       <Form.Item
         name="email"
         rules={[{
           required: true,
-          message: t('email-required'),
+          message: t('require-email'),
         },
         {
           type: 'email',
-          message: t('email-invalid'),
+          message: t('invalid-email'),
         },
         ]}
       >
@@ -38,7 +36,7 @@ export function Step0({ onFinish }: any) {
       </Form.Item>
       <Button block type="primary" htmlType="submit">{t('submit')}</Button>
       <Divider>{t('or')}</Divider>
-      <Link to="/auth/signup">Create new account</Link>
+      <Link to="/auth/signup">{t('Create new account')}</Link>
     </Form>
   )
 }
@@ -50,7 +48,7 @@ export function Step1({ onFinish }: any) {
   return (
     <Form form={form} onFinish={onFinish}>
       <div>
-        <h1>Confirm it&apos;s You to Login</h1>
+        <h1>{t('confirm-code-description')}</h1>
       </div>
       <Form.Item
         name="code"
@@ -84,24 +82,24 @@ export function Step2({ onFinish }: any) {
       <Form.Item
         rules={[{
           required: true,
-          message: t('password-required'),
+          message: t('require-password'),
         },
         {
           min: 6,
-          message: t('password-min'),
+          message: t('min-password'),
         }]}
         name="newPassword"
       >
-        <Input.Password size="large" placeholder={t('new-password')} />
+        <FloatLabel autoFocus value={form.getFieldValue('newPassword')} type="password" label={t('new-password')} />
       </Form.Item>
       <Form.Item
         rules={[{
           required: true,
-          message: t('password-required'),
+          message: t('require-password'),
         },
         {
           min: 6,
-          message: t('password-min'),
+          message: t('min-password'),
         },
         ({ getFieldValue }) => ({
           validator(_, value) {
@@ -114,7 +112,7 @@ export function Step2({ onFinish }: any) {
         ]}
         name="confirmPassword"
       >
-        <Input.Password size="large" placeholder={t('confirm-password')} />
+        <FloatLabel value={form.getFieldValue('confirmPassword')} type="password" label={t('confirm-password')} />
       </Form.Item>
       <Button block type="primary" htmlType="submit">{t('submit')}</Button>
     </Form>
