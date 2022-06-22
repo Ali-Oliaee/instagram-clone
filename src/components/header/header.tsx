@@ -62,7 +62,9 @@ function Header({ setSearchKey, search }: any) {
     <Row className="header" justify="center">
       <Col xs={24} sm={22} md={20} lg={18}>
         <Row justify="space-between" align="middle">
-          <Logo />
+          <Link to="/">
+            <Logo />
+          </Link>
           {search && (<Input size="large" onChange={(e) => setSearchKey(e.target.value)} prefix={<SearchOutlined />} placeholder={t('search-placeholder')} className="search-input" />)}
           <div className="header-menu">
             <Link to="/">
