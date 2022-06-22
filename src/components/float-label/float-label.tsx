@@ -32,14 +32,14 @@ function FloatLabel({
       )
         : type === 'password' ? (
           <Input.Password
-            size="middle"
+            size="large"
             onChange={onChange}
             autoFocus={autoFocus}
             type="password"
           />
         ) : (
           <Input
-            size="middle"
+            size="large"
             onChange={onChange}
             autoFocus={autoFocus}
             type={type}
