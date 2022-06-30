@@ -34,7 +34,7 @@ function AddPostModal() {
     formData.append('caption', caption)
     formData.append('comment_status', enableComments)
     // eslint-disable-next-line no-unused-expressions
-    tags && tags.length > 0 && tags.forEach((tag: any, i: number) => formData.append(`tags[${i}]`, tag))
+    tags && tags.length && tags.forEach((tag: any, i: number) => formData.append(`tags[${i}]`, tag))
 
     return axios.post(
       '/posts/create/',

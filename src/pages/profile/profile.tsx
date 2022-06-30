@@ -22,11 +22,11 @@ function profilePage() {
   const { data: userPosts } = useQuery('posts', () => getUserPosts(userId))
 
   const isFollowed = () => {
-    if (user && user[0].following?.find((follower:number) => follower === currentUserId)) return true
+    if (user?.[0].following?.find((follower: number) => follower === currentUserId)) return true
     return false
   }
   const follow = () => axios.post('/follows/follower/create/', {
-    account: user && user[0].id,
+    account: user?.[0].id,
     follower: currentUserId,
   }).then(() => refetch())
   const unFollow = () => axios.delete(`/follows/follower/retrieve-destroy/${currentUserId}/`).then(() => refetch())
@@ -38,10 +38,10 @@ function profilePage() {
       </Helmet>
       <PageWrapper isLoading={isLoading} className="profile-page">
         <div className="profile-info">
-          <Avatar src={(user && user[0].photo) ?? defaultImage} size="large" className="avatar" />
+          <Avatar src={(user?.[0].photo) ?? defaultImage} size="large" className="avatar" />
           <div>
             <div className="profile-header">
-              <span className="username">{user && user[0]?.user?.username}</span>
+              <span className="username">{user?.[0]?.user?.username}</span>
               {userId !== currentUserId ? (
                 <Button type="primary" size="small" className="edit-button" onClick={isFollowed() ? unFollow : follow}>
                   {isFollowed() ? t('unFollow') : t('follow')}
@@ -54,22 +54,22 @@ function profilePage() {
             </div>
             <div className="report">
               <Button type="ghost" className="posts">
-                {`${user && user[0]?.post.length} ${t('posts')}`}
+                {`${user?.[0]?.post.length} ${t('posts')}`}
               </Button>
               <Button onClick={() => setFollowerListVisible(true)} type="ghost" className="follower">
-                {`${user && user[0]?.follower.length} ${t('followers')}`}
+                {`${user?.[0]?.follower.length} ${t('followers')}`}
               </Button>
               <Button onClick={() => setFollowingListVisible(true)} type="ghost" className="following">
-                {`${user && user[0]?.following.length} ${t('following')}`}
+                {`${user?.[0]?.following.length} ${t('following')}`}
               </Button>
             </div>
-            <div className="bio">{user && user[0]?.bio}</div>
+            <div className="bio">{user?.[0]?.bio}</div>
           </div>
         </div>
         <PostsWrapper posts={userPosts} />
       </PageWrapper>
       <UsersList
-        data={followerListVisible ? user && user[0]?.follower : user && user[0]?.following}
+        data={followerListVisible ? user?.[0]?.follower : user?.[0]?.following}
         visible={followerListVisible || followingListVisible}
         onCancel={() => (followerListVisible ? setFollowerListVisible(false) : setFollowingListVisible(false))}
         title={followerListVisible ? t('follower') : t('following')}

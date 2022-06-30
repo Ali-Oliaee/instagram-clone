@@ -13,14 +13,14 @@ function UserSuggestion(): React.ReactElement {
   const { data: users } = useQuery('suggestedUsers', () => axios.get('/account/suggestion-account/').then(({ data }) => data))
   const currentUser = JSON.parse(localStorage.getItem('user') || '{}')
   const { t } = useTranslation()
-  const followUser = (id:number) => axios.post('/follows/following/create/', {
+  const followUser = (id: number) => axios.post('/follows/following/create/', {
     account: id,
     following: currentUser.account.id,
   })
 
   return (
     <div className="user-suggestion">
-      {users && users.map(({
+      {users?.map(({
         id, photo, user, bio,
       }: UserSuggestionProps) => (
         <div className="user-card">

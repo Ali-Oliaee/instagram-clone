@@ -21,7 +21,7 @@ function SettingsPage() {
   // todo: fix that id
   const { data: user, isLoading, refetch } = useQuery('user', () => getAccountInformation(1))
 
-  const handleSubmit = ({ username, bio } : any) => {
+  const handleSubmit = ({ username, bio }: any) => {
     setLoading(true)
     return axios.patch(`account/update-information/${user[0].id}/`, {
       username,
@@ -32,7 +32,7 @@ function SettingsPage() {
     }).finally(() => setLoading(false))
   }
 
-  const uploadImage = ({ file, event } : any) => {
+  const uploadImage = ({ file, event }: any) => {
     const formData = new FormData()
     formData.append('photo', file.originFileObj)
     return event && axios.post('account/change-profile-photo/', formData).then(({ data }) => {
@@ -42,9 +42,9 @@ function SettingsPage() {
   }
 
   form.setFieldsValue({
-    username: user && user[0]?.user?.username,
-    email: user && user[0]?.user?.email,
-    bio: user && user[0]?.bio,
+    username: user?.[0]?.user?.username,
+    email: user?.[0]?.user?.email,
+    bio: user?.[0]?.bio,
   })
 
   return (
@@ -55,15 +55,15 @@ function SettingsPage() {
       <PageWrapper isLoading={isLoading} className="settings-page">
         <div className="settings">
           <div className="change-image">
-            <Avatar src={user && user[0].photo} size="large" className="profile-image" />
+            <Avatar src={user?.[0].photo} size="large" className="profile-image" />
             <Upload
               beforeUpload={(file) => {
                 const isValid = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/jpg'
-               || file.type === 'image/gif'
-               || file.type === 'image/webp'
-               || file.type === 'image/svg+xml'
-               || file.type === 'image/bmp'
-               || file.type === 'image/tiff'
+                  || file.type === 'image/gif'
+                  || file.type === 'image/webp'
+                  || file.type === 'image/svg+xml'
+                  || file.type === 'image/bmp'
+                  || file.type === 'image/tiff'
                 if (!isValid) message.error(`${file.name} is not a valid file`)
                 return isValid || Upload.LIST_IGNORE
               }}

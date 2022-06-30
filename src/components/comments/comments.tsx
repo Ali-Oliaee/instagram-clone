@@ -10,7 +10,7 @@ import axios from '../../utils/axios'
 import { CommentInterface } from '../../interfaces'
 import './style.scss'
 
-function Comments({ id, visible, onCancel } : any) {
+function Comments({ id, visible, onCancel }: any) {
   const [loading, setLoading] = useState(false)
   const [form] = Form.useForm()
   const { data: comments, isLoading, refetch } = useQuery('comments', () => getComments(id))
@@ -42,7 +42,7 @@ function Comments({ id, visible, onCancel } : any) {
         {isLoading ? (
           <Skeleton active avatar title paragraph />
         ) : (
-          comments && comments.map((comment: CommentInterface) => (
+          comments?.map((comment: CommentInterface) => (
             <Comment
               author={<Link to={`profile/${comment.author.id}`}>{comment.author.user.username}</Link>}
               avatar={(

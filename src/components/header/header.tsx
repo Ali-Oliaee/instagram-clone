@@ -79,7 +79,7 @@ function Header({ setSearchKey, search }: any) {
               overlay={menu}
               trigger={['click']}
             >
-              <Avatar src={(data && data[0].photo) ?? defaultImage} size="small" />
+              <Avatar src={data?.[0].photo ?? defaultImage} size="small" />
             </Dropdown>
           </div>
         </Row>

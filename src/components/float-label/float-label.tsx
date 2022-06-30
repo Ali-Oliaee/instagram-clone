@@ -15,7 +15,7 @@ function FloatLabel({
   disabled = false,
 }: FloatLabelInput) {
   const [focus, setFocus] = useState(false)
-  const labelClass = focus || (value && value.length !== 0) ? 'label label-float' : 'label'
+  const labelClass = focus || (value && value.length) ? 'label label-float' : 'label'
   return (
     <div
       className={i18next.dir() === 'ltr' ? 'float-label-ltr' : 'float-label-rtl'}

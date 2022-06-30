@@ -12,10 +12,10 @@ function UserLink({ id }: any) {
 
   return (
     <Link to={`/profile/${id}/`} className="user-link">
-      <Avatar size="large" icon="user" src={(user && user[0].photo) ?? defaultImage} />
+      <Avatar size="large" icon="user" src={(user?.[0].photo) ?? defaultImage} />
       <div className="user-link-info">
-        <h3>{user && user[0].user.username}</h3>
-        <p>{user && user[0].bio}</p>
+        <h3>{user?.[0].user.username}</h3>
+        <p>{user?.[0].bio}</p>
       </div>
     </Link>
   )
