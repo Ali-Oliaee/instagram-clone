@@ -4,6 +4,7 @@
     @include flex();
     width: 200px;
     margin: 0 auto;
+    user-select: none;
     svg {
         margin-inline-end: 10px;
         object-fit: fill;

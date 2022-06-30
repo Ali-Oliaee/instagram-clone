@@ -12,7 +12,6 @@ import {
   Avatar,
   Button,
   Col,
-  Divider,
   Dropdown,
   Input,
   Menu,
@@ -22,6 +21,7 @@ import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
 import { Link, useSearchParams } from 'react-router-dom'
 import { getAccountInformation } from '../../utils/api'
+import { defaultImage } from '../../utils/constants'
 import { Logo } from '../logo'
 import './style.scss'
 
@@ -62,7 +62,9 @@ function Header({ setSearchKey, search }: any) {
     <Row className="header" justify="center">
       <Col xs={24} sm={22} md={20} lg={18}>
         <Row justify="space-between" align="middle">
-          <Logo />
+          <Link to="/">
+            <Logo />
+          </Link>
           {search && (<Input size="large" onChange={(e) => setSearchKey(e.target.value)} prefix={<SearchOutlined />} placeholder={t('search-placeholder')} className="search-input" />)}
           <div className="header-menu">
             <Link to="/">
@@ -77,7 +79,7 @@ function Header({ setSearchKey, search }: any) {
               overlay={menu}
               trigger={['click']}
             >
-              <Avatar src={data && data[0].photo} size="small" />
+              <Avatar src={data?.[0].photo ?? defaultImage} size="small" />
             </Dropdown>
           </div>
         </Row>

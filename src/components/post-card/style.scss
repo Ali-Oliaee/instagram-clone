@@ -11,12 +11,14 @@
     }
 
     .creator {
-        margin-block: 10px;
-        margin-inline: 6px;
+        margin: 10px 6px;
         @include flex(space-between);
         .ant-card-meta {
             @include flex(space-between);
-        }
+            &-title {
+                margin-inline-start: 8px;
+            }
+        }    
         .anticon-more {
             transform: rotate(90deg);
             font-size: 1.3em;
@@ -24,35 +26,27 @@
     }
 
     img {
-        height: 200px;
-        object-fit: cover;
+        height: auto;
+        width: 100%;
     }
     .post-info {
         padding-inline: 14px;
         .title {
             font-size: 1.2em;
             font-weight: bold;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            max-width: 90%;
         }
         .description-container {
-            flex: 1;
-            max-height: 110px;
-            overflow: hidden;   
-            margin-bottom: 10px;
-            span {
-                display: inline;
-            }
+            max-width: 95%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
             .creator {
+                display: inline;
                 font-weight: bold;
-            }
-            .description {
-                max-height: 40px;
-                text-overflow: ellipsis;
-               .more-button {
-                   padding: 0 4px;
-                   span {
-                       color: #666;
-                   }
-               } 
             }
         }
         .comment-input {
@@ -67,37 +61,14 @@
             margin-block: 4px;
         }
         .card-operations {
-            @include flex(space-between, flex-start);
-            margin-top: 4px ;
-            .like-button, .archive-button, .comment-button {
-                cursor: pointer;
+            @include flex(space-between);
+            margin-inline: -12px;
+            .like-button, .archive-button, .comment-button, .likes-number-button {
                 border: 0;
                 padding: 0;
                 &:hover, &:focus, &:active {
                     color: unset;
                 }
-            }
-            .likes-number-button {
-                border: 0;
-                padding: 0;
-                span {
-                    font-size: 1em;
-                }
-                &:hover, &:focus, &:active {
-                    color: unset;
-                }
-            }
-            .archive-button, .comment-button {
-                margin-inline-start: 4px;
-                span {
-                    font-size: 1.2em;
-                }
-            }
-            .like-button {
-                margin-inline-start: -10px;
-            }
-            .archive-button {
-                margin-inline-end: -10px;
             }
         }
         .date {
@@ -108,6 +79,9 @@
 }
 
 .post-image {
+    object-fit: cover;
+    height: 150px;
+    width: 200px;
     cursor: pointer;
     &:hover {
         opacity: 0.8;
@@ -115,12 +89,14 @@
 }
 
 .post-card-modal { 
-    
-    .ant-image   {
-        object-fit: contain;
+    .image-container {
+        height: 100%;
+        .post-modal-image {
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+        }
     }
-    
-
     .post-info {
         height: 100%;
         width: 100%;
@@ -131,7 +107,7 @@
     }
     
     .ant-modal-body {
+        display: flex;
         padding: 0;
-        @include flex(center, flex-start);
     }
 }

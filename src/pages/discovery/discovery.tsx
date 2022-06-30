@@ -11,8 +11,8 @@ function DiscoveryPage() {
       <Helmet>
         <title>Discovery</title>
       </Helmet>
-      <PageWrapper search>
-        <PostsWrapper posts={data} isLoading={isLoading} />
+      <PageWrapper search isLoading={isLoading}>
+        <PostsWrapper posts={data} />
       </PageWrapper>
     </>
   )

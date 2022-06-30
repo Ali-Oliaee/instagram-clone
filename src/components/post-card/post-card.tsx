@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import {
   DeleteOutlined,
   HeartFilled,
@@ -14,43 +16,46 @@ import {
   Button,
   Card,
   Dropdown,
-  Image,
   Menu,
   message,
   Modal,
   Popconfirm,
   Tag,
 } from 'antd'
-import qs from 'query-string'
 import { useTranslation } from 'react-i18next'
 import { useQueryClient } from 'react-query'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useMediaQuery } from 'usehooks-ts'
+import { useState } from 'react'
 import axios from '../../utils/axios'
 import { Comments } from '../comments'
-import { UsersList } from '../modals'
+import { defaultImage } from '../../utils/constants'
+import { Post } from '../../interfaces/post'
+import { EditPostModal, UsersList } from '../modals'
 import './style.scss'
 
 function PostCard({
   id,
-  image,
+  file: image,
   title,
   caption,
-  creator,
+  account: creator,
   tags,
-  likes,
-  archives,
-  createdAt,
-  updatedAt,
-  enableComments,
-}: any) {
+  account_likes: likes,
+  account_archives: archives,
+  created_at: createdAt,
+  updated_at: updatedAt,
+  comment_status: enableComments,
+}: Post) {
   const { Meta } = Card
   const { t } = useTranslation()
-  const [searchParams, setSearchParams] = useSearchParams()
   const isMobile = useMediaQuery('(max-width: 500px)')
   const queryClient = useQueryClient()
   const { account } = JSON.parse(localStorage.getItem('user') ?? '{}')
-  const QS = qs.parse(window.location.search)
+  const [modalVisible, setModalVisible] = useState(false)
+  const [editModalVisible, setEditModalVisible] = useState(false)
+  const [likesModalVisible, setLikesModalVisible] = useState(false)
+  const [commentsModalVisible, setCommentsModalVisible] = useState(false)
 
   const timeSince = (date: any) => {
     const seconds = Math.floor((new Date() as any - date) / 1000)
@@ -70,8 +75,7 @@ function PostCard({
   const deletePost = () => axios.delete(`posts/list/post=${id}/`).then(() => {
     message.success('Post deleted successfully!')
     queryClient.invalidateQueries('posts')
-    delete QS.post
-    setSearchParams({ ...QS } as any)
+    setModalVisible(false)
   })
 
   const likePost = () => axios.post('/likes/create/', {
@@ -92,7 +96,7 @@ function PostCard({
       trigger={['click']}
       overlay={(
         <Menu>
-          <Menu.Item key="edit" onClick={() => setSearchParams(`edit=${id}`)} icon={<EditOutlined />}>{t('edit')}</Menu.Item>
+          <Menu.Item key="edit" onClick={() => setEditModalVisible(true)} icon={<EditOutlined />}>{t('edit')}</Menu.Item>
           <Popconfirm
             title={t('delete-confirm')}
             onConfirm={deletePost}
@@ -112,7 +116,7 @@ function PostCard({
   const cardMeta = (
     <div className="creator">
       <Link to={`/profile/${creator?.id}`}>
-        <Meta title={creator.user.username} avatar={<Avatar src={creator.photo} />} />
+        <Meta title={creator?.user?.username} avatar={<Avatar src={creator?.photo ?? defaultImage} />} />
       </Link>
       {account.id === creator.id && postAdmin}
     </div>
@@ -120,33 +124,33 @@ function PostCard({
 
   const cardOptions = (
     <div className="card-operations">
-      <h3>
+      <span>
         <Button
           className="like-button"
-          onClick={likes.includes(account.id) ? unLikePost : likePost}
+          onClick={likes?.includes(account?.id) ? unLikePost : likePost}
           size="large"
           icon={
-                  likes.includes(account.id)
-                    ? <HeartFilled style={{ color: 'red' }} /> : <HeartOutlined />
-                }
+            likes?.includes(account?.id)
+              ? <HeartFilled style={{ color: 'red' }} /> : <HeartOutlined />
+          }
         />
-        <Button type="ghost" className="likes-number-button" onClick={() => likes?.length && setSearchParams({ ...QS, likes: 'true' })}>
-          {`${likes.length} likes`}
+        <Button type="ghost" className="likes-number-button" onClick={() => likes?.length && setLikesModalVisible(true)}>
+          {`${likes?.length} ${t('likes')}`}
         </Button>
-      </h3>
+      </span>
       <span>
         {enableComments && (
         <Button
           size="large"
-          onClick={() => setSearchParams({ post: id, comments: 'true' })}
+          onClick={() => setCommentsModalVisible(true)}
           icon={<MessageOutlined />}
           className="comment-button"
         />
         )}
         <Button
           size="large"
-          onClick={archives.includes(account.id) ? unArchivePost : archivePost}
-          icon={archives.includes(account.id) ? <DownSquareFilled style={{ color: 'green' }} /> : <DownSquareOutlined />}
+          onClick={archives?.includes(account.id) ? unArchivePost : archivePost}
+          icon={archives?.includes(account.id) ? <DownSquareFilled style={{ color: 'green' }} /> : <DownSquareOutlined />}
           className="archive-button"
         />
       </span>
@@ -165,17 +169,14 @@ function PostCard({
           </span>
           <span className="description">
             {caption}
-            {caption.length > 100 && (
-            <Button type="link" className="more-button">more...</Button>
-            )}
           </span>
         </div>
       )}
       <div className="tags">
-        {tags && tags.map((tag: any) => <Tag key={tag.name} className="tag">{tag.name}</Tag>)}
+        {tags && tags?.map((tag: any) => <Tag key={tag?.name} className="tag">{tag?.name}</Tag>)}
       </div>
       <span className="date">
-        {timeSince(new Date(Date.now() as any - createdAt))}
+        {timeSince(new Date(Date.now() - createdAt))}
         {' '}
         ago
         {updatedAt !== createdAt && (
@@ -185,68 +186,74 @@ function PostCard({
   )
 
   return (
-    <div>
-      {isMobile ? (
-        <Card className="post-card">
-          {cardMeta}
-          <Image src={image} alt={title} preview={false} width="100%" />
-          <div className="post-info">
-            {cardOptions}
-            {cardContent}
-          </div>
-        </Card>
-      ) : (
-        <>
-          <Image
+    <>
+      <div>
+        {isMobile ? (
+          <Card className="post-card">
+            {cardMeta}
+            <img src={image} alt={title} />
+            <div className="post-info">
+              {cardOptions}
+              {cardContent}
+            </div>
+          </Card>
+        ) : (
+          <img
             src={image}
             alt={title}
-            preview={false}
-            width="100%"
             className="post-image"
-            onClick={() => setSearchParams({
-              post: id,
-            })}
+            onClick={() => setModalVisible(true)}
           />
-          <Modal
-            visible={!!QS.post}
-            closable={false}
-            onCancel={() => setSearchParams({})}
-            footer={null}
-            width="80%"
-            centered
-            className="post-card-modal"
-            destroyOnClose
-          >
-            <Image
-              src={image}
-              alt={title}
-              height="100%"
-              width="100%"
-              preview={false}
-            />
+        )}
+      </div>
+      <Modal
+        visible={modalVisible}
+        closable={false}
+        onCancel={() => setModalVisible(false)}
+        footer={null}
+        width="80%"
+        centered
+        className="post-card-modal"
+        destroyOnClose
+      >
+        <div className="image-container">
+          <img
+            src={image}
+            alt={title}
+            height="100%"
+            width="100%"
+            className="post-modal-image"
+          />
+        </div>
+        <div className="post-info">
+          <Card className="post-card">
+            {cardMeta}
             <div className="post-info">
-              <Card className="post-card">
-                {cardMeta}
-                <div className="post-info">
-                  {cardOptions}
-                  {cardContent}
-                </div>
-              </Card>
+              {cardOptions}
+              {cardContent}
             </div>
-          </Modal>
-        </>
-      )}
-      <Comments id={id} />
+          </Card>
+        </div>
+      </Modal>
+      <Comments
+        id={id}
+        visible={commentsModalVisible}
+        onCancel={() => setCommentsModalVisible(false)}
+      />
+      <EditPostModal
+        visible={editModalVisible}
+        post={{
+          id, title, caption, tags, enableComments,
+        }}
+        onCancel={() => setEditModalVisible(false)}
+      />
       <UsersList
         data={likes}
-        visible={!!QS.likes}
+        visible={likesModalVisible}
+        onCancel={() => setLikesModalVisible(false)}
         title="Likes"
-        onCancel={() => {
-          delete QS.likes
-          setSearchParams({ ...QS } as any)
-        }}
       />
-    </div>
+    </>
   )
 }
 

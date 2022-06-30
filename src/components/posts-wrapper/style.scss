@@ -2,7 +2,7 @@
 
 .posts-wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, 200px);
     grid-gap: 20px;
     margin-inline: 20px;
     flex-wrap: wrap;
@@ -11,17 +11,6 @@
     @media screen and (max-width: 500px) {
         margin-inline:0;
         display: initial;
-    }
-    .ant-image   {
-        object-fit: cover;
-    }
-
-    .post-image {
-        cursor: pointer;
-
-        &:hover {
-            opacity: 0.9;
-        }
     }
 
     .empty {

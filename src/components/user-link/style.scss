@@ -3,6 +3,11 @@
     align-items: center;
     justify-content: flex-start;
     color: #000;
+    margin-bottom: 10px;
+    &:hover {
+        color: #000;    
+    }
+
     .user-link-info {
         display: flex;
         flex-direction: column;

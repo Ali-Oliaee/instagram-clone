@@ -7,3 +7,5 @@ export const getPost = (id: number) => axios.get(`/posts/list/post=${id}/`).then
 export const getAccountInformation = (id: number) => axios.get(`/account/account-details/${id}/`).then(({ data }: any) => data)
 export const getComments = (id:number) => axios.get(`comments/list/post=${id}/`).then(({ data }) => data)
 export const getArchivedPosts = () => axios.get('/archives/list/').then(({ data }) => data)
+export const getFollowers = (id: number) => axios.get(`/follows/follower/list/account=${id}/`).then(({ data }) => data)
+export const getFollowing = (id: number) => axios.get(`/follows/following/list/account=${id}/`).then(({ data }) => data)

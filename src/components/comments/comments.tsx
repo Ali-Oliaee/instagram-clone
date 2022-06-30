@@ -1,19 +1,18 @@
 import {
   Avatar, Button, Comment, Form, Input, message, Modal, Skeleton,
 } from 'antd'
-import qs from 'query-string'
 import { useState } from 'react'
 import { useQuery } from 'react-query'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { getComments } from '../../utils/api'
+import { defaultImage } from '../../utils/constants'
 import axios from '../../utils/axios'
+import { CommentInterface } from '../../interfaces'
 import './style.scss'
 
-function Comments({ id } :any) {
-  const [searchParams, setSearchParams] = useSearchParams()
+function Comments({ id, visible, onCancel }: any) {
   const [loading, setLoading] = useState(false)
   const [form] = Form.useForm()
-  const QS = qs.parse(window.location.search)
   const { data: comments, isLoading, refetch } = useQuery('comments', () => getComments(id))
 
   const sendComment = ({ commentContent }: any) => {
@@ -30,37 +29,32 @@ function Comments({ id } :any) {
 
   return (
     <Modal
-      visible={!!QS.comments}
+      visible={visible}
       footer={null}
       title="Comments"
       className="comments-modal"
       closable
-      onCancel={() => {
-        delete QS.comments
-        setSearchParams({ ...QS as any })
-      }}
+      onCancel={onCancel}
       destroyOnClose
       centered
     >
       <div className="comments">
-        {
-          isLoading ? (
-            <Skeleton active avatar title paragraph />
-          ) : (
-            comments && comments.map((comment: any) => (
-              <Comment
-                key={comment}
-                author={<Link to={`profile/${comment.author.id}`}>{comment.author.user.username}</Link>}
-                avatar={(
-                  <Avatar
-                    src={comment.author.photo}
-                    alt={comment.author.user.username}
-                  />
+        {isLoading ? (
+          <Skeleton active avatar title paragraph />
+        ) : (
+          comments?.map((comment: CommentInterface) => (
+            <Comment
+              author={<Link to={`profile/${comment.author.id}`}>{comment.author.user.username}</Link>}
+              avatar={(
+                <Avatar
+                  src={`http://localhost:8000${comment.author.photo}` ?? defaultImage}
+                  alt={comment.author.user.username}
+                />
               )}
-                content={<p>{comment.content}</p>}
-              />
-            )))
-    }
+              content={<p>{comment.content}</p>}
+            />
+          ))
+        )}
       </div>
       <Form form={form} onFinish={sendComment} layout="vertical">
         <Form.Item

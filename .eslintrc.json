@@ -33,6 +33,7 @@
         "no-unused-vars": "warn",
         "react/react-in-jsx-scope": "off",
         "react/jsx-filename-extension": ["off", { "extensions": [".js", ".jsx"] }],
+        "max-len": ["off"],
         "import/extensions": [
             "error",
             "ignorePackages",

@@ -1,116 +1,37 @@
+/* eslint-disable import/no-unresolved */
 import { Avatar, Button } from 'antd'
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+import { useQuery } from 'react-query'
 import { Link } from 'react-router-dom'
+import { UserSuggestionProps } from '../../interfaces'
+import axios from '../../utils/axios'
+import { defaultImage } from '../../utils/constants'
 import './style.scss'
 
-function UserSuggestion({
-  image, name, bio, userId,
-}: any) {
-  // todo: get the random list from users that not followed by the user
+function UserSuggestion(): React.ReactElement {
+  const { data: users } = useQuery('suggestedUsers', () => axios.get('/account/suggestion-account/').then(({ data }) => data))
+  const currentUser = JSON.parse(localStorage.getItem('user') || '{}')
+  const { t } = useTranslation()
+  const followUser = (id: number) => axios.post('/follows/following/create/', {
+    account: id,
+    following: currentUser.account.id,
+  })
+
   return (
     <div className="user-suggestion">
-      <div className="user-card">
-        <Link to={`/profile/${userId}`}>
-          <Avatar size="large" src={require('../../assets/images/default-user.jpg')} />
-          <h3>name</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumq
-            ue, necessitatibus.dsjccisjcdisjcosidcjscoisdj
-          </p>
-        </Link>
-        <Button type="primary" block>Follow</Button>
-      </div>
-      {/* ************************** */}
-      <div className="user-card">
-        <Avatar size="large" src={require('../../assets/images/default-user.jpg')} />
-        <h3>name</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumq
-          ue, necessitatibus.dsjccisjcdisjcosidcjscoisdj
-        </p>
-        <Button type="primary" block>Follow</Button>
-      </div>
-      <div className="user-card">
-        <Avatar size="large" src={require('../../assets/images/default-user.jpg')} />
-        <h3>name</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumq
-          ue, necessitatibus.dsjccisjcdisjcosidcjscoisdj
-        </p>
-        <Button type="primary" block>Follow</Button>
-      </div>
-      <div className="user-card">
-        <Avatar size="large" src={require('../../assets/images/default-user.jpg')} />
-        <h3>name</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumq
-          ue, necessitatibus.dsjccisjcdisjcosidcjscoisdj
-        </p>
-        <Button type="primary" block>Follow</Button>
-      </div>
-      <div className="user-card">
-        <Avatar size="large" src={require('../../assets/images/default-user.jpg')} />
-        <h3>name</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumq
-          ue, necessitatibus.dsjccisjcdisjcosidcjscoisdj
-        </p>
-        <Button type="primary" block>Follow</Button>
-      </div>
-      <div className="user-card">
-        <Avatar size="large" src={require('../../assets/images/default-user.jpg')} />
-        <h3>name</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumq
-          ue, necessitatibus.dsjccisjcdisjcosidcjscoisdj
-        </p>
-        <Button type="primary" block>Follow</Button>
-      </div>
-      <div className="user-card">
-        <Avatar size="large" src={require('../../assets/images/default-user.jpg')} />
-        <h3>name</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumq
-          ue, necessitatibus.dsjccisjcdisjcosidcjscoisdj
-        </p>
-        <Button type="primary" block>Follow</Button>
-      </div>
-      <div className="user-card">
-        <Avatar size="large" src={require('../../assets/images/default-user.jpg')} />
-        <h3>name</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumq
-          ue, necessitatibus.dsjccisjcdisjcosidcjscoisdj
-        </p>
-        <Button type="primary" block>Follow</Button>
-      </div>
-      <div className="user-card">
-        <Avatar size="large" src={require('../../assets/images/default-user.jpg')} />
-        <h3>name</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumq
-          ue, necessitatibus.dsjccisjcdisjcosidcjscoisdj
-        </p>
-        <Button type="primary" block>Follow</Button>
-      </div>
-      <div className="user-card">
-        <Avatar size="large" src={require('../../assets/images/default-user.jpg')} />
-        <h3>name</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumq
-          ue, necessitatibus.dsjccisjcdisjcosidcjscoisdj
-        </p>
-        <Button type="primary" block>Follow</Button>
-      </div>
-      <div className="user-card">
-        <Avatar size="large" src={require('../../assets/images/default-user.jpg')} />
-        <h3>name</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumq
-          ue, necessitatibus.dsjccisjcdisjcosidcjscoisdj
-        </p>
-        <Button type="primary" block>Follow</Button>
-      </div>
-      {/* ************************** */}
+      {users?.map(({
+        id, photo, user, bio,
+      }: UserSuggestionProps) => (
+        <div className="user-card">
+          <Link to={`/profile/${id}`}>
+            <Avatar size="large" src={photo ?? defaultImage} />
+            <h3>{user.username}</h3>
+            <p>{bio ?? t('no-bio')}</p>
+          </Link>
+          <Button type="primary" onClick={() => followUser(id)} block>{t('follow')}</Button>
+        </div>
+      ))}
     </div>
   )
 }

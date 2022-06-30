@@ -21,7 +21,7 @@
 "data-policy": "سیاست داده",
 "cookies-policy": "کوکی ها",
 "or": "یا",
-"google-signin":"ورود با گوگل",
+"google-signin":"ورود با حساب گوگل",
 "instagram":"اینستاگرام",
 "vatani-edition": "نسخه وطنی",
 "language": "زبان",
@@ -34,7 +34,7 @@
 "profile":"پروفایل",
 "logout":"خروج",
 "add-post":"افزودن پست",
-"likes":"لایک ها",
+"likes":"لایک",
 "comments":"نظرات",
 "followers":"دنبال کننده ها",
 "following":"دنبال می کنم",
@@ -50,9 +50,31 @@
 "yse":"بله",
 "no":"خیر",
 "search":"جستجو",
-"search-placeholder":"جستجو در افراد و پست ها..."
-
-
+"search-placeholder":"جستجو در افراد و پست ها...",
+"no-bio":"بدون توضیحات",
+"no-following":"دنبال کننده ندارید؟",
+"change profile image":"تغییر عکس پروفایل",
+"bio":"توضیحات",
+"change password":"تغییر رمز عبور",
+"edit profile":"ویرایش پروفایل",
+"posts":"پست",
+"follower":"دنبال کننده",
+"old-password": "رمز عبور فعلی",
+"new-password" : "رمز عبور جدید",
+"change-password": "تغییر کلمه عبور",
+"confirm": "تایید",
+"dragger-title": "جهت بارگذاری فایل کلیک کنید یا فایل خود را به این قسمت بکشید",
+"forgot-password-link": "کلمه عبور خود را فراموش کرده اید؟",
+"forgot-password-title":"در وارد شدن مشکل دارید؟",
+"forgot-password-description":"ایمیل خود را وارد کنید تا با کدی که به ایمیل شما ارسال میگردد کلمه عبور خود را بازیابی کنید.",
+"step-enter-email":"وارد کردن ایمیل",
+"step-enter-code":"وارد کردن کد",
+"step-change-password": "تغییر کلمه عبور",
+"Create new account": "ساخت حساب کاربری جدید",
+"confirm-code-description":"کد تایید خود را وارد کنید",
+"code": "کد تایید",
+"code-required": "لطفا کد تایید خود را وارد کنید",
+"code-invalid": "کد تایید شما معتبر نیست"
 
 
 }

@@ -1,17 +1,27 @@
-import { Select } from 'antd'
-import { useTranslation } from 'react-i18next'
+import { message, Select } from 'antd'
+import axios from '../../utils/axios'
 import i18n from '../../utils/i18n'
 import './style.scss'
 
 function SwitchLanguage() {
-  const { t } = useTranslation()
   const { Option } = Select
-  const changeLanguage = (language : string) => i18n.changeLanguage(language)
+  const isLoggedIn = localStorage.getItem('user')
+  const changeLanguage = (language : string) => {
+    if (isLoggedIn) {
+      return axios.post('account/change-language/', {
+        language,
+      }).then(({ data }) => {
+        message.success(data.message)
+        i18n.changeLanguage(language)
+      })
+    }
+    return i18n.changeLanguage(language)
+  }
 
   return (
     <div className="switch-language">
       <Select
-        defaultValue="English"
+        defaultValue={i18n.language}
         onChange={changeLanguage}
         className="language-select"
         bordered={false}

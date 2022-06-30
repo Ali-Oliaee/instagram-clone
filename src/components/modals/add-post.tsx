@@ -9,6 +9,7 @@ import qs from 'query-string'
 import { useQueryClient } from 'react-query'
 import axios from '../../utils/axios'
 import { FloatLabel } from '../float-label'
+import { AddPost } from '../../interfaces'
 import './style.scss'
 
 function AddPostModal() {
@@ -22,8 +23,8 @@ function AddPostModal() {
   const [secondModalVisible, setSecondModalVisible] = useState(false)
 
   const addPost = ({
-    title, caption, tags, enableComments,
-  } : any) => {
+    title, caption, tags, enableComments = true,
+  } : AddPost) => {
     setLoading(true)
     const { file } = form.getFieldValue('post')
     const postImage = file.originFileObj
@@ -33,7 +34,7 @@ function AddPostModal() {
     formData.append('caption', caption)
     formData.append('comment_status', enableComments)
     // eslint-disable-next-line no-unused-expressions
-    tags && tags.length > 0 && tags.forEach((tag: any) => formData.append('tags', tag))
+    tags && tags.length && tags.forEach((tag: any, i: number) => formData.append(`tags[${i}]`, tag))
 
     return axios.post(
       '/posts/create/',
@@ -76,6 +77,16 @@ function AddPostModal() {
             <Dragger
               name="file"
               maxCount={1}
+              beforeUpload={(file) => {
+                const isValid = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/jpg'
+                 || file.type === 'image/gif'
+                 || file.type === 'image/webp'
+                 || file.type === 'image/svg+xml'
+                 || file.type === 'image/bmp'
+                 || file.type === 'image/tiff'
+                if (!isValid) message.error(`${file.name} is not a valid file`)
+                return isValid || Upload.LIST_IGNORE
+              }}
               onChange={({ event }: any) => {
                 if (event) {
                   message.success('file uploaded successfully.')
@@ -87,12 +98,7 @@ function AddPostModal() {
               <p className="ant-upload-drag-icon">
                 <InboxOutlined />
               </p>
-              <p className="ant-upload-text">Click or drag file to this area to upload</p>
-              <p className="ant-upload-hint">
-                Support for a single or bulk upload. Strictly prohibit from uploading company
-                data or other
-                band files
-              </p>
+              <p className="ant-upload-text">{t('dragger-title')}</p>
             </Dragger>
           </Form.Item>
         </Form>
@@ -114,6 +120,10 @@ function AddPostModal() {
               {
                 required: true,
                 message: t('required-title'),
+              },
+              {
+                max: 50,
+                message: t('max-title-length'),
               },
             ]}
           >

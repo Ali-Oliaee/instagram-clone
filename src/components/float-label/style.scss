@@ -7,7 +7,7 @@
         position: absolute;
         pointer-events: none;
         left: 12px;
-        top: 6px;
+        top: 8px;
         transition: 0.2s ease all;
         z-index: 5;
     }
@@ -37,6 +37,7 @@
         right: 12px;
         top: 6px;
         transition: 0.2s ease all;
+        z-index: 10;
     }
       
     .label-float{

@@ -11,15 +11,15 @@ function ForgotPasswordPage() {
   const { Step } = Steps
   const [step, setStep] = useState(0)
 
-  const sendEmail = ({ email }: any) => {
+  const sendEmail = (email : string) => {
     console.log(email)
     setStep(1)
   }
-  const sendCode = ({ code }: any) => {
+  const sendCode = (code : string) => {
     console.log(code)
     setStep(2)
   }
-  const resetPassword = ({ password }: any) => {
+  const resetPassword = (password : string) => {
     console.log(password)
     navigate('/auth/login')
   }

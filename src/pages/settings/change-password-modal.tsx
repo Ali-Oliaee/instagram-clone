@@ -28,7 +28,7 @@ function ChangePasswordModal({ visible, setVisible } : any) {
     <Modal
       visible={visible}
       title={t('change-password')}
-      closable
+      closable={false}
       footer={null}
       onCancel={() => setVisible(false)}
       destroyOnClose
