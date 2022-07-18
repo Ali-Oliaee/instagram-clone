@@ -20,12 +20,16 @@ import {
 import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
 import { Link, useSearchParams } from 'react-router-dom'
+import { useCurrentUser } from '../../context'
 import { getAccountInformation } from '../../utils/api'
 import { defaultImage } from '../../utils/constants'
 import { Logo } from '../logo'
 import './style.scss'
 
 function Header({ setSearchKey, search }: any) {
+  const { currentUser } : any = useCurrentUser()
+  console.log(currentUser)
+
   const { t } = useTranslation()
   const [searchParams, setSearchParams] = useSearchParams()
   const user = JSON.parse(localStorage.getItem('user') ?? '{}')

@@ -1,6 +1,6 @@
 import { BrowserRouter as Router } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { CurrentUserData } from './context'
+import { CurrentUserProvider } from './context'
 import MainRouter from './router'
 
 function App() {
@@ -8,9 +8,9 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
-        <CurrentUserData.Provider>
+        <CurrentUserProvider>
           <MainRouter />
-        </CurrentUserData.Provider>
+        </CurrentUserProvider>
       </Router>
     </QueryClientProvider>
   )

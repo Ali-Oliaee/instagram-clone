@@ -22,26 +22,50 @@
     "settings": {
         "import/resolver": {
             "node": {
-                "extensions": [".js", ".jsx", ".ts", ".tsx"],
-                "moduleDirectory": ["node_modules", "src/"]
+                "extensions": [
+                    ".js",
+                    ".jsx",
+                    ".ts",
+                    ".tsx"
+                ],
+                "moduleDirectory": [
+                    "node_modules",
+                    "src/"
+                ]
             }
         }
     },
     "rules": {
-        "quotes": ["error", "single"],
-        "semi": ["error", "never"],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "never"
+        ],
         "no-unused-vars": "warn",
         "react/react-in-jsx-scope": "off",
-        "react/jsx-filename-extension": ["off", { "extensions": [".js", ".jsx"] }],
-        "max-len": ["off"],
+        "react/jsx-filename-extension": [
+            "off",
+            {
+                "extensions": [
+                    ".js",
+                    ".jsx"
+                ]
+            }
+        ],
+        "max-len": [
+            "off"
+        ],
         "import/extensions": [
             "error",
             "ignorePackages",
             {
-              "js": "never",
-              "jsx": "never",
-              "ts": "never",
-              "tsx": "never"
+                "js": "never",
+                "jsx": "never",
+                "ts": "never",
+                "tsx": "never"
             }
         ],
         "import/prefer-default-export": "off",
