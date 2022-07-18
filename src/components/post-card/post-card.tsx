@@ -244,6 +244,7 @@ function PostCard({
       />
       <EditPostModal
         visible={editModalVisible}
+        setVisible={setEditModalVisible}
         post={{
           id, title, caption, tags, enableComments,
         }}

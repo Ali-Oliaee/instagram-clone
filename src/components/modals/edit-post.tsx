@@ -10,7 +10,9 @@ import axios from '../../utils/axios'
 import { FloatLabel } from '../float-label'
 import './style.scss'
 
-function EditPostModal({ visible, onCancel, post }:any) {
+function EditPostModal({
+  visible, setVisible, onCancel, post,
+}:any) {
   const [searchParams, setSearchParams] = useSearchParams()
   const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
@@ -30,6 +32,7 @@ function EditPostModal({ visible, onCancel, post }:any) {
       setSearchParams({})
       queryClient.invalidateQueries('posts')
       form.resetFields()
+      setVisible(false)
       message.success('post edited successfully!')
     }).finally(() => setLoading(false))
   }
