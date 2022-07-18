@@ -30,14 +30,17 @@ function Header({ setSearchKey, search }: any) {
   const { currentUser, setCurrentUser } : any = useCurrentUser()
   const { t } = useTranslation()
   const [searchParams, setSearchParams] = useSearchParams()
-  const user = currentUser.account
+  const user = currentUser
   const { data } = useQuery('user', () => getAccountInformation(user.account.id))
-  const logout = () => setCurrentUser(null)
+  const logout = () => {
+    setCurrentUser(null)
+    localStorage.clear()
+  }
 
   const menu = () => (
     <Menu>
       <Menu.Item key="profile" icon={<UserOutlined />}>
-        <Link to={`/profile/${user.account.id}`}>
+        <Link to={`/profile/${user?.id}`}>
           {t('profile')}
         </Link>
       </Menu.Item>

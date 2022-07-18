@@ -18,7 +18,7 @@ function profilePage() {
   const { currentUser }: any = useCurrentUser()
   const [followerListVisible, setFollowerListVisible] = useState(false)
   const [followingListVisible, setFollowingListVisible] = useState(false)
-  const currentUserId = currentUser.account.id
+  const currentUserId = currentUser.id
   const userId = +location.pathname.split('/')[2]
   const { data: user, isLoading, refetch } = useQuery('getCurrentUser', () => getAccountInformation(userId))
   const { data: userPosts } = useQuery('posts', () => getUserPosts(userId))

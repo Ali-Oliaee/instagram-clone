@@ -31,6 +31,7 @@ function SettingsPage() {
       refetch()
     }).finally(() => setLoading(false))
   }
+  console.log(user)
 
   const uploadImage = ({ file, event }: any) => {
     const formData = new FormData()

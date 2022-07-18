@@ -13,9 +13,9 @@ const instance = axios.create({
 })
 
 instance.interceptors.request.use((config: any) => {
-  const token = JSON.parse(localStorage.getItem('tokens') || '{}')?.access
+  const { access } = JSON.parse(localStorage.getItem('tokens') || '{}')
   // eslint-disable-next-line no-param-reassign
-  config.headers.Authorization = token && `Bearer ${token}`
+  config.headers.Authorization = access && `Bearer ${access}`
   return config
 })
 
@@ -25,8 +25,10 @@ instance.interceptors.response.use(
     const { setCurrentUser }: any = useCurrentUser()
     if (response.status === 401 && response.statusText === 'Unauthorized') {
       const { refresh } = JSON.parse(localStorage.getItem('tokens') || '{}')
+      console.log('refresh1', refresh)
       axios.post(`${baseURL}api/token/refresh/`, { refresh }).then(({ data }) => data).then((data) => {
         const tokens = JSON.parse(localStorage.getItem('tokens') || '{}')
+        console.log('tokens', tokens)
         localStorage.setItem('tokens', JSON.stringify({
           ...tokens,
           access: data.access,
