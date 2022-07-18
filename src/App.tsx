@@ -1,6 +1,6 @@
 import { BrowserRouter as Router } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { AddPostModal } from './components'
+import { CurrentUserProvider } from './context'
 import MainRouter from './router'
 
 function App() {
@@ -8,8 +8,9 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
-        <MainRouter />
-        <AddPostModal />
+        <CurrentUserProvider>
+          <MainRouter />
+        </CurrentUserProvider>
       </Router>
     </QueryClientProvider>
   )

@@ -8,15 +8,17 @@ import { useState } from 'react'
 import axios from '../../utils/axios'
 import { PageWrapper, PostsWrapper, UsersList } from '../../components'
 import { defaultImage } from '../../utils/constants'
+import { useCurrentUser } from '../../context'
 import { getUserPosts, getAccountInformation } from '../../utils/api'
 import './style.scss'
 
 function profilePage() {
   const location = useLocation()
   const { t } = useTranslation()
+  const { currentUser }: any = useCurrentUser()
   const [followerListVisible, setFollowerListVisible] = useState(false)
   const [followingListVisible, setFollowingListVisible] = useState(false)
-  const currentUserId = JSON.parse(localStorage.getItem('user') || '{}').account.id
+  const currentUserId = currentUser.account.id
   const userId = +location.pathname.split('/')[2]
   const { data: user, isLoading, refetch } = useQuery('getCurrentUser', () => getAccountInformation(userId))
   const { data: userPosts } = useQuery('posts', () => getUserPosts(userId))
