@@ -27,17 +27,12 @@ import { Logo } from '../logo'
 import './style.scss'
 
 function Header({ setSearchKey, search }: any) {
-  const { currentUser } : any = useCurrentUser()
-  console.log(currentUser)
-
+  const { currentUser, setCurrentUser } : any = useCurrentUser()
   const { t } = useTranslation()
   const [searchParams, setSearchParams] = useSearchParams()
-  const user = JSON.parse(localStorage.getItem('user') ?? '{}')
+  const user = currentUser.account
   const { data } = useQuery('user', () => getAccountInformation(user.account.id))
-  const logout = () => {
-    localStorage.clear()
-    window.location.reload()
-  }
+  const logout = () => setCurrentUser(null)
 
   const menu = () => (
     <Menu>

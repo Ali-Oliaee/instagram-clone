@@ -1,5 +1,6 @@
 import { message } from 'antd'
 import axios from 'axios'
+import { useCurrentUser } from '../context'
 import { baseURL } from './constants'
 
 const instance = axios.create({
@@ -12,7 +13,7 @@ const instance = axios.create({
 })
 
 instance.interceptors.request.use((config: any) => {
-  const token = JSON.parse(localStorage.getItem('user') ?? '{}')?.tokens?.access
+  const token = JSON.parse(localStorage.getItem('tokens') || '{}')?.access
   // eslint-disable-next-line no-param-reassign
   config.headers.Authorization = token && `Bearer ${token}`
   return config
@@ -21,21 +22,19 @@ instance.interceptors.request.use((config: any) => {
 instance.interceptors.response.use(
   (response) => response,
   ({ response }) => {
+    const { setCurrentUser }: any = useCurrentUser()
     if (response.status === 401 && response.statusText === 'Unauthorized') {
-      const { refresh } = JSON.parse(localStorage.getItem('user') ?? '{}').tokens
+      const { refresh } = JSON.parse(localStorage.getItem('tokens') || '{}')
       axios.post(`${baseURL}api/token/refresh/`, { refresh }).then(({ data }) => data).then((data) => {
-        const user = JSON.parse(localStorage.getItem('user') ?? '{}')
-        localStorage.setItem('user', JSON.stringify({
-          ...user,
-          tokens: {
-            ...user.tokens,
-            access: data.access,
-          },
+        const tokens = JSON.parse(localStorage.getItem('tokens') || '{}')
+        localStorage.setItem('tokens', JSON.stringify({
+          ...tokens,
+          access: data.access,
         }))
       }).catch((err) => {
         message.error(err.response.data.detail)
+        setCurrentUser(null)
         localStorage.clear()
-        window.location.reload()
         return Promise.reject(response)
       })
     }

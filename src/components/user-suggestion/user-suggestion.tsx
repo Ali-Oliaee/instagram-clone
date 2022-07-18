@@ -1,21 +1,23 @@
 /* eslint-disable import/no-unresolved */
 import { Avatar, Button } from 'antd'
-import React from 'react'
+import { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
 import { Link } from 'react-router-dom'
+import { useCurrentUser } from '../../context'
 import { UserSuggestionProps } from '../../interfaces'
 import axios from '../../utils/axios'
 import { defaultImage } from '../../utils/constants'
 import './style.scss'
 
-function UserSuggestion(): React.ReactElement {
+function UserSuggestion(): ReactElement {
+  const { currentUser }: any = useCurrentUser()
   const { data: users } = useQuery('suggestedUsers', () => axios.get('/account/suggestion-account/').then(({ data }) => data))
-  const currentUser = JSON.parse(localStorage.getItem('user') || '{}')
+  const { account } = currentUser
   const { t } = useTranslation()
   const followUser = (id: number) => axios.post('/follows/following/create/', {
     account: id,
-    following: currentUser.account.id,
+    following: account.id,
   })
 
   return (

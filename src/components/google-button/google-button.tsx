@@ -4,10 +4,12 @@ import { useTranslation } from 'react-i18next'
 import { GoogleLogin } from 'react-google-login'
 import { GoogleOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
+import { useCurrentUser } from '../../context'
 import axios from '../../utils/axios'
 import './style.scss'
 
 function GoogleButton() {
+  const { setCurrentUser }: any = useCurrentUser()
   const { t } = useTranslation()
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
@@ -18,7 +20,7 @@ function GoogleButton() {
     })
       .then(({ data }) => {
         message.success(data.message)
-        localStorage.setItem('user', JSON.stringify(data))
+        setCurrentUser(data)
         navigate('/')
       })
       .catch(({ response }) => message.error(response.data.message ?? response.data.email))

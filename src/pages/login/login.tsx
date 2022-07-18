@@ -28,7 +28,8 @@ function LoginPage() {
     })
       .then(({ data }) => {
         message.success(data.message)
-        setCurrentUser(data)
+        setCurrentUser(data.account)
+        localStorage.setItem('tokens', JSON.stringify(data.tokens))
         i18n.changeLanguage(data.account.language.toLowerCase())
         navigate('/')
       })

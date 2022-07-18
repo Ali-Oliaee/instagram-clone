@@ -1,5 +1,4 @@
-import { useEffect } from 'react'
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { useCurrentUser } from '../context'
 import {
   HomePage,
@@ -15,15 +14,10 @@ import {
 
 function MainRouter() {
   const { currentUser } : any = useCurrentUser()
-  const navigate = useNavigate()
-  const isUserAuth = () => !!currentUser
-  const isAuth = isUserAuth()
-  useEffect(() => {
-    if (!isAuth) navigate('/auth/login')
-  }, [])
+
   return (
     <Routes>
-      {isAuth ? (
+      {currentUser ? (
         <Route path="/">
           <Route index element={<HomePage />} />
           <Route path="saved" element={<SavedPage />} />

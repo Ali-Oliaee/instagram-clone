@@ -1,12 +1,14 @@
 import { message, Select } from 'antd'
+import { useCurrentUser } from '../../context'
 import axios from '../../utils/axios'
 import i18n from '../../utils/i18n'
 import './style.scss'
 
 function SwitchLanguage() {
   const { Option } = Select
-  const isLoggedIn = localStorage.getItem('user')
-  const changeLanguage = (language : string) => {
+  const { currentUser }: any = useCurrentUser()
+  const isLoggedIn = !!currentUser
+  const changeLanguage = (language: string) => {
     if (isLoggedIn) {
       return axios.post('account/change-language/', {
         language,
