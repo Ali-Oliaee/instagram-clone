@@ -4,6 +4,7 @@ import {
   Button, Form, message, Modal, Select, Switch, Upload,
 } from 'antd'
 import { useTranslation } from 'react-i18next'
+import ImgCrop from 'antd-img-crop'
 import { useSearchParams } from 'react-router-dom'
 import qs from 'query-string'
 import { useQueryClient } from 'react-query'
@@ -74,32 +75,40 @@ function AddPostModal() {
               },
             ]}
           >
-            <Dragger
-              name="file"
-              maxCount={1}
-              beforeUpload={(file) => {
-                const isValid = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/jpg'
+            <ImgCrop
+              rotate
+              zoom
+              modalTitle={t('crop-image')}
+              modalOk={t('confirm')}
+              modalCancel={t('cancel')}
+            >
+              <Dragger
+                name="file"
+                maxCount={1}
+                beforeUpload={(file) => {
+                  const isValid = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/jpg'
                  || file.type === 'image/gif'
                  || file.type === 'image/webp'
                  || file.type === 'image/svg+xml'
                  || file.type === 'image/bmp'
                  || file.type === 'image/tiff'
-                if (!isValid) message.error(`${file.name} is not a valid file`)
-                return isValid || Upload.LIST_IGNORE
-              }}
-              onChange={({ event }: any) => {
-                if (event) {
-                  message.success('file uploaded successfully.')
-                  setSearchParams({})
-                  setSecondModalVisible(true)
-                }
-              }}
-            >
-              <p className="ant-upload-drag-icon">
-                <InboxOutlined />
-              </p>
-              <p className="ant-upload-text">{t('dragger-title')}</p>
-            </Dragger>
+                  if (!isValid) message.error(`${file.name} is not a valid file`)
+                  return isValid || Upload.LIST_IGNORE
+                }}
+                onChange={({ event }: any) => {
+                  if (event) {
+                    message.success('file uploaded successfully.')
+                    setSearchParams({})
+                    setSecondModalVisible(true)
+                  }
+                }}
+              >
+                <p className="ant-upload-drag-icon">
+                  <InboxOutlined />
+                </p>
+                <p className="ant-upload-text">{t('dragger-title')}</p>
+              </Dragger>
+            </ImgCrop>
           </Form.Item>
         </Form>
       </Modal>
