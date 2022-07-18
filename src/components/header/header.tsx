@@ -31,33 +31,54 @@ function Header({ setSearchKey, search }: any) {
   const { t } = useTranslation()
   const [searchParams, setSearchParams] = useSearchParams()
   const user = currentUser
-  const { data } = useQuery('user', () => getAccountInformation(user.account.id))
+  const { data } = useQuery('user', () => getAccountInformation(user.id))
   const logout = () => {
     setCurrentUser(null)
     localStorage.clear()
   }
 
   const menu = () => (
-    <Menu>
-      <Menu.Item key="profile" icon={<UserOutlined />}>
-        <Link to={`/profile/${user?.id}`}>
-          {t('profile')}
-        </Link>
-      </Menu.Item>
-      <Menu.Item key="setting" icon={<SettingOutlined />}>
-        <Link to="/settings">
-          {t('settings')}
-        </Link>
-      </Menu.Item>
-      <Menu.Item key="saved" icon={<InboxOutlined />}>
-        <Link to="/saved">
-          {t('saved')}
-        </Link>
-      </Menu.Item>
-      <Menu.Item key="logout" onClick={logout} danger icon={<LogoutOutlined />}>
-        {t('logout')}
-      </Menu.Item>
-    </Menu>
+    <Menu
+      items={[
+        {
+          key: 'profile',
+          icon: <UserOutlined />,
+          label: (
+            <Link to={`/profile/${user?.id}`}>
+              {t('profile')}
+            </Link>
+          ),
+        },
+        {
+          key: 'setting',
+          icon: <SettingOutlined />,
+          label: (
+            <Link to="/settings">
+              {t('settings')}
+            </Link>
+          ),
+        },
+        {
+          key: 'saved',
+          icon: <InboxOutlined />,
+          label: (
+            <Link to="/saved">
+              {t('saved')}
+            </Link>
+          ),
+        },
+        {
+          type: 'divider',
+        },
+        {
+          key: 'logout',
+          icon: <LogoutOutlined />,
+          label: t('logout'),
+          danger: true,
+          onClick: logout,
+        },
+      ]}
+    />
   )
 
   return (

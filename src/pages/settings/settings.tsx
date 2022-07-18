@@ -10,6 +10,7 @@ import {
   FloatLabel, PageWrapper, SwitchLanguage,
 } from '../../components'
 import { getAccountInformation } from '../../utils/api'
+import { defaultImage } from '../../utils/constants'
 import ChangePasswordModal from './change-password-modal'
 import './style.scss'
 
@@ -31,7 +32,6 @@ function SettingsPage() {
       refetch()
     }).finally(() => setLoading(false))
   }
-  console.log(user)
 
   const uploadImage = ({ file, event }: any) => {
     const formData = new FormData()
@@ -56,7 +56,7 @@ function SettingsPage() {
       <PageWrapper isLoading={isLoading} className="settings-page">
         <div className="settings">
           <div className="change-image">
-            <Avatar src={user?.[0].photo} size="large" className="profile-image" />
+            <Avatar src={user?.[0]?.photo ?? defaultImage} size="large" className="profile-image" />
             <Upload
               beforeUpload={(file) => {
                 const isValid = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/jpg'
