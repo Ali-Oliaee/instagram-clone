@@ -27,6 +27,8 @@ import { useQueryClient } from 'react-query'
 import { Link } from 'react-router-dom'
 import { useMediaQuery } from 'usehooks-ts'
 import { useState } from 'react'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
 import axios from '../../utils/axios'
 import { Comments } from '../comments'
 import { defaultImage } from '../../utils/constants'
@@ -48,6 +50,7 @@ function PostCard({
   updated_at: updatedAt,
   comment_status: enableComments,
 }: Post) {
+  dayjs.extend(relativeTime)
   const { currentUser } : any = useCurrentUser()
   const { Meta } = Card
   const { t } = useTranslation()
@@ -58,21 +61,6 @@ function PostCard({
   const [editModalVisible, setEditModalVisible] = useState(false)
   const [likesModalVisible, setLikesModalVisible] = useState(false)
   const [commentsModalVisible, setCommentsModalVisible] = useState(false)
-
-  const timeSince = (date: any) => {
-    const seconds = Math.floor((new Date() as any - date) / 1000)
-    let interval = seconds / 31536000
-    if (interval > 1) return `${Math.floor(interval)} years`
-    interval = seconds / 2592000
-    if (interval > 1) return `${Math.floor(interval)} months`
-    interval = seconds / 86400
-    if (interval > 1) return `${Math.floor(interval)} days`
-    interval = seconds / 3600
-    if (interval > 1) return `${Math.floor(interval)} hours`
-    interval = seconds / 60
-    if (interval > 1) return `${Math.floor(interval)} minutes`
-    return `${Math.floor(seconds)} seconds`
-  }
 
   const deletePost = () => axios.delete(`posts/list/post=${id}/`).then(() => {
     message.success('Post deleted successfully!')
@@ -178,11 +166,10 @@ function PostCard({
         {tags && tags?.map((tag: any) => <Tag key={tag?.name} className="tag">{tag?.name}</Tag>)}
       </div>
       <span className="date">
-        {timeSince(new Date(Date.now() - createdAt))}
+        {dayjs(createdAt * 1000).fromNow()}
         {' '}
-        ago
         {updatedAt !== createdAt && (
-          <EditOutlined />)}
+        <EditOutlined />)}
       </span>
     </>
   )
