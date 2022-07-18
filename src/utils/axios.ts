@@ -1,6 +1,5 @@
 import { message } from 'antd'
 import axios from 'axios'
-import { useCurrentUser } from '../context'
 import { baseURL } from './constants'
 
 const instance = axios.create({
@@ -22,20 +21,16 @@ instance.interceptors.request.use((config: any) => {
 instance.interceptors.response.use(
   (response) => response,
   ({ response }) => {
-    const { setCurrentUser }: any = useCurrentUser()
     if (response.status === 401 && response.statusText === 'Unauthorized') {
       const { refresh } = JSON.parse(localStorage.getItem('tokens') || '{}')
-      console.log('refresh1', refresh)
       axios.post(`${baseURL}api/token/refresh/`, { refresh }).then(({ data }) => data).then((data) => {
         const tokens = JSON.parse(localStorage.getItem('tokens') || '{}')
-        console.log('tokens', tokens)
         localStorage.setItem('tokens', JSON.stringify({
           ...tokens,
           access: data.access,
         }))
       }).catch((err) => {
         message.error(err.response.data.detail)
-        setCurrentUser(null)
         localStorage.clear()
         return Promise.reject(response)
       })

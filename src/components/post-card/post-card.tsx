@@ -53,7 +53,7 @@ function PostCard({
   const { t } = useTranslation()
   const isMobile = useMediaQuery('(max-width: 500px)')
   const queryClient = useQueryClient()
-  const { account } = currentUser
+  const account = currentUser
   const [modalVisible, setModalVisible] = useState(false)
   const [editModalVisible, setEditModalVisible] = useState(false)
   const [likesModalVisible, setLikesModalVisible] = useState(false)

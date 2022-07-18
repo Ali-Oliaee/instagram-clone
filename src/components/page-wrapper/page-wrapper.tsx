@@ -1,5 +1,6 @@
 import { Col, Row, Spin } from 'antd'
 import { Header } from '../header'
+import { AddPostModal } from '../modals'
 import './style.scss'
 
 function PageWrapper({
@@ -13,6 +14,7 @@ function PageWrapper({
           {isLoading ? <Spin size="large" /> : children}
         </Col>
       </Row>
+      <AddPostModal />
     </>
   )
 }
