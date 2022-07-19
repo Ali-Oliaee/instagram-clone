@@ -8,13 +8,11 @@ import {
   FloatLabel, GoogleButton, Logo, SwitchLanguage,
 } from '../../components'
 import i18n from '../../utils/i18n'
-import { useCurrentUser } from '../../context'
 import axios from '../../utils/axios'
 import { LoggedInUser } from '../../interfaces'
 import './style.scss'
 
 function LoginPage() {
-  const { setCurrentUser } : any = useCurrentUser()
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
@@ -28,8 +26,8 @@ function LoginPage() {
     })
       .then(({ data }) => {
         message.success(data.message)
-        setCurrentUser(data.account)
         localStorage.setItem('tokens', JSON.stringify(data.tokens))
+        localStorage.setItem('user', JSON.stringify(data.account))
         i18n.changeLanguage(data.account.language.toLowerCase())
         navigate('/')
       })

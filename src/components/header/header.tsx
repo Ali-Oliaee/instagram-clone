@@ -18,24 +18,16 @@ import {
   Row,
 } from 'antd'
 import { useTranslation } from 'react-i18next'
-import { useQuery } from 'react-query'
 import { Link, useSearchParams } from 'react-router-dom'
-import { useCurrentUser } from '../../context'
-import { getAccountInformation } from '../../utils/api'
 import { defaultImage } from '../../utils/constants'
 import { Logo } from '../logo'
 import './style.scss'
 
 function Header({ setSearchKey, search }: any) {
-  const { currentUser, setCurrentUser } : any = useCurrentUser()
   const { t } = useTranslation()
+  const account = JSON.parse(localStorage.getItem('user') || '{}')
   const [searchParams, setSearchParams] = useSearchParams()
-  const user = currentUser
-  const { data } = useQuery('user', () => getAccountInformation(user.id))
-  const logout = () => {
-    setCurrentUser(null)
-    localStorage.clear()
-  }
+  const logout = () => localStorage.clear()
 
   const menu = () => (
     <Menu
@@ -44,7 +36,7 @@ function Header({ setSearchKey, search }: any) {
           key: 'profile',
           icon: <UserOutlined />,
           label: (
-            <Link to={`/profile/${user?.id}`}>
+            <Link to={`/profile/${account.id}`}>
               {t('profile')}
             </Link>
           ),
@@ -102,7 +94,7 @@ function Header({ setSearchKey, search }: any) {
               overlay={menu}
               trigger={['click']}
             >
-              <Avatar src={data?.[0].photo ?? defaultImage} size="small" />
+              <Avatar src={account.photo ?? defaultImage} size="small" />
             </Dropdown>
           </div>
         </Row>

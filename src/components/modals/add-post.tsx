@@ -17,6 +17,7 @@ function AddPostModal() {
   const [searchParams, setSearchParams] = useSearchParams()
   const { Dragger } = Upload
   const [loading, setLoading] = useState(false)
+  const [file, setFile] = useState({ originFileObj: '' })
   const { t } = useTranslation()
   const [form] = Form.useForm()
   const QS = qs.parse(window.location.search)
@@ -27,7 +28,7 @@ function AddPostModal() {
     title, caption, tags, enableComments = true,
   } : AddPost) => {
     setLoading(true)
-    const { file } = form.getFieldValue('post')
+    // const { file } = form.getFieldValue('post')
     const postImage = file.originFileObj
     const formData = new FormData()
     formData.append('file', postImage)
@@ -66,15 +67,7 @@ function AddPostModal() {
         destroyOnClose
       >
         <Form form={form}>
-          <Form.Item
-            name="post"
-            rules={[
-              {
-                required: true,
-                message: t('required-post'),
-              },
-            ]}
-          >
+          <Form.Item name="post">
             <ImgCrop
               rotate
               zoom
@@ -82,17 +75,17 @@ function AddPostModal() {
               modalOk={t('confirm')}
               modalCancel={t('cancel')}
             >
-              <Dragger
+              <Upload
                 name="file"
                 maxCount={1}
-                beforeUpload={(file) => {
-                  const isValid = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/jpg'
-                 || file.type === 'image/gif'
-                 || file.type === 'image/webp'
-                 || file.type === 'image/svg+xml'
-                 || file.type === 'image/bmp'
-                 || file.type === 'image/tiff'
-                  if (!isValid) message.error(`${file.name} is not a valid file`)
+                beforeUpload={({ type, name }) => {
+                  const isValid = type === 'image/png' || type === 'image/jpeg' || type === 'image/jpg'
+                 || type === 'image/gif'
+                 || type === 'image/webp'
+                 || type === 'image/svg+xml'
+                 || type === 'image/bmp'
+                 || type === 'image/tiff'
+                  if (!isValid) message.error(`${name} is not a valid file`)
                   return isValid || Upload.LIST_IGNORE
                 }}
                 onChange={({ event }: any) => {
@@ -100,6 +93,7 @@ function AddPostModal() {
                     message.success('file uploaded successfully.')
                     setSearchParams({})
                     setSecondModalVisible(true)
+                    setFile(form.getFieldValue('post'))
                   }
                 }}
               >
@@ -107,7 +101,7 @@ function AddPostModal() {
                   <InboxOutlined />
                 </p>
                 <p className="ant-upload-text">{t('dragger-title')}</p>
-              </Dragger>
+              </Upload>
             </ImgCrop>
           </Form.Item>
         </Form>

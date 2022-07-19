@@ -33,7 +33,6 @@ import axios from '../../utils/axios'
 import { Comments } from '../comments'
 import { defaultImage } from '../../utils/constants'
 import { Post } from '../../interfaces/post'
-import { useCurrentUser } from '../../context'
 import { EditPostModal, UsersList } from '../modals'
 import './style.scss'
 
@@ -50,17 +49,16 @@ function PostCard({
   updated_at: updatedAt,
   comment_status: enableComments,
 }: Post) {
-  dayjs.extend(relativeTime)
-  const { currentUser } : any = useCurrentUser()
   const { Meta } = Card
   const { t } = useTranslation()
   const isMobile = useMediaQuery('(max-width: 500px)')
   const queryClient = useQueryClient()
-  const account = currentUser
   const [modalVisible, setModalVisible] = useState(false)
   const [editModalVisible, setEditModalVisible] = useState(false)
   const [likesModalVisible, setLikesModalVisible] = useState(false)
   const [commentsModalVisible, setCommentsModalVisible] = useState(false)
+  const account = JSON.parse(localStorage.getItem('user') || '{}')
+  dayjs.extend(relativeTime)
 
   const deletePost = () => axios.delete(`posts/list/post=${id}/`).then(() => {
     message.success('Post deleted successfully!')
