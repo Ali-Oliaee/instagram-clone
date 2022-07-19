@@ -8,50 +8,32 @@ import ImgCrop from 'antd-img-crop'
 import { useSearchParams } from 'react-router-dom'
 import qs from 'query-string'
 import { useQueryClient } from 'react-query'
-import axios from '../../utils/axios'
 import { FloatLabel } from '../float-label'
-import { AddPost } from '../../interfaces'
+import usePost from '../../hooks/usePost'
 import './style.scss'
 
 function AddPostModal() {
   const [searchParams, setSearchParams] = useSearchParams()
-  const { Dragger } = Upload
   const [loading, setLoading] = useState(false)
   const [file, setFile] = useState({ originFileObj: '' })
   const { t } = useTranslation()
+  const { addPost } = usePost()
   const [form] = Form.useForm()
   const QS = qs.parse(window.location.search)
   const queryClient = useQueryClient()
   const [secondModalVisible, setSecondModalVisible] = useState(false)
 
-  const addPost = ({
-    title, caption, tags, enableComments = true,
-  } : AddPost) => {
+  const handleSubmit = (data : any) => {
     setLoading(true)
-    // const { file } = form.getFieldValue('post')
-    const postImage = file.originFileObj
-    const formData = new FormData()
-    formData.append('file', postImage)
-    formData.append('title', title)
-    formData.append('caption', caption)
-    formData.append('comment_status', enableComments)
-    // eslint-disable-next-line no-unused-expressions
-    tags && tags.length && tags.forEach((tag: any, i: number) => formData.append(`tags[${i}]`, tag))
-
-    return axios.post(
-      '/posts/create/',
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      },
-    ).then(() => {
-      setSecondModalVisible(false)
+    // eslint-disable-next-line no-param-reassign
+    data.file = file
+    addPost(data).then(() => {
+      message.success('file uploaded successfully.')
+      setSearchParams({})
       queryClient.invalidateQueries('posts')
-      form.resetFields()
-      message.success('post added successfully!')
-    }).finally(() => setLoading(false))
+      setSecondModalVisible(false)
+    })
+      .finally(() => (setLoading(false)))
   }
 
   return (
@@ -74,6 +56,10 @@ function AddPostModal() {
               modalTitle={t('crop-image')}
               modalOk={t('confirm')}
               modalCancel={t('cancel')}
+              onModalOk={(post: any) => {
+                setFile(post)
+                setSecondModalVisible(true)
+              }}
             >
               <Upload
                 name="file"
@@ -87,14 +73,6 @@ function AddPostModal() {
                  || type === 'image/tiff'
                   if (!isValid) message.error(`${name} is not a valid file`)
                   return isValid || Upload.LIST_IGNORE
-                }}
-                onChange={({ event }: any) => {
-                  if (event) {
-                    message.success('file uploaded successfully.')
-                    setSearchParams({})
-                    setSecondModalVisible(true)
-                    setFile(form.getFieldValue('post'))
-                  }
                 }}
               >
                 <p className="ant-upload-drag-icon">
@@ -116,7 +94,7 @@ function AddPostModal() {
         className="add-post-modal"
         destroyOnClose
       >
-        <Form onFinish={addPost} form={form}>
+        <Form onFinish={handleSubmit} form={form}>
           <Form.Item
             name="title"
             rules={[

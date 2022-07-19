@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import {
   DeleteOutlined,
   HeartFilled,
@@ -16,6 +14,7 @@ import {
   Button,
   Card,
   Dropdown,
+  Image,
   Menu,
   message,
   Modal,
@@ -29,7 +28,7 @@ import { useMediaQuery } from 'usehooks-ts'
 import { useState } from 'react'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import axios from '../../utils/axios'
+import usePost from '../../hooks/usePost'
 import { Comments } from '../comments'
 import { defaultImage } from '../../utils/constants'
 import { Post } from '../../interfaces/post'
@@ -50,6 +49,9 @@ function PostCard({
   comment_status: enableComments,
 }: Post) {
   const { Meta } = Card
+  const {
+    deletePost, likePost, unLikePost, archivePost, unArchivePost,
+  } = usePost()
   const { t } = useTranslation()
   const isMobile = useMediaQuery('(max-width: 500px)')
   const queryClient = useQueryClient()
@@ -60,24 +62,11 @@ function PostCard({
   const account = JSON.parse(localStorage.getItem('user') || '{}')
   dayjs.extend(relativeTime)
 
-  const deletePost = () => axios.delete(`posts/list/post=${id}/`).then(() => {
+  const handleDelete = () => deletePost(id).then(() => {
     message.success('Post deleted successfully!')
     queryClient.invalidateQueries('posts')
     setModalVisible(false)
   })
-
-  const likePost = () => axios.post('/likes/create/', {
-    account: account.id,
-    post: id,
-  }).then(() => queryClient.invalidateQueries('posts'))
-
-  const archivePost = () => axios.post('/archives/create/', {
-    account: account.id,
-    post: id,
-  }).then(() => queryClient.invalidateQueries('posts'))
-
-  const unLikePost = () => axios.delete(`/likes/destroy/account=${account.id}/post=${id}/`).then(() => queryClient.invalidateQueries('posts'))
-  const unArchivePost = () => axios.delete(`/archives/destroy/account=${account.id}/post=${id}/`).then(() => queryClient.invalidateQueries('posts'))
 
   const postAdmin = (
     <Dropdown
@@ -87,7 +76,7 @@ function PostCard({
           <Menu.Item key="edit" onClick={() => setEditModalVisible(true)} icon={<EditOutlined />}>{t('edit')}</Menu.Item>
           <Popconfirm
             title={t('delete-confirm')}
-            onConfirm={deletePost}
+            onConfirm={handleDelete}
             okText={t('yes')}
             cancelText={t('no')}
             icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
@@ -115,7 +104,7 @@ function PostCard({
       <span>
         <Button
           className="like-button"
-          onClick={likes?.includes(account?.id) ? unLikePost : likePost}
+          onClick={() => unLikePost(account.id, id)}
           size="large"
           icon={
             likes?.includes(account?.id)
@@ -137,7 +126,7 @@ function PostCard({
         )}
         <Button
           size="large"
-          onClick={archives?.includes(account.id) ? unArchivePost : archivePost}
+          // onClick={archives?.includes(account.id) ? unArchivePost : archivePost}
           icon={archives?.includes(account.id) ? <DownSquareFilled style={{ color: 'green' }} /> : <DownSquareOutlined />}
           className="archive-button"
         />
@@ -185,10 +174,13 @@ function PostCard({
             </div>
           </Card>
         ) : (
-          <img
+          <Image
             src={image}
             alt={title}
             className="post-image"
+            height={150}
+            width={200}
+            preview={false}
             onClick={() => setModalVisible(true)}
           />
         )}
@@ -198,7 +190,6 @@ function PostCard({
         closable={false}
         onCancel={() => setModalVisible(false)}
         footer={null}
-        width="80%"
         centered
         className="post-card-modal"
         destroyOnClose

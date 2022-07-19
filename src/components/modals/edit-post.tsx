@@ -5,14 +5,14 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 import { useQueryClient } from 'react-query'
-import { EditPost } from '../../interfaces'
-import axios from '../../utils/axios'
+import usePost from '../../hooks/usePost'
 import { FloatLabel } from '../float-label'
 import './style.scss'
 
 function EditPostModal({
   visible, setVisible, onCancel, post,
 }:any) {
+  const { editPost } = usePost()
   const [searchParams, setSearchParams] = useSearchParams()
   const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
@@ -21,14 +21,9 @@ function EditPostModal({
 
   form.setFieldsValue({ ...post })
 
-  const editPost = ({ title, caption, tags } : EditPost) => {
+  const handleSubmit = (formData: any) => {
     setLoading(true)
-    return axios.patch(`/posts/list/post=${post.id}/`, {
-      title,
-      caption,
-      tags,
-      comment_status: post.enableComments,
-    }).then(() => {
+    editPost(formData).then(() => {
       setSearchParams({})
       queryClient.invalidateQueries('posts')
       form.resetFields()
@@ -51,7 +46,7 @@ function EditPostModal({
       className="add-post-modal"
       destroyOnClose
     >
-      <Form onFinish={editPost} form={form}>
+      <Form onFinish={handleSubmit} form={form}>
         <Form.Item
           name="title"
           rules={[

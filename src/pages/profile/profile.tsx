@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
 import { Link, useLocation } from 'react-router-dom'
 import { useState } from 'react'
-import axios from '../../utils/axios'
 import { PageWrapper, PostsWrapper, UsersList } from '../../components'
 import { defaultImage } from '../../utils/constants'
 import { getUserPosts, getAccountInformation } from '../../utils/api'
@@ -21,16 +20,6 @@ function profilePage() {
   const { data: user, isLoading, refetch } = useQuery('getCurrentUser', () => getAccountInformation(userId))
   const { data: userPosts } = useQuery('posts', () => getUserPosts(userId))
 
-  const isFollowed = () => {
-    if (user?.[0].following?.find((follower: number) => follower === currentUserId)) return true
-    return false
-  }
-  const follow = () => axios.post('/follows/follower/create/', {
-    account: user?.[0].id,
-    follower: currentUserId,
-  }).then(() => refetch())
-  const unFollow = () => axios.delete(`/follows/follower/retrieve-destroy/${currentUserId}/`).then(() => refetch())
-
   return (
     <>
       <Helmet>
@@ -43,8 +32,8 @@ function profilePage() {
             <div className="profile-header">
               <span className="username">{user?.[0]?.user?.username}</span>
               {userId !== currentUserId ? (
-                <Button type="primary" size="small" className="edit-button" onClick={isFollowed() ? unFollow : follow}>
-                  {isFollowed() ? t('unFollow') : t('follow')}
+                <Button type="primary" size="small" className="edit-button">
+                  { t('unFollow') }
                 </Button>
               ) : (
                 <Link to="/settings">
