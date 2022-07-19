@@ -1,5 +1,5 @@
-import { Route, Routes } from 'react-router-dom'
-import { useCurrentUser } from '../context'
+import { useEffect } from 'react'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import {
   HomePage,
   LoginPage,
@@ -13,11 +13,16 @@ import {
 } from '../pages'
 
 function MainRouter() {
-  const { currentUser } : any = useCurrentUser()
+  const navigate = useNavigate()
+  const isUserAuth = () => (!!localStorage.getItem('tokens'))
+  const isAuth = isUserAuth()
+  useEffect(() => {
+    if (!isAuth) navigate('/auth/login')
+  }, [])
 
   return (
     <Routes>
-      {currentUser ? (
+      {isAuth ? (
         <Route path="/">
           <Route index element={<HomePage />} />
           <Route path="saved" element={<SavedPage />} />

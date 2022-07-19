@@ -13,7 +13,7 @@ import './style.scss'
 function UserSuggestion(): ReactElement {
   const { currentUser }: any = useCurrentUser()
   const { data: users } = useQuery('suggestedUsers', () => axios.get('/account/suggestion-account/').then(({ data }) => data))
-  const { account } = currentUser
+  const account = currentUser
   const { t } = useTranslation()
   const followUser = (id: number) => axios.post('/follows/following/create/', {
     account: id,
