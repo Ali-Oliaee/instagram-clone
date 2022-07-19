@@ -9,9 +9,25 @@ import './style.scss'
 function ForgotPasswordPage() {
   const navigate = useNavigate()
   const { t } = useTranslation()
-  const { Step } = Steps
+  const [loading, setLoading] = useState(false)
   const [step, setStep] = useState(0)
+  const { Step } = Steps
   const { sendPasswordRecoveryEmail, sendPasswordRecoveryCode, resetPassword } = useUser()
+
+  const sendEmail = (email: any) => {
+    setLoading(true)
+    return sendPasswordRecoveryEmail(email).then(() => setStep(1)).finally(() => setLoading(false))
+  }
+
+  const sendCode = (code: any) => {
+    setLoading(true)
+    return sendPasswordRecoveryCode(code).then(() => setStep(2)).finally(() => setLoading(false))
+  }
+
+  const handleSubmit = (password: any) => {
+    setLoading(true)
+    return resetPassword(password).then(() => navigate('/auth/login')).finally(() => setLoading(false))
+  }
 
   return (
     <div className="forgot-password-page">
@@ -26,11 +42,11 @@ function ForgotPasswordPage() {
         {
           // eslint-disable-next-line no-nested-ternary
           !step ? (
-            <Step0 onFinish={sendPasswordRecoveryEmail} />
+            <Step0 loading={loading} onFinish={sendEmail} />
           ) : step === 1 ? (
-            <Step1 onFinish={sendPasswordRecoveryCode} />
+            <Step1 loading={loading} onFinish={sendCode} />
           ) : (
-            <Step2 onFinish={resetPassword} />
+            <Step2 loading={loading} onFinish={handleSubmit} />
           )
         }
       </div>

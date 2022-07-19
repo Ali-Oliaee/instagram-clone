@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { FloatLabel } from '../../components'
 import './style.scss'
 
-export function Step0({ onFinish }: any) {
+export function Step0({ onFinish, loading }: any) {
   const { t } = useTranslation()
   const [form] = Form.useForm()
   return (
@@ -32,14 +32,14 @@ export function Step0({ onFinish }: any) {
           autoFocus
         />
       </Form.Item>
-      <Button block type="primary" htmlType="submit">{t('submit')}</Button>
+      <Button loading={loading} block type="primary" htmlType="submit">{t('submit')}</Button>
       <Divider>{t('or')}</Divider>
       <Link to="/auth/signup">{t('Create new account')}</Link>
     </Form>
   )
 }
 
-export function Step1({ onFinish }: any) {
+export function Step1({ onFinish, loading }: any) {
   const [form] = Form.useForm()
   const { t } = useTranslation()
 
@@ -67,12 +67,12 @@ export function Step1({ onFinish }: any) {
           autoFocus
         />
       </Form.Item>
-      <Button block type="primary" htmlType="submit">{t('submit')}</Button>
+      <Button loading={loading} block type="primary" htmlType="submit">{t('submit')}</Button>
     </Form>
   )
 }
 
-export function Step2({ onFinish }: any) {
+export function Step2({ onFinish, loading }: any) {
   const [form] = Form.useForm()
   const { t } = useTranslation()
   return (
@@ -112,7 +112,7 @@ export function Step2({ onFinish }: any) {
       >
         <FloatLabel value={form.getFieldValue('confirmPassword')} type="password" label={t('confirm-password')} />
       </Form.Item>
-      <Button block type="primary" htmlType="submit">{t('submit')}</Button>
+      <Button loading={loading} block type="primary" htmlType="submit">{t('submit')}</Button>
     </Form>
   )
 }

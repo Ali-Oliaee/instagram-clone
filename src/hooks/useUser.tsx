@@ -47,9 +47,20 @@ const useUser = () => {
     })
   }
 
-  const sendPasswordRecoveryEmail = (email: any) => console.log(email)
-  const sendPasswordRecoveryCode = (code: any) => console.log(code)
-  const resetPassword = (password: any) => console.log(password)
+  const sendPasswordRecoveryEmail = ({ email }: any) => axios.post('/').then(({ data }) => {
+    console.log(data)
+    console.log(email)
+  })
+
+  const sendPasswordRecoveryCode = ({ code }: any) => axios.post('/').then(({ data }) => {
+    console.log(data)
+    console.log(code)
+  })
+
+  const resetPassword = ({ password }: any) => axios.post('/').then(({ data }) => {
+    console.log(data)
+    console.log(password)
+  })
 
   return {
     login,
