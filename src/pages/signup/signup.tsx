@@ -1,37 +1,24 @@
 import { useTranslation } from 'react-i18next'
-import {
-  Button, Divider, Form, message,
-} from 'antd'
-import { Link, useNavigate } from 'react-router-dom'
+import { Button, Divider, Form } from 'antd'
+import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import useUser from '../../hooks/useUser'
 import {
   FloatLabel, GoogleButton, Logo, SwitchLanguage,
 } from '../../components'
-import axios from '../../utils/axios'
-import { NewUser } from '../../interfaces'
 import './style.scss'
 
 function SignupPage() {
-  const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
   const [form] = Form.useForm()
-  const navigate = useNavigate()
+  const [loading, setLoading] = useState(false)
+  const { signUp } = useUser()
 
-  const handleSubmit = ({
-    username, email, password,
-  } : NewUser) => {
+  const handleSubmit = (formData: any) => {
     setLoading(true)
-    return axios.post('/users/register/', {
-      username,
-      email,
-      password,
-    })
-      .then(({ data }) => {
-        message.success(data.message)
-        navigate('/auth/login')
-      })
-      .finally(() => setLoading(false))
+    return signUp(formData).finally(() => setLoading(false))
   }
+
   return (
     <div className="signup-page">
       <section>

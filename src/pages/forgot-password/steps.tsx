@@ -1,6 +1,4 @@
-import {
-  Button, Divider, Form, Input,
-} from 'antd'
+import { Button, Divider, Form } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { FloatLabel } from '../../components'

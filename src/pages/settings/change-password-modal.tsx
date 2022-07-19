@@ -1,27 +1,18 @@
-import {
-  Button, Form, message, Modal,
-} from 'antd'
+import { Button, Form, Modal } from 'antd'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import axios from '../../utils/axios'
 import { FloatLabel } from '../../components'
+import useUser from '../../hooks/useUser'
 import './style.scss'
 
 function ChangePasswordModal({ visible, setVisible } : any) {
   const { t } = useTranslation()
-  const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
-  const changePassword = ({ newPassword, oldPassword } : any) => {
+  const [form] = Form.useForm()
+  const { changePassword } = useUser()
+  const handleSubmit = (formData: any) => {
     setLoading(true)
-    return axios.post('/users/change-password/', {
-      new_password: newPassword,
-      old_password: oldPassword,
-    }).then(({ data }) => {
-      message.success(data.message)
-      setVisible(false)
-    })
-      .catch(({ response }) => message.error(response.data.message))
-      .finally(() => setLoading(false))
+    return changePassword(formData).then(() => setVisible(false)).finally(() => setLoading(false))
   }
 
   return (
@@ -33,7 +24,7 @@ function ChangePasswordModal({ visible, setVisible } : any) {
       onCancel={() => setVisible(false)}
       destroyOnClose
     >
-      <Form onFinish={changePassword}>
+      <Form onFinish={handleSubmit}>
         <Form.Item
           rules={[{
             required: true,

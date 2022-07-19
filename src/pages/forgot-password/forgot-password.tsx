@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { Step0, Step1, Step2 } from './steps'
+import useUser from '../../hooks/useUser'
 import './style.scss'
 
 function ForgotPasswordPage() {
@@ -10,19 +11,7 @@ function ForgotPasswordPage() {
   const { t } = useTranslation()
   const { Step } = Steps
   const [step, setStep] = useState(0)
-
-  const sendEmail = (email : string) => {
-    console.log(email)
-    setStep(1)
-  }
-  const sendCode = (code : string) => {
-    console.log(code)
-    setStep(2)
-  }
-  const resetPassword = (password : string) => {
-    console.log(password)
-    navigate('/auth/login')
-  }
+  const { sendPasswordRecoveryEmail, sendPasswordRecoveryCode, resetPassword } = useUser()
 
   return (
     <div className="forgot-password-page">
@@ -37,9 +26,9 @@ function ForgotPasswordPage() {
         {
           // eslint-disable-next-line no-nested-ternary
           !step ? (
-            <Step0 onFinish={sendEmail} />
+            <Step0 onFinish={sendPasswordRecoveryEmail} />
           ) : step === 1 ? (
-            <Step1 onFinish={sendCode} />
+            <Step1 onFinish={sendPasswordRecoveryCode} />
           ) : (
             <Step2 onFinish={resetPassword} />
           )

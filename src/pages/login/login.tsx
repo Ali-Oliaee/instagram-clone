@@ -1,37 +1,22 @@
 import { useTranslation } from 'react-i18next'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { Button, Divider, Form } from 'antd'
 import { useState } from 'react'
-import {
-  Button, Divider, Form, message,
-} from 'antd'
+import useUser from '../../hooks/useUser'
 import {
   FloatLabel, GoogleButton, Logo, SwitchLanguage,
 } from '../../components'
-import i18n from '../../utils/i18n'
-import axios from '../../utils/axios'
-import { LoggedInUser } from '../../interfaces'
 import './style.scss'
 
 function LoginPage() {
-  const navigate = useNavigate()
-  const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
+  const [loading, setLoading] = useState(false)
   const [form] = Form.useForm()
+  const { login } = useUser()
 
-  const handleSubmit = ({ email, password } : LoggedInUser) => {
+  const handleSubmit = (formData: any) => {
     setLoading(true)
-    return axios.post('users/login/', {
-      email,
-      password,
-    })
-      .then(({ data }) => {
-        message.success(data.message)
-        localStorage.setItem('tokens', JSON.stringify(data.tokens))
-        localStorage.setItem('user', JSON.stringify(data.account))
-        i18n.changeLanguage(data.account.language.toLowerCase())
-        navigate('/')
-      })
-      .finally(() => setLoading(false))
+    return login(formData).finally(() => setLoading(false))
   }
 
   return (
