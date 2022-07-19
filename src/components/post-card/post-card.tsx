@@ -102,15 +102,21 @@ function PostCard({
   const cardOptions = (
     <div className="card-operations">
       <span>
-        <Button
-          className="like-button"
-          onClick={() => unLikePost(account.id, id)}
-          size="large"
-          icon={
-            likes?.includes(account?.id)
-              ? <HeartFilled style={{ color: 'red' }} /> : <HeartOutlined />
-          }
-        />
+        {likes?.includes(account?.id) ? (
+          <Button
+            className="like-button"
+            onClick={() => unLikePost(account.id, id)}
+            size="large"
+            icon={<HeartFilled style={{ color: 'red' }} />}
+          />
+        ) : (
+          <Button
+            className="like-button"
+            onClick={() => likePost(account.id, id)}
+            size="large"
+            icon={<HeartOutlined />}
+          />
+        )}
         <Button type="ghost" className="likes-number-button" onClick={() => likes?.length && setLikesModalVisible(true)}>
           {`${likes?.length} ${t('likes')}`}
         </Button>
@@ -124,12 +130,21 @@ function PostCard({
           className="comment-button"
         />
         )}
-        <Button
-          size="large"
-          // onClick={archives?.includes(account.id) ? unArchivePost : archivePost}
-          icon={archives?.includes(account.id) ? <DownSquareFilled style={{ color: 'green' }} /> : <DownSquareOutlined />}
-          className="archive-button"
-        />
+        {archives?.includes(account.id) ? (
+          <Button
+            size="large"
+            onClick={() => unArchivePost(account.id, id)}
+            icon={<DownSquareFilled style={{ color: 'green' }} />}
+            className="archive-button"
+          />
+        ) : (
+          <Button
+            size="large"
+            onClick={() => archivePost(account.id, id)}
+            icon={<DownSquareOutlined />}
+            className="archive-button"
+          />
+        )}
       </span>
     </div>
   )

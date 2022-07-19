@@ -18,8 +18,8 @@ function SettingsPage() {
   const [form] = Form.useForm()
   const { t } = useTranslation()
   const { changeProfileInfo, changeProfileImage } = useUser()
-  // todo: fix that id
-  const { data: user, isLoading } = useQuery('user', () => getAccountInformation(1))
+  const { id: currentUserId } = JSON.parse(localStorage.getItem('user') || '{}')
+  const { data: user, isLoading } = useQuery('user', () => getAccountInformation(currentUserId))
 
   const handleSubmit = (formData: any) => {
     setLoading(true)

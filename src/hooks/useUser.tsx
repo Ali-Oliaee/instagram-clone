@@ -5,6 +5,7 @@ import axios from '../utils/axios'
 
 const useUser = () => {
   const navigate = useNavigate()
+  const { id: currentUserId } = JSON.parse(localStorage.getItem('user') || '{}')
 
   const login = ({ email, password }: any) => axios.post('users/login/', {
     email,
@@ -28,8 +29,7 @@ const useUser = () => {
       navigate('/auth/login')
     })
 
-  // TODO: change info with jwt not user id
-  const changeProfileInfo = ({ username, bio }: any) => axios.patch('account/update-information/1/', {
+  const changeProfileInfo = ({ username, bio }: any) => axios.patch(`account/update-information/${currentUserId}/`, {
     username,
     bio,
   }).then(({ data }) => message.success(data.message))

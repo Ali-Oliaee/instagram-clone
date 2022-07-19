@@ -32,7 +32,6 @@ instance.interceptors.response.use(
       }).catch((err) => {
         message.error(err.response.data.detail)
         localStorage.clear()
-        window.location.reload()
         return Promise.reject(response)
       })
     }
