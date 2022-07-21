@@ -6,7 +6,7 @@ import { useQuery } from 'react-query'
 import { Link, useLocation } from 'react-router-dom'
 import { useState } from 'react'
 import { PageWrapper, PostsWrapper, UsersList } from '../../components'
-import { defaultImage } from '../../utils/constants'
+import { defaultImage, currentUser } from '../../utils/constants'
 import { getUserPosts, getAccountInformation } from '../../utils/api'
 import './style.scss'
 
@@ -15,7 +15,7 @@ function profilePage() {
   const { t } = useTranslation()
   const [followerListVisible, setFollowerListVisible] = useState(false)
   const [followingListVisible, setFollowingListVisible] = useState(false)
-  const currentUserId = JSON.parse(localStorage.getItem('user') || '{}').id
+  const currentUserId = currentUser.id
   const userId = +location.pathname.split('/')[2]
   const { data: user, isLoading, refetch } = useQuery('getCurrentUser', () => getAccountInformation(userId))
   const { data: userPosts } = useQuery('posts', () => getUserPosts(userId))

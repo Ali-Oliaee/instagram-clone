@@ -23,6 +23,8 @@ function EditPostModal({
 
   const handleSubmit = (formData: any) => {
     setLoading(true)
+    // eslint-disable-next-line no-param-reassign
+    formData.id = post.id
     editPost(formData).then(() => {
       setSearchParams({})
       queryClient.invalidateQueries('posts')

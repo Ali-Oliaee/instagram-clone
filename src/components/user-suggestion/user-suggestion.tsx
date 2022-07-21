@@ -6,12 +6,11 @@ import { useQuery } from 'react-query'
 import { Link } from 'react-router-dom'
 import { UserSuggestionProps } from '../../interfaces'
 import axios from '../../utils/axios'
-import { defaultImage } from '../../utils/constants'
+import { defaultImage, currentUser as account } from '../../utils/constants'
 import './style.scss'
 
 function UserSuggestion(): ReactElement {
   const { data: users } = useQuery('suggestedUsers', () => axios.get('/account/suggestion-account/').then(({ data }) => data))
-  const account = JSON.parse(localStorage.getItem('user') || '{}')
   const { t } = useTranslation()
   const followUser = (id: number) => axios.post('/follows/following/create/', {
     account: id,

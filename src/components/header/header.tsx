@@ -19,13 +19,12 @@ import {
 } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { Link, useSearchParams } from 'react-router-dom'
-import { defaultImage } from '../../utils/constants'
+import { currentUser, defaultImage } from '../../utils/constants'
 import { Logo } from '../logo'
 import './style.scss'
 
 function Header({ setSearchKey, search }: any) {
   const { t } = useTranslation()
-  const account = JSON.parse(localStorage.getItem('user') || '{}')
   const [searchParams, setSearchParams] = useSearchParams()
   const logout = () => localStorage.clear()
 
@@ -36,7 +35,7 @@ function Header({ setSearchKey, search }: any) {
           key: 'profile',
           icon: <UserOutlined />,
           label: (
-            <Link to={`/profile/${account.id}`}>
+            <Link to={`/profile/${currentUser.id}`}>
               {t('profile')}
             </Link>
           ),
@@ -94,7 +93,7 @@ function Header({ setSearchKey, search }: any) {
               overlay={menu}
               trigger={['click']}
             >
-              <Avatar src={account.photo ?? defaultImage} size="small" />
+              <Avatar src={currentUser.photo ?? defaultImage} size="small" />
             </Dropdown>
           </div>
         </Row>

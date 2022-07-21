@@ -20,6 +20,7 @@ function AddPostModal() {
   const { addPost } = usePost()
   const [form] = Form.useForm()
   const QS = qs.parse(window.location.search)
+  const { Dragger } = Upload
   const queryClient = useQueryClient()
   const [secondModalVisible, setSecondModalVisible] = useState(false)
 
@@ -61,7 +62,7 @@ function AddPostModal() {
                 setSecondModalVisible(true)
               }}
             >
-              <Upload
+              <Dragger
                 name="file"
                 maxCount={1}
                 beforeUpload={({ type, name }) => {
@@ -79,7 +80,7 @@ function AddPostModal() {
                   <InboxOutlined />
                 </p>
                 <p className="ant-upload-text">{t('dragger-title')}</p>
-              </Upload>
+              </Dragger>
             </ImgCrop>
           </Form.Item>
         </Form>

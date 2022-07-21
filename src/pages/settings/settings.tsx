@@ -8,7 +8,7 @@ import { Helmet } from 'react-helmet'
 import useUser from '../../hooks/useUser'
 import { FloatLabel, PageWrapper, SwitchLanguage } from '../../components'
 import { getAccountInformation } from '../../utils/api'
-import { defaultImage } from '../../utils/constants'
+import { currentUser, defaultImage } from '../../utils/constants'
 import ChangePasswordModal from './change-password-modal'
 import './style.scss'
 
@@ -18,7 +18,7 @@ function SettingsPage() {
   const [form] = Form.useForm()
   const { t } = useTranslation()
   const { changeProfileInfo, changeProfileImage } = useUser()
-  const { id: currentUserId } = JSON.parse(localStorage.getItem('user') || '{}')
+  const { id: currentUserId } = currentUser
   const { data: user, isLoading } = useQuery('user', () => getAccountInformation(currentUserId))
 
   const handleSubmit = (formData: any) => {

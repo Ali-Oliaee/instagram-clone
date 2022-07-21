@@ -1,11 +1,12 @@
 import { useNavigate } from 'react-router-dom'
 import { message } from 'antd'
+import { currentUser } from '../utils/constants'
 import i18n from '../utils/i18n'
 import axios from '../utils/axios'
 
 const useUser = () => {
   const navigate = useNavigate()
-  const { id: currentUserId } = JSON.parse(localStorage.getItem('user') || '{}')
+  const { id: currentUserId } = currentUser
 
   const login = ({ email, password }: any) => axios.post('users/login/', {
     email,

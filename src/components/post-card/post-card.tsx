@@ -28,9 +28,9 @@ import { useMediaQuery } from 'usehooks-ts'
 import { useState } from 'react'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import { currentUser as account, defaultImage } from '../../utils/constants'
 import usePost from '../../hooks/usePost'
 import { Comments } from '../comments'
-import { defaultImage } from '../../utils/constants'
 import { Post } from '../../interfaces/post'
 import { EditPostModal, UsersList } from '../modals'
 import './style.scss'
@@ -59,7 +59,6 @@ function PostCard({
   const [editModalVisible, setEditModalVisible] = useState(false)
   const [likesModalVisible, setLikesModalVisible] = useState(false)
   const [commentsModalVisible, setCommentsModalVisible] = useState(false)
-  const account = JSON.parse(localStorage.getItem('user') || '{}')
   dayjs.extend(relativeTime)
 
   const handleDelete = () => deletePost(id).then(() => {
@@ -228,25 +227,6 @@ function PostCard({
           </Card>
         </div>
       </Modal>
-      <Comments
-        id={id}
-        visible={commentsModalVisible}
-        onCancel={() => setCommentsModalVisible(false)}
-      />
-      <EditPostModal
-        visible={editModalVisible}
-        setVisible={setEditModalVisible}
-        post={{
-          id, title, caption, tags, enableComments,
-        }}
-        onCancel={() => setEditModalVisible(false)}
-      />
-      <UsersList
-        data={likes}
-        visible={likesModalVisible}
-        onCancel={() => setLikesModalVisible(false)}
-        title="Likes"
-      />
     </>
   )
 }

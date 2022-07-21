@@ -3,6 +3,8 @@ import { PostCard } from '../post-card'
 import { Post } from '../../interfaces'
 import { Posts } from '../../interfaces/post/post'
 import './style.scss'
+import { Comments } from '../comments'
+import { EditPostModal, UsersList } from '../modals'
 
 function PostsWrapper({ posts }: Posts) {
   return (
@@ -23,6 +25,25 @@ function PostsWrapper({ posts }: Posts) {
           comment_status={post?.comment_status}
         />
       )) : <Empty className="empty" />}
+      {/* <Comments
+        id={id}
+        visible={commentsModalVisible}
+        onCancel={() => setCommentsModalVisible(false)}
+      />
+      <EditPostModal
+        visible={editModalVisible}
+        setVisible={setEditModalVisible}
+        post={{
+          id, title, caption, tags, enableComments,
+        }}
+        onCancel={() => setEditModalVisible(false)}
+      />
+      <UsersList
+        data={likes}
+        visible={likesModalVisible}
+        onCancel={() => setLikesModalVisible(false)}
+        title="Likes"
+      /> */}
     </div>
   )
 }
