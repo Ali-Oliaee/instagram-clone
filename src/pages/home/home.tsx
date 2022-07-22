@@ -27,7 +27,7 @@ function HomePage() {
           <UserSuggestion />
         </>
       ) : (
-        <PostsWrapper posts={result} />
+        !isLoading && <PostsWrapper posts={result} />
       )}
     </PageWrapper>
   )

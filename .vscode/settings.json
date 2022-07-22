@@ -1,7 +1,8 @@
 {
     "svg.preview.background": "dark-transparent",
     "cSpell.words": [
-        "usehooks"
+        "usehooks",
+        "webp"
     ],
     "files.autoSave": "onWindowChange",
     "eslint.validate": [

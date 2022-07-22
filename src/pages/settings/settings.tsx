@@ -19,11 +19,11 @@ function SettingsPage() {
   const { t } = useTranslation()
   const { changeProfileInfo, changeProfileImage } = useUser()
   const { id: currentUserId } = currentUser
-  const { data: user, isLoading } = useQuery('user', () => getAccountInformation(currentUserId))
+  const { data: user, isLoading, refetch } = useQuery('user', () => getAccountInformation(currentUserId))
 
   const handleSubmit = (formData: any) => {
     setLoading(true)
-    return changeProfileInfo(formData).finally(() => setLoading(false))
+    return changeProfileInfo(formData).then(() => refetch()).finally(() => setLoading(false))
   }
 
   form.setFieldsValue({
