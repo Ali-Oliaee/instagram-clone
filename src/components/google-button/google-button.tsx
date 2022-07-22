@@ -12,8 +12,9 @@ function GoogleButton() {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
   const onSuccess = (res: any) => {
+    console.log(res)
     setLoading(true)
-    axios.post('users/login/', {
+    axios.post('/users/login/', {
       googleId: res.googleId,
     })
       .then(({ data }) => {

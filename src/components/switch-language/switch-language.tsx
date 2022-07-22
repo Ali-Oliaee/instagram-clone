@@ -6,9 +6,8 @@ import './style.scss'
 
 function SwitchLanguage() {
   const { Option } = Select
-  const isLoggedIn = !!currentUser
   const changeLanguage = (language: string) => {
-    if (isLoggedIn) {
+    if (currentUser) {
       return axios.post('account/change-language/', {
         language,
       }).then(({ data }) => {

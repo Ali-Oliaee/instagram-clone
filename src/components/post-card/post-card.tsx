@@ -227,6 +227,17 @@ function PostCard({
           </Card>
         </div>
       </Modal>
+      <Comments
+        id={id}
+        visible={commentsModalVisible}
+        onCancel={(() => setCommentsModalVisible(false))}
+      />
+      <UsersList
+        visible={likesModalVisible}
+        onCancel={() => setLikesModalVisible(false)}
+        data={likes}
+        title="Likes"
+      />
     </>
   )
 }

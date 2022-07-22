@@ -1,21 +1,17 @@
-import { Avatar, Skeleton } from 'antd'
-import { useQuery } from 'react-query'
+import { Avatar } from 'antd'
 import { Link } from 'react-router-dom'
-import { getAccountInformation } from '../../utils/api'
 import { defaultImage } from '../../utils/constants'
 import './style.scss'
 
-function UserLink({ id }: any) {
-  const { data: user, isLoading } = useQuery('user', () => getAccountInformation(id))
-
-  if (isLoading) return <Skeleton avatar title active />
-
+function UserLink({
+  photo, id, bio, user,
+}:any) {
   return (
     <Link to={`/profile/${id}/`} className="user-link">
-      <Avatar size="large" icon="user" src={(user?.[0].photo) ?? defaultImage} />
+      <Avatar size="large" icon="user" src={photo ?? defaultImage} />
       <div className="user-link-info">
-        <h3>{user?.[0].user.username}</h3>
-        <p>{user?.[0].bio}</p>
+        <h3>{user.username}</h3>
+        <p>{bio}</p>
       </div>
     </Link>
   )

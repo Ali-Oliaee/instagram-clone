@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { useQuery } from 'react-query'
 import { Link } from 'react-router-dom'
 import { getComments } from '../../utils/api'
-import { defaultImage } from '../../utils/constants'
+import { baseURL, defaultImage } from '../../utils/constants'
 import axios from '../../utils/axios'
 import { CommentInterface } from '../../interfaces'
 import './style.scss'
@@ -44,10 +44,10 @@ function Comments({ id, visible, onCancel }: any) {
         ) : (
           comments?.map((comment: CommentInterface) => (
             <Comment
-              author={<Link to={`profile/${comment.author.id}`}>{comment.author.user.username}</Link>}
+              author={<Link to={`/profile/${comment.author.id}`}>{comment.author.user.username}</Link>}
               avatar={(
                 <Avatar
-                  src={`http://localhost:8000${comment.author.photo}` ?? defaultImage}
+                  src={baseURL + comment.author.photo ?? defaultImage}
                   alt={comment.author.user.username}
                 />
               )}
