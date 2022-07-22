@@ -17,16 +17,20 @@ import {
   Menu,
   Row,
 } from 'antd'
+import { useNavigate, Link, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Link, useSearchParams } from 'react-router-dom'
 import { currentUser, defaultImage } from '../../utils/constants'
 import { Logo } from '../logo'
 import './style.scss'
 
 function Header({ setSearchKey, search }: any) {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
-  const logout = () => localStorage.clear()
+  const logout = () => {
+    localStorage.clear()
+    navigate('/auth/login/')
+  }
 
   const menu = () => (
     <Menu

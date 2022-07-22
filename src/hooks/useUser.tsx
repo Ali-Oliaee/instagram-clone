@@ -25,10 +25,6 @@ const useUser = () => {
     email,
     password,
   })
-    .then(({ data }) => {
-      message.success(data.message)
-      navigate('/auth/login')
-    })
 
   const changeProfileInfo = ({ username, bio }: any) => axios.patch(`account/update-information/${currentUserId}/`, {
     username,
@@ -48,17 +44,17 @@ const useUser = () => {
     })
   }
 
-  const sendPasswordRecoveryEmail = ({ email }: any) => axios.post('/').then(({ data }) => {
+  const sendPasswordRecoveryEmail = ({ email }: any) => axios.post('/users/forget-password/', { email }).then(({ data }) => {
     console.log(data)
     console.log(email)
   })
 
-  const sendPasswordRecoveryCode = ({ code }: any) => axios.post('/').then(({ data }) => {
+  const sendPasswordRecoveryCode = (userEmail: any, code : any) => axios.post('/users/verify-forget-password/', { code: String(code.code), email: userEmail.email }).then(({ data }) => {
     console.log(data)
     console.log(code)
   })
 
-  const resetPassword = ({ password }: any) => axios.post('/').then(({ data }) => {
+  const resetPassword = (password : any, email: any) => axios.post('/users/confirm-forget-password/', { password: password.newPassword, email: email.email }).then(({ data }) => {
     console.log(data)
     console.log(password)
   })

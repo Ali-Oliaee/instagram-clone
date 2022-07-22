@@ -12,11 +12,11 @@ function SignupPage() {
   const { t } = useTranslation()
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
-  const { signUp } = useUser()
+  const { signUp, login } = useUser()
 
   const handleSubmit = (formData: any) => {
     setLoading(true)
-    return signUp(formData).finally(() => setLoading(false))
+    return signUp(formData).then(() => login(formData)).finally(() => setLoading(false))
   }
 
   return (

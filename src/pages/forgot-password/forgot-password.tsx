@@ -10,23 +10,25 @@ function ForgotPasswordPage() {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
+  const [userEmail, setUserEmail] = useState('')
   const [step, setStep] = useState(0)
   const { Step } = Steps
   const { sendPasswordRecoveryEmail, sendPasswordRecoveryCode, resetPassword } = useUser()
 
   const sendEmail = (email: any) => {
+    setUserEmail(email)
     setLoading(true)
     return sendPasswordRecoveryEmail(email).then(() => setStep(1)).finally(() => setLoading(false))
   }
 
   const sendCode = (code: any) => {
     setLoading(true)
-    return sendPasswordRecoveryCode(code).then(() => setStep(2)).finally(() => setLoading(false))
+    return sendPasswordRecoveryCode(userEmail, code).then(() => setStep(2)).finally(() => setLoading(false))
   }
 
   const handleSubmit = (password: any) => {
     setLoading(true)
-    return resetPassword(password).then(() => navigate('/auth/login')).finally(() => setLoading(false))
+    return resetPassword(password, userEmail).then(() => navigate('/auth/login')).finally(() => setLoading(false))
   }
 
   return (
