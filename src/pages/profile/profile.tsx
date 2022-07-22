@@ -1,5 +1,5 @@
 import { EditOutlined } from '@ant-design/icons'
-import { Avatar, Button } from 'antd'
+import { Avatar, Button, Empty } from 'antd'
 import { Helmet } from 'react-helmet'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
@@ -18,7 +18,7 @@ function profilePage() {
   const currentUserId = currentUser.id
   const userId = +location.pathname.split('/')[2]
   const { data: user, isLoading, refetch } = useQuery('getCurrentUser', () => getAccountInformation(userId))
-  const { data: userPosts } = useQuery('posts', () => getUserPosts(userId))
+  const { data: userPosts, isLoading: postsLoading } = useQuery('posts', () => getUserPosts(userId))
 
   return (
     <>
@@ -55,7 +55,7 @@ function profilePage() {
             <div className="bio">{user?.[0]?.bio}</div>
           </div>
         </div>
-        <PostsWrapper posts={userPosts} />
+        {!!postsLoading && userPosts ? <PostsWrapper posts={userPosts as any} /> : <Empty description="No posts" />}
       </PageWrapper>
       <UsersList
         data={followerListVisible ? user?.[0]?.follower : user?.[0]?.following}

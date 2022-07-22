@@ -1,12 +1,14 @@
 import { Empty } from 'antd'
+import qs from 'query-string'
 import { PostCard } from '../post-card'
 import { Post } from '../../interfaces'
 import { Posts } from '../../interfaces/post/post'
-import './style.scss'
 import { Comments } from '../comments'
-import { EditPostModal, UsersList } from '../modals'
+import { EditPostModal } from '../modals'
+import './style.scss'
 
 function PostsWrapper({ posts }: Posts) {
+  const QS = qs.parse(window.location.search)
   return (
     <div className="posts-wrapper">
       {posts?.length ? posts.map((post : Post) => (
@@ -25,25 +27,8 @@ function PostsWrapper({ posts }: Posts) {
           comment_status={post?.comment_status}
         />
       )) : <Empty className="empty" />}
-      {/* <Comments
-        id={id}
-        visible={commentsModalVisible}
-        onCancel={() => setCommentsModalVisible(false)}
-      />
-      <EditPostModal
-        visible={editModalVisible}
-        setVisible={setEditModalVisible}
-        post={{
-          id, title, caption, tags, enableComments,
-        }}
-        onCancel={() => setEditModalVisible(false)}
-      />
-      <UsersList
-        data={likes}
-        visible={likesModalVisible}
-        onCancel={() => setLikesModalVisible(false)}
-        title="Likes"
-      /> */}
+      {QS.comments && <Comments />}
+      {QS.edit && <EditPostModal />}
     </div>
   )
 }

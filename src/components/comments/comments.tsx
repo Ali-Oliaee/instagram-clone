@@ -3,23 +3,26 @@ import {
 } from 'antd'
 import { useState } from 'react'
 import { useQuery } from 'react-query'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
+import qs from 'query-string'
 import { getComments } from '../../utils/api'
 import { baseURL, defaultImage } from '../../utils/constants'
 import axios from '../../utils/axios'
 import { CommentInterface } from '../../interfaces'
 import './style.scss'
 
-function Comments({ id, visible, onCancel }: any) {
+function Comments() {
   const [loading, setLoading] = useState(false)
   const [form] = Form.useForm()
-  const { data: comments, isLoading, refetch } = useQuery('comments', () => getComments(id))
+  const [searchParams, setSearchParams] = useSearchParams()
+  const QS = qs.parse(window.location.search)
+  const { data: comments, isLoading, refetch } = useQuery('comments', () => getComments(Number(QS.id)))
 
   const sendComment = ({ commentContent }: any) => {
     setLoading(true)
     return commentContent && axios.post('/comments/create/', {
       content: commentContent,
-      post: id,
+      post: QS.id,
     }).then(() => {
       message.success('comment added successfully!')
       refetch()
@@ -29,12 +32,16 @@ function Comments({ id, visible, onCancel }: any) {
 
   return (
     <Modal
-      visible={visible}
+      visible={!!QS.comments}
       footer={null}
       title="Comments"
       className="comments-modal"
       closable
-      onCancel={onCancel}
+      onCancel={() => {
+        delete QS.comments
+        delete QS.id
+        setSearchParams(QS as any)
+      }}
       destroyOnClose
       centered
     >

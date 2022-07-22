@@ -12,7 +12,7 @@ function DiscoveryPage() {
         <title>Discovery</title>
       </Helmet>
       <PageWrapper search isLoading={isLoading}>
-        <PostsWrapper posts={data} />
+        {!isLoading && <PostsWrapper posts={data} />}
       </PageWrapper>
     </>
   )

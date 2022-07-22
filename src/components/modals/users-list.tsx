@@ -1,8 +1,6 @@
 import { Modal } from 'antd'
-import { useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { getUsersByList } from '../../utils/api'
-import axios from '../../utils/axios'
 import { UserLink } from '../user-link'
 import './style.scss'
 

@@ -23,17 +23,17 @@ import {
 } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useQueryClient } from 'react-query'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { useMediaQuery } from 'usehooks-ts'
 import { useState } from 'react'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import qs from 'query-string'
 import { currentUser as account, defaultImage } from '../../utils/constants'
 import usePost from '../../hooks/usePost'
-import { Comments } from '../comments'
 import { Post } from '../../interfaces/post'
-import { EditPostModal, UsersList } from '../modals'
 import './style.scss'
+import { UsersList } from '../modals'
 
 function PostCard({
   id,
@@ -55,10 +55,9 @@ function PostCard({
   const { t } = useTranslation()
   const isMobile = useMediaQuery('(max-width: 500px)')
   const queryClient = useQueryClient()
+  const QS = qs.parse(window.location.search)
+  const [searchParams, setSearchParams] = useSearchParams()
   const [modalVisible, setModalVisible] = useState(false)
-  const [editModalVisible, setEditModalVisible] = useState(false)
-  const [likesModalVisible, setLikesModalVisible] = useState(false)
-  const [commentsModalVisible, setCommentsModalVisible] = useState(false)
   dayjs.extend(relativeTime)
 
   const handleDelete = () => deletePost(id).then(() => {
@@ -72,7 +71,7 @@ function PostCard({
       trigger={['click']}
       overlay={(
         <Menu>
-          <Menu.Item key="edit" onClick={() => setEditModalVisible(true)} icon={<EditOutlined />}>{t('edit')}</Menu.Item>
+          <Menu.Item key="edit" onClick={() => {}} icon={<EditOutlined />}>{t('edit')}</Menu.Item>
           <Popconfirm
             title={t('delete-confirm')}
             onConfirm={handleDelete}
@@ -116,15 +115,24 @@ function PostCard({
             icon={<HeartOutlined />}
           />
         )}
-        <Button type="ghost" className="likes-number-button" onClick={() => likes?.length && setLikesModalVisible(true)}>
+        <Button type="ghost" className="likes-number-button" onClick={() => likes?.length && setSearchParams('likes=true')}>
           {`${likes?.length} ${t('likes')}`}
         </Button>
+        <UsersList
+          data={likes}
+          visible={!!QS.likes}
+          title="Likes"
+          onCancel={() => {
+            delete QS.likes
+            setSearchParams(QS as any)
+          }}
+        />
       </span>
       <span>
         {enableComments && (
         <Button
           size="large"
-          onClick={() => setCommentsModalVisible(true)}
+          onClick={() => setSearchParams(`comments=true&id=${id}`)}
           icon={<MessageOutlined />}
           className="comment-button"
         />
@@ -227,17 +235,6 @@ function PostCard({
           </Card>
         </div>
       </Modal>
-      <Comments
-        id={id}
-        visible={commentsModalVisible}
-        onCancel={(() => setCommentsModalVisible(false))}
-      />
-      <UsersList
-        visible={likesModalVisible}
-        onCancel={() => setLikesModalVisible(false)}
-        data={likes}
-        title="Likes"
-      />
     </>
   )
 }
