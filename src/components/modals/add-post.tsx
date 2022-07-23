@@ -8,6 +8,7 @@ import ImgCrop from 'antd-img-crop'
 import { useSearchParams } from 'react-router-dom'
 import qs from 'query-string'
 import { useQueryClient } from 'react-query'
+import useValidation from '../../hooks/use-validation'
 import { FloatLabel } from '../float-label'
 import usePost from '../../hooks/usePost'
 import './style.scss'
@@ -22,6 +23,7 @@ function AddPostModal() {
   const QS = qs.parse(window.location.search)
   const { Dragger } = Upload
   const queryClient = useQueryClient()
+  const { requiredTitle, maxTitleLength } = useValidation()
   const [secondModalVisible, setSecondModalVisible] = useState(false)
 
   const handleSubmit = (data : any) => {
@@ -96,19 +98,7 @@ function AddPostModal() {
         destroyOnClose
       >
         <Form onFinish={handleSubmit} form={form}>
-          <Form.Item
-            name="title"
-            rules={[
-              {
-                required: true,
-                message: t('required-title'),
-              },
-              {
-                max: 50,
-                message: t('max-title-length'),
-              },
-            ]}
-          >
+          <Form.Item name="title" rules={[requiredTitle, maxTitleLength]}>
             <FloatLabel label={t('title')} autoFocus value={form.getFieldValue('title')} />
           </Form.Item>
           <Form.Item name="caption">

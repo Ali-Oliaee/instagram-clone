@@ -19,16 +19,19 @@ import {
 } from 'antd'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { useQuery } from 'react-query'
 import { currentUser, defaultImage } from '../../utils/constants'
 import { Logo } from '../logo'
+import { getAccountInformation } from '../../utils/api'
 import './style.scss'
 
 function Header({ setSearchKey, search }: any) {
   const { t } = useTranslation()
   const [searchParams, setSearchParams] = useSearchParams()
-  const logout = () => {
-    localStorage.clear()
-  }
+  const logout = () => localStorage.clear()
+  const { data } = useQuery('currentUser', () => getAccountInformation(currentUser.id))
+  // eslint-disable-next-line no-unsafe-optional-chaining
+  const userAvatar = data?.[0]?.photo
 
   const menu = () => (
     <Menu
@@ -95,7 +98,7 @@ function Header({ setSearchKey, search }: any) {
               overlay={menu}
               trigger={['click']}
             >
-              <Avatar src={currentUser.photo ?? defaultImage} size="small" />
+              <Avatar src={userAvatar ?? defaultImage} size="small" />
             </Dropdown>
           </div>
         </Row>

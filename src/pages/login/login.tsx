@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { Button, Divider, Form } from 'antd'
 import { useState } from 'react'
+import useValidation from '../../hooks/use-validation'
 import useUser from '../../hooks/useUser'
 import {
   FloatLabel, GoogleButton, Logo, SwitchLanguage,
@@ -13,6 +14,9 @@ function LoginPage() {
   const [loading, setLoading] = useState(false)
   const [form] = Form.useForm()
   const { login } = useUser()
+  const {
+    requiredEmail, invalidEmail, requiredPassword, minLengthPassword,
+  } = useValidation()
 
   const handleSubmit = (formData: any) => {
     setLoading(true)
@@ -25,34 +29,10 @@ function LoginPage() {
         <div className="form-container">
           <Logo />
           <Form onFinish={handleSubmit} form={form}>
-            <Form.Item
-              name="email"
-              rules={[
-                {
-                  required: true,
-                  message: t('require-email'),
-                },
-                {
-                  type: 'email',
-                  message: t('invalid-email'),
-                },
-              ]}
-            >
+            <Form.Item name="email" rules={[requiredEmail, invalidEmail]}>
               <FloatLabel type="email" autoFocus label={t('email')} value={form.getFieldValue('email')} />
             </Form.Item>
-            <Form.Item
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: t('require-password'),
-                },
-                {
-                  min: 6,
-                  message: t('min-password'),
-                },
-              ]}
-            >
+            <Form.Item name="password" rules={[requiredPassword, minLengthPassword]}>
               <FloatLabel type="password" label={t('password')} value={form.getFieldValue('password')} />
             </Form.Item>
             <Button loading={loading} htmlType="submit" type="primary" block>{t('submit')}</Button>

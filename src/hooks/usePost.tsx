@@ -12,7 +12,7 @@ const usePost = () => {
     formData.append('title', title)
     formData.append('caption', caption)
     formData.append('comment_status', enableComments)
-    tags.forEach((tag: any) => formData.append('tag', tag))
+    tags.forEach((tag: any) => formData.append('tags', tag))
 
     return axios.post(
       '/posts/create/',

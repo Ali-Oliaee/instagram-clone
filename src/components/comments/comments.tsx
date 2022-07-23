@@ -6,6 +6,7 @@ import { useQuery } from 'react-query'
 import { Link, useSearchParams } from 'react-router-dom'
 import qs from 'query-string'
 import { getComments } from '../../utils/api'
+import useValidation from '../../hooks/use-validation'
 import { baseURL, defaultImage } from '../../utils/constants'
 import axios from '../../utils/axios'
 import { CommentInterface } from '../../interfaces'
@@ -17,6 +18,7 @@ function Comments() {
   const [searchParams, setSearchParams] = useSearchParams()
   const QS = qs.parse(window.location.search)
   const { data: comments, isLoading, refetch } = useQuery('comments', () => getComments(Number(QS.id)))
+  const { requiredComment } = useValidation()
 
   const sendComment = ({ commentContent }: any) => {
     setLoading(true)
@@ -64,13 +66,7 @@ function Comments() {
         )}
       </div>
       <Form form={form} onFinish={sendComment} layout="vertical">
-        <Form.Item
-          name="commentContent"
-          rules={[{
-            required: true,
-            message: 'fill',
-          }]}
-        >
+        <Form.Item name="commentContent" rules={[requiredComment]}>
           <Input placeholder="write a comment..." />
         </Form.Item>
         <Button type="primary" htmlType="submit" loading={loading} onClick={sendComment}>Send</Button>

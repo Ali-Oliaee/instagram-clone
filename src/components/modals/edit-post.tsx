@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 import { useQueryClient } from 'react-query'
 import usePost from '../../hooks/usePost'
+import useValidation from '../../hooks/use-validation'
 import { FloatLabel } from '../float-label'
 import './style.scss'
 
@@ -18,6 +19,7 @@ function EditPostModal({
   const { t } = useTranslation()
   const [form] = Form.useForm()
   const queryClient = useQueryClient()
+  const { requiredTitle, maxTitleLength } = useValidation()
 
   form.setFieldsValue({ ...post })
 
@@ -49,15 +51,7 @@ function EditPostModal({
       destroyOnClose
     >
       <Form onFinish={handleSubmit} form={form}>
-        <Form.Item
-          name="title"
-          rules={[
-            {
-              required: true,
-              message: t('requred-title'),
-            },
-          ]}
-        >
+        <Form.Item name="title" rules={[requiredTitle, maxTitleLength]}>
           <FloatLabel label={t('title')} autoFocus value={form.getFieldValue('title')} />
         </Form.Item>
         <Form.Item name="caption">
