@@ -11,7 +11,7 @@ function ChangePasswordModal({ visible, setVisible } : any) {
   const [loading, setLoading] = useState(false)
   const [form] = Form.useForm()
   const { changePassword } = useUser()
-  const { minPassword, requiredPassword, validatePasswords } = useValidation()
+  const { minLengthPassword, requiredPassword, validatePasswords } = useValidation()
   const handleSubmit = (formData: any) => {
     setLoading(true)
     return changePassword(formData).then(() => setVisible(false)).finally(() => setLoading(false))
@@ -28,16 +28,16 @@ function ChangePasswordModal({ visible, setVisible } : any) {
     >
       <Form onFinish={handleSubmit}>
         <Form.Item
-          rules={[requiredPassword, minPassword]}
+          rules={[requiredPassword, minLengthPassword]}
           name="oldPassword"
         >
           <FloatLabel label={t('old-password')} type="password" autoFocus value={form.getFieldValue('oldPassword')} />
         </Form.Item>
-        <Form.Item rules={[requiredPassword, minPassword]} name="password">
+        <Form.Item rules={[requiredPassword, minLengthPassword]} name="password">
           <FloatLabel label={t('new-password')} type="password" value={form.getFieldValue('password')} />
         </Form.Item>
         <Form.Item
-          rules={[requiredPassword, minPassword, validatePasswords]}
+          rules={[requiredPassword, minLengthPassword, validatePasswords]}
           name="confirmPassword"
         >
           <FloatLabel label={t('confirm-password')} value={form.getFieldValue('confirmPassword')} type="password" />

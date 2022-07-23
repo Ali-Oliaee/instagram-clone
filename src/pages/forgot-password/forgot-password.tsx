@@ -39,7 +39,7 @@ function ForgotPasswordPage() {
 
   const resendEmail = () => {
     setResetButtonLoading(true)
-    return sendPasswordRecoveryEmail(userEmail).then(() => setStep(1)).finally(() => setResetButtonLoading(false))
+    return sendPasswordRecoveryEmail(userEmail).finally(() => setResetButtonLoading(false))
   }
 
   const handleSubmit = (password: any) => {

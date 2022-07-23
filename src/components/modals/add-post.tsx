@@ -15,8 +15,6 @@ import './style.scss'
 
 function AddPostModal() {
   const [searchParams, setSearchParams] = useSearchParams()
-  const [loading, setLoading] = useState(false)
-  const [file, setFile] = useState({ originFileObj: '' })
   const { t } = useTranslation()
   const { addPost } = usePost()
   const [form] = Form.useForm()
@@ -24,6 +22,8 @@ function AddPostModal() {
   const { Dragger } = Upload
   const queryClient = useQueryClient()
   const { requiredTitle, maxTitleLength } = useValidation()
+  const [file, setFile] = useState({ originFileObj: '' })
+  const [loading, setLoading] = useState(false)
   const [secondModalVisible, setSecondModalVisible] = useState(false)
 
   const handleSubmit = (data : any) => {
@@ -67,6 +67,7 @@ function AddPostModal() {
               <Dragger
                 name="file"
                 maxCount={1}
+                showUploadList={false}
                 beforeUpload={({ type, name }) => {
                   const isValid = type === 'image/png' || type === 'image/jpeg' || type === 'image/jpg'
                  || type === 'image/gif'
