@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Button, Divider, Form } from 'antd'
 import { useState } from 'react'
 import useValidation from '../../hooks/use-validation'
-import useUser from '../../hooks/useUser'
+import useUser from '../../hooks/use-user'
 import {
   FloatLabel, GoogleButton, Logo, SwitchLanguage,
 } from '../../components'

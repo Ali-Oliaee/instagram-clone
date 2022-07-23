@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { Button, Divider, Form } from 'antd'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
-import useUser from '../../hooks/useUser'
+import useUser from '../../hooks/use-user'
 import useValidation from '../../hooks/use-validation'
 import {
   FloatLabel, GoogleButton, Logo, SwitchLanguage,

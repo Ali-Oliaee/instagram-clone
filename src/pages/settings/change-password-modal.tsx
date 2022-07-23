@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FloatLabel } from '../../components'
 import useValidation from '../../hooks/use-validation'
-import useUser from '../../hooks/useUser'
+import useUser from '../../hooks/use-user'
 import './style.scss'
 
 function ChangePasswordModal({ visible, setVisible } : any) {

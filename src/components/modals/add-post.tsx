@@ -10,7 +10,7 @@ import qs from 'query-string'
 import { useQueryClient } from 'react-query'
 import useValidation from '../../hooks/use-validation'
 import { FloatLabel } from '../float-label'
-import usePost from '../../hooks/usePost'
+import usePost from '../../hooks/use-post'
 import './style.scss'
 
 function AddPostModal() {
@@ -24,6 +24,7 @@ function AddPostModal() {
   const { requiredTitle, maxTitleLength } = useValidation()
   const [file, setFile] = useState({ originFileObj: '' })
   const [loading, setLoading] = useState(false)
+  const { validateUploadImage } = useValidation()
   const [secondModalVisible, setSecondModalVisible] = useState(false)
 
   const handleSubmit = (data : any) => {
@@ -68,16 +69,7 @@ function AddPostModal() {
                 name="file"
                 maxCount={1}
                 showUploadList={false}
-                beforeUpload={({ type, name }) => {
-                  const isValid = type === 'image/png' || type === 'image/jpeg' || type === 'image/jpg'
-                 || type === 'image/gif'
-                 || type === 'image/webp'
-                 || type === 'image/svg+xml'
-                 || type === 'image/bmp'
-                 || type === 'image/tiff'
-                  if (!isValid) message.error(`${name} is not a valid file`)
-                  return isValid || Upload.LIST_IGNORE
-                }}
+                beforeUpload={validateUploadImage}
               >
                 <p className="ant-upload-drag-icon">
                   <InboxOutlined />

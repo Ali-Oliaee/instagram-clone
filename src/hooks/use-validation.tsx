@@ -1,3 +1,4 @@
+import { message, Upload } from 'antd'
 import { useTranslation } from 'react-i18next'
 
 const useValidation = () => {
@@ -19,6 +20,16 @@ const useValidation = () => {
       return Promise.reject(new Error(t('passwords-not-match')))
     },
   })
+  const validateUploadImage = ({ type, name }: any) => {
+    const isValid = type === 'image/png' || type === 'image/jpeg' || type === 'image/jpg'
+   || type === 'image/gif'
+   || type === 'image/webp'
+   || type === 'image/svg+xml'
+   || type === 'image/bmp'
+   || type === 'image/tiff'
+    if (!isValid) message.error(`${name} is not a valid file`)
+    return isValid || Upload.LIST_IGNORE
+  }
 
   return {
     requiredTitle,
@@ -32,6 +43,7 @@ const useValidation = () => {
     requiredPassword,
     minLengthPassword,
     validatePasswords,
+    validateUploadImage,
   }
 }
 

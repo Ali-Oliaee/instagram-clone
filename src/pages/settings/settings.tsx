@@ -1,13 +1,14 @@
 import {
-  Avatar, Button, Form, message, Upload,
+  Avatar, Button, Form, Upload,
 } from 'antd'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
-import useUser from '../../hooks/useUser'
+import useUser from '../../hooks/use-user'
 import { FloatLabel, PageWrapper, SwitchLanguage } from '../../components'
 import { getAccountInformation } from '../../utils/api'
 import { currentUser, defaultImage } from '../../utils/constants'
+import useValidation from '../../hooks/use-validation'
 import ChangePasswordModal from './change-password-modal'
 import './style.scss'
 
@@ -15,6 +16,7 @@ function SettingsPage() {
   const [visible, setVisible] = useState(false)
   const [loading, setLoading] = useState(false)
   const [form] = Form.useForm()
+  const { validateUploadImage } = useValidation()
   const { t } = useTranslation()
   const { changeProfileInfo, changeProfileImage } = useUser()
   const { data: user, isLoading, refetch } = useQuery('user', () => getAccountInformation(currentUser.id))
@@ -36,16 +38,7 @@ function SettingsPage() {
         <div className="change-image">
           <Avatar src={user?.[0]?.photo ?? defaultImage} size="large" className="profile-image" />
           <Upload
-            beforeUpload={(file) => {
-              const isValid = file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/jpg'
-                  || file.type === 'image/gif'
-                  || file.type === 'image/webp'
-                  || file.type === 'image/svg+xml'
-                  || file.type === 'image/bmp'
-                  || file.type === 'image/tiff'
-              if (!isValid) message.error(`${file.name} is not a valid file`)
-              return isValid || Upload.LIST_IGNORE
-            }}
+            beforeUpload={validateUploadImage}
             showUploadList={false}
             onChange={changeProfileImage}
           >
