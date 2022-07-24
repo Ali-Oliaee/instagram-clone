@@ -9,7 +9,6 @@ import { getComments } from '../../utils/api'
 import useValidation from '../../hooks/use-validation'
 import { baseURL, defaultImage } from '../../utils/constants'
 import axios from '../../utils/axios'
-import { CommentInterface } from '../../interfaces'
 import './style.scss'
 
 function Comments() {
@@ -51,7 +50,7 @@ function Comments() {
         {isLoading ? (
           <Skeleton active avatar title paragraph />
         ) : (
-          comments?.map((comment: CommentInterface) => (
+          comments?.map((comment: any) => (
             <Comment
               author={<Link to={`/profile/${comment.author.id}`}>{comment.author.user.username}</Link>}
               avatar={(

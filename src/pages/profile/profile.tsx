@@ -14,8 +14,8 @@ function profilePage() {
   const route = matchRoutes([{ path: '/profile/:id' }], location)
   const userId = Number(route?.[0].params.id)
   const currentUserId = currentUser.id
-  const { data: user, isLoading, refetch } = useQuery('getCurrentUser', () => getAccountInformation(userId))
-  const { data: userPosts, isLoading: postsLoading } = useQuery('posts', () => getUserPosts(userId))
+  const { data: user, isLoading } = useQuery('getCurrentUser', () => getAccountInformation(userId))
+  const { data: userPosts, isLoading: postsLoading, refetch } = useQuery('profilePosts', () => getUserPosts(userId))
 
   return (
     <PageWrapper isLoading={isLoading} className="profile-page">
@@ -48,7 +48,7 @@ function profilePage() {
           <div className="bio">{user?.[0]?.bio}</div>
         </div>
       </div>
-      {!!postsLoading && userPosts ? <PostsWrapper posts={userPosts as any} /> : <Empty description="No posts" />}
+      {!postsLoading ? <PostsWrapper posts={userPosts as any} refetch={refetch} /> : <Empty description="No posts" />}
     </PageWrapper>
   )
 }

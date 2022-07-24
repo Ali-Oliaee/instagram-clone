@@ -10,7 +10,7 @@ import { currentUser } from '../../utils/constants'
 import { UsersList } from '../modals'
 
 function PostOptions({
-  id, likes = [1], enableComments, archives,
+  id, likes, enableComments, archives,
 }: any) {
   const { t } = useTranslation()
   const QS = qs.parse(window.location.search)

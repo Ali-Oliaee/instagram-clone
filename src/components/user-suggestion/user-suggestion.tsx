@@ -3,7 +3,6 @@ import { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
 import { Link } from 'react-router-dom'
-import { UserSuggestionProps } from '../../interfaces'
 import axios from '../../utils/axios'
 import { defaultImage, currentUser as account } from '../../utils/constants'
 import './style.scss'
@@ -20,7 +19,7 @@ function UserSuggestion(): ReactElement {
     <div className="user-suggestion">
       {users?.map(({
         id, photo, user, bio,
-      }: UserSuggestionProps) => (
+      }: any) => (
         <div className="user-card" key={id}>
           <Link to={`/profile/${id}`}>
             <Avatar size="large" src={photo ?? defaultImage} />

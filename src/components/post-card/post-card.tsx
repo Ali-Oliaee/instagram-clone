@@ -3,7 +3,6 @@ import { useSearchParams } from 'react-router-dom'
 import { useMediaQuery } from 'usehooks-ts'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import { Post } from '../../interfaces/post'
 import CardMeta from '../post/post-meta'
 import PostOptions from '../post/options'
 import PostContent from '../post/content'
@@ -21,7 +20,8 @@ function PostCard({
   created_at: createdAt,
   updated_at: updatedAt,
   comment_status: enableComments,
-}: Post) {
+  refetch,
+}: any) {
   const isMobile = useMediaQuery('(max-width: 500px)')
   const [searchParams, setSearchParams] = useSearchParams()
   dayjs.extend(relativeTime)
@@ -30,7 +30,7 @@ function PostCard({
     <div>
       {isMobile ? (
         <Card className="post-card">
-          <CardMeta />
+          <CardMeta creator={creator} postId={id} />
           <img src={image} alt={title} />
           <div className="post-info">
             <PostOptions likes={likes} id={id} enableComments={enableComments} archives={archives} />

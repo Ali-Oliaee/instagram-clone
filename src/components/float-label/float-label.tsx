@@ -2,7 +2,6 @@
 import { Input } from 'antd'
 import i18next from 'i18next'
 import { useState } from 'react'
-import { FloatLabelInput } from '../../interfaces'
 import './style.scss'
 
 function FloatLabel({
@@ -13,7 +12,7 @@ function FloatLabel({
   textarea = false,
   type = 'text',
   disabled = false,
-}: FloatLabelInput) {
+}: any) {
   const [focus, setFocus] = useState(false)
   const labelClass = focus || (value && value.length) ? 'label label-float' : 'label'
   return (

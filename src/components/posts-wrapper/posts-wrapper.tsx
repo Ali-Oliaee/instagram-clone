@@ -1,17 +1,15 @@
 import { Empty } from 'antd'
 import qs from 'query-string'
 import { PostCard } from '../post-card'
-import { Post } from '../../interfaces'
-import { Posts } from '../../interfaces/post/post'
 import { Comments } from '../comments'
 import { EditPostModal, PostModal } from '../modals'
 import './style.scss'
 
-function PostsWrapper({ posts }: Posts) {
+function PostsWrapper({ posts, refetch }: any) {
   const QS = qs.parse(window.location.search)
   return (
     <div className={posts?.length ? 'posts-wrapper__full' : 'posts-wrapper__empty'}>
-      {posts?.length ? posts.map((post : Post) => (
+      {posts?.length ? posts.map((post : any) => (
         <PostCard
           key={post?.id}
           id={post?.id}
