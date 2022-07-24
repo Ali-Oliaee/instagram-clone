@@ -6,7 +6,6 @@ import axios from '../utils/axios'
 
 const useUser = () => {
   const navigate = useNavigate()
-  const { id: currentUserId } = currentUser
 
   const login = ({ email, password }: any) => axios.post('users/login/', {
     email,
@@ -26,11 +25,11 @@ const useUser = () => {
     password,
   })
 
-  const changeProfileInfo = ({ username, bio }: any) => axios.patch(`account/update-information/${currentUserId}/`, {
+  const changeProfileInfo = ({ username, bio }: any) => axios.patch(`/account/update-information/${currentUser.id}/`, {
     username,
     bio,
     // TODO: set message for add responses
-  }).then(({ data }) => message.success(data.message))
+  }).then(({ data }) => message.success('updated'))
 
   const changePassword = ({ newPassword, oldPassword } : any) => axios.post('/users/change-password/', {
     new_password: newPassword,

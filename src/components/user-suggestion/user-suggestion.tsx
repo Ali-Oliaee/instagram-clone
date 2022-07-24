@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import { Avatar, Button } from 'antd'
 import { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -22,7 +21,7 @@ function UserSuggestion(): ReactElement {
       {users?.map(({
         id, photo, user, bio,
       }: UserSuggestionProps) => (
-        <div className="user-card">
+        <div className="user-card" key={id}>
           <Link to={`/profile/${id}`}>
             <Avatar size="large" src={photo ?? defaultImage} />
             <h3>{user.username}</h3>

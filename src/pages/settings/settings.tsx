@@ -19,7 +19,7 @@ function SettingsPage() {
   const { validateUploadImage } = useValidation()
   const { t } = useTranslation()
   const { changeProfileInfo, changeProfileImage } = useUser()
-  const { data: user, isLoading, refetch } = useQuery('user', () => getAccountInformation(currentUser.id))
+  const { data: user, isLoading, refetch } = useQuery('currentUser', () => getAccountInformation(currentUser.id))
 
   const handleSubmit = (formData: any) => {
     setLoading(true)

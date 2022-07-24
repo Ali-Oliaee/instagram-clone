@@ -4,13 +4,13 @@ import { PostCard } from '../post-card'
 import { Post } from '../../interfaces'
 import { Posts } from '../../interfaces/post/post'
 import { Comments } from '../comments'
-import { EditPostModal } from '../modals'
+import { EditPostModal, PostModal } from '../modals'
 import './style.scss'
 
 function PostsWrapper({ posts }: Posts) {
   const QS = qs.parse(window.location.search)
   return (
-    <div className="posts-wrapper">
+    <div className={posts?.length ? 'posts-wrapper__full' : 'posts-wrapper__empty'}>
       {posts?.length ? posts.map((post : Post) => (
         <PostCard
           key={post?.id}
@@ -26,9 +26,10 @@ function PostsWrapper({ posts }: Posts) {
           updated_at={post?.updated_at}
           comment_status={post?.comment_status}
         />
-      )) : <Empty className="empty" />}
+      )) : <Empty />}
       {QS.comments && <Comments />}
       {QS.edit && <EditPostModal />}
+      {QS.post && <PostModal />}
     </div>
   )
 }
