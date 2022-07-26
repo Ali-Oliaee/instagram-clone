@@ -15,8 +15,8 @@ function PostModal() {
   return (
     <Modal
       visible={!!QS.post}
-      closable={false}
       onCancel={() => setSearchParams({})}
+      closable={false}
       footer={null}
       centered
       className="post-card-modal"
@@ -26,8 +26,8 @@ function PostModal() {
         <>
           <div className="image-container">
             <img
-              src={post.file}
-              alt={post.title}
+              src={post?.file}
+              alt={post?.title}
               height="100%"
               width="100%"
               className="post-modal-image"
@@ -35,10 +35,10 @@ function PostModal() {
           </div>
           <div className="post-info">
             <Card className="post-card">
-              <CardMeta creator={post.account} postId={post.id} />
+              <CardMeta creator={post?.account} postId={post?.id} />
               <div className="post-info">
-                <PostOptions id={post.id} likes={post.account_likes} archives={post.account_archives} enableComments={post.comment_status} />
-                <PostContent title={post.title} caption={post.caption} tags={post.tags} createdAt={post.created_at} updatedAt={post.updated_at} username={post.account.user.username} />
+                <PostOptions id={post?.id} likes={post?.account_likes} archives={post?.account_archives} enableComments={post?.comment_status} />
+                <PostContent title={post?.title} caption={post?.caption} tags={post?.tags} createdAt={post?.created_at} updatedAt={post?.updated_at} username={post?.account.user.username} />
               </div>
             </Card>
           </div>

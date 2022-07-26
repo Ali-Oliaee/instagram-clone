@@ -1,6 +1,5 @@
-import { Card, Image } from 'antd'
-import { useSearchParams } from 'react-router-dom'
-import { useMediaQuery } from 'usehooks-ts'
+/* eslint-disable camelcase */
+import { Card } from 'antd'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import CardMeta from '../post/post-meta'
@@ -10,45 +9,42 @@ import './style.scss'
 
 function PostCard({
   id,
-  file: image,
+  file,
   title,
   caption,
-  account: creator,
+  account,
   tags,
-  account_likes: likes,
-  account_archives: archives,
-  created_at: createdAt,
-  updated_at: updatedAt,
-  comment_status: enableComments,
+  account_likes,
+  account_archives,
+  created_at,
+  updated_at,
+  comment_status,
   refetch,
 }: any) {
-  const isMobile = useMediaQuery('(max-width: 500px)')
-  const [searchParams, setSearchParams] = useSearchParams()
   dayjs.extend(relativeTime)
 
   return (
-    <div>
-      {isMobile ? (
-        <Card className="post-card">
-          <CardMeta creator={creator} postId={id} />
-          <img src={image} alt={title} />
-          <div className="post-info">
-            <PostOptions refetch={refetch} likes={likes} id={id} enableComments={enableComments} archives={archives} />
-            <PostContent title={title} caption={caption} tags={tags} updatedAt={updatedAt} createdAt={createdAt} username={creator.user.username} />
-          </div>
-        </Card>
-      ) : (
-        <Image
-          src={image}
-          alt={title}
-          className="post-image"
-          height={150}
-          width={200}
-          preview={false}
-          onClick={() => setSearchParams(`post=${id}`)}
+    <Card className="post-card">
+      <CardMeta creator={account} postId={id} />
+      <img src={file} alt={title} />
+      <div className="post-info">
+        <PostOptions
+          refetch={refetch}
+          likes={account_likes}
+          id={id}
+          enableComments={comment_status}
+          archives={account_archives}
         />
-      )}
-    </div>
+        <PostContent
+          title={title}
+          caption={caption}
+          tags={tags}
+          updatedAt={updated_at}
+          createdAt={created_at}
+          username={account.user.username}
+        />
+      </div>
+    </Card>
   )
 }
 

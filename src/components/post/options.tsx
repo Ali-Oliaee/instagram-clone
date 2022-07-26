@@ -44,7 +44,7 @@ function PostOptions({
         {enableComments && (
           <Button
             size="large"
-            onClick={() => setSearchParams(`comments=true&id=${id}`)}
+            onClick={() => setSearchParams({ ...QS, comments: id })}
             icon={<MessageOutlined />}
             className="comment-button"
           />

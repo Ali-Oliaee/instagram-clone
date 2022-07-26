@@ -7,7 +7,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import qs from 'query-string'
 import { getComments } from '../../utils/api'
 import useValidation from '../../hooks/use-validation'
-import { baseURL, defaultImage } from '../../utils/constants'
+import { defaultImage } from '../../utils/constants'
 import axios from '../../utils/axios'
 import './style.scss'
 
@@ -16,14 +16,14 @@ function Comments() {
   const [form] = Form.useForm()
   const [searchParams, setSearchParams] = useSearchParams()
   const QS = qs.parse(window.location.search)
-  const { data: comments, isLoading, refetch } = useQuery('comments', () => getComments(Number(QS.id)))
+  const { data: comments, isLoading, refetch } = useQuery('comments', () => getComments(Number(QS.comments)))
   const { requiredComment } = useValidation()
 
   const sendComment = ({ commentContent }: any) => {
     setLoading(true)
     return commentContent && axios.post('/comments/create/', {
       content: commentContent,
-      post: QS.id,
+      post: QS.comments,
     }).then(() => {
       message.success('comment added successfully!')
       refetch()
@@ -40,7 +40,7 @@ function Comments() {
       closable
       onCancel={() => {
         delete QS.comments
-        delete QS.id
+        delete QS.comments
         setSearchParams(QS as any)
       }}
       destroyOnClose

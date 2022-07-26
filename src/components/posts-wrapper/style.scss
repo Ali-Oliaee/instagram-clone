@@ -16,4 +16,8 @@
 .posts-wrapper__empty {
     @extend .posts-wrapper__full;
     display: unset;
+
+    .ant-empty {
+        margin-top: 50px;
+    }
 }
