@@ -24,14 +24,14 @@ function PostOptions({
         {likes?.includes(currentUser?.id) ? (
           <Button
             className="like-button"
-            onClick={() => unLikePost(currentUser.id, id).then(() => refetch())}
+            onClick={() => unLikePost(currentUser.id, id).then(refetch)}
             size="large"
             icon={<HeartFilled style={{ color: 'red' }} />}
           />
         ) : (
           <Button
             className="like-button"
-            onClick={() => likePost(currentUser.id, id).then(() => refetch())}
+            onClick={() => likePost(currentUser.id, id).then(refetch)}
             size="large"
             icon={<HeartOutlined />}
           />
@@ -52,14 +52,14 @@ function PostOptions({
         {archives?.includes(currentUser.id) ? (
           <Button
             size="large"
-            onClick={() => unArchivePost(currentUser.id, id).then(() => refetch())}
+            onClick={() => unArchivePost(currentUser.id, id).then(refetch)}
             icon={<DownSquareFilled style={{ color: 'green' }} />}
             className="archive-button"
           />
         ) : (
           <Button
             size="large"
-            onClick={() => archivePost(currentUser.id, id).then(() => refetch())}
+            onClick={() => archivePost(currentUser.id, id).then(refetch)}
             icon={<DownSquareOutlined />}
             className="archive-button"
           />

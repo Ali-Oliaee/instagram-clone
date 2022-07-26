@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-nested-ternary */
 import { Empty, Image } from 'antd'
 import qs from 'query-string'
@@ -17,6 +16,7 @@ function PostsWrapper({ posts, refetch }: any) {
   return (
     <div className={posts?.length ? 'posts-wrapper__full' : 'posts-wrapper__empty'}>
       { posts?.length ? posts.map((post : any) => (
+        // eslint-disable-next-line react/jsx-props-no-spreading
         isMobile ? <PostCard refetch={refetch} {...post} />
           : (
             <Image
@@ -31,7 +31,7 @@ function PostsWrapper({ posts, refetch }: any) {
           )
       )) : <Empty />}
       {QS.comments && <Comments />}
-      {QS.edit && <EditPostModal />}
+      {QS.edit && <EditPostModal refetch={refetch} />}
       {QS.post && <PostModal />}
       {QS.likes && <LikedUsersList />}
     </div>

@@ -37,46 +37,38 @@ function Header({ setSearchKey, search }: any) {
   const userAvatar = data?.[0]?.photo
 
   const menu = () => (
-    <Menu
-      items={[
-        {
-          key: 'profile',
-          icon: <UserOutlined />,
-          label: (
-            <Link to={`/profile/${currentUser.id}`}>
-              {t('profile')}
-            </Link>
-          ),
-        },
-        {
-          key: 'setting',
-          icon: <SettingOutlined />,
-          label: (
-            <Link to="/settings">
-              {t('settings')}
-            </Link>
-          ),
-        },
-        {
-          key: 'saved',
-          icon: <InboxOutlined />,
-          label: (
-            <Link to="/saved">
-              {t('saved')}
-            </Link>
-          ),
-        },
-        {
-          type: 'divider',
-        },
-        {
-          key: 'logout',
-          icon: <LogoutOutlined />,
-          label: t('logout'),
-          danger: true,
-          onClick: logout,
-        },
-      ]}
+    <Menu items={[{
+      key: 'profile',
+      icon: <UserOutlined />,
+      label: (
+        <Link to={`/profile/${currentUser.id}`}>
+          {t('profile')}
+        </Link>
+      ),
+    }, {
+      key: 'setting',
+      icon: <SettingOutlined />,
+      label: (
+        <Link to="/settings">
+          {t('settings')}
+        </Link>
+      ),
+    }, {
+      key: 'saved',
+      icon: <InboxOutlined />,
+      label: (
+        <Link to="/saved">
+          {t('saved')}
+        </Link>
+      ),
+    }, { type: 'divider' }, {
+      key: 'logout',
+      icon: <LogoutOutlined />,
+      label: t('logout'),
+      danger: true,
+      onClick: logout,
+    },
+    ]}
     />
   )
 

@@ -1,6 +1,7 @@
 import { Link, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useQueryClient } from 'react-query'
+import qs from 'query-string'
 import {
   Avatar, Card, Dropdown, Menu, message, Popconfirm,
 } from 'antd'
@@ -15,13 +16,14 @@ function CardMeta({ creator, postId }: any) {
   const { Meta } = Card
   const { t } = useTranslation()
   const { deletePost } = usePost()
+  const QS = qs.parse(window.location.search)
   const currentUser = JSON.parse(localStorage.getItem('user') || '{}')
   const [searchParams, setSearchParams] = useSearchParams()
   const queryClient = useQueryClient()
 
   const handleDelete = () => deletePost(postId).then(() => {
     message.success('Post deleted successfully!')
-    queryClient.invalidateQueries('posts')
+    queryClient.invalidateQueries('profilePosts')
     setSearchParams({})
   })
 
@@ -29,18 +31,29 @@ function CardMeta({ creator, postId }: any) {
     <Dropdown
       trigger={['click']}
       overlay={(
-        <Menu>
-          <Menu.Item key="edit" onClick={() => {}} icon={<EditOutlined />}>{t('edit')}</Menu.Item>
-          <Popconfirm
-            title={t('delete-confirm')}
-            onConfirm={handleDelete}
-            okText={t('yes')}
-            cancelText={t('no')}
-            icon={<QuestionCircleOutlined />}
-          >
-            <Menu.Item key="delete" danger icon={<DeleteOutlined />}>{t('delete')}</Menu.Item>
-          </Popconfirm>
-        </Menu>
+        <Menu items={[{
+          key: 'edit',
+          icon: <EditOutlined />,
+          label: t('edit'),
+          onClick: () => setSearchParams({ ...QS, edit: postId }),
+        }, {
+          key: 'delete',
+          icon: <DeleteOutlined />,
+          label: (
+            <Popconfirm
+              title={t('delete-confirm')}
+              onConfirm={handleDelete}
+              okText={t('yes')}
+              cancelText={t('no')}
+              icon={<QuestionCircleOutlined />}
+            >
+              {t('delete')}
+            </Popconfirm>
+          ),
+          danger: true,
+        },
+        ]}
+        />
       )}
     >
       <MoreOutlined />

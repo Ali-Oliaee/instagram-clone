@@ -14,7 +14,7 @@ function profilePage() {
   const currentUser = JSON.parse(localStorage.getItem('user') || '{}')
   const currentUserId = currentUser.id
   const { data: user, isLoading } = useQuery('getCurrentUser', () => getAccountInformation(Number(userId)))
-  const { data: userPosts, isLoading: postsLoading, refetch } = useQuery('profilePosts', () => getUserPosts(Number(userId)))
+  const { data: userPosts, isLoading: postsLoading, refetch } = useQuery('postsWrapper', () => getUserPosts(Number(userId)))
 
   return (
     <PageWrapper isLoading={isLoading} className="profile-page">

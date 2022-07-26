@@ -4,7 +4,7 @@ import { getArchivedPosts } from '../../utils/api'
 import './style.scss'
 
 function SavedPage() {
-  const { data: archivePosts, isLoading, refetch } = useQuery('archivePosts', getArchivedPosts)
+  const { data: archivePosts, isLoading, refetch } = useQuery('postsWrapper', getArchivedPosts)
 
   return (
     <PageWrapper className="saved-page" isLoading={isLoading}>

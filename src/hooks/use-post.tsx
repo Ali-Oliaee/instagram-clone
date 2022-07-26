@@ -39,12 +39,12 @@ const usePost = () => {
   const likePost = (account: any, post: any) => axios.post('/likes/create/', { account, post }).then(() => queryClient.invalidateQueries('post'))
   const archivePost = (account: any, post: any) => axios.post('/archives/create/', { account, post }).then(() => {
     queryClient.invalidateQueries('post')
-    queryClient.invalidateQueries('archivePosts')
+    queryClient.invalidateQueries('postsWrapper')
   })
   const unLikePost = (account: any, post: any) => axios.delete(`/likes/destroy/account=${account}/post=${post}/`).then(() => queryClient.invalidateQueries('post'))
   const unArchivePost = (account: any, post: any) => axios.delete(`/archives/destroy/account=${account}/post=${post}/`).then(() => {
     queryClient.invalidateQueries('post')
-    queryClient.invalidateQueries('archivePosts')
+    queryClient.invalidateQueries('postsWrapper')
   })
 
   return {

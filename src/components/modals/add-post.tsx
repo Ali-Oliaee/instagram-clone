@@ -34,7 +34,7 @@ function AddPostModal() {
     addPost(data).then(() => {
       message.success('file uploaded successfully.')
       setSearchParams({})
-      queryClient.invalidateQueries('posts')
+      queryClient.invalidateQueries('profilePosts')
       setSecondModalVisible(false)
     })
       .finally(() => (setLoading(false)))

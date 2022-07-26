@@ -8,7 +8,7 @@ import './style.scss'
 
 function HomePage() {
   const [searchKey, setSearchKey] = useState('')
-  const { data: posts, isLoading, refetch } = useQuery('homePagePosts', getFollowersPosts)
+  const { data: posts, isLoading, refetch } = useQuery('postsWrapper', getFollowersPosts)
   const { t } = useTranslation()
 
   const fuse = new Fuse(posts ?? [], {

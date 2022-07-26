@@ -50,10 +50,12 @@ function Comments() {
         {isLoading ? (
           <Skeleton active avatar title paragraph />
         ) : (
-          comments?.map((comment: any) => {
+          comments?.map((comment: any, index: any) => {
             const avatarSrc = comment.author.photo ? `http://127.0.0.1:8000${comment.author.photo}` : defaultImage
             return (
               <Comment
+                // eslint-disable-next-line react/no-array-index-key
+                key={index}
                 author={<Link to={`/profile/${comment.author.id}`}>{comment.author.user.username}</Link>}
                 avatar={(<Avatar src={avatarSrc} alt={comment.author.user.username} />)}
                 content={<p>{comment.content}</p>}
