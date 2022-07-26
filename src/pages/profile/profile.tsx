@@ -2,20 +2,19 @@ import { EditOutlined } from '@ant-design/icons'
 import { Avatar, Button, Empty } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
-import { Link, matchRoutes, useLocation } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { PageWrapper, PostsWrapper } from '../../components'
-import { defaultImage, currentUser } from '../../utils/constants'
+import { defaultImage } from '../../utils/constants'
 import { getUserPosts, getAccountInformation } from '../../utils/api'
 import './style.scss'
 
 function profilePage() {
   const { t } = useTranslation()
-  const location = useLocation()
-  const route = matchRoutes([{ path: '/profile/:id' }], location)
-  const userId = Number(route?.[0].params.id)
+  const { id: userId } = useParams()
+  const currentUser = JSON.parse(localStorage.getItem('user') || '{}')
   const currentUserId = currentUser.id
-  const { data: user, isLoading } = useQuery('getCurrentUser', () => getAccountInformation(userId))
-  const { data: userPosts, isLoading: postsLoading, refetch } = useQuery('profilePosts', () => getUserPosts(userId))
+  const { data: user, isLoading } = useQuery('getCurrentUser', () => getAccountInformation(Number(userId)))
+  const { data: userPosts, isLoading: postsLoading, refetch } = useQuery('profilePosts', () => getUserPosts(Number(userId)))
 
   return (
     <PageWrapper isLoading={isLoading} className="profile-page">
@@ -24,7 +23,7 @@ function profilePage() {
         <div>
           <div className="profile-header">
             <span className="username">{user?.[0]?.user?.username}</span>
-            {userId !== currentUserId ? (
+            {Number(userId) !== currentUserId ? (
               <Button type="primary" size="small" className="edit-button">
                 { t('unFollow') }
               </Button>

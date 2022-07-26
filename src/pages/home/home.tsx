@@ -8,7 +8,7 @@ import './style.scss'
 
 function HomePage() {
   const [searchKey, setSearchKey] = useState('')
-  const { data: posts, isLoading } = useQuery('posts', getFollowersPosts)
+  const { data: posts, isLoading, refetch } = useQuery('homePagePosts', getFollowersPosts)
   const { t } = useTranslation()
 
   const fuse = new Fuse(posts ?? [], {
@@ -26,9 +26,7 @@ function HomePage() {
           <h3 className="user-suggestion-text">{t('no-following')}</h3>
           <UserSuggestion />
         </>
-      ) : (
-        !isLoading && <PostsWrapper posts={result} />
-      )}
+      ) : !isLoading && <PostsWrapper refetch={refetch} posts={result} />}
     </PageWrapper>
   )
 }

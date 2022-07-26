@@ -2,7 +2,7 @@ import { Empty } from 'antd'
 import qs from 'query-string'
 import { PostCard } from '../post-card'
 import { Comments } from '../comments'
-import { EditPostModal, PostModal } from '../modals'
+import { EditPostModal, PostModal, LikedUsersList } from '../modals'
 import './style.scss'
 
 function PostsWrapper({ posts, refetch }: any) {
@@ -23,11 +23,13 @@ function PostsWrapper({ posts, refetch }: any) {
           created_at={post?.created_at}
           updated_at={post?.updated_at}
           comment_status={post?.comment_status}
+          refetch={refetch}
         />
       )) : <Empty />}
       {QS.comments && <Comments />}
       {QS.edit && <EditPostModal />}
       {QS.post && <PostModal />}
+      {QS.likes && <LikedUsersList />}
     </div>
   )
 }

@@ -33,7 +33,7 @@ function PostCard({
           <CardMeta creator={creator} postId={id} />
           <img src={image} alt={title} />
           <div className="post-info">
-            <PostOptions likes={likes} id={id} enableComments={enableComments} archives={archives} />
+            <PostOptions refetch={refetch} likes={likes} id={id} enableComments={enableComments} archives={archives} />
             <PostContent title={title} caption={caption} tags={tags} updatedAt={updatedAt} createdAt={createdAt} username={creator.user.username} />
           </div>
         </Card>

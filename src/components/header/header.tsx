@@ -20,7 +20,7 @@ import {
 import { Link, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
-import { currentUser, defaultImage } from '../../utils/constants'
+import { defaultImage } from '../../utils/constants'
 import { Logo } from '../logo'
 import { getAccountInformation } from '../../utils/api'
 import './style.scss'
@@ -28,7 +28,10 @@ import './style.scss'
 function Header({ setSearchKey, search }: any) {
   const { t } = useTranslation()
   const [searchParams, setSearchParams] = useSearchParams()
-  const logout = () => localStorage.clear()
+  const currentUser = JSON.parse(localStorage.getItem('user') || '{}')
+  const logout = () => {
+    localStorage.clear()
+  }
   const { data } = useQuery('currentUser', () => getAccountInformation(currentUser.id))
   // eslint-disable-next-line no-unsafe-optional-chaining
   const userAvatar = data?.[0]?.photo

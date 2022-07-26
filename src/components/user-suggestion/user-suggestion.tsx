@@ -4,15 +4,16 @@ import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
 import { Link } from 'react-router-dom'
 import axios from '../../utils/axios'
-import { defaultImage, currentUser as account } from '../../utils/constants'
+import { defaultImage } from '../../utils/constants'
 import './style.scss'
 
 function UserSuggestion(): ReactElement {
   const { data: users } = useQuery('suggestedUsers', () => axios.get('/account/suggestion-account/').then(({ data }) => data))
   const { t } = useTranslation()
+  const currentUser = JSON.parse(localStorage.getItem('user') || '{}')
   const followUser = (id: number) => axios.post('/follows/following/create/', {
     account: id,
-    following: account.id,
+    following: currentUser.id,
   })
 
   return (

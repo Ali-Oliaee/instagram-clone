@@ -1,10 +1,10 @@
 import { message, Select } from 'antd'
 import axios from '../../utils/axios'
 import i18n from '../../utils/i18n'
-import { currentUser } from '../../utils/constants'
 import './style.scss'
 
 function SwitchLanguage() {
+  const currentUser = localStorage.getItem('user')
   const { Option } = Select
   const changeLanguage = (language: string) => {
     if (currentUser) {

@@ -7,7 +7,7 @@ import {
 import {
   DeleteOutlined, EditOutlined, MoreOutlined, QuestionCircleOutlined,
 } from '@ant-design/icons'
-import { currentUser, defaultImage } from '../../utils/constants'
+import { defaultImage } from '../../utils/constants'
 import usePost from '../../hooks/use-post'
 import './style.scss'
 
@@ -15,6 +15,7 @@ function CardMeta({ creator, postId }: any) {
   const { Meta } = Card
   const { t } = useTranslation()
   const { deletePost } = usePost()
+  const currentUser = JSON.parse(localStorage.getItem('user') || '{}')
   const [searchParams, setSearchParams] = useSearchParams()
   const queryClient = useQueryClient()
 

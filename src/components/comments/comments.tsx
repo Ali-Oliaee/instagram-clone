@@ -50,18 +50,16 @@ function Comments() {
         {isLoading ? (
           <Skeleton active avatar title paragraph />
         ) : (
-          comments?.map((comment: any) => (
-            <Comment
-              author={<Link to={`/profile/${comment.author.id}`}>{comment.author.user.username}</Link>}
-              avatar={(
-                <Avatar
-                  src={baseURL + comment.author.photo ?? defaultImage}
-                  alt={comment.author.user.username}
-                />
-              )}
-              content={<p>{comment.content}</p>}
-            />
-          ))
+          comments?.map((comment: any) => {
+            const avatarSrc = comment.author.photo ? `http://127.0.0.1:8000${comment.author.photo}` : defaultImage
+            return (
+              <Comment
+                author={<Link to={`/profile/${comment.author.id}`}>{comment.author.user.username}</Link>}
+                avatar={(<Avatar src={avatarSrc} alt={comment.author.user.username} />)}
+                content={<p>{comment.content}</p>}
+              />
+            )
+          })
         )}
       </div>
       <Form form={form} onFinish={sendComment} layout="vertical">

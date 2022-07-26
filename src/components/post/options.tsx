@@ -3,18 +3,17 @@ import {
 } from '@ant-design/icons'
 import { Button } from 'antd'
 import { useTranslation } from 'react-i18next'
-import qs from 'query-string'
 import { useSearchParams } from 'react-router-dom'
+import qs from 'query-string'
 import usePost from '../../hooks/use-post'
-import { currentUser } from '../../utils/constants'
-import { UsersList } from '../modals'
 
 function PostOptions({
-  id, likes, enableComments, archives,
+  id, likes, enableComments, archives, refetch,
 }: any) {
   const { t } = useTranslation()
-  const QS = qs.parse(window.location.search)
+  const currentUser = JSON.parse(localStorage.getItem('user') || '{}')
   const [searchParams, setSearchParams] = useSearchParams()
+  const QS = qs.parse(window.location.search)
   const {
     likePost, unLikePost, archivePost, unArchivePost,
   } = usePost()
@@ -25,30 +24,21 @@ function PostOptions({
         {likes?.includes(currentUser?.id) ? (
           <Button
             className="like-button"
-            onClick={() => unLikePost(currentUser.id, id)}
+            onClick={() => unLikePost(currentUser.id, id).then(() => refetch())}
             size="large"
             icon={<HeartFilled style={{ color: 'red' }} />}
           />
         ) : (
           <Button
             className="like-button"
-            onClick={() => likePost(currentUser.id, id)}
+            onClick={() => likePost(currentUser.id, id).then(() => refetch())}
             size="large"
             icon={<HeartOutlined />}
           />
         )}
-        <Button type="ghost" className="likes-number-button" onClick={() => likes?.length && setSearchParams('likes=true')}>
+        <Button type="ghost" className="likes-number-button" onClick={() => likes?.length && setSearchParams({ ...QS as any, likes: 'true' })}>
           {`${likes?.length} ${t('likes')}`}
         </Button>
-        <UsersList
-          data={likes}
-          visible={!!QS.likes}
-          title="Likes"
-          onCancel={() => {
-            delete QS.likes
-            setSearchParams(QS as any)
-          }}
-        />
       </span>
       <span>
         {enableComments && (
@@ -62,14 +52,14 @@ function PostOptions({
         {archives?.includes(currentUser.id) ? (
           <Button
             size="large"
-            onClick={() => unArchivePost(currentUser.id, id)}
+            onClick={() => unArchivePost(currentUser.id, id).then(() => refetch())}
             icon={<DownSquareFilled style={{ color: 'green' }} />}
             className="archive-button"
           />
         ) : (
           <Button
             size="large"
-            onClick={() => archivePost(currentUser.id, id)}
+            onClick={() => archivePost(currentUser.id, id).then(() => refetch())}
             icon={<DownSquareOutlined />}
             className="archive-button"
           />

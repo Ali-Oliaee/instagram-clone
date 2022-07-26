@@ -17,8 +17,8 @@ function MainRouter() {
   const isUserAuth = () => (!!localStorage.getItem('tokens'))
   const isAuth = isUserAuth()
   useEffect(() => {
-    if (!isAuth) navigate('/auth/login')
-  }, [])
+    console.log('ok')
+  }, [localStorage.getItem('tokens')])
 
   return (
     <Routes>

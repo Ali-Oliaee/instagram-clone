@@ -7,7 +7,7 @@ import { useQuery } from 'react-query'
 import useUser from '../../hooks/use-user'
 import { FloatLabel, PageWrapper, SwitchLanguage } from '../../components'
 import { getAccountInformation } from '../../utils/api'
-import { currentUser, defaultImage } from '../../utils/constants'
+import { defaultImage } from '../../utils/constants'
 import useValidation from '../../hooks/use-validation'
 import ChangePasswordModal from './change-password-modal'
 import './style.scss'
@@ -16,6 +16,7 @@ function SettingsPage() {
   const [visible, setVisible] = useState(false)
   const [loading, setLoading] = useState(false)
   const [form] = Form.useForm()
+  const currentUser = JSON.parse(localStorage.getItem('user') || '{}')
   const { validateUploadImage } = useValidation()
   const { t } = useTranslation()
   const { changeProfileInfo, changeProfileImage } = useUser()
