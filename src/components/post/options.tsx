@@ -19,7 +19,7 @@ function PostOptions({
   } = usePost()
 
   return (
-    <div className="card-operations">
+    <div className="post-card-options">
       <span>
         {likes?.includes(currentUser?.id) ? (
           <Button

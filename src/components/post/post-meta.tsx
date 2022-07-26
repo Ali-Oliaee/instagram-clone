@@ -23,7 +23,7 @@ function CardMeta({ creator, postId }: any) {
 
   const handleDelete = () => deletePost(postId).then(() => {
     message.success('Post deleted successfully!')
-    queryClient.invalidateQueries('profilePosts')
+    queryClient.invalidateQueries('postsWrapper')
     setSearchParams({})
   })
 
@@ -61,7 +61,7 @@ function CardMeta({ creator, postId }: any) {
   )
 
   return (
-    <div className="creator">
+    <div className="post-card-meta">
       <Link to={`/profile/${creator?.id}`}>
         <Meta title={creator?.user?.username} avatar={<Avatar src={creator?.photo ?? defaultImage} />} />
       </Link>

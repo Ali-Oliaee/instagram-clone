@@ -34,7 +34,7 @@ function AddPostModal() {
     addPost(data).then(() => {
       message.success('file uploaded successfully.')
       setSearchParams({})
-      queryClient.invalidateQueries('profilePosts')
+      queryClient.invalidateQueries('postsWrapper')
       setSecondModalVisible(false)
     })
       .finally(() => (setLoading(false)))
@@ -55,8 +55,8 @@ function AddPostModal() {
         <Form form={form}>
           <Form.Item name="post">
             <ImgCrop
+              zoom={false}
               rotate
-              zoom
               modalTitle={t('crop-image')}
               modalOk={t('confirm')}
               modalCancel={t('cancel')}
@@ -70,6 +70,7 @@ function AddPostModal() {
                 maxCount={1}
                 showUploadList={false}
                 beforeUpload={validateUploadImage}
+                customRequest={() => {}}
               >
                 <p className="ant-upload-drag-icon">
                   <InboxOutlined />

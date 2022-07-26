@@ -64,7 +64,7 @@ function Comments() {
           })
         )}
       </div>
-      <Form form={form} onFinish={sendComment} layout="vertical">
+      <Form form={form} className="comment-input" onFinish={sendComment} layout="vertical">
         <Form.Item name="commentContent" rules={[requiredComment]}>
           <Input placeholder="write a comment..." />
         </Form.Item>

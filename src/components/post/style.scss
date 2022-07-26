@@ -1,0 +1,76 @@
+@import '../../utils/utils';
+
+.post-card-meta {
+    margin: 10px 6px;
+    @include flex(space-between);
+
+    .ant-card-meta {
+        @include flex(space-between);
+    }
+
+    .anticon-more {
+        transform: rotate(90deg);
+        font-size: 1.3em;
+    }
+}
+
+.post-card-options {
+    @include flex(space-between);
+
+    .like-button,
+    .archive-button,
+    .comment-button,
+    .likes-number-button {
+        border: 0;
+        padding: 0;
+
+        &:hover,
+        &:focus,
+        &:active {
+            color: unset;
+        }
+    }
+}
+
+.post-card-content {
+    padding-inline: 14px;
+
+    .title {
+        font-size: 1.2em;
+        font-weight: bold;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 90%;
+    }
+
+    .description-container {
+        max-width: 95%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+
+        .creator {
+            display: inline;
+            font-weight: bold;
+        }
+    }
+
+    .comment-input {
+        @include flex(flex-start);
+        border: 0;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .tag {
+        background-color: rgb(212, 212, 212);
+        border-radius: 8px;
+        margin-block: 4px;
+    }
+
+    .date {
+        font-size: 0.6em;
+        margin-inline-end: 8px;
+    }
+}

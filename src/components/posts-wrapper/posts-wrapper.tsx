@@ -17,9 +17,10 @@ function PostsWrapper({ posts, refetch }: any) {
     <div className={posts?.length ? 'posts-wrapper__full' : 'posts-wrapper__empty'}>
       { posts?.length ? posts.map((post : any) => (
         // eslint-disable-next-line react/jsx-props-no-spreading
-        isMobile ? <PostCard refetch={refetch} {...post} />
+        isMobile ? <PostCard key={post?.id} refetch={refetch} {...post} />
           : (
             <Image
+              key={post?.id}
               src={post?.file}
               alt={post?.title}
               className="post-image"

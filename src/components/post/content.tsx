@@ -9,7 +9,7 @@ function PostContent({
   dayjs.extend(relativeTime)
 
   return (
-    <>
+    <div className="post-card-content">
       <h2 className="title">{title}</h2>
       {caption && (
       <div className="description-container">
@@ -31,7 +31,7 @@ function PostContent({
         {' '}
         {updatedAt !== createdAt && <EditOutlined />}
       </span>
-    </>
+    </div>
   )
 }
 

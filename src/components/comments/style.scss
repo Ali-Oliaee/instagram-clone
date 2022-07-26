@@ -1,11 +1,24 @@
 .comments-modal {
-    .comments {
-        max-height: 60vh;
-        overflow: auto;
+    .ant-modal-header {
+        padding: 10px;
     }
-    .ant-form-item {
-        width: 70%;
-        margin: 0;
-        display: inline-block;
+
+    .ant-modal-body {
+        padding-top: 0;
+
+        .comments {
+            max-height: 60vh;
+            overflow: auto;
+        }
+
+        .comment-input {
+            width: 100%;
+            display: flex;
+            margin: 0;
+
+            .ant-form-item {
+                flex: 1;
+            }
+        }
     }
 }

@@ -41,7 +41,7 @@ function PostCard({
           tags={tags}
           updatedAt={updated_at}
           createdAt={created_at}
-          username={account.user.username}
+          username={account?.user?.username}
         />
       </div>
     </Card>
