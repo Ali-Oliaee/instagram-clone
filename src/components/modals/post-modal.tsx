@@ -1,4 +1,6 @@
-import { Card, Modal, Skeleton } from 'antd'
+import {
+  Card, Image, Modal, Skeleton,
+} from 'antd'
 import { useSearchParams } from 'react-router-dom'
 import qs from 'query-string'
 import { useQuery } from 'react-query'
@@ -24,15 +26,12 @@ function PostModal() {
     >
       {isLoading ? <Skeleton active title paragraph /> : (
         <>
-          <div className="image-container">
-            <img
-              src={post?.file}
-              alt={post?.title}
-              height="100%"
-              width="100%"
-              className="post-modal-image"
-            />
-          </div>
+          <Image
+            preview={false}
+            src={post?.file}
+            alt={post?.title}
+            className="post-modal-image"
+          />
           <div className="post-info">
             <Card className="post-card">
               <CardMeta creator={post?.account} postId={post?.id} />

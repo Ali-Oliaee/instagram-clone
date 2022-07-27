@@ -32,7 +32,7 @@ function PostsWrapper({ posts, refetch }: any) {
           )
       )) : <Empty />}
       {QS.comments && <Comments />}
-      {QS.edit && <EditPostModal refetch={refetch} />}
+      {QS.edit && <EditPostModal />}
       {QS.post && <PostModal />}
       {QS.likes && <LikedUsersList />}
     </div>

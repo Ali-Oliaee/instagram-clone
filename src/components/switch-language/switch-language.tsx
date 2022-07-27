@@ -8,7 +8,7 @@ function SwitchLanguage() {
   const { Option } = Select
   const changeLanguage = (language: string) => {
     if (currentUser) {
-      return axios.post('account/change-language/', {
+      return axios.patch('account/change-language/', {
         language,
       }).then(({ data }) => {
         message.success(data.message)

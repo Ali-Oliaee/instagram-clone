@@ -9,33 +9,31 @@ import qs from 'query-string'
 import usePost from '../../hooks/use-post'
 import useValidation from '../../hooks/use-validation'
 import { FloatLabel } from '../float-label'
-import './style.scss'
 import { getPost } from '../../utils/api'
+import './style.scss'
 
-function EditPostModal({ refetch }: any) {
+function EditPostModal() {
   const { editPost } = usePost()
   const [searchParams, setSearchParams] = useSearchParams()
   const [loading, setLoading] = useState(false)
   const QS = qs.parse(window.location.search)
   const { t } = useTranslation()
   const [form] = Form.useForm()
-  const { data: post, isLoading } = useQuery('post', () => getPost(Number(QS.post)))
+  const { data: post, refetch } = useQuery('post', () => getPost(Number(QS.post)))
   const { requiredTitle, maxTitleLength } = useValidation()
-  console.log(post)
+  const tags = post?.tags.length && post.tags.map((tag:any) => tag.name)
 
-  form.setFieldsValue({ ...post })
+  form.setFieldsValue({ ...post, tags, enableComments: post?.comment_status })
 
   const handleSubmit = (formData: any) => {
-    console.log(formData)
-
     setLoading(true)
     // eslint-disable-next-line no-param-reassign
     formData.id = post.id
     editPost(formData).then(() => {
-      form.resetFields()
       delete QS.edit
       setSearchParams(QS as any)
       message.success('post edited successfully!')
+      form.resetFields()
       refetch()
     }).finally(() => setLoading(false))
   }
