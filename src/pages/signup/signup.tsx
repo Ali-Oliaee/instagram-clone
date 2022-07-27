@@ -1,37 +1,28 @@
 import { useTranslation } from 'react-i18next'
-import {
-  Button, Divider, Form, message,
-} from 'antd'
-import { Link, useNavigate } from 'react-router-dom'
+import { Button, Divider, Form } from 'antd'
+import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import useUser from '../../hooks/use-user'
+import useValidation from '../../hooks/use-validation'
 import {
   FloatLabel, GoogleButton, Logo, SwitchLanguage,
 } from '../../components'
-import axios from '../../utils/axios'
-import { NewUser } from '../../interfaces'
 import './style.scss'
 
 function SignupPage() {
-  const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
   const [form] = Form.useForm()
-  const navigate = useNavigate()
+  const [loading, setLoading] = useState(false)
+  const { signUp, login } = useUser()
+  const {
+    requiredUsername, requiredEmail, invalidEmail, requiredPassword, minLengthPassword, validatePasswords,
+  } = useValidation()
 
-  const handleSubmit = ({
-    username, email, password,
-  } : NewUser) => {
+  const handleSubmit = (formData: any) => {
     setLoading(true)
-    return axios.post('/users/register/', {
-      username,
-      email,
-      password,
-    })
-      .then(({ data }) => {
-        message.success(data.message)
-        navigate('/auth/login')
-      })
-      .finally(() => setLoading(false))
+    return signUp(formData).then(() => login(formData)).finally(() => setLoading(false))
   }
+
   return (
     <div className="signup-page">
       <section>
@@ -39,64 +30,16 @@ function SignupPage() {
           <Logo />
           <h4 className="description">{t('signup-description')}</h4>
           <Form onFinish={handleSubmit} form={form}>
-            <Form.Item
-              name="username"
-              rules={[
-                {
-                  required: true,
-                  message: t('require-username'),
-                },
-              ]}
-            >
+            <Form.Item name="username" rules={[requiredUsername]}>
               <FloatLabel autoFocus label={t('username')} value={form.getFieldValue('username')} />
             </Form.Item>
-            <Form.Item
-              name="email"
-              rules={[
-                {
-                  required: true,
-                  message: t('require-email'),
-                },
-                {
-                  type: 'email',
-                  message: t('invalid-email'),
-                },
-              ]}
-            >
+            <Form.Item name="email" rules={[requiredEmail, invalidEmail]}>
               <FloatLabel label={t('email')} value={form.getFieldValue('email')} type="email" />
             </Form.Item>
-            <Form.Item
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: t('require-password'),
-                },
-                {
-                  min: 6,
-                  message: t('min-password'),
-                },
-              ]}
-            >
+            <Form.Item name="password" rules={[requiredPassword, minLengthPassword]}>
               <FloatLabel label={t('password')} value={form.getFieldValue('password')} type="password" />
             </Form.Item>
-            <Form.Item
-              name="confirmPassword"
-              dependencies={['password']}
-              rules={[{
-                required: true,
-                message: t('require-confirm-password'),
-
-              },
-              ({ getFieldValue }) => ({
-                validator(_, value) {
-                  if (!value || getFieldValue('password') === value) {
-                    return Promise.resolve()
-                  }
-                  return Promise.reject(new Error(t('passwords-not-match')))
-                },
-              })]}
-            >
+            <Form.Item name="confirmPassword" dependencies={['password']} rules={[requiredPassword, validatePasswords]}>
               <FloatLabel label={t('confirm-password')} value={form.getFieldValue('confirmPassword')} type="password" />
             </Form.Item>
             <Button loading={loading} htmlType="submit" type="primary" size="middle" block>{t('submit')}</Button>

@@ -1,31 +1,27 @@
-/* eslint-disable import/no-unresolved */
 import { Avatar, Button } from 'antd'
 import { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
 import { Link } from 'react-router-dom'
-import { useCurrentUser } from '../../context'
-import { UserSuggestionProps } from '../../interfaces'
 import axios from '../../utils/axios'
 import { defaultImage } from '../../utils/constants'
 import './style.scss'
 
 function UserSuggestion(): ReactElement {
-  const { currentUser }: any = useCurrentUser()
   const { data: users } = useQuery('suggestedUsers', () => axios.get('/account/suggestion-account/').then(({ data }) => data))
-  const { account } = currentUser
   const { t } = useTranslation()
+  const currentUser = JSON.parse(localStorage.getItem('user') || '{}')
   const followUser = (id: number) => axios.post('/follows/following/create/', {
     account: id,
-    following: account.id,
+    following: currentUser.id,
   })
 
   return (
     <div className="user-suggestion">
       {users?.map(({
         id, photo, user, bio,
-      }: UserSuggestionProps) => (
-        <div className="user-card">
+      }: any) => (
+        <div className="user-card" key={id}>
           <Link to={`/profile/${id}`}>
             <Avatar size="large" src={photo ?? defaultImage} />
             <h3>{user.username}</h3>

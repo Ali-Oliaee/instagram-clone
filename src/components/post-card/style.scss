@@ -1,113 +1,15 @@
-@import '../../utils/utils';
-
 .post-card {
     overflow: hidden;
     width: 100%;
     border: 0;
-    
-    .ant-card-body {    
+
+    .ant-card-body {
         padding: 0;
         margin: 0;
-    }
-
-    .creator {
-        margin: 10px 6px;
-        @include flex(space-between);
-        .ant-card-meta {
-            @include flex(space-between);
-            &-title {
-                margin-inline-start: 8px;
-            }
-        }    
-        .anticon-more {
-            transform: rotate(90deg);
-            font-size: 1.3em;
-        }
     }
 
     img {
         height: auto;
         width: 100%;
-    }
-    .post-info {
-        padding-inline: 14px;
-        .title {
-            font-size: 1.2em;
-            font-weight: bold;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
-            max-width: 90%;
-        }
-        .description-container {
-            max-width: 95%;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
-            .creator {
-                display: inline;
-                font-weight: bold;
-            }
-        }
-        .comment-input {
-            @include flex(flex-start);
-            border: 0;
-            width: 100%;
-            margin-bottom: 5px;
-        }
-        .tag{
-            background-color: rgb(212, 212, 212);
-            border-radius: 8px;
-            margin-block: 4px;
-        }
-        .card-operations {
-            @include flex(space-between);
-            margin-inline: -12px;
-            .like-button, .archive-button, .comment-button, .likes-number-button {
-                border: 0;
-                padding: 0;
-                &:hover, &:focus, &:active {
-                    color: unset;
-                }
-            }
-        }
-        .date {
-            font-size: 0.6em;
-            margin-inline-end: 8px;
-        }
-    }
-}
-
-.post-image {
-    object-fit: cover;
-    height: 150px;
-    width: 200px;
-    cursor: pointer;
-    &:hover {
-        opacity: 0.8;
-    }
-}
-
-.post-card-modal { 
-    .image-container {
-        height: 100%;
-        .post-modal-image {
-            object-fit: cover;
-            height: 100%;
-            width: 100%;
-        }
-    }
-    .post-info {
-        height: 100%;
-        width: 100%;
-        padding: 5px 10px;
-        .ant-card {
-            border: 0;
-        }
-    }
-    
-    .ant-modal-body {
-        display: flex;
-        padding: 0;
     }
 }

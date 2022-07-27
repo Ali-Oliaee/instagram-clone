@@ -4,42 +4,52 @@
     .profile-info {
         @include flex(flex-start);
         margin: 20px;
+
         @media screen and (max-width: 450px) {
-            @include flex(center,center,column) ;
-            .report,.bio, .profile-header {
+            @include flex(center, center, column);
+
+            .report,
+            .bio,
+            .profile-header {
                 text-align: center;
                 margin: 0 auto;
             }
+
             .profile-header {
                 margin: 10px 0;
             }
         }
 
         .username {
-            margin: 0;
+            margin: 0 auto;
             font-size: 1.8em;
         }
+
         .edit-button {
             margin: 0 20px;
         }
+
         .avatar {
             object-fit: contain;
             min-width: 100px;
             min-height: 100px;
-            margin:  0;
+            margin: 0;
             margin-inline-end: 20px;
         }
+
         .report {
             button {
                 padding: 0;
                 margin-inline-end: 10px;
                 border: 0;
                 color: #000;
+
                 &:hover {
                     color: #000;
                 }
             }
         }
+
         .bio {
             max-width: 350px;
             margin-top: 10px;

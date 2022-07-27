@@ -1,19 +1,23 @@
 @import '../../utils/utils';
 
-.posts-wrapper {
+.posts-wrapper__full {
     display: grid;
     grid-template-columns: repeat(auto-fill, 200px);
     grid-gap: 20px;
-    margin-inline: 20px;
-    flex-wrap: wrap;
     margin-top: 20px;
+    justify-content: center;
 
     @media screen and (max-width: 500px) {
-        margin-inline:0;
+        margin-inline: 0;
         display: initial;
     }
+}
 
-    .empty {
-        margin-top: 20px;
+.posts-wrapper__empty {
+    @extend .posts-wrapper__full;
+    display: unset;
+
+    .ant-empty {
+        margin-top: 50px;
     }
-}   
+}

@@ -3,23 +3,27 @@ import {
 } from 'antd'
 import { useState } from 'react'
 import { useQuery } from 'react-query'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
+import qs from 'query-string'
 import { getComments } from '../../utils/api'
+import useValidation from '../../hooks/use-validation'
 import { defaultImage } from '../../utils/constants'
 import axios from '../../utils/axios'
-import { CommentInterface } from '../../interfaces'
 import './style.scss'
 
-function Comments({ id, visible, onCancel }: any) {
+function Comments() {
   const [loading, setLoading] = useState(false)
   const [form] = Form.useForm()
-  const { data: comments, isLoading, refetch } = useQuery('comments', () => getComments(id))
+  const [searchParams, setSearchParams] = useSearchParams()
+  const QS = qs.parse(window.location.search)
+  const { data: comments, isLoading, refetch } = useQuery('comments', () => getComments(Number(QS.comments)))
+  const { requiredComment } = useValidation()
 
   const sendComment = ({ commentContent }: any) => {
     setLoading(true)
     return commentContent && axios.post('/comments/create/', {
       content: commentContent,
-      post: id,
+      post: QS.comments,
     }).then(() => {
       message.success('comment added successfully!')
       refetch()
@@ -29,12 +33,16 @@ function Comments({ id, visible, onCancel }: any) {
 
   return (
     <Modal
-      visible={visible}
+      visible={!!QS.comments}
       footer={null}
       title="Comments"
       className="comments-modal"
       closable
-      onCancel={onCancel}
+      onCancel={() => {
+        delete QS.comments
+        delete QS.comments
+        setSearchParams(QS as any)
+      }}
       destroyOnClose
       centered
     >
@@ -42,28 +50,22 @@ function Comments({ id, visible, onCancel }: any) {
         {isLoading ? (
           <Skeleton active avatar title paragraph />
         ) : (
-          comments?.map((comment: CommentInterface) => (
-            <Comment
-              author={<Link to={`profile/${comment.author.id}`}>{comment.author.user.username}</Link>}
-              avatar={(
-                <Avatar
-                  src={`http://localhost:8000${comment.author.photo}` ?? defaultImage}
-                  alt={comment.author.user.username}
-                />
-              )}
-              content={<p>{comment.content}</p>}
-            />
-          ))
+          comments?.map((comment: any, index: any) => {
+            const avatarSrc = comment.author.photo ? `http://127.0.0.1:8000${comment.author.photo}` : defaultImage
+            return (
+              <Comment
+                // eslint-disable-next-line react/no-array-index-key
+                key={index}
+                author={<Link to={`/profile/${comment.author.id}`}>{comment.author.user.username}</Link>}
+                avatar={(<Avatar src={avatarSrc} alt={comment.author.user.username} />)}
+                content={<p>{comment.content}</p>}
+              />
+            )
+          })
         )}
       </div>
-      <Form form={form} onFinish={sendComment} layout="vertical">
-        <Form.Item
-          name="commentContent"
-          rules={[{
-            required: true,
-            message: 'fill',
-          }]}
-        >
+      <Form form={form} className="comment-input" onFinish={sendComment} layout="vertical">
+        <Form.Item name="commentContent" rules={[requiredComment]}>
           <Input placeholder="write a comment..." />
         </Form.Item>
         <Button type="primary" htmlType="submit" loading={loading} onClick={sendComment}>Send</Button>

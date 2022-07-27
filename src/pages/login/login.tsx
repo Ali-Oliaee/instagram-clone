@@ -1,39 +1,26 @@
 import { useTranslation } from 'react-i18next'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { Button, Divider, Form } from 'antd'
 import { useState } from 'react'
-import {
-  Button, Divider, Form, message,
-} from 'antd'
+import useValidation from '../../hooks/use-validation'
+import useUser from '../../hooks/use-user'
 import {
   FloatLabel, GoogleButton, Logo, SwitchLanguage,
 } from '../../components'
-import i18n from '../../utils/i18n'
-import { useCurrentUser } from '../../context'
-import axios from '../../utils/axios'
-import { LoggedInUser } from '../../interfaces'
 import './style.scss'
 
 function LoginPage() {
-  const { setCurrentUser } : any = useCurrentUser()
-  const navigate = useNavigate()
-  const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
+  const [loading, setLoading] = useState(false)
   const [form] = Form.useForm()
+  const { login } = useUser()
+  const {
+    requiredEmail, invalidEmail, requiredPassword, minLengthPassword,
+  } = useValidation()
 
-  const handleSubmit = ({ email, password } : LoggedInUser) => {
+  const handleSubmit = (formData: any) => {
     setLoading(true)
-    return axios.post('users/login/', {
-      email,
-      password,
-    })
-      .then(({ data }) => {
-        message.success(data.message)
-        setCurrentUser(data.account)
-        localStorage.setItem('tokens', JSON.stringify(data.tokens))
-        i18n.changeLanguage(data.account.language.toLowerCase())
-        navigate('/')
-      })
-      .finally(() => setLoading(false))
+    return login(formData).finally(() => setLoading(false))
   }
 
   return (
@@ -42,34 +29,10 @@ function LoginPage() {
         <div className="form-container">
           <Logo />
           <Form onFinish={handleSubmit} form={form}>
-            <Form.Item
-              name="email"
-              rules={[
-                {
-                  required: true,
-                  message: t('require-email'),
-                },
-                {
-                  type: 'email',
-                  message: t('invalid-email'),
-                },
-              ]}
-            >
+            <Form.Item name="email" rules={[requiredEmail, invalidEmail]}>
               <FloatLabel type="email" autoFocus label={t('email')} value={form.getFieldValue('email')} />
             </Form.Item>
-            <Form.Item
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: t('require-password'),
-                },
-                {
-                  min: 6,
-                  message: t('min-password'),
-                },
-              ]}
-            >
+            <Form.Item name="password" rules={[requiredPassword, minLengthPassword]}>
               <FloatLabel type="password" label={t('password')} value={form.getFieldValue('password')} />
             </Form.Item>
             <Button loading={loading} htmlType="submit" type="primary" block>{t('submit')}</Button>

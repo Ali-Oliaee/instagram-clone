@@ -1,4 +1,5 @@
 @import '~antd/dist/antd.css';
+
 @font-face {
   font-family: "Instagram Sans";
   src: 'url(/rsrc.php/yb/r/WNfBhPMH-tK.ttf) format("truetype")',
@@ -17,4 +18,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-[ant-click-animating-without-extra-node='true']::after{display:none;}
+[ant-click-animating-without-extra-node='true']::after {
+  display: none;
+}

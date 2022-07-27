@@ -4,43 +4,47 @@ import {
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
-import { useQueryClient } from 'react-query'
-import { EditPost } from '../../interfaces'
-import axios from '../../utils/axios'
+import { useQuery } from 'react-query'
+import qs from 'query-string'
+import usePost from '../../hooks/use-post'
+import useValidation from '../../hooks/use-validation'
 import { FloatLabel } from '../float-label'
+import { getPost } from '../../utils/api'
 import './style.scss'
 
-function EditPostModal({ visible, onCancel, post }:any) {
+function EditPostModal() {
+  const { editPost } = usePost()
   const [searchParams, setSearchParams] = useSearchParams()
   const [loading, setLoading] = useState(false)
+  const QS = qs.parse(window.location.search)
   const { t } = useTranslation()
   const [form] = Form.useForm()
-  const queryClient = useQueryClient()
+  const { data: post, refetch } = useQuery('post', () => getPost(Number(QS.post)))
+  const { requiredTitle, maxTitleLength } = useValidation()
+  const tags = post?.tags.length && post.tags.map((tag:any) => tag.name)
 
-  form.setFieldsValue({ ...post })
+  form.setFieldsValue({ ...post, tags, enableComments: post?.comment_status })
 
-  const editPost = ({ title, caption, tags } : EditPost) => {
+  const handleSubmit = (formData: any) => {
     setLoading(true)
-    return axios.patch(`/posts/list/post=${post.id}/`, {
-      title,
-      caption,
-      tags,
-      comment_status: post.enableComments,
-    }).then(() => {
-      setSearchParams({})
-      queryClient.invalidateQueries('posts')
-      form.resetFields()
+    // eslint-disable-next-line no-param-reassign
+    formData.id = post.id
+    editPost(formData).then(() => {
+      delete QS.edit
+      setSearchParams(QS as any)
       message.success('post edited successfully!')
+      form.resetFields()
+      refetch()
     }).finally(() => setLoading(false))
   }
 
   return (
     <Modal
-      visible={visible}
+      visible={!!QS.edit}
       closable
       onCancel={() => {
-        onCancel()
-        form.resetFields()
+        delete QS.edit
+        setSearchParams(QS as any)
       }}
       title={t('edit-post')}
       footer={null}
@@ -48,16 +52,8 @@ function EditPostModal({ visible, onCancel, post }:any) {
       className="add-post-modal"
       destroyOnClose
     >
-      <Form onFinish={editPost} form={form}>
-        <Form.Item
-          name="title"
-          rules={[
-            {
-              required: true,
-              message: t('requred-title'),
-            },
-          ]}
-        >
+      <Form onFinish={handleSubmit} form={form}>
+        <Form.Item name="title" rules={[requiredTitle, maxTitleLength]}>
           <FloatLabel label={t('title')} autoFocus value={form.getFieldValue('title')} />
         </Form.Item>
         <Form.Item name="caption">

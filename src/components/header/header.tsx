@@ -17,47 +17,59 @@ import {
   Menu,
   Row,
 } from 'antd'
+import { Link, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
-import { Link, useSearchParams } from 'react-router-dom'
-import { useCurrentUser } from '../../context'
-import { getAccountInformation } from '../../utils/api'
 import { defaultImage } from '../../utils/constants'
 import { Logo } from '../logo'
+import { getAccountInformation } from '../../utils/api'
 import './style.scss'
 
 function Header({ setSearchKey, search }: any) {
-  const { currentUser, setCurrentUser } : any = useCurrentUser()
   const { t } = useTranslation()
   const [searchParams, setSearchParams] = useSearchParams()
-  const user = currentUser
-  const { data } = useQuery('user', () => getAccountInformation(user.account.id))
+  const currentUser = JSON.parse(localStorage.getItem('user') || '{}')
   const logout = () => {
-    setCurrentUser(null)
     localStorage.clear()
   }
+  const { data } = useQuery('currentUser', () => getAccountInformation(currentUser.id))
+  // eslint-disable-next-line no-unsafe-optional-chaining
+  const userAvatar = data?.[0]?.photo
 
   const menu = () => (
-    <Menu>
-      <Menu.Item key="profile" icon={<UserOutlined />}>
-        <Link to={`/profile/${user?.id}`}>
+    <Menu items={[{
+      key: 'profile',
+      icon: <UserOutlined />,
+      label: (
+        <Link to={`/profile/${currentUser.id}`}>
           {t('profile')}
         </Link>
-      </Menu.Item>
-      <Menu.Item key="setting" icon={<SettingOutlined />}>
+      ),
+    }, {
+      key: 'setting',
+      icon: <SettingOutlined />,
+      label: (
         <Link to="/settings">
           {t('settings')}
         </Link>
-      </Menu.Item>
-      <Menu.Item key="saved" icon={<InboxOutlined />}>
+      ),
+    }, {
+      key: 'saved',
+      icon: <InboxOutlined />,
+      label: (
         <Link to="/saved">
           {t('saved')}
         </Link>
-      </Menu.Item>
-      <Menu.Item key="logout" onClick={logout} danger icon={<LogoutOutlined />}>
-        {t('logout')}
-      </Menu.Item>
-    </Menu>
+      ),
+    }, { type: 'divider' }, {
+      key: 'logout',
+      icon: <LogoutOutlined />,
+      label: t('logout'),
+      danger: true,
+      onClick: logout,
+    },
+    ]}
+    />
   )
 
   return (
@@ -81,7 +93,7 @@ function Header({ setSearchKey, search }: any) {
               overlay={menu}
               trigger={['click']}
             >
-              <Avatar src={data?.[0].photo ?? defaultImage} size="small" />
+              <Avatar src={userAvatar ?? defaultImage} size="small" />
             </Dropdown>
           </div>
         </Row>

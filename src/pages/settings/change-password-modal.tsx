@@ -1,27 +1,20 @@
-import {
-  Button, Form, message, Modal,
-} from 'antd'
+import { Button, Form, Modal } from 'antd'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import axios from '../../utils/axios'
 import { FloatLabel } from '../../components'
+import useValidation from '../../hooks/use-validation'
+import useUser from '../../hooks/use-user'
 import './style.scss'
 
 function ChangePasswordModal({ visible, setVisible } : any) {
   const { t } = useTranslation()
-  const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
-  const changePassword = ({ newPassword, oldPassword } : any) => {
+  const [form] = Form.useForm()
+  const { changePassword } = useUser()
+  const { minLengthPassword, requiredPassword, validatePasswords } = useValidation()
+  const handleSubmit = (formData: any) => {
     setLoading(true)
-    return axios.post('/users/change-password/', {
-      new_password: newPassword,
-      old_password: oldPassword,
-    }).then(({ data }) => {
-      message.success(data.message)
-      setVisible(false)
-    })
-      .catch(({ response }) => message.error(response.data.message))
-      .finally(() => setLoading(false))
+    return changePassword(formData).then(() => setVisible(false)).finally(() => setLoading(false))
   }
 
   return (
@@ -33,49 +26,18 @@ function ChangePasswordModal({ visible, setVisible } : any) {
       onCancel={() => setVisible(false)}
       destroyOnClose
     >
-      <Form onFinish={changePassword}>
+      <Form onFinish={handleSubmit}>
         <Form.Item
-          rules={[{
-            required: true,
-            message: t('password-required'),
-          },
-          {
-            min: 6,
-            message: t('password-min'),
-          }]}
+          rules={[requiredPassword, minLengthPassword]}
           name="oldPassword"
         >
           <FloatLabel label={t('old-password')} type="password" autoFocus value={form.getFieldValue('oldPassword')} />
         </Form.Item>
-        <Form.Item
-          rules={[{
-            required: true,
-            message: t('password-required'),
-          },
-          {
-            min: 6,
-            message: t('password-min'),
-          }]}
-          name="newPassword"
-        >
+        <Form.Item rules={[requiredPassword, minLengthPassword]} name="password">
           <FloatLabel label={t('new-password')} type="password" value={form.getFieldValue('password')} />
         </Form.Item>
         <Form.Item
-          rules={[{
-            required: true,
-            message: t('password-required'),
-          },
-          {
-            min: 6,
-            message: t('password-min'),
-          },
-          ({ getFieldValue }) => ({
-            validator(_, value) {
-              if (!value || getFieldValue('newPassword') === value) { return Promise.resolve() }
-              return Promise.reject(new Error(t('passwords-not-match')))
-            },
-          }),
-          ]}
+          rules={[requiredPassword, minLengthPassword, validatePasswords]}
           name="confirmPassword"
         >
           <FloatLabel label={t('confirm-password')} value={form.getFieldValue('confirmPassword')} type="password" />
