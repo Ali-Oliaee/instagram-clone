@@ -34,6 +34,7 @@ function AddPostModal() {
     addPost(data).then(() => {
       message.success('file uploaded successfully.')
       queryClient.invalidateQueries('postsWrapper')
+      queryClient.invalidateQueries('getCurrentUser')
       form.resetFields()
       setSearchParams({})
       setSecondModalVisible(false)
