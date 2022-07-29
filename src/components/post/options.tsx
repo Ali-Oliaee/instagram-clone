@@ -36,7 +36,7 @@ function PostOptions({
             icon={<HeartOutlined />}
           />
         )}
-        <Button type="ghost" className="likes-number-button" onClick={() => likes?.length && setSearchParams({ ...QS as any, likes: 'true' })}>
+        <Button type="ghost" className="likes-number-button" onClick={() => likes?.length && setSearchParams({ ...QS as any, likes: id })}>
           {`${likes?.length} ${t('likes')}`}
         </Button>
       </span>

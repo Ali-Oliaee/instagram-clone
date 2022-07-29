@@ -10,3 +10,4 @@ export const getArchivedPosts = () => axios.get('/archives/list/').then(({ data 
 export const getFollowers = (id: number) => axios.get(`/follows/follower/list/account=${id}/`).then(({ data }) => data)
 export const getFollowing = (id: number) => axios.get(`/follows/following/list/account=${id}/`).then(({ data }) => data)
 export const getUsersByList = (list: any) => axios.post('/account/list-account-data/', { accounts_id: list }).then(({ data }:any) => data)
+export const getPostLikes = (id: any) => axios.get(`/likes/list/post=${id}/`).then(({ data }:any) => data)

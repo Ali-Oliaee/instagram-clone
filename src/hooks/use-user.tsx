@@ -26,9 +26,8 @@ const useUser = () => {
     password,
   })
 
-  const changeProfileInfo = ({ username, bio }: any) => axios.patch(`/account/update-information/${currentUser.id}/`, {
-    username,
-    bio,
+  const changeProfileInfo = ({ username, bio }: any) => axios.patch('/account/update-information/', {
+    username, bio,
     // TODO: set message for add responses
   }).then(({ data }) => message.success('updated'))
 
