@@ -19,7 +19,7 @@ function profilePage() {
   return (
     <PageWrapper isLoading={isLoading} className="profile-page">
       <div className="profile-info">
-        <Avatar src={user?.[0].photo ?? defaultImage} size="large" className="avatar" />
+        <Avatar src={user?.[0]?.photo ?? defaultImage} size="large" className="avatar" />
         <div>
           <div className="profile-header">
             <span className="username">{user?.[0]?.user?.username}</span>

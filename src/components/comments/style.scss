@@ -4,9 +4,10 @@
     }
 
     .ant-modal-body {
-        padding-top: 0;
+        padding-block: 0;
 
         .comments {
+            min-height: 20px;
             max-height: 60vh;
             overflow: auto;
         }
@@ -14,7 +15,7 @@
         .comment-input {
             width: 100%;
             display: flex;
-            margin: 0;
+            line-height: 0 !important;
 
             .ant-form-item {
                 flex: 1;

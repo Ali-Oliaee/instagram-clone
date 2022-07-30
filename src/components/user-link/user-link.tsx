@@ -10,7 +10,7 @@ function UserLink({
     <Link to={`/profile/${id}/`} className="user-link">
       <Avatar size="large" icon="user" src={photo ?? defaultImage} />
       <div className="user-link-info">
-        <h3>{user.username}</h3>
+        <h3>{user}</h3>
         <p>{bio}</p>
       </div>
     </Link>
