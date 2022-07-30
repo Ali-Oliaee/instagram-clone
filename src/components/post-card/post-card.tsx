@@ -2,7 +2,7 @@
 import { Card } from 'antd'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import CardMeta from '../post/post-meta'
+import CardMeta from '../post/meta'
 import PostOptions from '../post/options'
 import PostContent from '../post/content'
 import './style.scss'

@@ -24,6 +24,7 @@ function CardMeta({ creator, postId }: any) {
   const handleDelete = () => deletePost(postId).then(() => {
     message.success('Post deleted successfully!')
     queryClient.invalidateQueries('postsWrapper')
+    queryClient.invalidateQueries('getCurrentUser')
     setSearchParams({})
   })
 

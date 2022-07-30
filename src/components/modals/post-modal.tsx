@@ -7,7 +7,7 @@ import { useQuery } from 'react-query'
 import { useMediaQuery } from 'usehooks-ts'
 import PostContent from '../post/content'
 import PostOptions from '../post/options'
-import CardMeta from '../post/post-meta'
+import CardMeta from '../post/meta'
 import { getPost } from '../../utils/api'
 import './style.scss'
 

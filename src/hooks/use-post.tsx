@@ -10,9 +10,9 @@ const usePost = () => {
     const formData = new FormData()
     formData.append('file', file)
     formData.append('title', title)
-    formData.append('caption', caption)
+    if (caption) formData.append('caption', caption)
     formData.append('comment_status', enableComments)
-    tags.forEach((tag: any) => formData.append('tags', tag))
+    if (tags?.length)tags.forEach((tag: any) => formData.append('tags', tag))
 
     return axios.post(
       '/posts/create/',
