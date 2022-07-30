@@ -8,7 +8,7 @@ function UserLink({
 }:any) {
   return (
     <Link to={`/profile/${id}/`} className="user-link">
-      <Avatar size="large" icon="user" src={photo} />
+      <Avatar size="large" icon="user" src={photo ?? defaultImage} />
       <div className="user-link-info">
         <h3>{user.username}</h3>
         <p>{bio}</p>

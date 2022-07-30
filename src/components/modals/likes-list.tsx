@@ -2,7 +2,7 @@ import { Modal } from 'antd'
 import { useQuery } from 'react-query'
 import qs from 'query-string'
 import { useSearchParams } from 'react-router-dom'
-import { getPost, getPostLikes } from '../../utils/api'
+import { getPostLikes } from '../../utils/api'
 import { UserLink } from '../user-link'
 import './style.scss'
 

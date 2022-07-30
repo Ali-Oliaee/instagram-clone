@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import { Button, Divider, Form } from 'antd'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
@@ -46,20 +46,16 @@ function SignupPage() {
             <Divider>{t('or')}</Divider>
             <GoogleButton />
             <h4>
-              {t('privacy-rules')}
-              {' '}
-              <Link to="/terms">{t('terms')}</Link>
-              ,
-              {' '}
-              <Link to="/data-policy">
-                {t('data-policy')}
-              </Link>
-              {' '}
-              {t('and')}
-              {' '}
-              <Link to="/cookies">{t('cookie')}</Link>
-              .
+              <Trans i18nKey="privacy-policy">
+                By signing up, you agree to our
+                <Link to="/terms">Terms</Link>
+                ,
+                <Link to="/data-policy">Data Policy</Link>
+                and
+                <Link to="/cookies">Cookie Policy</Link>
+              </Trans>
             </h4>
+
           </Form>
         </div>
         <h4 className="signin-link">
