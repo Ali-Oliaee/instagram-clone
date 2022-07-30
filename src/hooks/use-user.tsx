@@ -1,11 +1,12 @@
 import { useNavigate } from 'react-router-dom'
 import { message } from 'antd'
+import { useQueryClient } from 'react-query'
 import i18n from '../utils/i18n'
 import axios from '../utils/axios'
 
 const useUser = () => {
   const navigate = useNavigate()
-  const currentUser = JSON.parse(localStorage.getItem('user') || '{}')
+  const queryClient = useQueryClient()
 
   const login = ({ email, password }: any) => axios.post('users/login/', {
     email,
@@ -39,8 +40,9 @@ const useUser = () => {
   const changeProfileImage = ({ file, event }: any) => {
     const formData = new FormData()
     formData.append('photo', file.originFileObj)
-    return event && axios.post('account/change-profile-photo/', formData).then(({ data }) => {
+    return event && axios.patch('account/change-profile-photo/', formData).then(({ data }) => {
       message.success(data.message)
+      queryClient.invalidateQueries('currentUser')
     })
   }
 

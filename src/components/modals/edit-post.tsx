@@ -1,7 +1,7 @@
 import {
   Modal, Form, message, Select, Switch, Button,
 } from 'antd'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
@@ -21,9 +21,11 @@ function EditPostModal() {
   const [form] = Form.useForm()
   const { data: post, refetch } = useQuery('post', () => getPost(Number(QS.post)))
   const { requiredTitle, maxTitleLength } = useValidation()
-  const tags = post?.tags.length && post.tags.map((tag:any) => tag.name)
+  const tags = post?.tags?.length ? post.tags.map((tag:any) => tag.name) : []
 
-  form.setFieldsValue({ ...post, tags, enableComments: post?.comment_status })
+  useEffect(() => {
+    form.setFieldsValue({ ...post, tags, enableComments: post?.comment_status })
+  }, [post])
 
   const handleSubmit = (formData: any) => {
     setLoading(true)
@@ -32,7 +34,6 @@ function EditPostModal() {
     editPost(formData).then(() => {
       delete QS.edit
       setSearchParams(QS as any)
-      message.success('post edited successfully!')
       form.resetFields()
       refetch()
     }).finally(() => setLoading(false))

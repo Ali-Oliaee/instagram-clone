@@ -32,14 +32,9 @@ function AddPostModal() {
     // eslint-disable-next-line no-param-reassign
     data.file = file
     addPost(data).then(() => {
-      message.success('file uploaded successfully.')
-      queryClient.invalidateQueries('postsWrapper')
-      queryClient.invalidateQueries('getCurrentUser')
       form.resetFields()
-      setSearchParams({})
       setSecondModalVisible(false)
-    })
-      .finally(() => (setLoading(false)))
+    }).finally(() => (setLoading(false)))
   }
 
   return (

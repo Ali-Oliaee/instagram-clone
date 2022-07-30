@@ -1,8 +1,11 @@
+import { message } from 'antd'
 import { useQueryClient } from 'react-query'
+import { useSearchParams } from 'react-router-dom'
 import axios from '../utils/axios'
 
 const usePost = () => {
   const queryClient = useQueryClient()
+  const [searchParams, setSearchParams] = useSearchParams()
 
   const addPost = ({
     title, file, caption, tags, enableComments = true,
@@ -22,7 +25,12 @@ const usePost = () => {
           'Content-Type': 'multipart/form-data',
         },
       },
-    )
+    ).then(() => {
+      message.success('file uploaded successfully.')
+      queryClient.invalidateQueries('postsWrapper')
+      queryClient.invalidateQueries('getCurrentUser')
+      setSearchParams({})
+    })
   }
 
   const editPost = ({
@@ -32,9 +40,14 @@ const usePost = () => {
     caption,
     tags,
     comment_status: enableComments,
-  })
+  }).then(() => message.success('post edited successfully!'))
 
-  const deletePost = (id : number) => axios.delete(`posts/list/post=${id}/`)
+  const deletePost = (id : number) => axios.delete(`posts/list/post=${id}/`).then(() => {
+    queryClient.invalidateQueries('postsWrapper')
+    queryClient.invalidateQueries('getCurrentUser')
+    message.success('Post deleted successfully!')
+    setSearchParams({})
+  })
 
   const likePost = (account: any, post: any) => axios.post('/likes/create/', { account, post }).then(() => queryClient.invalidateQueries('post'))
   const archivePost = (account: any, post: any) => axios.post('/archives/create/', { account, post }).then(() => {

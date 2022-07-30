@@ -1,9 +1,8 @@
 import { Link, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { useQueryClient } from 'react-query'
 import qs from 'query-string'
 import {
-  Avatar, Card, Dropdown, Menu, message, Popconfirm,
+  Avatar, Card, Dropdown, Menu, Popconfirm,
 } from 'antd'
 import {
   DeleteOutlined, EditOutlined, MoreOutlined, QuestionCircleOutlined,
@@ -19,14 +18,6 @@ function CardMeta({ creator, postId }: any) {
   const QS = qs.parse(window.location.search)
   const currentUser = JSON.parse(localStorage.getItem('user') || '{}')
   const [searchParams, setSearchParams] = useSearchParams()
-  const queryClient = useQueryClient()
-
-  const handleDelete = () => deletePost(postId).then(() => {
-    message.success('Post deleted successfully!')
-    queryClient.invalidateQueries('postsWrapper')
-    queryClient.invalidateQueries('getCurrentUser')
-    setSearchParams({})
-  })
 
   const postAdmin = (
     <Dropdown
@@ -43,7 +34,7 @@ function CardMeta({ creator, postId }: any) {
           label: (
             <Popconfirm
               title={t('delete-confirm')}
-              onConfirm={handleDelete}
+              onConfirm={() => deletePost(postId)}
               okText={t('yes')}
               cancelText={t('no')}
               icon={<QuestionCircleOutlined />}
@@ -52,8 +43,7 @@ function CardMeta({ creator, postId }: any) {
             </Popconfirm>
           ),
           danger: true,
-        },
-        ]}
+        }]}
         />
       )}
     >

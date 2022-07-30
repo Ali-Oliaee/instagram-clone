@@ -1,7 +1,7 @@
 import {
   Avatar, Button, Form, Upload,
 } from 'antd'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
 import useUser from '../../hooks/use-user'
@@ -27,11 +27,13 @@ function SettingsPage() {
     return changeProfileInfo(formData).then(() => refetch()).finally(() => setLoading(false))
   }
 
-  form.setFieldsValue({
-    username: user?.[0]?.user?.username,
-    email: user?.[0]?.user?.email,
-    bio: user?.[0]?.bio,
-  })
+  useEffect(() => {
+    form.setFieldsValue({
+      username: user?.[0]?.user?.username,
+      email: user?.[0]?.user?.email,
+      bio: user?.[0]?.bio,
+    })
+  }, [user])
 
   return (
     <PageWrapper isLoading={isLoading} className="settings-page">
