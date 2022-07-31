@@ -8,7 +8,7 @@ import qs from 'query-string'
 import usePost from '../../hooks/use-post'
 
 function PostOptions({
-  id, likes, enableComments, archives, refetch,
+  id, likesCount, isLiked, enableComments, archives, refetch,
 }: any) {
   const { t } = useTranslation()
   const currentUser = JSON.parse(localStorage.getItem('user') || '{}')
@@ -21,7 +21,7 @@ function PostOptions({
   return (
     <div className="post-card-options">
       <span>
-        {likes?.includes(currentUser?.id) ? (
+        {isLiked ? (
           <Button
             className="like-button"
             onClick={() => unLikePost(currentUser.id, id).then(refetch)}
@@ -36,8 +36,8 @@ function PostOptions({
             icon={<HeartOutlined />}
           />
         )}
-        <Button type="ghost" className="likes-number-button" onClick={() => likes?.length && setSearchParams({ ...QS as any, likes: id })}>
-          {`${likes?.length} ${t('likes')}`}
+        <Button type="ghost" className="likes-number-button" onClick={() => likesCount && setSearchParams({ ...QS as any, likes: id })}>
+          {`${likesCount} ${t('likes')}`}
         </Button>
       </span>
       <span>

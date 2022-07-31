@@ -42,7 +42,7 @@ function PostModal() {
               <Card className="post-card">
                 <CardMeta creator={post?.account} postId={post?.id} />
                 <div className="post-info">
-                  <PostOptions id={post?.id} likes={post?.account_likes} archives={post?.account_archives} enableComments={post?.comment_status} />
+                  <PostOptions id={post?.id} likesCount={post?.like_count} isLiked={post?.is_like} archives={post?.account_archives} enableComments={post?.comment_status} />
                   <PostContent title={post?.title} caption={post?.caption} tags={post?.tags} createdAt={post?.created_at} updatedAt={post?.updated_at} username={post?.account.user.username} />
                 </div>
               </Card>

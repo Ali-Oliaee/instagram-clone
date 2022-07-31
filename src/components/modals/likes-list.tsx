@@ -23,10 +23,8 @@ function LikedUsersList() {
       title="likes"
       centered
     >
-      {!isLoading && likes?.map(({
-        account, id,
-      }: any) => (
-        <UserLink key={id} id={id} photo={account.photo} user={account.user.username} bio={account.bio} />
+      {!isLoading && likes?.map(({ account }: any) => (
+        <UserLink key={account.id} id={account.id} photo={account.photo} user={account.user.username} bio={account.bio} />
       ))}
     </Modal>
   )

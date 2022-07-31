@@ -19,7 +19,7 @@ function EditPostModal() {
   const QS = qs.parse(window.location.search)
   const { t } = useTranslation()
   const [form] = Form.useForm()
-  const { data: post, refetch } = useQuery('post', () => getPost(Number(QS.post)))
+  const { data: post, refetch } = useQuery('post', () => getPost(Number(QS.edit)))
   const { requiredTitle, maxTitleLength } = useValidation()
   const tags = post?.tags?.length ? post.tags.map((tag:any) => tag.name) : []
 

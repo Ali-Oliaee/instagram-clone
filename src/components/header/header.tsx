@@ -31,6 +31,7 @@ function Header({ setSearchKey, search }: any) {
   const currentUser = JSON.parse(localStorage.getItem('user') || '{}')
   const logout = () => {
     localStorage.clear()
+    window.location.reload()
   }
   const { data } = useQuery('currentUser', () => getAccountInformation(currentUser.id))
   // eslint-disable-next-line no-unsafe-optional-chaining

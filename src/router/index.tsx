@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import {
   HomePage,
@@ -13,8 +14,11 @@ import {
 
 function MainRouter() {
   const navigate = useNavigate()
-  const isUserAuth = () => (!!localStorage.getItem('tokens'))
-  const isAuth = isUserAuth()
+  let isAuth: any = !!localStorage.getItem('tokens')
+  useEffect(() => {
+    isAuth = !!localStorage.getItem('tokens')
+    if (!isAuth) navigate('/auth/login')
+  }, [])
 
   return (
     <Routes>

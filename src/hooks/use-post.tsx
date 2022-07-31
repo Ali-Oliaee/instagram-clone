@@ -40,7 +40,10 @@ const usePost = () => {
     caption,
     tags,
     comment_status: enableComments,
-  }).then(() => message.success('post edited successfully!'))
+  }).then(() => {
+    message.success('post edited successfully!')
+    queryClient.invalidateQueries('postsWrapper')
+  })
 
   const deletePost = (id : number) => axios.delete(`posts/list/post=${id}/`).then(() => {
     queryClient.invalidateQueries('postsWrapper')

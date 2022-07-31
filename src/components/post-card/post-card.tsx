@@ -14,7 +14,8 @@ function PostCard({
   caption,
   account,
   tags,
-  account_likes,
+  like_count,
+  is_like,
   account_archives,
   created_at,
   updated_at,
@@ -30,7 +31,8 @@ function PostCard({
       <div className="post-info">
         <PostOptions
           refetch={refetch}
-          likes={account_likes}
+          likesCount={like_count}
+          isLiked={is_like}
           id={id}
           enableComments={comment_status}
           archives={account_archives}

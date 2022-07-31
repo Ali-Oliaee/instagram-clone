@@ -11,7 +11,7 @@ import { defaultImage } from '../../utils/constants'
 import usePost from '../../hooks/use-post'
 import './style.scss'
 
-function CardMeta({ creator, postId }: any) {
+function CardMeta({ creator = {}, postId }: any) {
   const { Meta } = Card
   const { t } = useTranslation()
   const { deletePost } = usePost()
