@@ -43,7 +43,7 @@ function Header({ setSearchKey, search }: any) {
       icon: <UserOutlined />,
       label: (
         <Link to={`/profile/${currentUser.id}`}>
-          {t('profile')}
+          {t('utils.profile')}
         </Link>
       ),
     }, {
@@ -51,7 +51,7 @@ function Header({ setSearchKey, search }: any) {
       icon: <SettingOutlined />,
       label: (
         <Link to="/settings">
-          {t('settings')}
+          {t('utils.settings')}
         </Link>
       ),
     }, {
@@ -59,13 +59,13 @@ function Header({ setSearchKey, search }: any) {
       icon: <InboxOutlined />,
       label: (
         <Link to="/saved">
-          {t('saved')}
+          {t('utils.saved')}
         </Link>
       ),
     }, { type: 'divider' }, {
       key: 'logout',
       icon: <LogoutOutlined />,
-      label: t('logout'),
+      label: t('utils.logout'),
       danger: true,
       onClick: logout,
     },
@@ -80,7 +80,7 @@ function Header({ setSearchKey, search }: any) {
           <Link to="/">
             <Logo />
           </Link>
-          {search && (<Input size="large" onChange={(e) => setSearchKey(e.target.value)} prefix={<SearchOutlined />} placeholder={t('search-placeholder')} className="search-input" />)}
+          {search && (<Input size="large" onChange={(e) => setSearchKey(e.target.value)} prefix={<SearchOutlined />} placeholder={t('utils.search-placeholder')} className="search-input" />)}
           <div className="header-menu">
             <Link to="/">
               <Button icon={<HomeOutlined />} size="large" className="header-menu-item" />
@@ -89,11 +89,7 @@ function Header({ setSearchKey, search }: any) {
               <Button icon={<CompassOutlined />} size="large" className="header-menu-item" />
             </Link>
             <Button className="header-menu-item" size="large" icon={<PlusCircleOutlined />} onClick={() => setSearchParams({ add: 'true' })} />
-            <Dropdown
-              className="header-menu-item"
-              overlay={menu}
-              trigger={['click']}
-            >
+            <Dropdown className="header-menu-item" overlay={menu} trigger={['click']}>
               <Avatar src={userAvatar ?? defaultImage} size="small" />
             </Dropdown>
           </div>

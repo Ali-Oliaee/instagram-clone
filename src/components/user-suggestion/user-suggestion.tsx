@@ -10,11 +10,6 @@ import './style.scss'
 function UserSuggestion(): ReactElement {
   const { data: users } = useQuery('suggestedUsers', () => axios.get('/account/suggestion-account/').then(({ data }) => data))
   const { t } = useTranslation()
-  const currentUser = JSON.parse(localStorage.getItem('user') || '{}')
-  const followUser = (id: number) => axios.post('/follows/following/create/', {
-    account: id,
-    following: currentUser.id,
-  })
 
   return (
     <div className="user-suggestion">
@@ -25,9 +20,9 @@ function UserSuggestion(): ReactElement {
           <Link to={`/profile/${id}`}>
             <Avatar size="large" src={photo ?? defaultImage} />
             <h3>{user.username}</h3>
-            <p>{bio ?? t('no-bio')}</p>
+            <p>{bio ?? t('utils.without-bio')}</p>
           </Link>
-          <Button type="primary" onClick={() => followUser(id)} block>{t('follow')}</Button>
+          <Button type="primary" block>{t('utils.follow')}</Button>
         </div>
       ))}
     </div>

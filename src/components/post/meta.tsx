@@ -26,20 +26,20 @@ function CardMeta({ creator = {}, postId }: any) {
         <Menu items={[{
           key: 'edit',
           icon: <EditOutlined />,
-          label: t('edit'),
+          label: t('utils.edit'),
           onClick: () => setSearchParams({ ...QS, edit: postId }),
         }, {
           key: 'delete',
           icon: <DeleteOutlined />,
           label: (
             <Popconfirm
-              title={t('delete-confirm')}
+              title={t('post.delete-text')}
               onConfirm={() => deletePost(postId)}
-              okText={t('yes')}
-              cancelText={t('no')}
+              okText={t('utils.yes')}
+              cancelText={t('utils.no')}
               icon={<QuestionCircleOutlined />}
             >
-              {t('delete')}
+              {t('utils.delete')}
             </Popconfirm>
           ),
           danger: true,

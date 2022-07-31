@@ -37,7 +37,7 @@ function PostOptions({
           />
         )}
         <Button type="ghost" className="likes-number-button" onClick={() => likesCount && setSearchParams({ ...QS as any, likes: id })}>
-          {`${likesCount} ${t('likes')}`}
+          {`${likesCount} ${t('post.likes')}`}
         </Button>
       </span>
       <span>

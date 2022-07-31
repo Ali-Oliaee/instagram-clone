@@ -25,23 +25,23 @@ function profilePage() {
             {Number(id) !== currentUserId ? (
               // TODO: follow, unFollow, follow back
               <Button type="primary" size="small" className="edit-button">
-                { t('unFollow') }
+                { t('utils.unFollow') }
               </Button>
             ) : (
               <Link to="/settings">
-                <Button size="small" icon={<EditOutlined />} className="edit-button">{t('edit profile')}</Button>
+                <Button size="small" icon={<EditOutlined />} className="edit-button">{t('utils.edit-profile')}</Button>
               </Link>
             )}
           </div>
           <div className="report">
             <Button type="ghost" className="posts">
-              {`${user?.[0]?.post.length} ${t('posts')}`}
+              {`${user?.[0]?.post.length} ${t('utils.posts')}`}
             </Button>
             <Button type="ghost" className="follower">
-              {`${user?.[0]?.follower.length} ${t('followers')}`}
+              {`${user?.[0]?.follower.length} ${t('utils.followers')}`}
             </Button>
             <Button type="ghost" className="following">
-              {`${user?.[0]?.following.length} ${t('following')}`}
+              {`${user?.[0]?.following.length} ${t('utils.following')}`}
             </Button>
           </div>
           <div className="bio">{user?.[0]?.bio}</div>

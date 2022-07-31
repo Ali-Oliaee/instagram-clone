@@ -19,8 +19,8 @@ function Logo() {
         </g>
       </svg>
       <div className="logo-info">
-        <h3>{t('instagram')}</h3>
-        <h5>{t('vatani-edition')}</h5>
+        <h3>{t('utils.instagram')}</h3>
+        <h5>Test</h5>
       </div>
     </div>
   )

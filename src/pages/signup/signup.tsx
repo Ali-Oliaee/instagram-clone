@@ -28,25 +28,25 @@ function SignupPage() {
       <section>
         <div className="form-container">
           <Logo />
-          <h4 className="description">{t('signup-description')}</h4>
+          <h4 className="description">{t('signup-page.description')}</h4>
           <Form onFinish={handleSubmit} form={form}>
             <Form.Item name="username" rules={[requiredUsername]}>
-              <FloatLabel autoFocus label={t('username')} value={form.getFieldValue('username')} />
+              <FloatLabel autoFocus label={t('utils.username')} value={form.getFieldValue('username')} />
             </Form.Item>
             <Form.Item name="email" rules={[requiredEmail, invalidEmail]}>
-              <FloatLabel label={t('email')} value={form.getFieldValue('email')} type="email" />
+              <FloatLabel label={t('utils.email')} value={form.getFieldValue('email')} type="email" />
             </Form.Item>
             <Form.Item name="password" rules={[requiredPassword, minLengthPassword]}>
-              <FloatLabel label={t('password')} value={form.getFieldValue('password')} type="password" />
+              <FloatLabel label={t('utils.password')} value={form.getFieldValue('password')} type="password" />
             </Form.Item>
             <Form.Item name="confirmPassword" dependencies={['password']} rules={[requiredPassword, validatePasswords]}>
-              <FloatLabel label={t('confirm-password')} value={form.getFieldValue('confirmPassword')} type="password" />
+              <FloatLabel label={t('utils.confirm-password')} value={form.getFieldValue('confirmPassword')} type="password" />
             </Form.Item>
-            <Button loading={loading} htmlType="submit" type="primary" size="middle" block>{t('submit')}</Button>
-            <Divider>{t('or')}</Divider>
+            <Button loading={loading} htmlType="submit" type="primary" size="middle" block>{t('utils.submit')}</Button>
+            <Divider>{t('utils.or')}</Divider>
             <GoogleButton />
             <h4>
-              <Trans i18nKey="privacy-policy">
+              <Trans i18nKey="signup-page.privacy-policy">
                 By signing up, you agree to our
                 <Link to="/terms">Terms</Link>
                 ,
@@ -55,13 +55,11 @@ function SignupPage() {
                 <Link to="/cookies">Cookie Policy</Link>
               </Trans>
             </h4>
-
           </Form>
         </div>
         <h4 className="signin-link">
-          {t('already-have-account')}
-          {' '}
-          <Link to="/auth/login">{t('signin')}</Link>
+          {t('signup-page.have-account')}
+          <Link to="/auth/login">{t('utils.signin')}</Link>
         </h4>
         <SwitchLanguage />
       </section>

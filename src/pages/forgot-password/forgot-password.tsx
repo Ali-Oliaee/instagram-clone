@@ -50,9 +50,9 @@ function ForgotPasswordPage() {
     <div className="forgot-password-page">
       <div className="steps">
         <Steps>
-          <Step status={!step ? 'process' : 'wait'} title={t('step-enter-email')} />
-          <Step status={step === 1 ? 'process' : 'wait'} title={t('step-enter-code')} />
-          <Step status={step < 2 ? 'wait' : 'process'} title={t('step-change-password')} />
+          <Step status={!step ? 'process' : 'wait'} title={t('forgot-password.step1')} />
+          <Step status={step === 1 ? 'process' : 'wait'} title={t('forgot-password.step2')} />
+          <Step status={step < 2 ? 'wait' : 'process'} title={t('forgot-password.step3')} />
         </Steps>
       </div>
       <div className="step-content">
@@ -61,50 +61,47 @@ function ForgotPasswordPage() {
           !step ? (
             <Form form={form} onFinish={sendEmail}>
               <div>
-                <h1>{t('forgot-password-title')}</h1>
-                <p>{t('forgot-password-description')}</p>
+                <h1>{t('forgot-password.step1.title')}</h1>
+                <p>{t('forgot-password.step1.description')}</p>
               </div>
               <Form.Item name="email" rules={[requiredEmail, invalidEmail]}>
                 <FloatLabel
-                  label={t('email')}
+                  label={t('utils.email')}
                   type="email"
                   value={form.getFieldValue('email')}
                   autoFocus
                 />
               </Form.Item>
-              <Button loading={loading} block type="primary" htmlType="submit">{t('submit')}</Button>
-              <Divider>{t('or')}</Divider>
-              <Link to="/auth/signup">{t('Create new account')}</Link>
+              <Button loading={loading} block type="primary" htmlType="submit">{t('utils.submit')}</Button>
+              <Divider>{t('utils.or')}</Divider>
+              <Link to="/auth/signup">{t('auth.create-new-account')}</Link>
             </Form>
-
           ) : step === 1 ? (
             <Form form={form} onFinish={sendCode}>
-              <div>
-                <h1>{t('confirm-code-description')}</h1>
-              </div>
+              <div><h1>{t('forgot-password.step2.title')}</h1></div>
               <Form.Item name="code" rules={[requiredCode, minLengthCode]}>
                 <FloatLabel
-                  label={t('code')}
+                  label={t('label.code')}
                   type="text"
                   value={form.getFieldValue('code')}
                   autoFocus
                 />
               </Form.Item>
-              <Button loading={loading} block type="primary" htmlType="submit">{t('submit')}</Button>
+              <Button loading={loading} block type="primary" htmlType="submit">{t('utils.submit')}</Button>
               <Button block loading={resetButtonLoading} type="ghost" onClick={resendEmail} className="resend-email-button">
                 <Countdown title="Countdown" value={Date.now() + 10 * 1000} onFinish={() => setResetButtonLoading(false)} />
-                resend Email
+                {t('forgot-password.resend-email')}
               </Button>
             </Form>
           ) : (
             <Form form={form} onFinish={handleSubmit}>
               <Form.Item rules={[requiredPassword, minLengthPassword]} name="password">
-                <FloatLabel autoFocus value={form.getFieldValue('password')} type="password" label={t('new-password')} />
+                <FloatLabel autoFocus value={form.getFieldValue('password')} type="password" label={t('label.new-password')} />
               </Form.Item>
               <Form.Item rules={[requiredPassword, minLengthPassword, validatePasswords]} name="confirmPassword">
-                <FloatLabel value={form.getFieldValue('confirmPassword')} type="password" label={t('confirm-password')} />
+                <FloatLabel value={form.getFieldValue('confirmPassword')} type="password" label={t('label.confirm-password')} />
               </Form.Item>
-              <Button loading={loading} block type="primary" htmlType="submit">{t('submit')}</Button>
+              <Button loading={loading} block type="primary" htmlType="submit">{t('utils.submit')}</Button>
             </Form>
           )
         }

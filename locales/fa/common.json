@@ -1,75 +1,105 @@
 {
-  "404": "",
-  "google-signin": "",
-  "profile": "",
-  "settings": "",
-  "saved": "",
-  "logout": "",
-  "search-placeholder": "",
-  "instagram": "",
-  "vatani-edition": "",
-  "add-post": "",
-  "crop-image": "",
-  "confirm": "",
-  "cancel": "",
-  "dragger-title": "",
-  "title": "",
-  "description": "",
-  "tags": "",
-  "allow-comments": "",
-  "submit": "",
-  "edit-post": "",
-  "edit": "",
-  "delete-confirm": "",
-  "yes": "",
-  "no": "",
-  "delete": "",
-  "likes": "",
-  "no-bio": "",
-  "follow": "",
-  "required-title": "",
-  "max-title-length": "",
-  "require-username": "",
-  "require-email": "",
-  "invalid-email": "",
-  "code-required": "",
-  "code-invalid": "",
-  "password-required": "",
-  "password-min": "",
-  "passwords-not-match": "",
-  "step-enter-email": "",
-  "step-enter-code": "",
-  "step-change-password": "",
-  "forgot-password-title": "",
-  "forgot-password-description": "",
-  "email": "",
-  "or": "",
-  "Create new account": "",
-  "confirm-code-description": "",
-  "code": "",
-  "new-password": "",
-  "confirm-password": "",
-  "no-following": "",
-  "password": "",
-  "forgot-password-link": "",
-  "dont-have-account": "",
-  "signup": "",
-  "page-not-found": "",
-  "back-home": "",
-  "unFollow": "",
-  "edit profile": "",
-  "posts": "",
-  "followers": "",
-  "following": "",
-  "change-password": "",
-  "old-password": "",
-  "change profile image": "",
-  "username": "",
-  "bio": "",
-  "save": "",
-  "change password": "",
-  "signup-description": "",
-  "privacy-policy": "By signing up, you agree to our<1>Terms</1>,<3>Data Policy</3>and<5>Cookie Policy</5>",
-  "already-have-account": "",
-  "signin": ""
+  "404": {
+    "title": "۴۰۴",
+    "description": "صفحه مورد نظر یافت نشد",
+    "back-home": "بازگشت به صفحه اصلی"
+  },
+  "utils": {
+    "google-signin": "ورود با گوگل",
+    "profile": "حساب کاربری",
+    "settings": "تنظیمات",
+    "saved": "ذخیره شده ها",
+    "logout": "خروج",
+    "search-placeholder": "جستجو پست‌، دسته‌بندی‌ها و ...",
+    "instagram": "اینستاگرام",
+    "confirm": "تایید",
+    "cancel": "لغو",
+    "title": "عنوان",
+    "description": "توضیحات",
+    "tags": "برچسب‌ها",
+    "allow-comments": "اجازه نظر دادن",
+    "submit": "تایید",
+    "edit": "ویرایش",
+    "yes": "بله",
+    "no": "خیر",
+    "delete": "حذف",
+    "without-bio": "بدون توضیحات",
+    "follow": "دنبال کردن",
+    "discovery": "همه پست ها",
+    "email": "ایمیل",
+    "or": "یا",
+    "password": "رمز عبور",
+    "signup": "ثبت نام",
+    "unFollow": "دنبال نکردن",
+    "edit-profile": "ویرایش حساب کاربری",
+    "posts": "پست‌ها",
+    "followers": "دنبال کننده‌ها",
+    "following": "دنبال کردن",
+    "username": "نام کاربری",
+    "bio": "توضیحات",
+    "save": "ذخیره",
+    "confirm-password": "تایید رمز عبور",
+    "signin": "ورود"
+  },
+  "add-post-modal": {
+    "title": "افزودن پست",
+    "crop-modal-title": "برش",
+    "dragger-title": "برش"
+  },
+  "edit-post-modal": {
+    "title": "ویرایش پست"
+  },
+  "post": {
+    "delete-text": "آیا از حذف این پست اطمینان دارید؟",
+    "likes": "پسندیده‌ها"
+  },
+  "validation": {
+    "required-title": "عنوان را وارد کنید",
+    "max-title-length": "عنوان باید کمتر از 100 کاراکتر باشد",
+    "require-username": "نام کاربری را وارد کنید",
+    "require-email": "ایمیل را وارد کنید",
+    "invalid-email": "ایمیل وارد شده معتبر نیست",
+    "code-required": "کد تایید را وارد کنید",
+    "code-invalid": "کد تایید صحیح نیست",
+    "password-required": "رمز عبور را وارد کنید",
+    "password-min": "رمز عبور باید حداقل 6 کاراکتر باشد",
+    "passwords-not-match": "رمز عبور و تایید رمز عبور یکسان نیستند"
+  },
+  "forgot-password": {
+    "step1": {
+      "title": "بازیابی رمز عبور",
+      "description": "لطفا ایمیل خود را وارد کنید"
+    },
+    "step2": {
+      "title": "کد تایید ارسال شده را وارد کنید"
+    },
+    "step3": "رمز عبور جدید را وارد کنید",
+    "resend-email": "ارسال مجدد ایمیل"
+  },
+  "auth": {
+    "create-new-account": "ثبت نام جدید",
+    "forgot-password-link": "رمز عبور خود را فراموش کرده‌اید؟",
+    "have-not-account-link": "حساب کاربری ندارید؟",
+    "change-password": "تغییر رمز عبور"
+  },
+  "label": {
+    "code": "کد تایید",
+    "new-password": "رمز عبور جدید",
+    "confirm-password": "تایید رمز عبور",
+    "old-password": "رمز عبور فعلی"
+  },
+  "home-page": {
+    "no-following": "شما هیچ دنبال کننده‌ای ندارید"
+  },
+  "change-password-modal": {
+    "title": "تغییر رمز عبور"
+  },
+  "settings-page": {
+    "change-profile-image": "تغییر تصویر پروفایل"
+  },
+  "signup-page": {
+    "description": "برای دیدن تصاویر و پست‌های دیگران، باید ثبت نام کنید.",
+    "privacy-policy": "By signing up, you agree to our<1>Terms</1>,<3>Data Policy</3>and<5>Cookie Policy</5>",
+    "have-account": "حساب کاربری دارید؟"
+  }
 }

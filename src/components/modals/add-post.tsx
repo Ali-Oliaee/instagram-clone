@@ -42,7 +42,7 @@ function AddPostModal() {
         closable
         centered
         onCancel={() => setSearchParams({})}
-        title={t('add-post')}
+        title={t('add-post-modal.title')}
         footer={null}
         className="add-post-modal"
         destroyOnClose
@@ -52,9 +52,9 @@ function AddPostModal() {
             <ImgCrop
               zoom={false}
               rotate={false}
-              modalTitle={t('crop-image')}
-              modalOk={t('confirm')}
-              modalCancel={t('cancel')}
+              modalTitle={t('add-post-modal.crop-modal-title')}
+              modalOk={t('utils.confirm')}
+              modalCancel={t('utils.cancel')}
               onModalOk={(post: any) => {
                 setFile(post)
                 setSecondModalVisible(true)
@@ -70,7 +70,7 @@ function AddPostModal() {
                 <p className="ant-upload-drag-icon">
                   <InboxOutlined />
                 </p>
-                <p className="ant-upload-text">{t('dragger-title')}</p>
+                <p className="ant-upload-text">{t('add-post-modal.dragger-title')}</p>
               </Dragger>
             </ImgCrop>
           </Form.Item>
@@ -81,26 +81,26 @@ function AddPostModal() {
         closable
         centered
         onCancel={() => setSecondModalVisible(false)}
-        title={t('add-post')}
+        title={t('add-post-modal.title')}
         footer={null}
         className="add-post-modal"
         destroyOnClose
       >
         <Form onFinish={handleSubmit} form={form}>
           <Form.Item name="title" rules={[requiredTitle, maxTitleLength]}>
-            <FloatLabel label={t('title')} autoFocus value={form.getFieldValue('title')} />
+            <FloatLabel label={t('utils.title')} autoFocus value={form.getFieldValue('title')} />
           </Form.Item>
           <Form.Item name="caption">
-            <FloatLabel textarea label={t('description')} value={form.getFieldValue('caption')} />
+            <FloatLabel textarea label={t('utils.description')} value={form.getFieldValue('caption')} />
           </Form.Item>
           <Form.Item name="tags">
-            <Select open={false} mode="tags" placeholder={t('tags')} />
+            <Select open={false} mode="tags" placeholder={t('utils.tags')} />
           </Form.Item>
-          <Form.Item label={t('allow-comments')} initialValue valuePropName="checked" name="enableComments">
+          <Form.Item label={t('utils.allow-comments')} initialValue valuePropName="checked" name="enableComments">
             <Switch className="switch" />
           </Form.Item>
           <Button block type="primary" htmlType="submit" loading={loading}>
-            {t('submit')}
+            {t('utils.submit')}
           </Button>
         </Form>
       </Modal>

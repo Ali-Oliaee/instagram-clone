@@ -9,9 +9,9 @@ function NotFoundPage() {
 
   return (
     <div className="not-found-page">
-      <h1>{t('404')}</h1>
-      <h3>{t('page-not-found')}</h3>
-      <Link to={!currentUser ? '/auth/login' : '/'}>{t('back-home')}</Link>
+      <h1>{t('404.title')}</h1>
+      <h3>{t('404.description')}</h3>
+      <Link to={!currentUser ? '/auth/login' : '/'}>{t('404.back-home')}</Link>
       <SwitchLanguage />
     </div>
   )

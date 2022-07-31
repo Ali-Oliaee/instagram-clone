@@ -30,23 +30,22 @@ function LoginPage() {
           <Logo />
           <Form onFinish={handleSubmit} form={form}>
             <Form.Item name="email" rules={[requiredEmail, invalidEmail]}>
-              <FloatLabel type="email" autoFocus label={t('email')} value={form.getFieldValue('email')} />
+              <FloatLabel type="email" autoFocus label={t('utils.email')} value={form.getFieldValue('email')} />
             </Form.Item>
             <Form.Item name="password" rules={[requiredPassword, minLengthPassword]}>
-              <FloatLabel type="password" label={t('password')} value={form.getFieldValue('password')} />
+              <FloatLabel type="password" label={t('utils.password')} value={form.getFieldValue('password')} />
             </Form.Item>
-            <Button loading={loading} htmlType="submit" type="primary" block>{t('submit')}</Button>
+            <Button loading={loading} htmlType="submit" type="primary" block>{t('utils.submit')}</Button>
             <div className="forgot-password-link">
-              <Link to="/auth/forgot-password">{t('forgot-password-link')}</Link>
+              <Link to="/auth/forgot-password">{t('auth.forgot-password-link')}</Link>
             </div>
-            <Divider>{t('or')}</Divider>
+            <Divider>{t('utils.or')}</Divider>
             <GoogleButton />
           </Form>
         </div>
         <h4 className="signup-link">
-          {t('dont-have-account')}
-          {'  '}
-          <Link to="/auth/signup">{t('signup')}</Link>
+          {t('auth.have-not-account-link')}
+          <Link to="/auth/signup">{t('utils.signup')}</Link>
         </h4>
         <SwitchLanguage />
       </section>

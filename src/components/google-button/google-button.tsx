@@ -34,7 +34,7 @@ function GoogleButton() {
     <GoogleLogin
       clientId="1028978384739-u2f7gmkkcilpt78sl9qh4lhnnpk4hq4p.apps.googleusercontent.com"
       render={(renderProps) => (
-        <Button loading={loading} disabled={renderProps.disabled} onClick={renderProps.onClick} icon={<GoogleOutlined />} size="large" block className="google-button">{t('google-signin')}</Button>
+        <Button loading={loading} disabled={renderProps.disabled} onClick={renderProps.onClick} icon={<GoogleOutlined />} size="large" block className="google-button">{t('utils.google-signin')}</Button>
       )}
       cookiePolicy="single_host_origin"
       onSuccess={onSuccess}

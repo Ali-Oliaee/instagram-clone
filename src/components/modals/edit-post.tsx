@@ -1,5 +1,5 @@
 import {
-  Modal, Form, message, Select, Switch, Button,
+  Modal, Form, Select, Switch, Button,
 } from 'antd'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -47,7 +47,7 @@ function EditPostModal() {
         delete QS.edit
         setSearchParams(QS as any)
       }}
-      title={t('edit-post')}
+      title={t('edit-post-modal.title')}
       footer={null}
       centered
       className="add-post-modal"
@@ -55,19 +55,19 @@ function EditPostModal() {
     >
       <Form onFinish={handleSubmit} form={form}>
         <Form.Item name="title" rules={[requiredTitle, maxTitleLength]}>
-          <FloatLabel label={t('title')} autoFocus value={form.getFieldValue('title')} />
+          <FloatLabel label={t('utils.title')} autoFocus value={form.getFieldValue('title')} />
         </Form.Item>
         <Form.Item name="caption">
-          <FloatLabel textarea label={t('description')} value={form.getFieldValue('caption')} />
+          <FloatLabel textarea label={t('utils.description')} value={form.getFieldValue('caption')} />
         </Form.Item>
         <Form.Item name="tags">
-          <Select open={false} mode="tags" placeholder={t('tags')} />
+          <Select open={false} mode="tags" placeholder={t('utils.tags')} />
         </Form.Item>
-        <Form.Item label={t('allow-comments')} initialValue valuePropName="checked" name="enableComments">
+        <Form.Item label={t('utils.allow-comments')} initialValue valuePropName="checked" name="enableComments">
           <Switch className="switch" />
         </Form.Item>
         <Button block type="primary" htmlType="submit" loading={loading}>
-          {t('submit')}
+          {t('utils.submit')}
         </Button>
       </Form>
     </Modal>

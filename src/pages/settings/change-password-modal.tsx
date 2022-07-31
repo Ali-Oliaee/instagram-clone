@@ -20,29 +20,23 @@ function ChangePasswordModal({ visible, setVisible } : any) {
   return (
     <Modal
       visible={visible}
-      title={t('change-password')}
+      title={t('change-password-modal.title')}
       closable={false}
       footer={null}
       onCancel={() => setVisible(false)}
       destroyOnClose
     >
       <Form onFinish={handleSubmit}>
-        <Form.Item
-          rules={[requiredPassword, minLengthPassword]}
-          name="oldPassword"
-        >
-          <FloatLabel label={t('old-password')} type="password" autoFocus value={form.getFieldValue('oldPassword')} />
+        <Form.Item rules={[requiredPassword, minLengthPassword]} name="oldPassword">
+          <FloatLabel label={t('label.old-password')} type="password" autoFocus value={form.getFieldValue('oldPassword')} />
         </Form.Item>
         <Form.Item rules={[requiredPassword, minLengthPassword]} name="password">
-          <FloatLabel label={t('new-password')} type="password" value={form.getFieldValue('password')} />
+          <FloatLabel label={t('label.new-password')} type="password" value={form.getFieldValue('password')} />
         </Form.Item>
-        <Form.Item
-          rules={[requiredPassword, minLengthPassword, validatePasswords]}
-          name="confirmPassword"
-        >
-          <FloatLabel label={t('confirm-password')} value={form.getFieldValue('confirmPassword')} type="password" />
+        <Form.Item rules={[requiredPassword, minLengthPassword, validatePasswords]} name="confirmPassword">
+          <FloatLabel label={t('label.confirm-password')} value={form.getFieldValue('confirmPassword')} type="password" />
         </Form.Item>
-        <Button loading={loading} size="large" htmlType="submit" block type="primary">{t('confirm')}</Button>
+        <Button loading={loading} size="large" htmlType="submit" block type="primary">{t('utils.confirm')}</Button>
       </Form>
     </Modal>
   )

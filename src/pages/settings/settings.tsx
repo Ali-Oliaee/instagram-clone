@@ -45,20 +45,20 @@ function SettingsPage() {
             showUploadList={false}
             onChange={changeProfileImage}
           >
-            <Button type="text">{t('change profile image')}</Button>
+            <Button type="text">{t('settings-page.change-profile-image')}</Button>
           </Upload>
         </div>
         <Form onFinish={handleSubmit} form={form}>
           <Form.Item name="username">
-            <FloatLabel label={t('username')} value={form.getFieldValue('username')} />
+            <FloatLabel label={t('utils.username')} value={form.getFieldValue('username')} />
           </Form.Item>
-          <FloatLabel label={t('email')} value={form.getFieldValue('email')} type="email" disabled />
+          <FloatLabel label={t('utils.email')} value={form.getFieldValue('email')} type="email" disabled />
           <Form.Item name="bio">
-            <FloatLabel label={t('bio')} value={form.getFieldValue('bio')} textarea />
+            <FloatLabel label={t('utils.bio')} value={form.getFieldValue('bio')} textarea />
           </Form.Item>
-          <Button loading={loading} htmlType="submit" block type="primary">{t('save')}</Button>
+          <Button loading={loading} htmlType="submit" block type="primary">{t('utils.save')}</Button>
         </Form>
-        <Button block type="link" onClick={() => setVisible(true)}>{t('change password')}</Button>
+        <Button block type="link" onClick={() => setVisible(true)}>{t('auth.change-password')}</Button>
         <SwitchLanguage />
       </div>
       <ChangePasswordModal visible={visible} setVisible={setVisible} />

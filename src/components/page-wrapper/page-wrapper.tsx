@@ -9,9 +9,7 @@ function PageWrapper({
 }: any) {
   return (
     <>
-      <Helmet>
-        <title>{title}</title>
-      </Helmet>
+      <Helmet><title>{title}</title></Helmet>
       <Header setSearchKey={setSearchKey} search={search} />
       <Row justify="center" className={isLoading ? 'loading-page' : className}>
         <Col xs={24} sm={22} md={20} lg={18}>
