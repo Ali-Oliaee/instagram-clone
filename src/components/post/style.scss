@@ -45,14 +45,15 @@
     }
 
     .description-container {
-        max-width: 95%;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
+        max-width: 90%;
+        // text-overflow: ellipsis;
+        // overflow: hidden;
+        // white-space: nowrap;
 
         .creator {
             display: inline;
             font-weight: bold;
+            margin-inline-end: 6px;
         }
     }
 
@@ -73,5 +74,9 @@
     .date {
         font-size: 0.6em;
         margin-inline-end: 8px;
+
+        svg {
+            margin-inline-start: 4px;
+        }
     }
 }

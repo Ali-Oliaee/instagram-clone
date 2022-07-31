@@ -1,13 +1,12 @@
 import { useState } from 'react'
 import { InboxOutlined } from '@ant-design/icons'
 import {
-  Button, Form, message, Modal, Select, Switch, Upload,
+  Button, Form, Modal, Select, Switch, Upload,
 } from 'antd'
 import { useTranslation } from 'react-i18next'
 import ImgCrop from 'antd-img-crop'
 import { useSearchParams } from 'react-router-dom'
 import qs from 'query-string'
-import { useQueryClient } from 'react-query'
 import useValidation from '../../hooks/use-validation'
 import { FloatLabel } from '../float-label'
 import usePost from '../../hooks/use-post'
@@ -20,7 +19,6 @@ function AddPostModal() {
   const [form] = Form.useForm()
   const QS = qs.parse(window.location.search)
   const { Dragger } = Upload
-  const queryClient = useQueryClient()
   const { requiredTitle, maxTitleLength } = useValidation()
   const [file, setFile] = useState({ originFileObj: '' })
   const [loading, setLoading] = useState(false)
@@ -34,7 +32,7 @@ function AddPostModal() {
     addPost(data).then(() => {
       form.resetFields()
       setSecondModalVisible(false)
-    }).finally(() => (setLoading(false)))
+    }).finally(() => setLoading(false))
   }
 
   return (
@@ -53,7 +51,7 @@ function AddPostModal() {
           <Form.Item name="post">
             <ImgCrop
               zoom={false}
-              rotate
+              rotate={false}
               modalTitle={t('crop-image')}
               modalOk={t('confirm')}
               modalCancel={t('cancel')}

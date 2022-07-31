@@ -10,11 +10,10 @@ import './style.scss'
 
 function profilePage() {
   const { t } = useTranslation()
-  const { id: userId } = useParams()
-  const currentUser = JSON.parse(localStorage.getItem('user') || '{}')
-  const currentUserId = currentUser.id
-  const { data: user, isLoading } = useQuery('getCurrentUser', () => getAccountInformation(Number(userId)))
-  const { data: userPosts, isLoading: postsLoading, refetch } = useQuery('postsWrapper', () => getUserPosts(Number(userId)))
+  const { id } = useParams()
+  const currentUserId = JSON.parse(localStorage.getItem('user') || '{}').id
+  const { data: user, isLoading } = useQuery('getCurrentUser', () => getAccountInformation(Number(id)))
+  const { data: userPosts, isLoading: postsLoading, refetch } = useQuery('postsWrapper', () => getUserPosts(Number(id)))
 
   return (
     <PageWrapper isLoading={isLoading} className="profile-page">
@@ -23,7 +22,8 @@ function profilePage() {
         <div>
           <div className="profile-header">
             <span className="username">{user?.[0]?.user?.username}</span>
-            {Number(userId) !== currentUserId ? (
+            {Number(id) !== currentUserId ? (
+              // TODO: follow, unFollow, follow back
               <Button type="primary" size="small" className="edit-button">
                 { t('unFollow') }
               </Button>

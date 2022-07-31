@@ -2,6 +2,7 @@ import { EditOutlined } from '@ant-design/icons'
 import { Tag } from 'antd'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import './style.scss'
 
 function PostContent({
   title, caption, tags, createdAt, updatedAt, username,
@@ -13,22 +14,15 @@ function PostContent({
       <h2 className="title">{title}</h2>
       {caption && (
       <div className="description-container">
-        <span className="creator">
-          {username}
-          :
-          {' '}
-        </span>
-        <span className="description">
-          {caption}
-        </span>
+        <span className="creator">{username}</span>
+        <span className="description">{caption}</span>
       </div>
       )}
       <div className="tags">
-        {tags && tags?.map((tag: any) => <Tag key={tag?.name} className="tag">{tag?.name}</Tag>)}
+        {tags && tags?.map(({ name }: any) => <Tag key={name} className="tag">{name}</Tag>)}
       </div>
       <span className="date">
         {dayjs(createdAt * 1000).fromNow()}
-        {' '}
         {updatedAt !== createdAt && <EditOutlined />}
       </span>
     </div>
