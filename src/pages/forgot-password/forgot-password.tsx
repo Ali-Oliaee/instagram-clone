@@ -3,7 +3,7 @@ import {
 } from 'antd'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import useUser from '../../hooks/use-user'
 import useValidation from '../../hooks/use-validation'
 import { FloatLabel } from '../../components'
@@ -12,7 +12,6 @@ import './style.scss'
 function ForgotPasswordPage() {
   const { sendPasswordRecoveryEmail, sendPasswordRecoveryCode, resetPassword } = useUser()
   const [form] = Form.useForm()
-  const navigate = useNavigate()
   const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
   const [resetButtonLoading, setResetButtonLoading] = useState(false)
@@ -26,15 +25,15 @@ function ForgotPasswordPage() {
   const { Countdown } = Statistic
   const deadline = Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30
 
-  const sendEmail = (email :any) => {
+  const sendEmail = ({ email } :any) => {
     setUserEmail(email)
     setLoading(true)
     return sendPasswordRecoveryEmail(email).then(() => setStep(1)).finally(() => setLoading(false))
   }
 
-  const sendCode = (code: any) => {
+  const sendCode = ({ code }: any) => {
     setLoading(true)
-    return sendPasswordRecoveryCode(userEmail, code).then(() => setStep(2)).finally(() => setLoading(false))
+    return sendPasswordRecoveryCode({ userEmail, code }).then(() => setStep(2)).finally(() => setLoading(false))
   }
 
   const resendEmail = () => {
@@ -42,9 +41,9 @@ function ForgotPasswordPage() {
     return sendPasswordRecoveryEmail(userEmail).finally(() => setResetButtonLoading(false))
   }
 
-  const handleSubmit = (password: any) => {
+  const handleSubmit = ({ password }: any) => {
     setLoading(true)
-    return resetPassword(password, userEmail).then(() => navigate('/auth/login')).finally(() => setLoading(false))
+    return resetPassword({ password, userEmail }).finally(() => setLoading(false))
   }
 
   return (
@@ -99,8 +98,8 @@ function ForgotPasswordPage() {
             </Form>
           ) : (
             <Form form={form} onFinish={handleSubmit}>
-              <Form.Item rules={[requiredPassword, minLengthPassword]} name="newPassword">
-                <FloatLabel autoFocus value={form.getFieldValue('newPassword')} type="password" label={t('new-password')} />
+              <Form.Item rules={[requiredPassword, minLengthPassword]} name="password">
+                <FloatLabel autoFocus value={form.getFieldValue('password')} type="password" label={t('new-password')} />
               </Form.Item>
               <Form.Item rules={[requiredPassword, minLengthPassword, validatePasswords]} name="confirmPassword">
                 <FloatLabel value={form.getFieldValue('confirmPassword')} type="password" label={t('confirm-password')} />

@@ -46,9 +46,12 @@ const useUser = () => {
     })
   }
 
-  const sendPasswordRecoveryEmail = ({ email }: any) => axios.post('/users/forget-password/', { email }).then(() => message.success('Verify code send successfully!'))
-  const sendPasswordRecoveryCode = (userEmail: any, code : any) => axios.post('/users/verify-forget-password/', { code: String(code.code), email: userEmail.email })
-  const resetPassword = (password : any, email: any) => axios.post('/users/confirm-forget-password/', { password: password.newPassword, email: email.email }).then(({ data }) => message.success(data.message))
+  const sendPasswordRecoveryEmail = (email : any) => axios.post('/users/forget-password/', { email }).then(() => message.success('Verify code send successfully!'))
+  const sendPasswordRecoveryCode = ({ code, userEmail: email } : any) => axios.post('/users/verify-forget-password/', { code, email })
+  const resetPassword = ({ password, userEmail: email }:any) => axios.post('/users/confirm-forget-password/', { password, email }).then(({ data }) => {
+    message.success(data.message)
+    navigate('/auth/login')
+  })
 
   return {
     login,
