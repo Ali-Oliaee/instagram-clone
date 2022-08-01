@@ -53,6 +53,13 @@ const useUser = () => {
     navigate('/auth/login')
   })
 
+  const followUser = (id : any) => axios.post('/follows/follower/create/', { follower: id }).then(({ data }) => {
+    console.log(data)
+  })
+  const followingUser = (id : any) => axios.post('/follows/following/create/', { following: id }).then(({ data }) => {
+    console.log(data)
+  })
+
   return {
     login,
     signUp,
@@ -62,6 +69,8 @@ const useUser = () => {
     sendPasswordRecoveryEmail,
     sendPasswordRecoveryCode,
     resetPassword,
+    followUser,
+    followingUser,
   }
 }
 
