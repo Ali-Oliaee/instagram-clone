@@ -35,28 +35,6 @@
 .post-card-content {
     padding-inline: 14px;
 
-    .title {
-        font-size: 1.2em;
-        font-weight: bold;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-        max-width: 90%;
-    }
-
-    .description-container {
-        max-width: 90%;
-        // text-overflow: ellipsis;
-        // overflow: hidden;
-        // white-space: nowrap;
-
-        .creator {
-            display: inline;
-            font-weight: bold;
-            margin-inline-end: 6px;
-        }
-    }
-
     .comment-input {
         @include flex(flex-start);
         border: 0;
@@ -64,11 +42,32 @@
         margin-bottom: 5px;
     }
 
-    .tag {
-        background-color: rgb(212, 212, 212);
-        border-radius: 8px;
-        margin-block: 4px;
-        user-select: none;
+
+    .scroll-part {
+        max-height: 132px;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 2px;
+        }
+
+        .title {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .creator {
+            display: inline;
+            font-weight: bold;
+            margin-inline-end: 6px;
+        }
+
+        .tag {
+            background-color: rgb(212, 212, 212);
+            border-radius: 8px;
+            margin-block: 4px;
+            user-select: none;
+        }
     }
 
     .date {

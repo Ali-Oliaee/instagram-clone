@@ -1,20 +1,17 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
-import Backend from 'i18next-xhr-backend'
+import Backend from 'i18next-http-backend'
 
 i18n.use(initReactI18next).use(Backend).init({
-  backend: {
-    loadPath: '../../locales/{{lng}}/{{ns}}.json',
-  },
-  keySeparator: '.',
   debug: true,
   defaultNS: 'common',
   fallbackLng: 'en',
   ns: ['common'],
   lng: 'en',
-  interpolation: {
-    escapeValue: false,
+  backend: {
+    loadPath: '../../locales/{{lng}}/{{ns}}.json',
   },
+  fallbackNS: 'common',
 })
 
 i18n.on('languageChanged', (lng: any) => {

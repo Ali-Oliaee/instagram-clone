@@ -35,13 +35,13 @@ function profilePage() {
           </div>
           <div className="report">
             <Button type="ghost" className="posts">
-              {`${user?.[0]?.post.length} ${t('utils.posts')}`}
+              {`${user?.[0]?.post_count} ${t('utils.posts')}`}
             </Button>
             <Button type="ghost" className="follower">
-              {`${user?.[0]?.follower.length} ${t('utils.followers')}`}
+              {`${user?.[0]?.follower_count} ${t('utils.followers')}`}
             </Button>
             <Button type="ghost" className="following">
-              {`${user?.[0]?.following.length} ${t('utils.following')}`}
+              {`${user?.[0]?.following_count} ${t('utils.following')}`}
             </Button>
           </div>
           <div className="bio">{user?.[0]?.bio}</div>

@@ -101,5 +101,6 @@
     "description": "برای دیدن تصاویر و پست‌های دیگران، باید ثبت نام کنید.",
     "privacy-policy": "By signing up, you agree to our<1>Terms</1>,<3>Data Policy</3>and<5>Cookie Policy</5>",
     "have-account": "حساب کاربری دارید؟"
-  }
+  },
+  "utils.follow": "ناذ"
 }

@@ -52,7 +52,7 @@ function PostOptions({
         {archives?.includes(currentUser.id) ? (
           <Button
             size="large"
-            onClick={() => unArchivePost(currentUser.id, id).then(refetch)}
+            onClick={() => unArchivePost(id).then(refetch)}
             icon={<DownSquareFilled style={{ color: 'green' }} />}
             className="archive-button"
           />

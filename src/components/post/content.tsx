@@ -11,15 +11,17 @@ function PostContent({
 
   return (
     <div className="post-card-content">
-      <h2 className="title">{title}</h2>
-      {caption && (
-      <div className="description-container">
-        <span className="creator">{username}</span>
-        <span className="description">{caption}</span>
-      </div>
-      )}
-      <div className="tags">
-        {tags && tags?.map(({ name }: any) => <Tag key={name} className="tag">{name}</Tag>)}
+      <div className="scroll-part">
+        <h2 className="title">{title}</h2>
+        {caption && (
+        <div className="description-container">
+          <span className="creator">{username}</span>
+          <span className="description">{caption}</span>
+        </div>
+        )}
+        <div className="tags">
+          {tags && tags?.map(({ name }: any) => <Tag key={name} className="tag">{name}</Tag>)}
+        </div>
       </div>
       <span className="date">
         {dayjs(createdAt * 1000).fromNow()}

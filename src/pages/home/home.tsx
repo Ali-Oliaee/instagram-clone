@@ -9,7 +9,7 @@ import './style.scss'
 function HomePage() {
   const [searchKey, setSearchKey] = useState('')
   const { data: posts, isLoading, refetch } = useQuery('postsWrapper', getFollowersPosts)
-  const { t } = useTranslation()
+  const { t } = useTranslation('common')
 
   const fuse = new Fuse(posts ?? [], {
     keys: [

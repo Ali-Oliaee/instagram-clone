@@ -21,7 +21,7 @@ const useUser = () => {
       navigate('/')
     })
 
-  const signUp = ({ username, email, password } : any) => axios.post('/users/register/', {
+  const signUp = ({ username, email, password }: any) => axios.post('/users/register/', {
     username,
     email,
     password,
@@ -32,7 +32,7 @@ const useUser = () => {
     // TODO: set message for add responses
   }).then(({ data }) => message.success('updated'))
 
-  const changePassword = ({ newPassword, oldPassword } : any) => axios.post('/users/change-password/', {
+  const changePassword = ({ newPassword, oldPassword }: any) => axios.post('/users/change-password/', {
     new_password: newPassword,
     old_password: oldPassword,
   }).then(({ data }) => message.success(data.message))
@@ -46,9 +46,9 @@ const useUser = () => {
     })
   }
 
-  const sendPasswordRecoveryEmail = (email : any) => axios.post('/users/forget-password/', { email }).then(() => message.success('Verify code send successfully!'))
-  const sendPasswordRecoveryCode = ({ code, userEmail: email } : any) => axios.post('/users/verify-forget-password/', { code, email })
-  const resetPassword = ({ password, userEmail: email }:any) => axios.post('/users/confirm-forget-password/', { password, email }).then(({ data }) => {
+  const sendPasswordRecoveryEmail = (email: any) => axios.post('/users/forget-password/', { email }).then(() => message.success('Verify code send successfully!'))
+  const sendPasswordRecoveryCode = ({ code, userEmail: email }: any) => axios.post('/users/verify-forget-password/', { code, email })
+  const resetPassword = ({ password, userEmail: email }: any) => axios.post('/users/confirm-forget-password/', { password, email }).then(({ data }) => {
     message.success(data.message)
     navigate('/auth/login')
   })
