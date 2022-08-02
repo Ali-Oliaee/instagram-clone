@@ -10,13 +10,13 @@
     "settings": "تنظیمات",
     "saved": "ذخیره شده ها",
     "logout": "خروج",
-    "search-placeholder": "جستجو پست‌، دسته‌بندی‌ها و ...",
+    "search-placeholder": "جستجو پست\u200c، دسته\u200cبندی\u200cها و ...",
     "instagram": "اینستاگرام",
     "confirm": "تایید",
     "cancel": "لغو",
     "title": "عنوان",
     "description": "توضیحات",
-    "tags": "برچسب‌ها",
+    "tags": "برچسب\u200cها",
     "allow-comments": "اجازه نظر دادن",
     "submit": "تایید",
     "edit": "ویرایش",
@@ -30,10 +30,11 @@
     "or": "یا",
     "password": "رمز عبور",
     "signup": "ثبت نام",
+    "followBack": "",
     "unFollow": "دنبال نکردن",
     "edit-profile": "ویرایش حساب کاربری",
-    "posts": "پست‌ها",
-    "followers": "دنبال کننده‌ها",
+    "posts": "پست\u200cها",
+    "followers": "دنبال کننده\u200cها",
     "following": "دنبال کردن",
     "username": "نام کاربری",
     "bio": "توضیحات",
@@ -51,7 +52,7 @@
   },
   "post": {
     "delete-text": "آیا از حذف این پست اطمینان دارید؟",
-    "likes": "پسندیده‌ها"
+    "likes": "پسندیده\u200cها"
   },
   "validation": {
     "required-title": "عنوان را وارد کنید",
@@ -78,7 +79,7 @@
   },
   "auth": {
     "create-new-account": "ثبت نام جدید",
-    "forgot-password-link": "رمز عبور خود را فراموش کرده‌اید؟",
+    "forgot-password-link": "رمز عبور خود را فراموش کرده\u200cاید؟",
     "have-not-account-link": "حساب کاربری ندارید؟",
     "change-password": "تغییر رمز عبور"
   },
@@ -89,7 +90,7 @@
     "old-password": "رمز عبور فعلی"
   },
   "home-page": {
-    "no-following": "شما هیچ دنبال کننده‌ای ندارید"
+    "no-following": "شما هیچ دنبال کننده\u200cای ندارید"
   },
   "change-password-modal": {
     "title": "تغییر رمز عبور"
@@ -98,9 +99,8 @@
     "change-profile-image": "تغییر تصویر پروفایل"
   },
   "signup-page": {
-    "description": "برای دیدن تصاویر و پست‌های دیگران، باید ثبت نام کنید.",
+    "description": "برای دیدن تصاویر و پست\u200cهای دیگران، باید ثبت نام کنید.",
     "privacy-policy": "By signing up, you agree to our<1>Terms</1>,<3>Data Policy</3>and<5>Cookie Policy</5>",
     "have-account": "حساب کاربری دارید؟"
-  },
-  "utils.follow": "ناذ"
+  }
 }

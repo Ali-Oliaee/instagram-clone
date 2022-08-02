@@ -21,12 +21,9 @@ function HomePage() {
 
   return (
     <PageWrapper isLoading={isLoading} setSearchKey={setSearchKey} search>
-      {!posts?.length ? (
-        <>
-          <h3 className="user-suggestion-text">{t('home-page.no-following')}</h3>
-          <UserSuggestion />
-        </>
-      ) : !isLoading && <PostsWrapper refetch={refetch} posts={result} />}
+      {!isLoading && <PostsWrapper refetch={refetch} posts={result} />}
+      <h3 className="user-suggestion-text">{t('home-page.no-following')}</h3>
+      <UserSuggestion />
     </PageWrapper>
   )
 }

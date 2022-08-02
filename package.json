@@ -21,6 +21,7 @@
     "dayjs": "^1.11.3",
     "fuse.js": "^6.6.2",
     "i18next": "^21.6.16",
+    "i18next-browser-languagedetector": "^6.1.4",
     "i18next-fs-backend": "^1.1.4",
     "i18next-http-backend": "^1.4.1",
     "i18next-parser": "^6.5.0",

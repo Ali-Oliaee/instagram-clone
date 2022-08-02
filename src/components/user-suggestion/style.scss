@@ -5,20 +5,12 @@
     justify-content: flex-start;
     text-align: center;
     overflow: auto;
+
     &::-webkit-scrollbar {
         height: 4px;
         border-radius: 10px;
     }
-    &::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    }
-    &::-webkit-scrollbar-thumb {
-    background: #888;
-    }
-    &::-webkit-scrollbar-thumb:hover {
-    background: #555;
-    }
-    
+
     .user-card {
         display: flex;
         flex-direction: column;
@@ -30,7 +22,7 @@
         border: 1px solid #e6e6e6;
         cursor: pointer;
 
-        p{
+        p {
             max-width: 150px;
             text-overflow: ellipsis;
             overflow: hidden;
@@ -41,12 +33,14 @@
 
         a {
             color: #000;
-            &:hover{
+
+            &:hover {
                 color: #000;
             }
         }
     }
 }
+
 .user-suggestion-text {
     margin: 20px;
 }

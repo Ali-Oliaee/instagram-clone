@@ -10,7 +10,7 @@
     "settings": "settings",
     "saved": "saved",
     "logout": "logout",
-    "search-placeholder": "search posts, users, etc...",
+    "search-placeholder": "search posts, users, etc",
     "instagram": "Instagram",
     "confirm": "confirm",
     "cancel": "cancel",
@@ -30,6 +30,7 @@
     "or": "or",
     "password": "password",
     "signup": "sign up",
+    "followBack": "",
     "unFollow": "un follow",
     "edit-profile": "edit profile",
     "posts": "posts",
@@ -39,7 +40,7 @@
     "bio": "bio",
     "save": "save",
     "confirm-password": "confirm password",
-    "sign-in": "sign in"
+    "signin": ""
   },
   "add-post-modal": {
     "title": "",
@@ -68,7 +69,7 @@
   "forgot-password": {
     "step1": {
       "title": "Trouble Logging In?",
-      "description": "Enter your email, phone, or username and we'll send you a link to get back into your account."
+      "description": "Enter your email, phone, or username and we'll send you a link to get back into your account"
     },
     "step2": {
       "title": "Enter the Verification Code"
@@ -98,9 +99,8 @@
     "change-profile-image": "Change profile image"
   },
   "signup-page": {
-    "description": "Sign up to see photos and videos from your friends.",
+    "description": "Sign up to see photos and videos from your friends",
     "privacy-policy": "By signing up, you agree to our<1>Terms</1>,<3>Data Policy</3>and<5>Cookie Policy</5>",
     "have-account": "Already have an account?"
-  },
-  "utils.follow": "test"
+  }
 }
