@@ -29,7 +29,7 @@ function LoginPage() {
         <div className="form-container">
           <Logo />
           <Form onFinish={handleSubmit} form={form}>
-            <Form.Item name="email" rules={[requiredEmail, invalidEmail]}>
+            <Form.Item name="email" rules={[requiredEmail, invalidEmail] as any}>
               <FloatLabel type="email" autoFocus label={t('email')} value={form.getFieldValue('email')} />
             </Form.Item>
             <Form.Item name="password" rules={[requiredPassword, minLengthPassword]}>

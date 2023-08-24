@@ -26,25 +26,28 @@ function ForgotPasswordPage() {
   const { Countdown } = Statistic
   const deadline = Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30
 
-  const sendEmail = (email :any) => {
+  const sendEmail = (email :string) => {
     setUserEmail(email)
     setLoading(true)
-    return sendPasswordRecoveryEmail(email).then(() => setStep(1)).finally(() => setLoading(false))
+    return sendPasswordRecoveryEmail({ email }).then(() => setStep(1)).finally(() => setLoading(false))
   }
 
-  const sendCode = (code: any) => {
+  const sendCode = (code: string) => {
     setLoading(true)
-    return sendPasswordRecoveryCode(userEmail, code).then(() => setStep(2)).finally(() => setLoading(false))
+    const email = userEmail
+    return sendPasswordRecoveryCode({ email, code }).then(() => setStep(2)).finally(() => setLoading(false))
   }
 
   const resendEmail = () => {
     setResetButtonLoading(true)
-    return sendPasswordRecoveryEmail(userEmail).finally(() => setResetButtonLoading(false))
+    const email = userEmail
+    return sendPasswordRecoveryEmail({ email }).finally(() => setResetButtonLoading(false))
   }
 
-  const handleSubmit = (password: any) => {
+  const handleSubmit = (newPassword: string) => {
     setLoading(true)
-    return resetPassword(password, userEmail).then(() => navigate('/auth/login')).finally(() => setLoading(false))
+    const email = userEmail
+    return resetPassword({ newPassword, email }).then(() => navigate('/auth/login')).finally(() => setLoading(false))
   }
 
   return (
@@ -65,7 +68,7 @@ function ForgotPasswordPage() {
                 <h1>{t('forgot-password-title')}</h1>
                 <p>{t('forgot-password-description')}</p>
               </div>
-              <Form.Item name="email" rules={[requiredEmail, invalidEmail]}>
+              <Form.Item name="email" rules={[requiredEmail, invalidEmail] as any}>
                 <FloatLabel
                   label={t('email')}
                   type="email"

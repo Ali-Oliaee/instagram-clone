@@ -12,7 +12,7 @@ const usePost = () => {
     formData.append('file', file)
     formData.append('title', title)
     formData.append('caption', caption)
-    formData.append('comment_status', enableComments)
+    formData.append('comment_status', enableComments as any)
     tags.forEach((tag: any) => formData.append('tags', tag))
 
     return axios.post(
