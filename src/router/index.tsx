@@ -1,4 +1,6 @@
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import {
+  Navigate, Route, Routes,
+} from 'react-router-dom'
 import {
   HomePage,
   LoginPage,
@@ -11,28 +13,24 @@ import {
   DiscoveryPage,
 } from '../pages'
 
-function MainRouter() {
-  const navigate = useNavigate()
-  const isUserAuth = () => (!!localStorage.getItem('tokens'))
-  const isAuth = isUserAuth()
+function ProtectedRoute({ path, element: Element, ...rest }: any) {
+  const isAuth = () => !!localStorage.getItem('tokens')
+  if (!isAuth()) return <Navigate to="/login" />
+  // eslint-disable-next-line react/jsx-props-no-spreading
+  return <Route path={path} element={<Element {...rest} />} />
+}
 
+function MainRouter() {
   return (
     <Routes>
-      {isAuth ? (
-        <Route path="/">
-          <Route index element={<HomePage />} />
-          <Route path="saved" element={<SavedPage />} />
-          <Route path="profile/:id" element={<ProfilePage />} />
-          <Route path="settings" element={<SettingsPage />} />
-          <Route path="discovery" element={<DiscoveryPage />} />
-        </Route>
-      ) : (
-        <Route path="/auth">
-          <Route path="login" element={<LoginPage />} />
-          <Route path="signup" element={<SignupPage />} />
-          <Route path="forgot-password" element={<ForgotPasswordPage />} />
-        </Route>
-      )}
+      <Route path="/" element={<ProtectedRoute element={<HomePage />} />} />
+      <Route path="/saved" element={<ProtectedRoute element={<SavedPage />} />} />
+      <Route path="/profile/:id" element={<ProtectedRoute element={<ProfilePage />} />} />
+      <Route path="/settings" element={<ProtectedRoute element={<SettingsPage />} />} />
+      <Route path="/discovery" element={<ProtectedRoute element={<DiscoveryPage />} />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignupPage />} />
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )
