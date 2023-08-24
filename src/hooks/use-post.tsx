@@ -1,12 +1,13 @@
 import { useQueryClient } from 'react-query'
 import axios from '../utils/axios'
+import { AddPost, EditPost } from '../types/post'
 
 const usePost = () => {
   const queryClient = useQueryClient()
 
   const addPost = ({
     title, file, caption, tags, enableComments = true,
-  } : any) => {
+  } : AddPost) => {
     const formData = new FormData()
     formData.append('file', file)
     formData.append('title', title)
@@ -27,7 +28,7 @@ const usePost = () => {
 
   const editPost = ({
     title, caption, tags, id, enableComments,
-  } : any) => axios.patch(`/posts/list/post=${id}/`, {
+  } : EditPost) => axios.patch(`/posts/list/post=${id}/`, {
     title,
     caption,
     tags,
@@ -36,13 +37,13 @@ const usePost = () => {
 
   const deletePost = (id : number) => axios.delete(`posts/list/post=${id}/`)
 
-  const likePost = (account: any, post: any) => axios.post('/likes/create/', { account, post }).then(() => queryClient.invalidateQueries('post'))
-  const archivePost = (account: any, post: any) => axios.post('/archives/create/', { account, post }).then(() => {
+  const likePost = (account: number, post: number) => axios.post('/likes/create/', { account, post }).then(() => queryClient.invalidateQueries('post'))
+  const archivePost = (account: number, post: number) => axios.post('/archives/create/', { account, post }).then(() => {
     queryClient.invalidateQueries('post')
     queryClient.invalidateQueries('postsWrapper')
   })
-  const unLikePost = (account: any, post: any) => axios.delete(`/likes/destroy/account=${account}/post=${post}/`).then(() => queryClient.invalidateQueries('post'))
-  const unArchivePost = (account: any, post: any) => axios.delete(`/archives/destroy/account=${account}/post=${post}/`).then(() => {
+  const unLikePost = (account: number, post: number) => axios.delete(`/likes/destroy/account=${account}/post=${post}/`).then(() => queryClient.invalidateQueries('post'))
+  const unArchivePost = (account: number, post: number) => axios.delete(`/archives/destroy/account=${account}/post=${post}/`).then(() => {
     queryClient.invalidateQueries('post')
     queryClient.invalidateQueries('postsWrapper')
   })
