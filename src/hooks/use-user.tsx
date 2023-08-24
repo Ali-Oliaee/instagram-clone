@@ -2,12 +2,15 @@ import { useNavigate } from 'react-router-dom'
 import { message } from 'antd'
 import i18n from '../utils/i18n'
 import axios from '../utils/axios'
+import {
+  ChangePassword, ChangeProfile, Login, RecoveryCode, ResetPassword, SignUp,
+} from '../types/user'
 
 const useUser = () => {
   const navigate = useNavigate()
   const currentUser = JSON.parse(localStorage.getItem('user') || '{}')
 
-  const login = ({ email, password }: any) => axios.post('users/login/', {
+  const login = ({ email, password }: Login) => axios.post('users/login/', {
     email,
     password,
   })
@@ -20,19 +23,19 @@ const useUser = () => {
       navigate('/')
     })
 
-  const signUp = ({ username, email, password } : any) => axios.post('/users/register/', {
+  const signUp = ({ username, email, password } : SignUp) => axios.post('/users/register/', {
     username,
     email,
     password,
   })
 
-  const changeProfileInfo = ({ username, bio }: any) => axios.patch(`/account/update-information/${currentUser.id}/`, {
+  const changeProfileInfo = ({ username, bio }: ChangeProfile) => axios.patch(`/account/update-information/${currentUser.id}/`, {
     username,
     bio,
     // TODO: set message for add responses
   }).then(({ data }) => message.success('updated'))
 
-  const changePassword = ({ newPassword, oldPassword } : any) => axios.post('/users/change-password/', {
+  const changePassword = ({ newPassword, oldPassword } : ChangePassword) => axios.post('/users/change-password/', {
     new_password: newPassword,
     old_password: oldPassword,
   }).then(({ data }) => message.success(data.message))
@@ -45,9 +48,9 @@ const useUser = () => {
     })
   }
 
-  const sendPasswordRecoveryEmail = ({ email }: any) => axios.post('/users/forget-password/', { email }).then(() => message.success('Verify code send successfully!'))
-  const sendPasswordRecoveryCode = (userEmail: any, code : any) => axios.post('/users/verify-forget-password/', { code: String(code.code), email: userEmail.email })
-  const resetPassword = (password : any, email: any) => axios.post('/users/confirm-forget-password/', { password: password.newPassword, email: email.email }).then(({ data }) => message.success(data.message))
+  const sendPasswordRecoveryEmail = ({ email }: {email:string}) => axios.post('/users/forget-password/', { email }).then(() => message.success('Verify code send successfully!'))
+  const sendPasswordRecoveryCode = ({ email, code }: RecoveryCode) => axios.post('/users/verify-forget-password/', { code, email })
+  const resetPassword = ({ newPassword, email }: ResetPassword) => axios.post('/users/confirm-forget-password/', { password: newPassword, email }).then(({ data }) => message.success(data.message))
 
   return {
     login,
