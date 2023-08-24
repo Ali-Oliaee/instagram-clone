@@ -33,7 +33,7 @@ function SignupPage() {
             <Form.Item name="username" rules={[requiredUsername]}>
               <FloatLabel autoFocus label={t('username')} value={form.getFieldValue('username')} />
             </Form.Item>
-            <Form.Item name="email" rules={[requiredEmail, invalidEmail]}>
+            <Form.Item name="email" rules={[requiredEmail, invalidEmail] as any}>
               <FloatLabel label={t('email')} value={form.getFieldValue('email')} type="email" />
             </Form.Item>
             <Form.Item name="password" rules={[requiredPassword, minLengthPassword]}>
